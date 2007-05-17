@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="nl.doyle.mccloud.tourdefrance.valueobjects.Team" table="TEAM">
+        <id name="nummer" column="NUMMER">
+        <!-- Primary key generator gebruiken we niet omdat de primary key het rennernummer is 
+           		<generator class="native"/>  
+           -->
+       	</id>
+       	<property name="naam" column="NAAM"/>
+        <set name="renners" table="TEAM_RENNER" cascade="all">
+        	<key column="TEAMNUMMER" not-null="false"/>
+        	<many-to-many column="RENNERNUMMER" unique="true" class="nl.doyle.mccloud.tourdefrance.valueobjects.Renner" />
+    	</set>
+    </class>
+</hibernate-mapping>

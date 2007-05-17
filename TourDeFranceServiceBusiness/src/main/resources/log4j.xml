@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+  <appender name="console" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern"
+             value="%d{ISO8601} %-5p [%t] %c: %m%n" />
+    </layout>
+  </appender>
+
+	
+  <appender name="file" class="org.apache.log4j.FileAppender">
+		<param name="File" value="C:/tour.log"/>
+<!-- 		<param name="MaxFileSize" value="100B"/>
+		<param name="MaxBackupIndex" value="3"/>
+ 		<param name="Append" value="false"/>   -->
+		<layout class="org.apache.log4j.PatternLayout">
+      		<param name="ConversionPattern"
+             	value="%d{ISO8601} %-5p [%t] %c: %m%n" />
+    	</layout>
+	</appender>
+
+  <category name="org.apache.commons">
+	<priority value="WARN"/>
+	<appender-ref ref="file"/>
+	<appender-ref ref="console"/>
+  </category>
+  <category name="org.apache.catalina">
+	<priority value="WARN"/>
+	<appender-ref ref="file"/>
+	<appender-ref ref="console"/>
+  </category>
+  <category name="org.hibernate">
+  	<priority value="DEBUG"/>
+  	<appender-ref ref="file"/>
+  	<appender-ref ref="console"/>
+  </category>
+  <category name="org.springframework">
+  	<priority value="WARN"/>
+  	<appender-ref ref="file"/>
+  	<appender-ref ref="console"/>
+  </category>
+  <category name="org.displaytag">
+  	<priority value="INFO"/>
+  	<appender-ref ref="file"/>
+  	<appender-ref ref="console"/>
+  </category>
+  <category name="nl.doyle.mccloud">
+  	<priority value="DEBUG"/>
+  	<appender-ref ref="file"/>
+  	<appender-ref ref="console"/>
+  </category>
+  
+  
+  
+  <root>
+    <priority value="DEBUG" />
+    <appender-ref ref="console" />
+    <appender-ref ref="file" />
+  </root>
+
+</log4j:configuration>
