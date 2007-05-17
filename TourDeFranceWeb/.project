@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>TourDeFranceWeb</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.wst.common.project.facet.core.builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.wst.validation.validationbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.maven.ide.eclipse.maven2Builder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.springframework.ide.eclipse.core.springbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.springframework.ide.eclipse.core.springnature</nature>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.maven.ide.eclipse.maven2Nature</nature>
+		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
+		<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
+		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/commons-beanutils-1.7.0.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/logkit-1.0.1.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/logkit/logkit/1.0.1/logkit-1.0.1.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/antlr-2.7.6.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/antlr/antlr/2.7.6/antlr-2.7.6.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/oro-2.0.8.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/oro/oro/2.0.8/oro-2.0.8.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/commons-pool-1.2.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/commons-pool/commons-pool/1.2/commons-pool-1.2.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/jta-1.0.1B.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/commons-logging-1.1.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/commons-logging/commons-logging/1.1/commons-logging-1.1.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/spring-2.0.3.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/org/springframework/spring/2.0.3/spring-2.0.3.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/hibernate-3.2.2.ga.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/org/hibernate/hibernate/3.2.2.ga/hibernate-3.2.2.ga.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/standard-1.1.2.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/taglibs/standard/1.1.2/standard-1.1.2.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/commons-dbcp-1.2.1.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/commons-dbcp/commons-dbcp/1.2.1/commons-dbcp-1.2.1.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/TourDeFranceServiceBusiness</name>
+			<type>2</type>
+			<location>C:/eclipse_workspaces/TourDeFranceWebApp/TourDeFranceServiceBusiness/target/classes</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/ehcache-1.1.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/ehcache/ehcache/1.1/ehcache-1.1.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/displaytag-1.1.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/displaytag/displaytag/1.1/displaytag-1.1.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/dom4j-1.6.1.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/jstl-1.1.2.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/javax/servlet/jstl/1.1.2/jstl-1.1.2.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/aspectjweaver-1.5.2a.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/aspectj/aspectjweaver/1.5.2a/aspectjweaver-1.5.2a.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/dozer-3.0.1-SNAPSHOT.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/net/sf/dozer/dozer/3.0.1-SNAPSHOT/dozer-3.0.1-SNAPSHOT.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/xercesImpl-2.0.2.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/xerces/xercesImpl/2.0.2/xercesImpl-2.0.2.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/junit-3.8.1.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/asm-1.5.3.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/asm/asm/1.5.3/asm-1.5.3.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/CustomAspects-0.0.1.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/nl/doyle/mccloud/TourDeFranceService/CustomAspects/0.0.1/CustomAspects-0.0.1.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/jsp-api-2.1.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/javax/servlet/jsp/jsp-api/2.1/jsp-api-2.1.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/commons-lang-2.1.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/commons-lang/commons-lang/2.1/commons-lang-2.1.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/log4j-1.2.12.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/log4j/log4j/1.2.12/log4j-1.2.12.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/ehcache-1.2.3.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/net/sf/ehcache/ehcache/1.2.3/ehcache-1.2.3.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/asm-attrs-1.5.3.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/asm/asm-attrs/1.5.3/asm-attrs-1.5.3.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/commons-codec-1.3.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/commons-codec/commons-codec/1.3/commons-codec-1.3.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/servlet-api-2.4.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/acegi-security-1.0.3.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/org/acegisecurity/acegi-security/1.0.3/acegi-security-1.0.3.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/commons-collections-3.1.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/commons-collections/commons-collections/3.1/commons-collections-3.1.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/cactus-13-1.7.2.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/cactus/cactus/13-1.7.2/cactus-13-1.7.2.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/avalon-framework-4.1.3.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/avalon-framework/avalon-framework/4.1.3/avalon-framework-4.1.3.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/itext-1.3.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/com/lowagie/itext/1.3/itext-1.3.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/derby-10.1.3.1.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/org/apache/derby/derby/10.1.3.1/derby-10.1.3.1.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/jamon-2.2.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/com/jamonapi/jamon/2.2/jamon-2.2.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/xml-apis-1.0.b2.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar</location>
+		</link>
+		<link>
+			<name>src/main/webapp/WEB-INF/lib/cglib-2.1_3.jar</name>
+			<type>1</type>
+			<location>C:/Documents and Settings/idxdoadmin/.m2/repository/cglib/cglib/2.1_3/cglib-2.1_3.jar</location>
+		</link>
+	</linkedResources>
+</projectDescription>

@@ -1,0 +1,19 @@
+table.listTable tr.rowMouseOver {
+	/*background-image: url(../images/selected.gif); */
+	/*background-repeat: repeat-x; */
+	background-color: #00FFFF;
+}
+
+body {
+	text-align: center;
+}
+
+table.listTable {
+	width: 650px;
+	text-align: center; 
+	margin: 0 auto !important;
+}
+
+table.listTable td.nummerColumn {
+	width: 20%;
+}

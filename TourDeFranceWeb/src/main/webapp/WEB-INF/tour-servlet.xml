@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+  - Application context definition for "springapp" DispatcherServlet.
+  -->
+
+<beans>
+	<!-- 
+	<bean id="log4jInitializer" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod">
+			<value>org.springframework.util.Log4jConfigurer.initLogging</value>
+		</property>
+		<property name="arguments">
+			<list>
+			-->
+<!-- 				<value>${tourdefrance.log4j.config}</value>   -->
+ 
+ <!--  
+ 				<value>/home/mccloud/development/eclipse_workspace/TourDeFranceWebApp/TourDeFranceServiceBusiness/src/main/resources/log4j.xml</value> 
+			</list>
+		</property>
+	</bean>
+-->
+	<!-- Spring Controllers-->
+    <bean id="springappController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.SpringappController"/>
+	<bean id="listRennersController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.ListRennersController">
+		<property name="rennerDao">
+			<ref bean="rennerDao"/>
+		</property>
+		<property name="requireSession">
+			<value>true</value>
+		</property>
+	</bean>
+	<bean id="listRennersAndDeelnemersController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.ListRennersAndDeelnemersController">
+		<property name="tourFacade">
+			<ref bean="tourFacade"/>
+		</property>
+	</bean>
+	<bean id="listEtappeUitslagController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.ListEtappeUitslagController">
+		<property name="tourFacade">
+			<ref bean="tourFacade"/>
+		</property>
+	</bean>
+	<bean id="listDeelnemersController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.ListDeelnemersController">
+		<property name="deelnemerDao">
+			<ref bean="deelnemerDao"/>
+		</property>
+		<property name="requireSession">
+			<value>true</value>
+		</property>
+	</bean>
+	<bean id="listEtappesController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.ListEtappesController">
+		<property name="standaardEtappeDao">
+			<ref bean="standaardEtappeDao"/>
+		</property>
+		<property name="ploegenTijdritDao">
+			<ref bean="ploegenTijdritDao"/>
+		</property>  
+	</bean>
+	<bean id="listStedenController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.ListStedenController">
+		<property name="stadDao">
+			<ref bean="stadDao"/>
+		</property>
+	</bean>
+	
+	<bean id="etappeDetailsController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.EtappeDetailsController"/>
+	
+	<bean id="loginController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.LoginController"/>
+
+    <bean id="editRennerForm" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.EditRennerFormController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>rennerCommand</value></property>
+        <property name="commandClass"><value>nl.doyle.mccloud.tourdefrance.web.spring.command.RennerCommand</value></property>
+        <property name="validator"><ref bean="rennerValidator"/></property>
+        <property name="formView"><value>editRenner</value></property>
+        <property name="successView"><value>listRenners.htm</value></property>
+        <property name="rennerDao">
+        	<ref bean="rennerDao"/>
+        </property>
+    </bean>
+    <bean id="editEtappeForm" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.EditEtappeFormController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>etappeCommand</value></property>
+        <property name="commandClass"><value>nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeCommand</value></property>
+        <property name="validator"><ref bean="etappeValidator"/></property>
+        <property name="formView"><value>editEtappe</value></property>
+        <property name="successView"><value>listEtappes.htm</value></property>
+        <property name="standaardEtappeDao">
+        	<ref bean="standaardEtappeDao"/>
+        </property>
+        <property name="ploegenTijdritDao">
+        	<ref bean="ploegenTijdritDao"/>
+        </property>
+        <property name="stadDao">
+        	<ref bean="stadDao"/>
+        </property>
+    </bean>
+    <bean id="nieuweStadForm" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.NieuweStadFormController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>stadCommand</value></property>
+        <property name="commandClass"><value>nl.doyle.mccloud.tourdefrance.web.spring.command.StadCommand</value></property>
+        <property name="validator"><ref bean="stadValidator"/></property>
+        <property name="formView"><value>nieuweStad</value></property>
+        <property name="successView"><value>listSteden.htm</value></property>
+        <property name="stadDao">
+        	<ref bean="stadDao"/>
+        </property>
+    </bean>
+    <bean id="editDeelnemerForm" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.EditDeelnemerFormController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>deelnemerCommand</value></property>
+        <property name="commandClass"><value>nl.doyle.mccloud.tourdefrance.web.spring.command.DeelnemerCommand</value></property>
+        <property name="validator"><ref bean="deelnemerValidator"/></property>
+        <property name="formView"><value>editDeelnemer</value></property>
+        <property name="successView"><value>listDeelnemers.htm</value></property>
+        <property name="deelnemerDao">
+        	<ref bean="deelnemerDao"/>
+        </property>
+    </bean>
+    <bean id="editEtappeUitslagForm" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.EditEtappeUitslagFormController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>etappeUitslagCommand</value></property>
+        <property name="commandClass"><value>nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand</value></property>
+        <property name="validator"><ref bean="etappeUitslagValidator"/></property>
+        <property name="formView"><value>editEtappeUitslag</value></property>
+        <property name="successView"><value>listEtappes.htm</value></property>
+        <property name="rennerDao">
+        	<ref bean="rennerDao"/>
+        </property>
+    </bean>
+
+
+	<!-- Spring Validators -->
+	<bean id="rennerValidator" class="nl.doyle.mccloud.tourdefrance.web.spring.validator.RennerValidator"/>
+	<bean id="etappeValidator" class="nl.doyle.mccloud.tourdefrance.web.spring.validator.EtappeValidator"/>
+	<bean id="deelnemerValidator" class="nl.doyle.mccloud.tourdefrance.web.spring.validator.DeelnemerValidator"/>
+	<bean id="stadValidator" class="nl.doyle.mccloud.tourdefrance.web.spring.validator.StadValidator"/>
+	<bean id="etappeUitslagValidator" class="nl.doyle.mccloud.tourdefrance.web.spring.validator.EtappeUitslagValidator"/>
+
+	<!-- Spring Handlers -->
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+            	<prop key="/index.htm">springappController</prop>
+            	<prop key="/index.html">springappController</prop>
+                <prop key="/hello.htm">springappController</prop>
+            	<prop key="/listRenners.htm">listRennersController</prop>
+            	<prop key="/listRennersAndDeelnemers.htm">listRennersAndDeelnemersController</prop>
+            	<prop key="/listDeelnemers.htm">listDeelnemersController</prop>
+            	<prop key="/listEtappes.htm">listEtappesController</prop>
+            	<prop key="/listSteden.htm">listStedenController</prop>
+             	<prop key="/listEtappeUitslag.htm">listEtappeUitslagController</prop>
+            	<prop key="/editRenner.htm">editRennerForm</prop>
+            	<prop key="/etappeDetails.htm">etappeDetailsController</prop>
+            	<prop key="/editEtappe.htm">editEtappeForm</prop>
+            	<prop key="/nieuweStad.htm">nieuweStadForm</prop>
+            	<prop key="/editStad.htm">nieuweStadForm</prop>
+            	<prop key="/editDeelnemer.htm">editDeelnemerForm</prop>
+            	<prop key="/editEtappeUitslag.htm">editEtappeUitslagForm</prop>
+            	<prop key="/login.htm">loginController</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <!-- Spring View Resolvers -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass"><value>org.springframework.web.servlet.view.JstlView</value></property>
+        <property name="prefix"><value>/WEB-INF/jsp/</value></property>
+        <property name="suffix"><value>.jsp</value></property>
+    </bean>
+    
+    
+</beans> 
