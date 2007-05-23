@@ -5,9 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import nl.doyle.mccloud.tourdefrance.dao.DeelnemerDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Deelnemer;
-import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.web.spring.command.DeelnemerCommand;
-import nl.doyle.mccloud.tourdefrance.web.spring.command.RennerCommand;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

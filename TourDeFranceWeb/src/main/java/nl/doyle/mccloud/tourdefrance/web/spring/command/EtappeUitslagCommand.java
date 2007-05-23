@@ -14,6 +14,11 @@ public class EtappeUitslagCommand {
 	
 	private List<Renner> renners;
 	
+	private UitslagCommand uitslag;
+	private GeleTruiUitslagCommand geleTruiUitslag;
+	private GroeneTruiUitslagCommand groeneTruiUitslag;
+	private BolletjesTruiUitslagCommand bolletjesTruiUitslag;
+	
 	private Etappe etappe;
 	
 	public EtappeUitslagCommand() {
@@ -46,8 +51,63 @@ public class EtappeUitslagCommand {
 	public void setRenners(List<Renner> renners) {
 		this.renners = renners;
 	}
-	
-	
+
+	/**
+	 * @return the bolletjesTruiUitslag
+	 */
+	public BolletjesTruiUitslagCommand getBolletjesTruiUitslag() {
+		return bolletjesTruiUitslag;
+	}
+
+	/**
+	 * @param bolletjesTruiUitslag the bolletjesTruiUitslag to set
+	 */
+	public void setBolletjesTruiUitslag(
+			BolletjesTruiUitslagCommand bolletjesTruiUitslag) {
+		this.bolletjesTruiUitslag = bolletjesTruiUitslag;
+	}
+
+	/**
+	 * @return the geleTruiUitslag
+	 */
+	public GeleTruiUitslagCommand getGeleTruiUitslag() {
+		return geleTruiUitslag;
+	}
+
+	/**
+	 * @param geleTruiUitslag the geleTruiUitslag to set
+	 */
+	public void setGeleTruiUitslag(GeleTruiUitslagCommand geleTruiUitslag) {
+		this.geleTruiUitslag = geleTruiUitslag;
+	}
+
+	/**
+	 * @return the groeneTruiUitslag
+	 */
+	public GroeneTruiUitslagCommand getGroeneTruiUitslag() {
+		return groeneTruiUitslag;
+	}
+
+	/**
+	 * @param groeneTruiUitslag the groeneTruiUitslag to set
+	 */
+	public void setGroeneTruiUitslag(GroeneTruiUitslagCommand groeneTruiUitslag) {
+		this.groeneTruiUitslag = groeneTruiUitslag;
+	}
+
+	/**
+	 * @return the uitslag
+	 */
+	public UitslagCommand getUitslag() {
+		return uitslag;
+	}
+
+	/**
+	 * @param uitslag the uitslag to set
+	 */
+	public void setUitslag(UitslagCommand uitslag) {
+		this.uitslag = uitslag;
+	}
 	
 	
 	
