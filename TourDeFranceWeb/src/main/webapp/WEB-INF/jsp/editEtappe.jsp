@@ -38,7 +38,7 @@
       				<td alignment="right" width="10%">Startplaats:</td>
       				<spring:bind path="etappeCommand.startPlaatsIndex">
         				<td width="20%">
-          					<select name="startStedenCombo">
+          					<select name="${status.expression}">
           						<option value="0">Stad nog niet ingesteld</option>
           						<c:forEach var="stad" items="${etappeCommand.steden}">
       								<option <c:if test="${stad.id == status.value}"> selected </c:if> value="<c:out value="${stad.id}"/>">
@@ -61,7 +61,7 @@
       				<td alignment="right" width="10%">Finishplaats:</td>
       				<spring:bind path="etappeCommand.finishPlaatsIndex">
         				<td width="20%">
-          					<select name="finishStedenCombo">
+          					<select name="${status.expression}">
           						<option value="0">Stad nog niet ingesteld</option>
           						<c:forEach var="stad" items="${etappeCommand.steden}">
       								<option <c:if test="${stad.id == status.value}"> selected </c:if> value="<c:out value="${stad.id}"/>">

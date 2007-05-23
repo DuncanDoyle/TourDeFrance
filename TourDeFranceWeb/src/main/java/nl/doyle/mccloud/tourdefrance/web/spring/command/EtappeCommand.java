@@ -19,7 +19,6 @@ public class EtappeCommand {
 	private int startPlaatsIndex;
 	private int finishPlaatsIndex;
 	private Date datum;
-	private boolean ploegenTijdrit;
 	
 	/**
 	 * Default Constructor
@@ -99,19 +98,4 @@ public class EtappeCommand {
 	public void setSteden(List<Stad> steden) {
 		this.steden = steden;
 	}
-
-	/**
-	 * @return the ploegenTijdrit
-	 */
-	public boolean isPloegenTijdrit() {
-		return ploegenTijdrit;
-	}
-
-	/**
-	 * @param ploegenTijdrit the ploegenTijdrit to set
-	 */
-	public void setPloegenTijdrit(boolean ploegenTijdrit) {
-		this.ploegenTijdrit = ploegenTijdrit;
-	}
-	
 }
