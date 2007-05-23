@@ -58,7 +58,7 @@ public class StandaardEtappeDaoHibernateImpl extends HibernateDaoSupport impleme
 		return returnEtappe;
 	}
 	
-	//TODO Oplossen met een left-outer-join criteria i.p.v. Hibernate initialize
+	
 	public StandaardEtappe loadStandaardEtappeWithStartAndFinish(final int etappenummer) {
 		/*StandaardEtappe etappe = loadStandaardEtappe(etappenummer);
 		Hibernate.initialize(etappe.getStartplaats());
@@ -173,9 +173,9 @@ public class StandaardEtappeDaoHibernateImpl extends HibernateDaoSupport impleme
 	 * @param StandaardEtappe
 	 */
 	public void saveStandaardEtappe(StandaardEtappe saveStandaardEtappe) {
-		getHibernateTemplate().save(saveStandaardEtappe);
+		getHibernateTemplate().saveOrUpdate(saveStandaardEtappe);
 	}
-	
+		
 	/**
 	 * @author mccloud
 	 * 

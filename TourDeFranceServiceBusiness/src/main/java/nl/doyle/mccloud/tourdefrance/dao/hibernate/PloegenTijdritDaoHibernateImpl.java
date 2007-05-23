@@ -42,9 +42,24 @@ public class PloegenTijdritDaoHibernateImpl extends HibernateDaoSupport implemen
 		Hibernate.initialize(etappe.getFinishplaats());
 		return etappe;
 	}
+	
+	public PloegenTijdrit loadPloegenTijdritWithStartAndFinish(final int etappenummer) {
+		final String hql = "from PloegenTijdrit pt " +
+							"left join fetch pt.startplaats " +
+							"left join fetch pt.finishplaats where pt.etappenummer=:etappenummer";
+
+		PloegenTijdrit etappe = (PloegenTijdrit) getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) throws HibernateException {
+				Query query = session.createQuery(hql);
+				query.setInteger("etappenummer", etappenummer);
+				return query.uniqueResult();
+			}
+		});
+		return etappe;
+	}
 
 	public void savePloegenTijdrit(PloegenTijdrit savePloegenTijdrit) {
-		getHibernateTemplate().save(savePloegenTijdrit);
+		getHibernateTemplate().saveOrUpdate(savePloegenTijdrit);
 	}
 	
 	/**
