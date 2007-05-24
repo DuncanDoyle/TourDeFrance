@@ -49,6 +49,6 @@
 		</display:table>
 		<br/>
 		
-		<!-- <a href  -->
+		<a href="editEtappeUitslag.htm?etappe=${model.etappe.etappenummer}"/>Etappe Details</a>
 	</body>
 </html>

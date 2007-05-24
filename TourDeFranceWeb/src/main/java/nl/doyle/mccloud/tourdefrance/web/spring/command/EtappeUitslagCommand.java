@@ -1,9 +1,11 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.command;
 
+import java.util.Date;
 import java.util.List;
 
 import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
+import nl.doyle.mccloud.tourdefrance.valueobjects.Stad;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,23 +21,14 @@ public class EtappeUitslagCommand {
 	private GroeneTruiUitslagCommand groeneTruiUitslag;
 	private BolletjesTruiUitslagCommand bolletjesTruiUitslag;
 	
-	private Etappe etappe;
+	private int etappenummer;
+	private Stad startPlaats;
+	private Stad finishPlaats;
+	private Date datum;
+	
+	private boolean ploegenTijdrit;
 	
 	public EtappeUitslagCommand() {
-	}
-
-	/**
-	 * @return the etappe
-	 */
-	public Etappe getEtappe() {
-		return etappe;
-	}
-
-	/**
-	 * @param etappe the etappe to set
-	 */
-	public void setEtappe(Etappe etappe) {
-		this.etappe = etappe;
 	}
 
 	/**
@@ -107,6 +100,76 @@ public class EtappeUitslagCommand {
 	 */
 	public void setUitslag(UitslagCommand uitslag) {
 		this.uitslag = uitslag;
+	}
+
+	/**
+	 * @return the datum
+	 */
+	public Date getDatum() {
+		return datum;
+	}
+
+	/**
+	 * @param datum the datum to set
+	 */
+	public void setDatum(Date datum) {
+		this.datum = datum;
+	}
+
+	/**
+	 * @return the etappenummer
+	 */
+	public int getEtappenummer() {
+		return etappenummer;
+	}
+
+	/**
+	 * @param etappenummer the etappenummer to set
+	 */
+	public void setEtappenummer(int etappenummer) {
+		this.etappenummer = etappenummer;
+	}
+
+	/**
+	 * @return the finishPlaats
+	 */
+	public Stad getFinishPlaats() {
+		return finishPlaats;
+	}
+
+	/**
+	 * @param finishPlaats the finishPlaats to set
+	 */
+	public void setFinishPlaats(Stad finishPlaats) {
+		this.finishPlaats = finishPlaats;
+	}
+
+	/**
+	 * @return the startPlaats
+	 */
+	public Stad getStartPlaats() {
+		return startPlaats;
+	}
+
+	/**
+	 * @param startPlaats the startPlaats to set
+	 */
+	public void setStartPlaats(Stad startPlaats) {
+		this.startPlaats = startPlaats;
+	}
+
+	/**
+	 * @return the isPloegenTijdrit
+	 */
+	public boolean isPloegenTijdrit() {
+		return ploegenTijdrit;
+	}
+
+	/**
+	 * @param isPloegenTijdrit the isPloegenTijdrit to set
+	 */
+	public void setPloegenTijdrit(boolean isPloegenTijdrit) {
+		this.ploegenTijdrit = isPloegenTijdrit;
 	}
 	
 	

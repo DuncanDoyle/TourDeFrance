@@ -95,6 +95,9 @@
         <property name="stadDao">
         	<ref bean="stadDao"/>
         </property>
+        <property name="tourFacade">
+        	<ref bean="tourFacade"/>
+        </property>
     </bean>
     <bean id="nieuweStadForm" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.NieuweStadFormController">
         <property name="sessionForm"><value>true</value></property>
@@ -127,6 +130,9 @@
         <property name="successView"><value>listEtappes.htm</value></property>
         <property name="rennerDao">
         	<ref bean="rennerDao"/>
+        </property>
+        <property name="tourFacade">
+        	<ref bean="tourFacade"/>
         </property>
     </bean>
 

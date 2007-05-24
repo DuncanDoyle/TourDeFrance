@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import nl.doyle.mccloud.tourdefrance.controller.TourFacade;
 import nl.doyle.mccloud.tourdefrance.dao.PloegenTijdritDao;
 import nl.doyle.mccloud.tourdefrance.dao.StadDao;
 import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
@@ -34,8 +35,8 @@ public class EditEtappeFormController extends SimpleFormController {
 	private StandaardEtappeDao standaardEtappeDao;
 	private PloegenTijdritDao ploegenTijdritDao;
 	private StadDao stadDao;
-	private boolean testSessionForm = false;
 	private Etappe dbEtappe;
+	private TourFacade tourFacade;
 	
 	
 	/* (non-Javadoc)
@@ -60,19 +61,15 @@ public class EditEtappeFormController extends SimpleFormController {
 			logger.debug("Startplaats index = " + etappe.getStartPlaatsIndex());
 			logger.debug("Finishplaats index = " + etappe.getFinishPlaatsIndex());
 			for (Stad nextStad: steden) {
-				//Hibernate.initialize(nextDeelnemer.getRenners());
-				logger.debug("NextStad index = " + nextStad.getId());
-				
 				if (nextStad.getId() == etappe.getStartPlaatsIndex()) {
-					logger.debug("Setting startplaats");
 					dbEtappe.setStartplaats(nextStad);
 				}
 				if (nextStad.getId() == etappe.getFinishPlaatsIndex()) {
-					logger.debug("Setting finishplaats");
 					dbEtappe.setFinishplaats(nextStad);
 				}
 			}
 			//Sla de etappe op
+			//TODO opslaan kunnen we misschien abstracter maken door dit te laten afhandelen door de TourFacade. Dan kunnen de dao's verwijderd worden.
 			if (dbEtappe instanceof StandaardEtappe) {
 				standaardEtappeDao.saveStandaardEtappe((StandaardEtappe)dbEtappe);
 			} else if (dbEtappe instanceof PloegenTijdrit){
@@ -109,8 +106,7 @@ public class EditEtappeFormController extends SimpleFormController {
 	
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException, EditEtappeFormRequestException {
 		dbEtappe = null;
-		testSessionForm = true;
-    	//TODO Dit moet goed geimplementeerd worden zodat er geen verkeerde waardes ingevuld kunnen worden. Security
+		//TODO Dit moet goed geimplementeerd worden zodat er geen verkeerde waardes ingevuld kunnen worden. Security
     	Integer etappeNummer = ServletRequestUtils.getIntParameter(request,"etappe");
     	//check of deze parameter wel is ingevuld. Zoniet dan is 'nummer' 'null'.
     	int nummer;
@@ -121,13 +117,10 @@ public class EditEtappeFormController extends SimpleFormController {
     	}
     	logger.debug("Etappenummer = " + nummer);
     
-    	//Haal de renner op uit de database
+    	//Haal de etappe op uit de database
     	EtappeCommand etappe = new EtappeCommand();
-    	//TODO Dit moet anders, we moeten kijken of de etappe een standaardetappe is, anders Ploegentijdrit laden.
-    	dbEtappe = standaardEtappeDao.loadStandaardEtappeWithStartAndFinish(nummer);
-    	if (dbEtappe == null) {
-    		dbEtappe = ploegenTijdritDao.loadPloegenTijdritWithStartAndFinish(nummer);
-    	}
+    	
+    	dbEtappe = tourFacade.getEtappeWithStartAndFinish(nummer);
     	if (dbEtappe != null) {
     		etappe.setDatum(dbEtappe.getDatum());
     		etappe.setEtappenummer(dbEtappe.getEtappenummer());
@@ -183,6 +176,20 @@ public class EditEtappeFormController extends SimpleFormController {
 	 */
 	public void setStadDao(StadDao stadDao) {
 		this.stadDao = stadDao;
+	}
+
+	/**
+	 * @return the tourFacade
+	 */
+	public TourFacade getTourFacade() {
+		return tourFacade;
+	}
+
+	/**
+	 * @param tourFacade the tourFacade to set
+	 */
+	public void setTourFacade(TourFacade tourFacade) {
+		this.tourFacade = tourFacade;
 	}
 	
 	
