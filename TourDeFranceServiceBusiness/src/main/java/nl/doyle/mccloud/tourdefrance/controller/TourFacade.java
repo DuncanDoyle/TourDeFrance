@@ -9,5 +9,6 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
 public interface TourFacade {
 
 	public List<DeelnemerRennerDto> getAllDeelnemersAndRenners();
-	public Etappe getEtappeWithUitslag(int etappeNummer) throws DataNotFoundException;
+	public Etappe getEtappeWithUitslag(int etappeNummer); 
+	public Etappe getEtappeWithStartAndFinish(int etappeNummer);
 }

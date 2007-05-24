@@ -16,7 +16,7 @@ public interface PloegenTijdritDao {
 
 	public List<PloegenTijdrit> loadAllPloegenTijdritten();
 	public PloegenTijdrit loadPloegenTijdrit(final int etappenummer);
-	public PloegenTijdrit loadPloegenTijdritEager(final int etappenummer);
+	public PloegenTijdrit loadPloegenTijdritWithUitslagEager(final int etappenummer);
 	public PloegenTijdrit loadPloegenTijdritWithStartAndFinish(final int etappenummer);
 	public void savePloegenTijdrit(final PloegenTijdrit savePloegenTijdrit);
 	public List<PloegenTijdrit> loadAllPloegenTijdrittenWithStedenEager();

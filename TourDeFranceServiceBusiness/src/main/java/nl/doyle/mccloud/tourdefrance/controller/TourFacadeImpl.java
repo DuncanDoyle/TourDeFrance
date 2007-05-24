@@ -47,22 +47,33 @@ public class TourFacadeImpl implements TourFacade {
 	}
 
 	/**
-	 * Geeft de opgevraagde etappe terug inclusief uitslag(en)
+	 * Geeft de opgevraagde etappe terug inclusief uitslag(en) en start- en finishplaats.
+	 * 
+	 * @param etappeNummer Het nummer van de etappe
+	 * @return Etappe
+	 */
+	public Etappe getEtappeWithUitslag(int etappeNummer) {
+		//Haal de etappe op uit de db. Als het geen standaardetappe is, haal dan een ploegentijdrit op.
+		Etappe etappe  = standaardEtappeDao.loadStandaardEtappeWithUitslagEager(etappeNummer);
+		if (etappe == null) {
+			etappe = ploegenTijdritDao.loadPloegenTijdritWithUitslagEager(etappeNummer);
+		}	
+		return etappe;
+	}
+	/**
+	 * Geeft de opgevraagde etappe terug inclusief start- en finishplaats
 	 * 
 	 * 
 	 * @param etappeNummer Het nummer van de etappe
 	 * @return Etappe
 	 */
-	
-	public Etappe getEtappeWithUitslag(int etappeNummer) throws DataNotFoundException {
-		//Haal de etappe op uit de db. Als het geen standaardetappe is, haal dan een ploegentijdrit op.
-		Etappe etappe  = standaardEtappeDao.loadStandaardEtappeWithUitslagEager(etappeNummer);
+	public Etappe getEtappeWithStartAndFinish(int etappeNummer) {
+		Etappe etappe  = standaardEtappeDao.loadStandaardEtappeWithStartAndFinish(etappeNummer);
 		if (etappe == null) {
-			etappe = ploegenTijdritDao.loadPloegenTijdrit(etappeNummer);
+			etappe = ploegenTijdritDao.loadPloegenTijdritWithStartAndFinish(etappeNummer);
 		}	
 		return etappe;
 	}
-	
 	
 	
 	
