@@ -37,6 +37,7 @@
  	<bean id="teamDao" parent="abstractDaoHibernate" class="nl.doyle.mccloud.tourdefrance.dao.hibernate.TeamDaoHibernateImpl"/>
 	<bean id="gameSetupDao" parent="abstractDaoJdbc" class="nl.doyle.mccloud.tourdefrance.setup.dao.GameSetupDaoImpl"/>
 	<bean id="stadDao" parent="abstractDaoHibernate" class="nl.doyle.mccloud.tourdefrance.dao.hibernate.StadDaoHibernateImpl"/>
+	<bean id="uitslagBedragDao" parent="abstractDaoHibernate" class="nl.doyle.mccloud.tourdefrance.dao.hibernate.UitslagBedragDaoHibernateImpl"/>
 	 
 	<!-- Definition of all controllers -->
 	<bean id="gameSetupController" class="nl.doyle.mccloud.tourdefrance.setup.GameSetupControllerImpl">
@@ -116,7 +117,7 @@
 	<bean id="tourDeFranceHibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="properties">
 			<props>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
    				<prop key="hibernate.query.substitutions">true 'T', false 'F'</prop>
 				<prop key="hibernate.show_sql">true</prop>
@@ -126,7 +127,7 @@
 				<prop key="hibernate.c3p0.max_statement">50</prop>
 				<prop key="hibernate.c3p0.testConnectionOnCheckout">false</prop>
 				<prop key="hibernate.connection.release_mode">auto</prop>
-				<prop key="hibernate.hbm2ddl.auto">validate</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">validate</prop>  -->
 			</props>
 		</property>
 	</bean>
@@ -150,6 +151,7 @@
 				<value>hibernate/EtappeUitslag.hbm.xml</value>
 				<value>hibernate/Team.hbm.xml</value>
 				<value>hibernate/Stad.hbm.xml</value>
+				<value>hibernate/UitslagBedrag.hbm.xml</value>
 			</list>
 		</property>
 	</bean>

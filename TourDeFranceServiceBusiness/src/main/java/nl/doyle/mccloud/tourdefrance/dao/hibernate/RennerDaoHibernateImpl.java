@@ -49,8 +49,7 @@ public class RennerDaoHibernateImpl extends HibernateDaoSupport implements Renne
 	}
 
 	public List<Renner> loadAllRennersOrdered() {
-		//TODO Dit moet anders geimplementeerd worden. Gebruik maken van Callback functie en HQL
-		final String hql = "from Renner ren  ORDER BY ren.nummer";
+		final String hql = "from Renner ren ORDER BY ren.nummer";
 		
 		List<Renner> renners = (List<Renner>) getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session) throws HibernateException {
