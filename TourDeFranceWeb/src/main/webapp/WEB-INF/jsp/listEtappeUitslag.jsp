@@ -15,17 +15,19 @@
 		<br/>
 		Datum: <c:out value="${model.etappe.datum}"/>
 		<br/>
-		Startplaats: <c:out value="${model.etappe.startplaats}"/>
+		Startplaats: <c:out value="${model.etappe.startplaats.stad}"/>
 		<br/>
-		Finishplaats: <c:out value="${model.etappe.finishplaats}"/>
+		Finishplaats: <c:out value="${model.etappe.finishplaats.stad}"/>
 		<br/>
-		<h3>Etappe Uitslag</h3>
-		<display:table id="etappeUitslagTable" name="model.etappe.etappeUitslag" class="listTable etappeUitslagTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
-			<display:column property="positie" title="Positie" sortable="true"/>
-			<display:column property="renner.nummer" title="Rennernummer" sortable="false"/>
-  			<display:column property="renner.voornaam" title="Renner Voornaam" sortable="false"/>
-  			<display:column property="renner.achternaam" title="Renner Achternaam" sortable="false"/>
-		</display:table>
+		<c:if test="${model.isStandaardEtappe}">
+			<h3>Etappe Uitslag</h3>
+			<display:table id="etappeUitslagTable" name="model.etappe.etappeUitslag" class="listTable etappeUitslagTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
+				<display:column property="positie" title="Positie" sortable="true"/>
+				<display:column property="renner.nummer" title="Rennernummer" sortable="false"/>
+	  			<display:column property="renner.voornaam" title="Renner Voornaam" sortable="false"/>
+	  			<display:column property="renner.achternaam" title="Renner Achternaam" sortable="false"/>
+			</display:table>
+		</c:if>
 		<h3>GeleTruiUitslag</h3>
 		<display:table id="geleTruiUitslagTable" name="model.etappe.geleTruiUitslag" class="listTable geleTruiUitslagTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
 			<display:column property="positie" title="Positie" sortable="true"/>

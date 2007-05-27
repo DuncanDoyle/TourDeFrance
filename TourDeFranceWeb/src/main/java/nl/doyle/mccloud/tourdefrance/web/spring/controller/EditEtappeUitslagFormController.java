@@ -1,12 +1,12 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.controller;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import nl.doyle.mccloud.tourdefrance.controller.TourFacade;
-import nl.doyle.mccloud.tourdefrance.dao.PloegenTijdritDao;
 import nl.doyle.mccloud.tourdefrance.dao.RennerDao;
 import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.BolletjesTruiUitslag;
@@ -16,17 +16,14 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.GeleTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.GroeneTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
-import nl.doyle.mccloud.tourdefrance.web.spring.command.BolletjesTruiUitslagCommand;
 import nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand;
-import nl.doyle.mccloud.tourdefrance.web.spring.command.GeleTruiUitslagCommand;
-import nl.doyle.mccloud.tourdefrance.web.spring.command.GroeneTruiUitslagCommand;
-import nl.doyle.mccloud.tourdefrance.web.spring.command.UitslagCommand;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.view.RedirectView;
 
 public class EditEtappeUitslagFormController extends SimpleFormController {
 
@@ -42,8 +39,142 @@ public class EditEtappeUitslagFormController extends SimpleFormController {
 	 */
 	@Override
 	protected ModelAndView onSubmit(Object command) throws Exception {
+		//Command object casten
+		EtappeUitslagCommand etappeUitslag = (EtappeUitslagCommand) command;
+		
+		if (logger.isDebugEnabled()) {
+			for(int teller = 0; teller < etappeUitslag.getUitslag().length; teller++) {
+				logger.debug("Uitslag " + (teller + 1) + " = " + etappeUitslag.getUitslag()[teller]);
+			}
+		}
+		//GeleTruiUitslag
+		for(int teller = 0; teller < etappeUitslag.getGeleTruiUitslag().length; teller++) {
+			//Check nu of de waarde niet op 0 is gezet
+			if (etappeUitslag.getGeleTruiUitslag()[teller] != 0) {
+				//zoek de juiste uitslag op
+				boolean found = false;
+				Iterator<GeleTruiUitslag> dbEtappeUitslagIter = dbEtappe.getGeleTruiUitslag().iterator();
+				while (dbEtappeUitslagIter.hasNext() && !found) {
+					GeleTruiUitslag nextUitslag = dbEtappeUitslagIter.next();
+					if (nextUitslag.getPositie() == teller + 1) {
+						found = true;
+						if (nextUitslag.getRenner().getNummer() != etappeUitslag.getGeleTruiUitslag()[teller]) {
+							//Check nu of de waarde niet op 0 is gezet
+							if (etappeUitslag.getGeleTruiUitslag()[teller] != 0) {
+								nextUitslag.setRenner(rennerDao.loadRenner(etappeUitslag.getGeleTruiUitslag()[teller]));
+							} else {
+								//TODO Nog iets verzinnen om uitslagen te verwijderen als ze op 0 gezet zijn.
+							}
+						}
+					}
+				}
+				//als de uitslag niet is gevonden maken we een nieuwe aan
+				if (!found) {
+					GeleTruiUitslag nieuweUitslag = new GeleTruiUitslag();
+					nieuweUitslag.setEtappenummer(dbEtappe.getEtappenummer());
+					nieuweUitslag.setRenner(rennerDao.loadRenner(etappeUitslag.getGeleTruiUitslag()[teller]));
+					nieuweUitslag.setPositie(teller + 1);
+					dbEtappe.getGeleTruiUitslag().add(nieuweUitslag);
+				}
+			}
+		}
+		//GroeneTrui
+		for(int teller = 0; teller < etappeUitslag.getGroeneTruiUitslag().length; teller++) {
+			//Check nu of de waarde niet op 0 is gezet
+			if (etappeUitslag.getGroeneTruiUitslag()[teller] != 0) {
+				//zoek de juiste uitslag op
+				boolean found = false;
+				Iterator<GroeneTruiUitslag> dbEtappeUitslagIter = dbEtappe.getGroeneTruiUitslag().iterator();
+				while (dbEtappeUitslagIter.hasNext() && !found) {
+					GroeneTruiUitslag nextUitslag = dbEtappeUitslagIter.next();
+					if (nextUitslag.getPositie() == teller + 1) {
+						found = true;
+						if (nextUitslag.getRenner().getNummer() != etappeUitslag.getGroeneTruiUitslag()[teller]) {
+							//Check nu of de waarde niet op 0 is gezet
+							if (etappeUitslag.getGroeneTruiUitslag()[teller] != 0) {
+								nextUitslag.setRenner(rennerDao.loadRenner(etappeUitslag.getGroeneTruiUitslag()[teller]));
+							} else {
+								//TODO Nog iets verzinnen om uitslagen te verwijderen als ze op 0 gezet zijn.
+							}
+						}
+					}
+				}
+				//als de uitslag niet is gevonden maken we een nieuwe aan
+				if (!found) {
+					GroeneTruiUitslag nieuweUitslag = new GroeneTruiUitslag();
+					nieuweUitslag.setEtappenummer(dbEtappe.getEtappenummer());
+					nieuweUitslag.setRenner(rennerDao.loadRenner(etappeUitslag.getGroeneTruiUitslag()[teller]));
+					nieuweUitslag.setPositie(teller + 1);
+					dbEtappe.getGroeneTruiUitslag().add(nieuweUitslag);
+				}
+			}
+		}
+		
+		//BolletjesTrui
+		for(int teller = 0; teller < etappeUitslag.getBolletjesTruiUitslag().length; teller++) {
+			//Check nu of de waarde niet op 0 is gezet
+			if (etappeUitslag.getBolletjesTruiUitslag()[teller] != 0) {
+				//zoek de juiste uitslag op
+				boolean found = false;
+				Iterator<BolletjesTruiUitslag> dbEtappeUitslagIter = dbEtappe.getBolletjesTruiUitslag().iterator();
+				while (dbEtappeUitslagIter.hasNext() && !found) {
+					BolletjesTruiUitslag nextUitslag = dbEtappeUitslagIter.next();
+					if (nextUitslag.getPositie() == teller + 1) {
+						found = true;
+						if (nextUitslag.getRenner().getNummer() != etappeUitslag.getBolletjesTruiUitslag()[teller]) {
+							
+							nextUitslag.setRenner(rennerDao.loadRenner(etappeUitslag.getBolletjesTruiUitslag()[teller]));
+						}
+					}
+				}
+				//als de uitslag niet is gevonden maken we een nieuwe aan
+				if (!found) {
+					BolletjesTruiUitslag nieuweUitslag = new BolletjesTruiUitslag();
+					nieuweUitslag.setEtappenummer(dbEtappe.getEtappenummer());
+					nieuweUitslag.setRenner(rennerDao.loadRenner(etappeUitslag.getBolletjesTruiUitslag()[teller]));
+					nieuweUitslag.setPositie(teller + 1);
+					dbEtappe.getBolletjesTruiUitslag().add(nieuweUitslag);
+				}
+			}
+		}
+				
+		//Nu voor de gewone uitslag. Check eerst of dit een standaardetappe of een ploegentijdrit is.
+		if (dbEtappe instanceof StandaardEtappe) {
+			for(int teller = 0; teller < etappeUitslag.getUitslag().length; teller++) {
+				//Check nu of de waarde niet op 0 is gezet
+				if (etappeUitslag.getUitslag()[teller] != 0) {
+					//zoek de juiste uitslag op
+					boolean found = false;
+					Iterator<EtappeUitslag> dbEtappeUitslagIter = ((StandaardEtappe)dbEtappe).getEtappeUitslag().iterator();
+					while (dbEtappeUitslagIter.hasNext() && !found) {
+						EtappeUitslag nextUitslag = dbEtappeUitslagIter.next();
+						if (nextUitslag.getPositie() == teller + 1) {
+							found = true;
+							if (nextUitslag.getRenner().getNummer() != etappeUitslag.getUitslag()[teller]) {
+								//Check nu of de waarde niet op 0 is gezet
+								if (etappeUitslag.getUitslag()[teller] != 0) {
+									nextUitslag.setRenner(rennerDao.loadRenner(etappeUitslag.getUitslag()[teller]));
+								} else {
+									//TODO Nog iets verzinnen om uitslagen te verwijderen als ze op 0 gezet zijn.
+								}
+							}
+						}
+					}
+					//als de uitslag niet is gevonden maken we een nieuwe aan
+					if (!found) {
+						EtappeUitslag nieuweUitslag = new EtappeUitslag();
+						nieuweUitslag.setEtappenummer(dbEtappe.getEtappenummer());
+						nieuweUitslag.setRenner(rennerDao.loadRenner(etappeUitslag.getUitslag()[teller]));
+						nieuweUitslag.setPositie(teller + 1);
+						((StandaardEtappe) dbEtappe).getEtappeUitslag().add(nieuweUitslag);
+					}
+				}
+			}
+		}
+		tourFacade.saveEtappe(dbEtappe);
+				
 		// TODO Auto-generated method stub
-		return super.onSubmit(command);
+		return new ModelAndView(new RedirectView(getSuccessView() + "?etappe=" + etappeUitslag.getEtappenummer()));
 	}
 
 	
@@ -55,8 +186,8 @@ public class EditEtappeUitslagFormController extends SimpleFormController {
 		logger.debug("Instantiating formBackingObject");
 		//Zet het Etappe object op null zodat de waarde uit hetzelfde scherm in dezelfde sessie verwijderd wordt.
 		dbEtappe = null;
-		//Maak een nieuw FormBackingObject aan
-		EtappeUitslagCommand etappeUitslag = new EtappeUitslagCommand();
+		
+		
 		//TODO Dit moet goed geimplementeerd worden zodat er geen verkeerde waardes ingevuld kunnen worden. Security
     	Integer etappeNummer = ServletRequestUtils.getIntParameter(request,"etappe");
     	//check of deze parameter wel is ingevuld. Zoniet dan is 'nummer' 'null'.
@@ -68,262 +199,87 @@ public class EditEtappeUitslagFormController extends SimpleFormController {
     	}
     	logger.debug("Etappenummer = " + nummer);
     
-    	//Haal de etappe op uit de database
+    	
+    	//Maak een nieuw FormBackingObject aan
     	EtappeUitslagCommand etappe = new EtappeUitslagCommand();
+    	//Haal de etappe op uit de database
     	dbEtappe = tourFacade.getEtappeWithUitslag(nummer);
     	if (dbEtappe != null) {
     		//Haal de renners op uit de DB
-    		etappe.setRenners(rennerDao.loadAllRenners());
+    		etappe.setRenners(rennerDao.loadAllRennersOrdered());
     		etappe.setDatum(dbEtappe.getDatum());
     		etappe.setEtappenummer(dbEtappe.getEtappenummer());
     		etappe.setStartPlaats(dbEtappe.getStartplaats());
     		etappe.setFinishPlaats(dbEtappe.getFinishplaats());
     		//Zet nu de geleTruiUitslag rennernummers goed in het command object
     		
-    		etappe.setGeleTruiUitslag(setGeleTruiUitslagCommand(etappe.getRenners(), dbEtappe.getGeleTruiUitslag()));
-    		etappe.setGroeneTruiUitslag(setGroeneTruiUitslagCommand(etappe.getRenners(), dbEtappe.getGroeneTruiUitslag()));
-    		etappe.setBolletjesTruiUitslag(setBolletjesTruiUitslagCommand(etappe.getRenners(), dbEtappe.getBolletjesTruiUitslag()));
+    		etappe.setGeleTruiUitslag(setGeleTruiUitslag(etappe.getRenners(), dbEtappe.getGeleTruiUitslag(), etappe.getGeleTruiUitslag()));
+    		etappe.setGroeneTruiUitslag(setGroeneTruiUitslag(etappe.getRenners(), dbEtappe.getGroeneTruiUitslag(), etappe.getGroeneTruiUitslag()));
+    		etappe.setBolletjesTruiUitslag(setBolletjesTruiUitslag(etappe.getRenners(), dbEtappe.getBolletjesTruiUitslag(), etappe.getBolletjesTruiUitslag()));
     		
     		//Als het een standaardEtappe is dan moet ook de normale uitslag gevuld worden.
     		if (dbEtappe instanceof StandaardEtappe) {
-    			etappe.setPloegenTijdrit(false);
-    			etappe.setUitslag(setUitslagCommand(etappe.getRenners(), ((StandaardEtappe) dbEtappe).getEtappeUitslag()));
+    			etappe.setStandaardEtappe(true);
+    			etappe.setUitslag(setUitslag(etappe.getRenners(), ((StandaardEtappe) dbEtappe).getEtappeUitslag(), etappe.getUitslag()));
     		} else {
-    			etappe.setPloegenTijdrit(true);
+    			etappe.setStandaardEtappe(false);
     		}
     	} else {
     		throw new EditEtappeUitslagFormRequestException("Etappe niet gevonden in database.");
     	}
     	logger.debug("FormBackingObject geinstantieerd.");
     	return etappe;
+    }
+	
+	private int[] setGeleTruiUitslag(final List<Renner> renners, final Set<GeleTruiUitslag> geleTruiUitslag, final int[] currentUitslag) {
+		int[] uitslag = currentUitslag;  
+		int uitslagArrayLength = uitslag.length;
+		for (GeleTruiUitslag nextGeleTrui: geleTruiUitslag) {
+			//Bepaal of de uitslag wel in het array past.
+			if (nextGeleTrui.getPositie() <= uitslagArrayLength) {
+				uitslag[nextGeleTrui.getPositie() - 1] = nextGeleTrui.getRenner().getNummer();
+			}
+		}
+		return uitslag;
 	}
 	
-	private GeleTruiUitslagCommand setGeleTruiUitslagCommand(List<Renner> renners, Set<GeleTruiUitslag> geleTruiUitslag) {
-		GeleTruiUitslagCommand geleTrui = new GeleTruiUitslagCommand();
-		for (GeleTruiUitslag nextUitslag: geleTruiUitslag) {
-			int rennernummer = nextUitslag.getRenner().getNummer();
-			switch (nextUitslag.getPositie()) {
-			case 1:
-				geleTrui.setEerste(rennernummer);
-				break;
-			case 2:
-				geleTrui.setTweede(rennernummer);
-				break;
-			case 3:
-				geleTrui.setDerde(rennernummer);
-				break;
-			case 4:
-				geleTrui.setVierde(rennernummer);
-				break;
-			case 5:
-				geleTrui.setVijfde(rennernummer);
-				break;
-			case 6:
-				geleTrui.setZesde(rennernummer);
-				break;
-			case 7:
-				geleTrui.setZevende(rennernummer);
-				break;
-			case 8:
-				geleTrui.setAchtste(rennernummer);
-				break;
-			case 9:
-				geleTrui.setNegende(rennernummer);
-				break;
-			case 10:
-				geleTrui.setTiende(rennernummer);
-				break;
-			case 11:
-				geleTrui.setElfde(rennernummer);
-				break;
-			case 12:
-				geleTrui.setTwaalfde(rennernummer);
-				break;
-			case 13:
-				geleTrui.setDertiende(rennernummer);
-				break;
-			case 14:
-				geleTrui.setVeertiende(rennernummer);
-				break;
-			case 15:
-				geleTrui.setVijftiende(rennernummer);
-				break;
+	private int[] setGroeneTruiUitslag(final List<Renner> renners, final Set<GroeneTruiUitslag> groeneTruiUitslag, final int[] currentUitslag) {
+		int[] uitslag = currentUitslag;  
+		int uitslagArrayLength = uitslag.length;
+		for (GroeneTruiUitslag nextGroeneTrui: groeneTruiUitslag) {
+			//Bepaal of de uitslag wel in het array past.
+			if (nextGroeneTrui.getPositie() <= uitslagArrayLength) {
+				uitslag[nextGroeneTrui.getPositie() - 1] = nextGroeneTrui.getRenner().getNummer();
 			}
-		
 		}
-		return geleTrui;
+		return uitslag;
 	}
 	
-	private GroeneTruiUitslagCommand setGroeneTruiUitslagCommand(List<Renner> renners, Set<GroeneTruiUitslag> groeneTruiUitslag) {
-		GroeneTruiUitslagCommand groeneTrui = new GroeneTruiUitslagCommand();
-		for (GroeneTruiUitslag nextUitslag: groeneTruiUitslag) {
-			int rennernummer = nextUitslag.getRenner().getNummer();
-			switch (nextUitslag.getPositie()) {
-			case 1:
-				groeneTrui.setEerste(rennernummer);
-				break;
-			case 2:
-				groeneTrui.setTweede(rennernummer);
-				break;
-			case 3:
-				groeneTrui.setDerde(rennernummer);
-				break;
-			case 4:
-				groeneTrui.setVierde(rennernummer);
-				break;
-			case 5:
-				groeneTrui.setVijfde(rennernummer);
-				break;
-			case 6:
-				groeneTrui.setZesde(rennernummer);
-				break;
-			case 7:
-				groeneTrui.setZevende(rennernummer);
-				break;
-			case 8:
-				groeneTrui.setAchtste(rennernummer);
-				break;
-			case 9:
-				groeneTrui.setNegende(rennernummer);
-				break;
-			case 10:
-				groeneTrui.setTiende(rennernummer);
-				break;
-			case 11:
-				groeneTrui.setElfde(rennernummer);
-				break;
-			case 12:
-				groeneTrui.setTwaalfde(rennernummer);
-				break;
-			case 13:
-				groeneTrui.setDertiende(rennernummer);
-				break;
-			case 14:
-				groeneTrui.setVeertiende(rennernummer);
-				break;
-			case 15:
-				groeneTrui.setVijftiende(rennernummer);
-				break;
+	private int[] setBolletjesTruiUitslag(final List<Renner> renners, final Set<BolletjesTruiUitslag> bolletjesTruiUitslag, final int[] currentUitslag) {
+		int[] uitslag = currentUitslag;  
+		int uitslagArrayLength = uitslag.length;
+		for (BolletjesTruiUitslag nextBolletjesTrui: bolletjesTruiUitslag) {
+			//Bepaal of de uitslag wel in het array past.
+			if (nextBolletjesTrui.getPositie() <= uitslagArrayLength) {
+				uitslag[nextBolletjesTrui.getPositie() - 1] = nextBolletjesTrui.getRenner().getNummer();
 			}
-		
 		}
-		return groeneTrui;
+		return uitslag;
 	}
 	
-	private BolletjesTruiUitslagCommand setBolletjesTruiUitslagCommand(List<Renner> renners, Set<BolletjesTruiUitslag> bolletjesTruiUitslag) {
-		BolletjesTruiUitslagCommand bolletjesTrui = new BolletjesTruiUitslagCommand();
-		for (BolletjesTruiUitslag nextUitslag: bolletjesTruiUitslag) {
-			int rennernummer = nextUitslag.getRenner().getNummer();
-			switch (nextUitslag.getPositie()) {
-			case 1:
-				bolletjesTrui.setEerste(rennernummer);
-				break;
-			case 2:
-				bolletjesTrui.setTweede(rennernummer);
-				break;
-			case 3:
-				bolletjesTrui.setDerde(rennernummer);
-				break;
-			case 4:
-				bolletjesTrui.setVierde(rennernummer);
-				break;
-			case 5:
-				bolletjesTrui.setVijfde(rennernummer);
-				break;
-			case 6:
-				bolletjesTrui.setZesde(rennernummer);
-				break;
-			case 7:
-				bolletjesTrui.setZevende(rennernummer);
-				break;
-			case 8:
-				bolletjesTrui.setAchtste(rennernummer);
-				break;
-			case 9:
-				bolletjesTrui.setNegende(rennernummer);
-				break;
-			case 10:
-				bolletjesTrui.setTiende(rennernummer);
-				break;
-			case 11:
-				bolletjesTrui.setElfde(rennernummer);
-				break;
-			case 12:
-				bolletjesTrui.setTwaalfde(rennernummer);
-				break;
-			case 13:
-				bolletjesTrui.setDertiende(rennernummer);
-				break;
-			case 14:
-				bolletjesTrui.setVeertiende(rennernummer);
-				break;
-			case 15:
-				bolletjesTrui.setVijftiende(rennernummer);
-				break;
+	private int[] setUitslag(final List<Renner> renners, final Set<EtappeUitslag> etappeUitslag, final int[] currentUitslag) {
+		int[] uitslag = currentUitslag;  
+		int uitslagArrayLength = uitslag.length;
+		for (EtappeUitslag nextEtappeUitslagi: etappeUitslag) {
+			//Bepaal of de uitslag wel in het array past.
+			if (nextEtappeUitslagi.getPositie() <= uitslagArrayLength) {
+				uitslag[nextEtappeUitslagi.getPositie() - 1] = nextEtappeUitslagi.getRenner().getNummer();
 			}
-		
 		}
-		return bolletjesTrui;
+		return uitslag;
+		
 	}
 	
-	private UitslagCommand setUitslagCommand(List<Renner> renners, Set<EtappeUitslag> uitslag) {
-		UitslagCommand uitslagCommand = new UitslagCommand();
-		for (EtappeUitslag nextUitslag: uitslag) {
-			int rennernummer = nextUitslag.getRenner().getNummer();
-			switch (nextUitslag.getPositie()) {
-			case 1:
-				uitslagCommand.setEerste(rennernummer);
-				break;
-			case 2:
-				uitslagCommand.setTweede(rennernummer);
-				break;
-			case 3:
-				uitslagCommand.setDerde(rennernummer);
-				break;
-			case 4:
-				uitslagCommand.setVierde(rennernummer);
-				break;
-			case 5:
-				uitslagCommand.setVijfde(rennernummer);
-				break;
-			case 6:
-				uitslagCommand.setZesde(rennernummer);
-				break;
-			case 7:
-				uitslagCommand.setZevende(rennernummer);
-				break;
-			case 8:
-				uitslagCommand.setAchtste(rennernummer);
-				break;
-			case 9:
-				uitslagCommand.setNegende(rennernummer);
-				break;
-			case 10:
-				uitslagCommand.setTiende(rennernummer);
-				break;
-			case 11:
-				uitslagCommand.setElfde(rennernummer);
-				break;
-			case 12:
-				uitslagCommand.setTwaalfde(rennernummer);
-				break;
-			case 13:
-				uitslagCommand.setDertiende(rennernummer);
-				break;
-			case 14:
-				uitslagCommand.setVeertiende(rennernummer);
-				break;
-			case 15:
-				uitslagCommand.setVijftiende(rennernummer);
-				break;
-			}
-		
-		}
-		return uitslagCommand;
-	}
- 
-
-
 	/**
 	 * @return the rennerDao
 	 */

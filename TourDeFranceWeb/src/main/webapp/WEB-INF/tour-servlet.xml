@@ -127,7 +127,7 @@
         <property name="commandClass"><value>nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand</value></property>
         <property name="validator"><ref bean="etappeUitslagValidator"/></property>
         <property name="formView"><value>editEtappeUitslag</value></property>
-        <property name="successView"><value>listEtappes.htm</value></property>
+        <property name="successView"><value>listEtappeUitslag.htm</value></property>
         <property name="rennerDao">
         	<ref bean="rennerDao"/>
         </property>

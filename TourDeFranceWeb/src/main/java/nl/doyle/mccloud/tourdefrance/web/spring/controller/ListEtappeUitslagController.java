@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import nl.doyle.mccloud.tourdefrance.controller.TourFacade;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
+import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,6 +43,11 @@ public class ListEtappeUitslagController extends AbstractController {
 		
 		Map<String, Object> etappeUitslagModel = new HashMap<String, Object>();
 		etappeUitslagModel.put("etappe", etappe);
+		if (etappe instanceof StandaardEtappe) {
+			etappeUitslagModel.put("isStandaardEtappe", new Boolean(true));
+		} else {
+			etappeUitslagModel.put("isStandaardEtappe", new Boolean(false));
+		}
 		if (logger.isDebugEnabled()) {
 			logger.debug("Putting Etappe Uitslag in model map.");
 		}

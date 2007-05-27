@@ -3,7 +3,6 @@ package nl.doyle.mccloud.tourdefrance.web.spring.command;
 import java.util.Date;
 import java.util.List;
 
-import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Stad;
 
@@ -16,17 +15,21 @@ public class EtappeUitslagCommand {
 	
 	private List<Renner> renners;
 	
-	private UitslagCommand uitslag;
-	private GeleTruiUitslagCommand geleTruiUitslag;
-	private GroeneTruiUitslagCommand groeneTruiUitslag;
-	private BolletjesTruiUitslagCommand bolletjesTruiUitslag;
+	//private UitslagCommand uitslag;
+	//private GeleTruiUitslagCommand geleTruiUitslag;
+	//private GroeneTruiUitslagCommand groeneTruiUitslag;
+	//private BolletjesTruiUitslagCommand bolletjesTruiUitslag;
+	private int[] uitslag = new int[15];
+	private int[] geleTruiUitslag = new int[5];
+	private int[] groeneTruiUitslag = new int[3];
+	private int[] bolletjesTruiUitslag = new int[3];
 	
 	private int etappenummer;
 	private Stad startPlaats;
 	private Stad finishPlaats;
 	private Date datum;
 	
-	private boolean ploegenTijdrit;
+	private boolean standaardEtappe;
 	
 	public EtappeUitslagCommand() {
 	}
@@ -44,63 +47,64 @@ public class EtappeUitslagCommand {
 	public void setRenners(List<Renner> renners) {
 		this.renners = renners;
 	}
-
+	
+	
 	/**
 	 * @return the bolletjesTruiUitslag
-	 */
+	 *//*
 	public BolletjesTruiUitslagCommand getBolletjesTruiUitslag() {
 		return bolletjesTruiUitslag;
 	}
-
-	/**
+	
+	*//**
 	 * @param bolletjesTruiUitslag the bolletjesTruiUitslag to set
-	 */
+	 *//*
 	public void setBolletjesTruiUitslag(
 			BolletjesTruiUitslagCommand bolletjesTruiUitslag) {
 		this.bolletjesTruiUitslag = bolletjesTruiUitslag;
 	}
 
-	/**
+	*//**
 	 * @return the geleTruiUitslag
-	 */
+	 *//*
 	public GeleTruiUitslagCommand getGeleTruiUitslag() {
 		return geleTruiUitslag;
 	}
 
-	/**
+	*//**
 	 * @param geleTruiUitslag the geleTruiUitslag to set
-	 */
+	 *//*
 	public void setGeleTruiUitslag(GeleTruiUitslagCommand geleTruiUitslag) {
 		this.geleTruiUitslag = geleTruiUitslag;
 	}
 
-	/**
+	*//**
 	 * @return the groeneTruiUitslag
-	 */
+	 *//*
 	public GroeneTruiUitslagCommand getGroeneTruiUitslag() {
 		return groeneTruiUitslag;
 	}
 
-	/**
+	*//**
 	 * @param groeneTruiUitslag the groeneTruiUitslag to set
-	 */
+	 *//*
 	public void setGroeneTruiUitslag(GroeneTruiUitslagCommand groeneTruiUitslag) {
 		this.groeneTruiUitslag = groeneTruiUitslag;
 	}
 
-	/**
+	*//**
 	 * @return the uitslag
-	 */
+	 *//*
 	public UitslagCommand getUitslag() {
 		return uitslag;
 	}
 
-	/**
+	*//**
 	 * @param uitslag the uitslag to set
-	 */
+	 *//*
 	public void setUitslag(UitslagCommand uitslag) {
 		this.uitslag = uitslag;
-	}
+	}*/
 
 	/**
 	 * @return the datum
@@ -161,15 +165,71 @@ public class EtappeUitslagCommand {
 	/**
 	 * @return the isPloegenTijdrit
 	 */
-	public boolean isPloegenTijdrit() {
-		return ploegenTijdrit;
+	public boolean isStandaardEtappe() {
+		return standaardEtappe;
 	}
 
 	/**
 	 * @param isPloegenTijdrit the isPloegenTijdrit to set
 	 */
-	public void setPloegenTijdrit(boolean isPloegenTijdrit) {
-		this.ploegenTijdrit = isPloegenTijdrit;
+	public void setStandaardEtappe(boolean isStandaardEtappe) {
+		this.standaardEtappe = isStandaardEtappe;
+	}
+
+	/**
+	 * @return the bolletjesTruiUitslag
+	 */
+	public int[] getBolletjesTruiUitslag() {
+		return bolletjesTruiUitslag;
+	}
+
+	/**
+	 * @param bolletjesTruiUitslag the bolletjesTruiUitslag to set
+	 */
+	public void setBolletjesTruiUitslag(int[] bolletjesTruiUitslag) {
+		this.bolletjesTruiUitslag = bolletjesTruiUitslag;
+	}
+
+	/**
+	 * @return the geleTruiUitslag
+	 */
+	public int[] getGeleTruiUitslag() {
+		return geleTruiUitslag;
+	}
+
+	/**
+	 * @param geleTruiUitslag the geleTruiUitslag to set
+	 */
+	public void setGeleTruiUitslag(int[] geleTruiUitslag) {
+		this.geleTruiUitslag = geleTruiUitslag;
+	}
+
+	/**
+	 * @return the groenTruiUitslag
+	 */
+	public int[] getGroeneTruiUitslag() {
+		return groeneTruiUitslag;
+	}
+
+	/**
+	 * @param groenTruiUitslag the groenTruiUitslag to set
+	 */
+	public void setGroeneTruiUitslag(int[] groeneTruiUitslag) {
+		this.groeneTruiUitslag = groeneTruiUitslag;
+	}
+
+	/**
+	 * @return the uitslag
+	 */
+	public int[] getUitslag() {
+		return uitslag;
+	}
+
+	/**
+	 * @param uitslag the uitslag to set
+	 */
+	public void setUitslag(int[] uitslag) {
+		this.uitslag = uitslag;
 	}
 	
 	
