@@ -29,6 +29,9 @@
 <a href="etappeDetails.htm">Etappe Details</a>
 <br/>
 <br/>
+<a href="editUitslagBedrag.htm">Edit Bedragen</a>
+<br/>
+<br/>
 <a href="j_acegi_logout">Logout</a>
 </body>
 </html>

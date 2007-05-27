@@ -10,6 +10,12 @@
 	</head>
 	<body onload="showMap();" onunload="GUnload()">
 		<div id="map" style="width: 1000px; height: 600px;margin: 50px auto"></div>
+		<!--
+		Stukje code. Lijkt erop dat je met kmz en kml bestanden overlays kan toevoegen aan geintegreerde Google Maps.
+		Gaan we gebruiken om de etappe in de pagina te tonen. Kaarten zijn beschikbaar op: http://bbs.keyhole.com/ubb/showflat.php/Cat/0/Number/867739/page/0/fpart/all/vc/1
+		var geoXml2 = new GGeoXml("http://bbs.keyhole.com/ubb/placemarks/cl-11-06-06-933263760.kmz");
+	   	var map = new GMap2(document.getElementById("google_mapbezienswaardigheden")); map.addControl(new GLargeMapControl()); map.addControl(new GMapTypeControl()); map.setCenter(new GLatLng(50.6,4.246708183848997), 8,G_SATELLITE_MAP);map.addOverlay(geoXml1);map.addOverlay(geoXml2);map.addOverlay(marker);}</script>
+		-->
 		<script type="text/javascript">
     		//<![CDATA[
 			function showMap() {

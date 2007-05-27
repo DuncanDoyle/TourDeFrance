@@ -79,6 +79,17 @@
         	<ref bean="rennerDao"/>
         </property>
     </bean>
+    <bean id="editUitslagBedragForm" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.EditUitslagBedragFormController">
+        <property name="sessionForm"><value>true</value></property>
+        <property name="commandName"><value>uitslagBedragCommand</value></property>
+        <property name="commandClass"><value>nl.doyle.mccloud.tourdefrance.web.spring.command.UitslagBedragCommand</value></property>
+        <property name="validator"><ref bean="uitslagBedragValidator"/></property>
+        <property name="formView"><value>editUitslagBedrag</value></property>
+        <property name="successView"><value>index.htm</value></property>
+        <property name="uitslagBedragDao">
+        	<ref bean="uitslagBedragDao"/>
+        </property>
+    </bean>
     <bean id="editEtappeForm" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.EditEtappeFormController">
         <property name="sessionForm"><value>true</value></property>
         <property name="commandName"><value>etappeCommand</value></property>
@@ -143,6 +154,7 @@
 	<bean id="deelnemerValidator" class="nl.doyle.mccloud.tourdefrance.web.spring.validator.DeelnemerValidator"/>
 	<bean id="stadValidator" class="nl.doyle.mccloud.tourdefrance.web.spring.validator.StadValidator"/>
 	<bean id="etappeUitslagValidator" class="nl.doyle.mccloud.tourdefrance.web.spring.validator.EtappeUitslagValidator"/>
+	<bean id="uitslagBedragValidator" class="nl.doyle.mccloud.tourdefrance.web.spring.validator.UitslagBedragValidator"/>
 
 	<!-- Spring Handlers -->
     <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -165,6 +177,7 @@
             	<prop key="/editDeelnemer.htm">editDeelnemerForm</prop>
             	<prop key="/editEtappeUitslag.htm">editEtappeUitslagForm</prop>
             	<prop key="/login.htm">loginController</prop>
+            	<prop key="/editUitslagBedrag.htm">editUitslagBedragForm</prop>
             </props>
         </property>
     </bean>
