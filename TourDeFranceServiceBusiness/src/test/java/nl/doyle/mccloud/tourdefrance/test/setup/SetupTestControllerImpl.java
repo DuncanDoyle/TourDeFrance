@@ -148,7 +148,7 @@ public class SetupTestControllerImpl implements SetupTestContoller {
 			testEtappe.setGroeneTruiUitslag(groeneTrui);
 			testEtappe.setBolletjesTruiUitslag(bolletjesTrui);
 			
-			if (testEtappe.getClass().equals(StandaardEtappe.class)){
+			if (testEtappe instanceof StandaardEtappe){
 				for (int truiTeller=0; truiTeller < 15 ; truiTeller++) {
 					EtappeUitslag testEtappeUitslag = new EtappeUitslag();
 					testEtappeUitslag.setEtappenummer(teller + 1);

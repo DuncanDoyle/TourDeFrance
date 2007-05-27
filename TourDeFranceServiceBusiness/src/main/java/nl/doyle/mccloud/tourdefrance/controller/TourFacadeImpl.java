@@ -11,6 +11,7 @@ import nl.doyle.mccloud.tourdefrance.dto.DeelnemerRennerDto;
 import nl.doyle.mccloud.tourdefrance.exceptions.DataNotFoundException;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Deelnemer;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
+import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 
 import org.apache.commons.logging.Log;
@@ -75,6 +76,15 @@ public class TourFacadeImpl implements TourFacade {
 		return etappe;
 	}
 	
+	public void saveEtappe(Etappe etappe) {
+		if (etappe instanceof StandaardEtappe) {
+			standaardEtappeDao.saveStandaardEtappe((StandaardEtappe) etappe);
+		} else if (etappe instanceof PloegenTijdrit) {
+			ploegenTijdritDao.savePloegenTijdrit((PloegenTijdrit) etappe);
+		} else {
+			throw new RuntimeException("Etappe kan niet worden opgeslagen. Etappe is van het verkeerde type.");
+		}
+	}
 	
 	
 	

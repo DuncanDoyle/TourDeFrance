@@ -181,11 +181,14 @@
         	expression="execution(* nl.doyle.mccloud.tourdefrance.dao.hibernate.DeelnemerDaoHibernateImpl.*(..))"/>
         <aop:pointcut id="hibernateStandaardEtappeTransactions" 
         	expression="execution(* nl.doyle.mccloud.tourdefrance.dao.hibernate.StandaardEtappeDaoHibernateImpl.*(..))"/>
+       	<aop:pointcut id="hibernatePloegenTijdritTransactions" 
+        	expression="execution(* nl.doyle.mccloud.tourdefrance.dao.hibernate.PloegenTijdritDaoHibernateImpl.*(..))"/>
 		<aop:pointcut id="jdbcTransactions" 
 	    	expression="execution(* nl.doyle.mccloud.tourdefrance.setup.dao.*.*(..))"/>
 	
         <aop:advisor pointcut-ref="hibernateDeelnemerTransactions" advice-ref="hibernateTxAdvice"/>
         <aop:advisor pointcut-ref="hibernateStandaardEtappeTransactions" advice-ref="hibernateTxAdvice"/>
+        <aop:advisor pointcut-ref="hibernatePloegenTijdritTransactions" advice-ref="hibernateTxAdvice"/>
      
         <aop:advisor pointcut-ref="jdbcTransactions" advice-ref="jdbcTxAdvice"/>
 	</aop:config>

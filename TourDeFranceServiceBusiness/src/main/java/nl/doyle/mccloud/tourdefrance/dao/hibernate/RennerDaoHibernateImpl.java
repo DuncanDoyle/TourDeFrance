@@ -8,6 +8,10 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 public class RennerDaoHibernateImpl extends HibernateDaoSupport implements RennerDao {
@@ -44,6 +48,19 @@ public class RennerDaoHibernateImpl extends HibernateDaoSupport implements Renne
 		return getHibernateTemplate().loadAll(Renner.class);
 	}
 
+	public List<Renner> loadAllRennersOrdered() {
+		//TODO Dit moet anders geimplementeerd worden. Gebruik maken van Callback functie en HQL
+		final String hql = "from Renner ren  ORDER BY ren.nummer";
+		
+		List<Renner> renners = (List<Renner>) getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) throws HibernateException {
+				Query query = session.createQuery(hql);
+				return query.list();
+			}
+		});
+		return renners;
+	}
+		
 	/**
 	 * Laadt de renner met de meegegeven primary key (rennerNummer) uit de database
 	 * 

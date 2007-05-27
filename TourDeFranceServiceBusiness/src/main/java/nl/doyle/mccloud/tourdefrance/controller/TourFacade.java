@@ -11,4 +11,5 @@ public interface TourFacade {
 	public List<DeelnemerRennerDto> getAllDeelnemersAndRenners();
 	public Etappe getEtappeWithUitslag(int etappeNummer); 
 	public Etappe getEtappeWithStartAndFinish(int etappeNummer);
+	public void saveEtappe(Etappe etappe);
 }
