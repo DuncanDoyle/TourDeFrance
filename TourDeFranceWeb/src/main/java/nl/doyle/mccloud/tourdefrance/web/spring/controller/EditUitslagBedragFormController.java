@@ -30,10 +30,56 @@ public class EditUitslagBedragFormController extends SimpleFormController {
 		if (logger.isDebugEnabled()) {
 			logger.debug("Saving uitslagBedragen!!");
 		}
+		//Command object casten
+		UitslagBedragCommand uitslagBedrag = (UitslagBedragCommand) command;
+		
+		if (logger.isDebugEnabled()) {
+			for (int counter = 0; counter < uitslagBedrag.getEtappe().length; counter++) {
+				logger.debug("UitslagBedrag Etappe positie " + (counter + 1) + "= " + uitslagBedrag.getEtappe()[counter]); 
+				
+			}
+		}
+		
+		//Eerst voor de gewone etappe
+		saveUitslagBedragen(uitslagBedrag.getEtappe(), Categorien.Etappe);
+		saveUitslagBedragen(uitslagBedrag.getGeleTrui(), Categorien.GeleTrui);
+		saveUitslagBedragen(uitslagBedrag.getGroeneTrui(), Categorien.GroeneTrui);
+		saveUitslagBedragen(uitslagBedrag.getBolletjesTrui(), Categorien.BolletjesTrui);
+		saveUitslagBedragen(uitslagBedrag.getGeleTruiEind(), Categorien.GeleTruiEind);
+		saveUitslagBedragen(uitslagBedrag.getGroeneTruiEind(), Categorien.GroeneTruiEind);
+		saveUitslagBedragen(uitslagBedrag.getBolletjesTruiEind(), Categorien.BolletjesTruiEind);
 		
 		
 		return new ModelAndView(new RedirectView(getSuccessView()));
 	}
+	
+	private void saveUitslagBedragen(final double[] uitslagBedragen, final Categorien categorie) {
+		
+		for (int teller = 0; teller < uitslagBedragen.length; teller++) {
+			//Loop nu door alle uitslagbedragen en kijk of de juiste entry gevonden kan worden.
+			boolean found = false;
+			for (UitslagBedrag nextUitslagBedrag: dbUitslagBedragen) {
+				if (nextUitslagBedrag.getCategorie().equals(categorie) && nextUitslagBedrag.getPositie() == (teller + 1)) {
+					found = true;
+					//Als de waarde nog niet hetzelfde is als de waarde in de database dan slaan we de gegevens op.
+					if (nextUitslagBedrag.getBedrag() != uitslagBedragen[teller]) {
+						nextUitslagBedrag.setBedrag(uitslagBedragen[teller]);
+						uitslagBedragDao.saveUitslagBedrag(nextUitslagBedrag);
+					}
+				}
+			}
+			if (found == false) {
+				//entry is nog niet aanwezig in de DB. Nieuwe entry aanmaken en opslaan
+				UitslagBedrag nieuwUitslagBedrag = new UitslagBedrag();
+				nieuwUitslagBedrag.setCategorie(categorie);
+				nieuwUitslagBedrag.setPositie(teller + 1);
+				nieuwUitslagBedrag.setBedrag(uitslagBedragen[teller]);
+				uitslagBedragDao.saveUitslagBedrag(nieuwUitslagBedrag);
+			}
+		}
+	}
+	
+	
 	
 	/**
 	 * Initialiseer het formbackingobject. In dit form zijn dat de UitslagenEnBedragen
@@ -49,38 +95,38 @@ public class EditUitslagBedragFormController extends SimpleFormController {
 		for (UitslagBedrag nextUitslagBedrag: dbUitslagBedragen) {
 			switch (nextUitslagBedrag.getCategorie()) {
 			case Etappe:
-				if (nextUitslagBedrag.getPositie() >= uitslagBedrag.getEtappe().length) {
-					uitslagBedrag.getEtappe()[nextUitslagBedrag.getPositie()] = nextUitslagBedrag.getBedrag();
+				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getEtappe().length) {
+					uitslagBedrag.getEtappe()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
 				}
 				break;
 			case GeleTrui:
-				if (nextUitslagBedrag.getPositie() >= uitslagBedrag.getGeleTrui().length) {
-					uitslagBedrag.getGeleTrui()[nextUitslagBedrag.getPositie()] = nextUitslagBedrag.getBedrag();
+				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getGeleTrui().length) {
+					uitslagBedrag.getGeleTrui()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
 				}
 				break;
 			case GroeneTrui:	
-				if (nextUitslagBedrag.getPositie() >= uitslagBedrag.getGroeneTrui().length) {
-					uitslagBedrag.getGroeneTrui()[nextUitslagBedrag.getPositie()] = nextUitslagBedrag.getBedrag();
+				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getGroeneTrui().length) {
+					uitslagBedrag.getGroeneTrui()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
 				}
 				break;
 			case BolletjesTrui:
-				if (nextUitslagBedrag.getPositie() >= uitslagBedrag.getBolletjesTrui().length) {
-					uitslagBedrag.getBolletjesTrui()[nextUitslagBedrag.getPositie()] = nextUitslagBedrag.getBedrag();
+				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getBolletjesTrui().length) {
+					uitslagBedrag.getBolletjesTrui()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
 				}
 				break;
 			case GeleTruiEind:
-				if (nextUitslagBedrag.getPositie() >= uitslagBedrag.getGeleTruiEind().length) {
-					uitslagBedrag.getGeleTruiEind()[nextUitslagBedrag.getPositie()] = nextUitslagBedrag.getBedrag();
+				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getGeleTruiEind().length) {
+					uitslagBedrag.getGeleTruiEind()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
 				}
 				break;
 			case GroeneTruiEind:	
-				if (nextUitslagBedrag.getPositie() >= uitslagBedrag.getGroeneTruiEind().length) {
-					uitslagBedrag.getGroeneTruiEind()[nextUitslagBedrag.getPositie()] = nextUitslagBedrag.getBedrag();
+				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getGroeneTruiEind().length) {
+					uitslagBedrag.getGroeneTruiEind()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
 				}
 				break;
 			case BolletjesTruiEind:
-				if (nextUitslagBedrag.getPositie() >= uitslagBedrag.getBolletjesTruiEind().length) {
-					uitslagBedrag.getBolletjesTruiEind()[nextUitslagBedrag.getPositie()] = nextUitslagBedrag.getBedrag();
+				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getBolletjesTruiEind().length) {
+					uitslagBedrag.getBolletjesTruiEind()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
 				}
 				break;
 			}

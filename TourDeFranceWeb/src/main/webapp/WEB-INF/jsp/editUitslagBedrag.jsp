@@ -19,7 +19,7 @@
 	      				<td alignment="right" width="10%">${counter+1}e plaats:</td>
 	      					<spring:bind path="uitslagBedragCommand.etappe[${counter}]">
 	        				<td width="20%">
-	          					<input type="text" name="${counter + 1}e positie" value="<c:out value="${status.value}"/>"/>
+	          					<input type="text" name="etappe[${counter}]" value="<c:out value="${status.value}"/>"/>
 	          				</td>
 	          				<td width="60%">
 	          					<font color="red"><c:out value="${status.errorMessage}"/></font>
@@ -36,7 +36,7 @@
 	      				<td alignment="right" width="10%">${counter+1}e plaats:</td>
 	      					<spring:bind path="uitslagBedragCommand.geleTrui[${counter}]">
 	        				<td width="20%">
-	          					<input type="text" name="${counter + 1}e positie" value="<c:out value="${status.value}"/>"/>
+	          					<input type="text" name="geleTrui[${counter}]" value="<c:out value="${status.value}"/>"/>
 	          				</td>
 	          				<td width="60%">
 	          					<font color="red"><c:out value="${status.errorMessage}"/></font>
@@ -52,7 +52,7 @@
 	      				<td alignment="right" width="10%">${counter+1}e plaats:</td>
 	      					<spring:bind path="uitslagBedragCommand.groeneTrui[${counter}]">
 	        				<td width="20%">
-	          					<input type="text" name="${counter + 1}e positie" value="<c:out value="${status.value}"/>"/>
+	          					<input type="text" name="groeneTrui[${counter}]" value="<c:out value="${status.value}"/>"/>
 	          				</td>
 	          				<td width="60%">
 	          					<font color="red"><c:out value="${status.errorMessage}"/></font>
@@ -68,7 +68,7 @@
 	      				<td alignment="right" width="10%">${counter+1}e plaats:</td>
 	      					<spring:bind path="uitslagBedragCommand.bolletjesTrui[${counter}]">
 	        				<td width="20%">
-	          					<input type="text" name="${counter + 1}e positie" value="<c:out value="${status.value}"/>"/>
+	          					<input type="text" name="bolletjesTrui[${counter}]" value="<c:out value="${status.value}"/>"/>
 	          				</td>
 	          				<td width="60%">
 	          					<font color="red"><c:out value="${status.errorMessage}"/></font>
@@ -84,7 +84,7 @@
 	      				<td alignment="right" width="10%">${counter+1}e plaats:</td>
 	      					<spring:bind path="uitslagBedragCommand.geleTruiEind[${counter}]">
 	        				<td width="20%">
-	          					<input type="text" name="${counter + 1}e positie" value="<c:out value="${status.value}"/>"/>
+	          					<input type="text" name="geleTruiEind[${counter}]" value="<c:out value="${status.value}"/>"/>
 	          				</td>
 	          				<td width="60%">
 	          					<font color="red"><c:out value="${status.errorMessage}"/></font>
@@ -100,7 +100,7 @@
 	      				<td alignment="right" width="10%">${counter+1}e plaats:</td>
 	      					<spring:bind path="uitslagBedragCommand.groeneTruiEind[${counter}]">
 	        				<td width="20%">
-	          					<input type="text" name="${counter + 1}e positie" value="<c:out value="${status.value}"/>"/>
+	          					<input type="text" name="groeneTruiEind[${counter}]" value="<c:out value="${status.value}"/>"/>
 	          				</td>
 	          				<td width="60%">
 	          					<font color="red"><c:out value="${status.errorMessage}"/></font>
@@ -116,7 +116,7 @@
 	      				<td alignment="right" width="10%">${counter+1}e plaats:</td>
 	      					<spring:bind path="uitslagBedragCommand.bolletjesTruiEind[${counter}]">
 	        				<td width="20%">
-	          					<input type="text" name="${counter + 1}e positie" value="<c:out value="${status.value}"/>"/>
+	          					<input type="text" name="bolletjesTruiEind[${counter}]" value="<c:out value="${status.value}"/>"/>
 	          				</td>
 	          				<td width="60%">
 	          					<font color="red"><c:out value="${status.errorMessage}"/></font>
