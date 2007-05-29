@@ -8,6 +8,32 @@
 	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
  
+ 	<!-- Apache Commons Configuration Composite configuration -->
+    <bean id="configurations" class="org.springmodules.commons.configuration.CommonsConfigurationFactoryBean">
+        <property name="configurations">
+            <list>
+            	<!-- System properties -->
+			    <bean class="org.apache.commons.configuration.SystemConfiguration"/>
+ 				
+                <bean class="org.apache.commons.configuration.XMLConfiguration">
+                    <constructor-arg type="java.net.URL"
+                        value="file:${user.home}/tour-config.xml" />  
+                    <property name="reloadingStrategy">
+                        <bean class="org.apache.commons.configuration.reloading.FileChangedReloadingStrategy"/>
+                    </property>
+                </bean>                
+            </list>
+        </property>
+
+        <!-- define configuration as a set of spring resources -->
+		<!-- <property name="locations" value="classpath*:META-INF/default.properties" />   -->
+    </bean>
+	<!-- De &amp;configurations in de onderstaande configuratie geeft de bean hierboven "configurations" terug.
+		Dit is nodig omdat deze bean een Spring FactoryBean is. Een normale referentie zonder &amp; zou het object teruggeven
+		dat door de FactoryBean 'getObject' wordt teruggegeven. De Spring FactoryBean heeft deze eigenschap en kan daarom
+		niet zomaar als een normal bean worden gebruikt. Hij wordt veel gebruikt in de 'internals' van het framework. -->
+    <bean id="configuration" factory-bean="&amp;configurations" factory-method="getConfiguration"/>
+ 
 	<bean id="test" class="testspringcontext.TestImpl">
 		<property name="message" value="You say goodbye, I say Hello"/>
 	</bean>
