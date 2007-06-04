@@ -5,10 +5,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import nl.doyle.mccloud.tourdefrance.dao.BolletjesTruiUitslagDao;
 import nl.doyle.mccloud.tourdefrance.dao.DeelnemerDao;
+import nl.doyle.mccloud.tourdefrance.dao.EindUitslagDao;
 import nl.doyle.mccloud.tourdefrance.dao.EtappeUitslagDao;
 import nl.doyle.mccloud.tourdefrance.dao.GeleTruiUitslagDao;
 import nl.doyle.mccloud.tourdefrance.dao.GroeneTruiUitslagDao;
@@ -18,6 +18,7 @@ import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
 import nl.doyle.mccloud.tourdefrance.dao.TeamDao;
 import nl.doyle.mccloud.tourdefrance.setup.dao.GameSetupDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Deelnemer;
+import nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
@@ -37,6 +38,7 @@ public class GameSetupControllerImpl implements GameSetupController {
 	private GeleTruiUitslagDao geleTruiUitslagDao;
 	private GroeneTruiUitslagDao groeneTruiUitslagDao;
 	private BolletjesTruiUitslagDao bolletjesTruiUitslagDao;
+	private EindUitslagDao eindUitslagDao;
 	private GameSetupDao gameSetupDao;
 		
 	
@@ -70,7 +72,7 @@ public class GameSetupControllerImpl implements GameSetupController {
 	 */
 	public void generateDeelnemerTeams() {
 		//TODO: Testen of de gegevens in de database goed zijn zodat de generatie ook echt kan draaien.
-		
+		gameSetupDao.deleteAllTeamRecords();
 		//Laad alle Deelnemers in een List
 		List<Deelnemer> deelnemersKopman = deelnemerDao.loadAllDeelnemers();
 		//Doorloop de list en maak de interne objecten voor Rennerverdeling aan
@@ -148,6 +150,7 @@ public class GameSetupControllerImpl implements GameSetupController {
 		createTeamsAndRenners(aantalPloegen);
 		createStandaardEtappes(aantalEtappes, ploegenTijdrit);
 		createPloegenTijdrit(ploegenTijdrit);
+		createEindUitslag();
 	}
 	
 	
@@ -234,6 +237,15 @@ public class GameSetupControllerImpl implements GameSetupController {
 			//TODO Gooi exception als het de ploegentijdrit geen juist getal is. Misschien moeten de parameters wel eerder gechecked worden.
 		}
 	}
+	
+	/**
+	 * Maakt de einduitslag aan en slaat deze op in de database.
+	 */
+	private void createEindUitslag() {
+		EindUitslag storeEindUitslag = new EindUitslag();
+		storeEindUitslag.setEtappenummer(0);
+		eindUitslagDao.saveEindUitslag(storeEindUitslag);
+	}
 
 	public void setDeelnemerDao(DeelnemerDao deelnemerDao) {
 		this.deelnemerDao = deelnemerDao;
@@ -278,6 +290,14 @@ public class GameSetupControllerImpl implements GameSetupController {
 		this.gameSetupDao = gameSetupDao;
 	}
 
+	/**
+	 * @param eindUitslagDao the eindUitslagDao to set
+	 */
+	public void setEindUitslagDao(EindUitslagDao eindUitslagDao) {
+		this.eindUitslagDao = eindUitslagDao;
+	}
+	
+	
 	private class DeelnemerRenners {
 		
 		private Deelnemer deelnemer;
@@ -300,5 +320,9 @@ public class GameSetupControllerImpl implements GameSetupController {
 			return deelnemer;
 		}
 	}
+
+
+
+	
 		
 }

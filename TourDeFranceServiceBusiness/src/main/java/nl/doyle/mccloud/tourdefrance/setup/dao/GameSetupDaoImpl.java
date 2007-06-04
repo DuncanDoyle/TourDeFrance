@@ -11,13 +11,15 @@ public class GameSetupDaoImpl extends JdbcDaoSupport implements GameSetupDao {
 	 * Via Spring AOP wordt er een JDBC transactie om deze SQL commando's heen gezet.
 	 */
 	public void deleteAllRecordsFromDatabase() {
-		String sqlDeelnemerRenner = "delete from deelnemer_renner";
-		getJdbcTemplate().execute(sqlDeelnemerRenner);
+		
+		deleteAllTeamRecords();
 		
 		String sqlTeamRenner = "delete from team_renner";
 		getJdbcTemplate().execute(sqlTeamRenner);
 		
 		//Maak daarna de rest van de tabellen leeg
+		String sqlEindUitslag = "delete from einduitslag";
+		getJdbcTemplate().execute(sqlEindUitslag);
 		
 		String sqlEtappeUitslag = "delete from etappeuitslag";
 		getJdbcTemplate().execute(sqlEtappeUitslag);
@@ -49,9 +51,20 @@ public class GameSetupDaoImpl extends JdbcDaoSupport implements GameSetupDao {
 		String sqlEtappes = "delete from etappe";
 		getJdbcTemplate().execute(sqlEtappes);
 		
+		String sqlEtappeAndEindUitslag = "delete from etappeandeinduitslag";
+		getJdbcTemplate().execute(sqlEtappeAndEindUitslag);
+		
 		String sqlSteden = "delete from stad";
 		getJdbcTemplate().execute(sqlSteden);
 		
+		String sqlUitslagBedrag = "delete from uitslag_bedrag";
+		getJdbcTemplate().execute(sqlUitslagBedrag);
+		
+	}
+	
+	public void deleteAllTeamRecords() {
+		String sqlDeelnemerRenner = "delete from deelnemer_renner";
+		getJdbcTemplate().execute(sqlDeelnemerRenner);
 	}
 
 }

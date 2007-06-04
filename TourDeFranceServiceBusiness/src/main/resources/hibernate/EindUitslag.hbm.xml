@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag" table="EINDUITSLAG">
+		<id name="etappenummer" column="ETAPPENUMMER">
+		</id>
+
+		<!-- Gele trui uitslagen -->
+		<set name="geleTruiUitslag" cascade="all">
+        	<key> 
+        		<column name="ETAPPENUMMER"/>
+        	</key>
+         	<one-to-many class="nl.doyle.mccloud.tourdefrance.valueobjects.GeleTruiUitslag"/>
+        </set>
+
+		<!-- Groene trui uitslagen -->
+		<set name="groeneTruiUitslag" cascade="all" >
+        	<key column="ETAPPENUMMER"/>
+        	<one-to-many class="nl.doyle.mccloud.tourdefrance.valueobjects.GroeneTruiUitslag"/>
+		</set>
+		
+		<!-- Bolletjes trui uitslagen -->
+		<set name="bolletjesTruiUitslag" cascade="all" >
+        	<key column="ETAPPENUMMER"/>
+        	<one-to-many class="nl.doyle.mccloud.tourdefrance.valueobjects.BolletjesTruiUitslag"/>
+		</set>
+		
+		<many-to-one name="eersteUitvaller" class="nl.doyle.mccloud.tourdefrance.valueobjects.Renner" column="EERSTEUITVALLER" unique="true"/>
+		<many-to-one name="rodeLantaren" class="nl.doyle.mccloud.tourdefrance.valueobjects.Renner" column="RODELANTAREN" unique="true"/>
+		<many-to-one name="witteTrui" class="nl.doyle.mccloud.tourdefrance.valueobjects.Renner" column="WITTETRUI" unique="true"/>
+					
+	</class>
+</hibernate-mapping>
+

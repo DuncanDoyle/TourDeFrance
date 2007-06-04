@@ -1,0 +1,46 @@
+package nl.doyle.mccloud.tourdefrance.dao.hibernate;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.hibernate.Hibernate;
+import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import nl.doyle.mccloud.tourdefrance.dao.EindUitslagDao;
+import nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag;
+import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
+
+public class EindUitslagDaoHibernateImpl extends HibernateDaoSupport implements EindUitslagDao {
+
+	public EindUitslag loadEindUitslag() {
+		EindUitslag uitslag;
+		try {
+			uitslag = (EindUitslag) getHibernateTemplate().load(EindUitslag.class, 0);
+		} catch (ObjectRetrievalFailureException orfe) {
+			//TODO is dit een nette manier om dit te doen. Design by contract is dat er 'null' teruggegeven wordt. Maar hier zijn we eigenlijk unchecked exceptions aan het opeten.
+			uitslag = null;
+		}
+		return uitslag;
+	}
+
+	public EindUitslag loadEindUitslagWithUitslagEager() {
+		// TODO Auto-generated method stub
+		EindUitslag uitslag = loadEindUitslag();
+		//Als er geen etappe is gevonden krijgen we null terug
+		if (uitslag != null) {
+			Hibernate.initialize(uitslag.getEersteUitvaller());
+			Hibernate.initialize(uitslag.getRodeLantaren());
+			Hibernate.initialize(uitslag.getWitteTrui());
+			Hibernate.initialize(uitslag.getBolletjesTruiUitslag());
+			Hibernate.initialize(uitslag.getGeleTruiUitslag());
+			Hibernate.initialize(uitslag.getGroeneTruiUitslag());
+		}
+		return uitslag;
+	}
+
+	public void saveEindUitslag(EindUitslag saveEindUitslag) {
+		getHibernateTemplate().saveOrUpdate(saveEindUitslag);
+	}
+
+}

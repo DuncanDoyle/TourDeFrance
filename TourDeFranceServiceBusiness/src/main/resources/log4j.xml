@@ -33,17 +33,17 @@
 	<appender-ref ref="console"/>
   </category>
   <category name="org.hibernate">
-  	<priority value="INFO"/>
+  	<priority value="DEBUG"/>
   	<appender-ref ref="file"/>
   	<appender-ref ref="console"/>
   </category>
   <category name="org.springframework">
-  	<priority value="WARN"/>
+  	<priority value="DEBUG"/>
   	<appender-ref ref="file"/>
   	<appender-ref ref="console"/>
   </category>
   <category name="org.acegisecurity">
-  	<priority value="INFO"/>
+  	<priority value="DEBUG"/>
   	<appender-ref ref="file"/>
   	<appender-ref ref="console"/>
   </category>
