@@ -3,26 +3,27 @@ package nl.doyle.mccloud.tourdefrance.web.spring.command;
 import java.util.Date;
 import java.util.List;
 
+import nl.doyle.mccloud.tourdefrance.config.TourConfig;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Stad;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 public class EtappeUitslagCommand {
 
 	private static Log logger = LogFactory.getLog(EtappeUitslagCommand.class);
-	
 	private List<Renner> renners;
 	
 	//private UitslagCommand uitslag;
 	//private GeleTruiUitslagCommand geleTruiUitslag;
 	//private GroeneTruiUitslagCommand groeneTruiUitslag;
 	//private BolletjesTruiUitslagCommand bolletjesTruiUitslag;
-	private int[] uitslag = new int[15];
-	private int[] geleTruiUitslag = new int[5];
-	private int[] groeneTruiUitslag = new int[3];
-	private int[] bolletjesTruiUitslag = new int[3];
+	private int[] uitslag;
+	private int[] geleTruiUitslag;
+	private int[] groeneTruiUitslag;
+	private int[] bolletjesTruiUitslag;
 	
 	private int etappenummer;
 	private Stad startPlaats;
@@ -31,9 +32,12 @@ public class EtappeUitslagCommand {
 	
 	private boolean standaardEtappe;
 	
-	public EtappeUitslagCommand() {
+	public EtappeUitslagCommand(int uitslag, int geleTruiUitslag, int groeneTruiUitslag, int bolletjesTruiUitslag) {
+		this.uitslag = new int[uitslag];
+		this.geleTruiUitslag = new int[geleTruiUitslag];
+		this.groeneTruiUitslag = new int[groeneTruiUitslag];
+		this.bolletjesTruiUitslag = new int[bolletjesTruiUitslag];
 	}
-
 	/**
 	 * @return the renners
 	 */
@@ -173,8 +177,5 @@ public class EtappeUitslagCommand {
 	public void setUitslag(int[] uitslag) {
 		this.uitslag = uitslag;
 	}
-	
-	
-	
 	
 }

@@ -1,23 +1,32 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.command;
 
-import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagBedrag.Categorien;
+import nl.doyle.mccloud.tourdefrance.config.TourConfig;
 
 public class UitslagBedragCommand {
 	
-	private double[] etappe = new double[15];
-	private double[] geleTrui = new double[5];
-	private double[] groeneTrui = new  double[3];
-	private double[] bolletjesTrui = new double[3];
-	private double[] geleTruiEind = new double[15];
-	private double[] groeneTruiEind = new double[5];
-	private double[] bolletjesTruiEind = new double[5];
+	
+	private double[] etappe;
+	private double[] geleTrui;
+	private double[] groeneTrui;
+	private double[] bolletjesTrui;
+	private double[] geleTruiEind;
+	private double[] groeneTruiEind;
+	private double[] bolletjesTruiEind;
 	
 	/**
 	 * Default constructor
 	 */
-	public UitslagBedragCommand() {
+	
+	public UitslagBedragCommand(int etappe, int geleTrui, int groeneTrui, int bolletjesTrui, int geleTruiEind, int groeneTruiEind, int bolletjesTruiEind) {
+		this.etappe = new double[etappe];
+		this.geleTrui = new double[geleTrui];
+		this.groeneTrui = new  double[groeneTrui];
+		this.bolletjesTrui = new double[bolletjesTrui];
+		this.geleTruiEind = new double[geleTruiEind];
+		this.groeneTruiEind = new double[groeneTruiEind];
+		this.bolletjesTruiEind = new double[bolletjesTruiEind];
 	}
-
+		
 	/**
 	 * @return the bolletjesTrui
 	 */
@@ -115,7 +124,6 @@ public class UitslagBedragCommand {
 	public void setGroeneTrui(double[] groeneTrui) {
 		this.groeneTrui = groeneTrui;
 	}
-	
 	
 
 }

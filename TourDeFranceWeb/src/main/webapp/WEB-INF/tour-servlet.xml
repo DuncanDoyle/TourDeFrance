@@ -63,11 +63,17 @@
 			<ref bean="stadDao"/>
 		</property>
 	</bean>
-	
+	<bean id="showAdminPage" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.ShowAdminPage"/>
+	<bean id="generateTeamsController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.GenerateTeamsController">
+		<property name="gameSetupController">
+			<ref bean="gameSetupController"/>
+		</property>
+	</bean>
 	<bean id="etappeDetailsController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.EtappeDetailsController"/>
-	
 	<bean id="loginController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.LoginController"/>
 
+
+	<!-- Form Controllers -->
     <bean id="editRennerForm" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.EditRennerFormController">
         <property name="sessionForm"><value>true</value></property>
         <property name="commandName"><value>rennerCommand</value></property>
@@ -88,6 +94,9 @@
         <property name="successView"><value>index.htm</value></property>
         <property name="uitslagBedragDao">
         	<ref bean="uitslagBedragDao"/>
+        </property>
+        <property name="config">
+        	<ref bean="tourConfiguration"/>
         </property>
     </bean>
     <bean id="editEtappeForm" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.EditEtappeFormController">
@@ -145,6 +154,20 @@
         <property name="tourFacade">
         	<ref bean="tourFacade"/>
         </property>
+        <property name="config">
+        	<ref bean="tourConfiguration"/>
+        </property>
+    </bean>
+    <bean id="initializeGameForm" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.InitializeGameFormController">
+        <property name="sessionForm"><value>false</value></property>
+        <property name="commandName"><value>initializeGameCommand</value></property>
+        <property name="commandClass"><value>nl.doyle.mccloud.tourdefrance.web.spring.command.InitializeGameCommand</value></property>
+        <property name="validator"><ref bean="initializeGameValidator"/></property>
+        <property name="formView"><value>initializeGame</value></property>
+        <property name="successView"><value>adminPage.htm</value></property>
+        <property name="gameSetupController">
+        	<ref bean="gameSetupController"/>
+        </property>
     </bean>
 
 
@@ -155,6 +178,7 @@
 	<bean id="stadValidator" class="nl.doyle.mccloud.tourdefrance.web.spring.validator.StadValidator"/>
 	<bean id="etappeUitslagValidator" class="nl.doyle.mccloud.tourdefrance.web.spring.validator.EtappeUitslagValidator"/>
 	<bean id="uitslagBedragValidator" class="nl.doyle.mccloud.tourdefrance.web.spring.validator.UitslagBedragValidator"/>
+	<bean id="initializeGameValidator" class="nl.doyle.mccloud.tourdefrance.web.spring.validator.InitializeGameValidator"/>
 
 	<!-- Spring Handlers -->
     <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -178,6 +202,9 @@
             	<prop key="/editEtappeUitslag.htm">editEtappeUitslagForm</prop>
             	<prop key="/login.htm">loginController</prop>
             	<prop key="/editUitslagBedrag.htm">editUitslagBedragForm</prop>
+            	<prop key="/adminPage.htm">showAdminPage</prop>
+            	<prop key="/initializeGame.htm">initializeGameForm</prop>
+            	<prop key="/generateTeams.htm">generateTeamsController</prop>
             </props>
         </property>
     </bean>

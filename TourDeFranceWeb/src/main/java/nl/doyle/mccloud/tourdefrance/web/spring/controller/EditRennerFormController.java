@@ -35,8 +35,7 @@ public class EditRennerFormController extends SimpleFormController {
 	 * @see ModelAndView
 	 */
 	public ModelAndView onSubmit(Object command) throws ServletException {
-        //int increase = ((PriceIncrease) command).getPercentage();
-		RennerCommand rennerCommand = (RennerCommand) command;
+        RennerCommand rennerCommand = (RennerCommand) command;
         logger.info("Editting Renner with values: " + rennerCommand.toString());
         Renner saveRenner = new Renner();
         saveRenner.setNummer(rennerCommand.getNummer());

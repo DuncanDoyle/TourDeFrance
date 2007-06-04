@@ -6,9 +6,9 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import nl.doyle.mccloud.tourdefrance.config.TourConfig;
 import nl.doyle.mccloud.tourdefrance.controller.TourFacade;
 import nl.doyle.mccloud.tourdefrance.dao.RennerDao;
-import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.BolletjesTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
 import nl.doyle.mccloud.tourdefrance.valueobjects.EtappeUitslag;
@@ -29,6 +29,8 @@ public class EditEtappeUitslagFormController extends SimpleFormController {
 
 	private static final Log logger = LogFactory.getLog(EditEtappeUitslagFormController.class);
 
+	private TourConfig config;
+	
 	private RennerDao rennerDao;
 	private Etappe dbEtappe;
 	private TourFacade tourFacade;
@@ -201,7 +203,8 @@ public class EditEtappeUitslagFormController extends SimpleFormController {
     
     	
     	//Maak een nieuw FormBackingObject aan
-    	EtappeUitslagCommand etappe = new EtappeUitslagCommand();
+    	logger.debug("Instantiating new EtappeUitslagCommand.");
+    	EtappeUitslagCommand etappe = new EtappeUitslagCommand(config.getAantalEtappeUitslagen(), config.getAantalEtappeGeleTruiUitslagen(), config.getAantalEtappeGroeneTruiUitslagen(), config.getAantalEtappeBolletjesTruiUitslagen());
     	//Haal de etappe op uit de database
     	dbEtappe = tourFacade.getEtappeWithUitslag(nummer);
     	if (dbEtappe != null) {
@@ -322,6 +325,22 @@ public class EditEtappeUitslagFormController extends SimpleFormController {
 	 */
 	public void setTourFacade(TourFacade tourFacade) {
 		this.tourFacade = tourFacade;
+	}
+
+
+	/**
+	 * @return the config
+	 */
+	public TourConfig getConfig() {
+		return config;
+	}
+
+
+	/**
+	 * @param config the config to set
+	 */
+	public void setConfig(TourConfig config) {
+		this.config = config;
 	}
 	
 	

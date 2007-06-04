@@ -32,6 +32,9 @@
 <a href="editUitslagBedrag.htm">Edit Bedragen</a>
 <br/>
 <br/>
+<a href="adminPage.htm">Admin Page</a>
+<br/>
+<br/>
 <a href="j_acegi_logout">Logout</a>
 </body>
 </html>

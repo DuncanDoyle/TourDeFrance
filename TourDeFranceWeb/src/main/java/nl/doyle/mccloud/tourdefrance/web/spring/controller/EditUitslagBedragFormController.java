@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import nl.doyle.mccloud.tourdefrance.config.TourConfig;
 import nl.doyle.mccloud.tourdefrance.dao.UitslagBedragDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagBedrag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagBedrag.Categorien;
@@ -19,8 +20,12 @@ import org.springframework.web.servlet.view.RedirectView;
 public class EditUitslagBedragFormController extends SimpleFormController {
 	
 	private static final Log logger = LogFactory.getLog(EditUitslagBedragFormController.class);
+	
+	private TourConfig config;
+	
 	private List<UitslagBedrag> dbUitslagBedragen;
 	private UitslagBedragDao uitslagBedragDao;
+	
 	
 	/* (non-Javadoc)
 	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.validation.BindException)
@@ -90,7 +95,13 @@ public class EditUitslagBedragFormController extends SimpleFormController {
 	protected Object formBackingObject(HttpServletRequest request) throws ServletException, EditEtappeFormRequestException {
 		//Gegevens van mogelijke vorige bezoek in sessie wissen
 		dbUitslagBedragen = uitslagBedragDao.loadAllUitslagBedragen();
-		UitslagBedragCommand uitslagBedrag = new UitslagBedragCommand();
+		UitslagBedragCommand uitslagBedrag = new UitslagBedragCommand(config.getAantalEtappeUitslagen(), 
+																		config.getAantalEtappeGeleTruiUitslagen(), 
+																		config.getAantalEtappeGroeneTruiUitslagen(),
+																		config.getAantalEtappeBolletjesTruiUitslagen(),
+																		config.getAantalEinduitslagGeleTruiUitslagen(),
+																		config.getAantalEinduitslagGroeneTruiUitslagen(),
+																		config.getAantalEinduitslagBolletjesTruiUitslagen());
 		//loop door alle uitslagen heen en zet de waardes goed
 		for (UitslagBedrag nextUitslagBedrag: dbUitslagBedragen) {
 			switch (nextUitslagBedrag.getCategorie()) {
@@ -148,6 +159,20 @@ public class EditUitslagBedragFormController extends SimpleFormController {
 	 */
 	public void setUitslagBedragDao(UitslagBedragDao uitslagBedragDao) {
 		this.uitslagBedragDao = uitslagBedragDao;
+	}
+
+	/**
+	 * @return the config
+	 */
+	public TourConfig getConfig() {
+		return config;
+	}
+
+	/**
+	 * @param config the config to set
+	 */
+	public void setConfig(TourConfig config) {
+		this.config = config;
 	}
 	
 	
