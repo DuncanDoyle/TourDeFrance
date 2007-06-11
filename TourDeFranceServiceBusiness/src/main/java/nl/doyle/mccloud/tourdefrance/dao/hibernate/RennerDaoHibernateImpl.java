@@ -81,18 +81,6 @@ public class RennerDaoHibernateImpl extends HibernateDaoSupport implements Renne
 	}
 	
 	/**
-	 * Slaat de renner op in de database. Gooit een exceptie als er al een renner met hetzelfde rennernummer
-	 * (primary key) in de database zit.
-	 * 
-	 * @param saveRenner de Renner die moet worden opgeslagen
-	 * 
-	 * @see Renner
-	 */
-	public void saveRenner(Renner saveRenner) {
-		getHibernateTemplate().save(saveRenner);
-	}
-	
-	/**
 	 * Slaat de renner op in de database. Maakt een nieuwe db-entry aan als er nog geen renner met
 	 * dit rennernummer (primary key) in de database zit. Update een renner als deze reeds aanwezig is.
 	 * 
@@ -100,7 +88,7 @@ public class RennerDaoHibernateImpl extends HibernateDaoSupport implements Renne
 	 * 
 	 * @see Renner
 	 */
-	public void saveOrUpdateRenner(Renner saveRenner) {
+	public void saveRenner(Renner saveRenner) {
 		getHibernateTemplate().saveOrUpdate(saveRenner);
 	}
 	

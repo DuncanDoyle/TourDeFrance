@@ -238,6 +238,29 @@ public class GameSetupControllerImpl implements GameSetupController {
 		}
 	}
 	
+	public void generateTestData() {
+		//Bepaal eerst het aantal deelnemers
+		List<Deelnemer> deelnemers = deelnemerDao.loadAllDeelnemers();
+		for (Deelnemer nextDeelnemer: deelnemers) {
+			nextDeelnemer.setAchternaam("de Tester-" + nextDeelnemer.getNummer());
+			nextDeelnemer.setVoornaam("Jan-" + nextDeelnemer.getNummer());
+			nextDeelnemer.setEmail("Jan.de.Tester@tester.nl");
+			nextDeelnemer.setRekeningnummer("12345678");
+			deelnemerDao.saveDeelnemer(nextDeelnemer);
+		}
+		//Bepaal het aantal renners
+		List<Renner> renners = rennerDao.loadAllRenners();
+		for (Renner nextRenner: renners) {
+			nextRenner.setAchternaam("Boogerd-" + nextRenner.getNummer());
+			nextRenner.setVoornaam("Michael-" + nextRenner.getNummer());
+			rennerDao.saveRenner(nextRenner);
+		}
+		
+		//Genereer renners
+	}
+	
+	
+	
 	/**
 	 * Maakt de einduitslag aan en slaat deze op in de database.
 	 */

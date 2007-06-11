@@ -15,7 +15,7 @@
         <property name="rekeningnummer" column="REKENINGNUMMER"/>
         
         <!-- Zie hoofdstuk 7.3 van de Hibernate Reference Manual voor de uitleg van deze mapping -->
-        <set name="renners" table="DEELNEMER_RENNER" cascade="all" lazy="true">
+        <set name="renners" table="DEELNEMER_RENNER" cascade="all" lazy="true" order-by="RENNERNUMMER asc">
         	<key column="DEELNEMERNUMMER" not-null="false"/>
         	<many-to-many column="RENNERNUMMER" unique="true" class="nl.doyle.mccloud.tourdefrance.valueobjects.Renner" />
         </set>

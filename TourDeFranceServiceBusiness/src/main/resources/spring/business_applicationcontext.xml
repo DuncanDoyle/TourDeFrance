@@ -136,6 +136,9 @@
 		<property name="ploegenTijdritDao">
 			<ref local="ploegenTijdritDao"/>
 		</property>
+		<property name="eindUitslagDao">
+			<ref local="eindUitslagDao"/>
+		</property>
 	</bean>
  	
 	<!-- Tour de France DataSource Property -->
@@ -229,6 +232,8 @@
         	expression="execution(* nl.doyle.mccloud.tourdefrance.dao.hibernate.StandaardEtappeDaoHibernateImpl.*(..))"/>
        	<aop:pointcut id="hibernatePloegenTijdritTransactions" 
         	expression="execution(* nl.doyle.mccloud.tourdefrance.dao.hibernate.PloegenTijdritDaoHibernateImpl.*(..))"/>
+        <aop:pointcut id="hibernateEindUitslagTransactions"
+        	expression="execution(* nl.doyle.mccloud.tourdefrance.dao.hibernate.EindUitslagDaoHibernateImpl.*(..))"/>
 		<!-- <aop:pointcut id="jdbcTransactions" 
 	    	expression="execution(* nl.doyle.mccloud.tourdefrance.setup.dao.*.*(..))"/>  -->
 		<!-- JDBC calls kunnen ook meefietsen op een Hibernate transaction wanneer er gebruik wordt gemaakt van JDBCDaoSupport
@@ -243,6 +248,7 @@
         <aop:advisor pointcut-ref="hibernateDeelnemerTransactions" advice-ref="hibernateTxAdvice"/>
         <aop:advisor pointcut-ref="hibernateStandaardEtappeTransactions" advice-ref="hibernateTxAdvice"/>
         <aop:advisor pointcut-ref="hibernatePloegenTijdritTransactions" advice-ref="hibernateTxAdvice"/>
+        <aop:advisor pointcut-ref="hibernateEindUitslagTransactions" advice-ref="hibernateTxAdvice"/>
 		<!-- <aop:advisor pointcut-ref="jdbcTransactions" advice-ref="jdbcTxAdvice"/>  -->
 		<aop:advisor pointcut-ref="setupDaoTransactions" advice-ref="setupDaoHibernateTxAdvice"/>
 		<aop:advisor pointcut-ref="gameSetupGenerateTeams" advice-ref="gameSetupHibernateTxAdvice"/>
