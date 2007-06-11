@@ -10,11 +10,16 @@
 		<title>Admin Page</title>
 	</head>
 	<body>
+		<br/>
+		<br/>
 		<a href="initializeGame.htm">Initialize Game</a>
 		<br/>
 		<br/>
 		<a href="generateTeams.htm">Generate Teams</a>
 		<br/>		
+		<br/>
+		<a href="generateTestData.htm">Generate Test Data</a>
+		<br/>
 		<br/>
 	</body>
 </html>

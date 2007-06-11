@@ -69,6 +69,11 @@
 			<ref bean="gameSetupController"/>
 		</property>
 	</bean>
+	<bean id="generateTestDataController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.GenerateTestDataController">
+		<property name="gameSetupController">
+			<ref bean="gameSetupController"/>
+		</property>
+	</bean>
 	<bean id="etappeDetailsController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.EtappeDetailsController"/>
 	<bean id="loginController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.LoginController"/>
 
@@ -205,6 +210,7 @@
             	<prop key="/adminPage.htm">showAdminPage</prop>
             	<prop key="/initializeGame.htm">initializeGameForm</prop>
             	<prop key="/generateTeams.htm">generateTeamsController</prop>
+            	<prop key="/generateTestData.htm">generateTestDataController</prop>
             </props>
         </property>
     </bean>

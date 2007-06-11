@@ -7,8 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import nl.doyle.mccloud.tourdefrance.controller.TourFacade;
-import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
+import nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag;
+import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
+import nl.doyle.mccloud.tourdefrance.web.spring.model.ListUitslagModel;
+import nl.doyle.mccloud.tourdefrance.web.spring.model.ListUitslagModel.EtappeType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,25 +35,32 @@ public class ListEtappeUitslagController extends AbstractController {
 		if (logger.isDebugEnabled()) {
 			logger.debug("Etappenummer = " + etappeNummer);
 		}
-		Etappe etappe = tourFacade.getEtappeWithUitslag(etappeNummer);
+		AbstractEtappeAndEindUitslag etappe = tourFacade.getEtappeWithUitslag(etappeNummer);
 		
 		if (logger.isDebugEnabled()) {
 			logger.debug("Etappenummer = " + etappe.getEtappenummer());
-			logger.debug("Datum = " + etappe.getDatum());
-			logger.debug("Startplaats = " + etappe.getStartplaats());
-			logger.debug("Finishplaats = " + etappe.getFinishplaats());
+			//logger.debug("Datum = " + etappe.getDatum());
+			//logger.debug("Startplaats = " + etappe.getStartplaats());
+			//logger.debug("Finishplaats = " + etappe.getFinishplaats());
 		}
 		
 		Map<String, Object> etappeUitslagModel = new HashMap<String, Object>();
-		etappeUitslagModel.put("etappe", etappe);
+		//etappeUitslagModel.put("etappe", etappe);
+		ListUitslagModel uitslagModel = new ListUitslagModel();
+		uitslagModel.setEtappe(etappe);
 		if (etappe instanceof StandaardEtappe) {
-			etappeUitslagModel.put("isStandaardEtappe", new Boolean(true));
+			uitslagModel.setTypeEtappe(EtappeType.Etappe);
+			//etappeUitslagModel.put("isStandaardEtappe", new Boolean(true));
+		} else  if (etappe instanceof PloegenTijdrit) {
+			uitslagModel.setTypeEtappe(EtappeType.PloegenTijdrit);
+			//etappeUitslagModel.put("isStandaardEtappe", new Boolean(false));
 		} else {
-			etappeUitslagModel.put("isStandaardEtappe", new Boolean(false));
+			uitslagModel.setTypeEtappe(EtappeType.EindUitslag);
 		}
 		if (logger.isDebugEnabled()) {
 			logger.debug("Putting Etappe Uitslag in model map.");
 		}
+		etappeUitslagModel.put("uitslagmodel", uitslagModel);
 		return new ModelAndView("listEtappeUitslag", "model", etappeUitslagModel);
 	}
 

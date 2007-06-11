@@ -41,7 +41,7 @@ public class EditRennerFormController extends SimpleFormController {
         saveRenner.setNummer(rennerCommand.getNummer());
         saveRenner.setVoornaam(rennerCommand.getVoornaam());
         saveRenner.setAchternaam(rennerCommand.getAchternaam());
-        rennerDao.saveOrUpdateRenner(saveRenner);
+        rennerDao.saveRenner(saveRenner);
         //Hier de update actie van de Renner aanroepen
         logger.info("returning from EditRennerForm view to " + getSuccessView());
 

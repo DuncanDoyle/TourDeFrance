@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ include file="includeTags.jsp" %>
+<%@page import="nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand"%>
+<%@page import="nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand.EtappeType"%>
+<%EtappeUitslagCommand command = (EtappeUitslagCommand) pageContext.getAttribute("etappeUitslagCommand", PageContext.REQUEST_SCOPE); 
+  EtappeType pageEtappeType = command.getTypeEtappe();		
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%@page import="nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand.EtappeType"%>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -18,7 +25,9 @@
 		Finish: <c:out value="${etappeUitslagCommand.finishPlaats.stad}"/>
 		<br/>
 		<form method="POST">
-			<c:if test="${etappeUitslagCommand.standaardEtappe}">
+			<%
+			if (pageEtappeType == EtappeType.Etappe) {
+			%>
 				<h3>Etappe Uitslag</h3>
 				<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="5">
 					<c:forEach var="counter" begin="0" end="${fn:length(etappeUitslagCommand.uitslag) - 1}">
@@ -42,7 +51,7 @@
 		      			</tr>
 	      			</c:forEach>
 	      		</table>
-	      	</c:if>
+	      	<%}%>
 			<h3>Geletrui Uitslag</h3>
 			<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="5">
 				<c:forEach var="counter" begin="0" end="${fn:length(etappeUitslagCommand.geleTruiUitslag) - 1}">
@@ -112,7 +121,78 @@
 	      			</tr>
 	      		</c:forEach>
 	      	</table>
-	
+			<%
+			if (pageEtappeType == EtappeType.EindUitslag) {
+			%>
+			<!-- witteTrui -->
+			<h3>Wittetrui</h3>
+			<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="5">
+				<tr>
+      				<td alignment="right" width="10%">1e plaats:</td>
+      					<spring:bind path="etappeUitslagCommand.witteTrui">
+        				<td width="20%">
+          					<select name="witteTrui">
+          						<option value="0">Uitslag nog niet ingesteld</option>
+          						<c:forEach var="renner" items="${etappeUitslagCommand.renners}">
+      								<option <c:if test="${renner.nummer == status.value}"> selected </c:if> value="<c:out value="${renner.nummer}"/>">
+         								<c:out value="${renner.nummer} - ${renner.voornaam} ${renner.achternaam}"/>
+              						</option>
+              					</c:forEach>
+          					</select>	
+          				</td>
+          				<td width="60%">
+          					<font color="red"><c:out value="${status.errorMessage}"/></font>
+        				</td>
+        			</spring:bind>
+      			</tr>
+	      	</table>
+	      	<!--  Rode Lantaren -->
+	      	<h3>Rode Lantaren</h3>
+			<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="5">
+				<tr>
+      				<td alignment="right" width="10%">1e plaats:</td>
+      					<spring:bind path="etappeUitslagCommand.rodeLantaren">
+        				<td width="20%">
+          					<select name="rodeLantaren">
+          						<option value="0">Uitslag nog niet ingesteld</option>
+          						<c:forEach var="renner" items="${etappeUitslagCommand.renners}">
+      								<option <c:if test="${renner.nummer == status.value}"> selected </c:if> value="<c:out value="${renner.nummer}"/>">
+         								<c:out value="${renner.nummer} - ${renner.voornaam} ${renner.achternaam}"/>
+              						</option>
+              					</c:forEach>
+          					</select>	
+          				</td>
+          				<td width="60%">
+          					<font color="red"><c:out value="${status.errorMessage}"/></font>
+        				</td>
+        			</spring:bind>
+      			</tr>
+	      	</table>
+	      	<!-- Eerste Uitvaller -->
+	      	<h3>Eerste Uitvaller</h3>
+	      	<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="5">
+				<tr>
+      				<td alignment="right" width="10%">1e plaats:</td>
+      					<spring:bind path="etappeUitslagCommand.eersteUitvaller">
+        				<td width="20%">
+          					<select name="eersteUitvaller">
+          						<option value="0">Uitslag nog niet ingesteld</option>
+          						<c:forEach var="renner" items="${etappeUitslagCommand.renners}">
+      								<option <c:if test="${renner.nummer == status.value}"> selected </c:if> value="<c:out value="${renner.nummer}"/>">
+         								<c:out value="${renner.nummer} - ${renner.voornaam} ${renner.achternaam}"/>
+              						</option>
+              					</c:forEach>
+          					</select>	
+          				</td>
+          				<td width="60%">
+          					<font color="red"><c:out value="${status.errorMessage}"/></font>
+        				</td>
+        			</spring:bind>
+      			</tr>
+	      	</table>
+			<%
+			}
+			%>
 	  		<br>
 	  		<spring:hasBindErrors name="etappeUitslagCommand">
 	    		<b>Please fix all errors!</b>

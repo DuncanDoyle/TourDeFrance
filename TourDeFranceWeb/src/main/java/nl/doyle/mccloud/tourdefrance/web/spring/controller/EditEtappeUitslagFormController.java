@@ -9,15 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import nl.doyle.mccloud.tourdefrance.config.TourConfig;
 import nl.doyle.mccloud.tourdefrance.controller.TourFacade;
 import nl.doyle.mccloud.tourdefrance.dao.RennerDao;
+import nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.BolletjesTruiUitslag;
+import nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
 import nl.doyle.mccloud.tourdefrance.valueobjects.EtappeUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.GeleTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.GroeneTruiUitslag;
+import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 import nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand;
+import nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand.EtappeType;
 
+import org.apache.commons.digester.SetRootRule;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -32,7 +37,7 @@ public class EditEtappeUitslagFormController extends SimpleFormController {
 	private TourConfig config;
 	
 	private RennerDao rennerDao;
-	private Etappe dbEtappe;
+	private AbstractEtappeAndEindUitslag dbEtappe;
 	private TourFacade tourFacade;
 	
 	
@@ -172,6 +177,11 @@ public class EditEtappeUitslagFormController extends SimpleFormController {
 					}
 				}
 			}
+		} else if (dbEtappe instanceof EindUitslag) {
+			logger.debug("Saving EindUitslag data.");
+			((EindUitslag) dbEtappe).setWitteTrui(rennerDao.loadRenner(etappeUitslag.getWitteTrui()));
+			((EindUitslag) dbEtappe).setRodeLantaren(rennerDao.loadRenner(etappeUitslag.getRodeLantaren()));
+			((EindUitslag) dbEtappe).setEersteUitvaller(rennerDao.loadRenner(etappeUitslag.getEersteUitvaller()));
 		}
 		tourFacade.saveEtappe(dbEtappe);
 				
@@ -200,33 +210,46 @@ public class EditEtappeUitslagFormController extends SimpleFormController {
     		throw new EditEtappeFormRequestException("Etappenummer niet opgegeven.");
     	}
     	logger.debug("Etappenummer = " + nummer);
-    
-    	
-    	//Maak een nieuw FormBackingObject aan
-    	logger.debug("Instantiating new EtappeUitslagCommand.");
-    	EtappeUitslagCommand etappe = new EtappeUitslagCommand(config.getAantalEtappeUitslagen(), config.getAantalEtappeGeleTruiUitslagen(), config.getAantalEtappeGroeneTruiUitslagen(), config.getAantalEtappeBolletjesTruiUitslagen());
     	//Haal de etappe op uit de database
     	dbEtappe = tourFacade.getEtappeWithUitslag(nummer);
+    	EtappeUitslagCommand etappe = null;
+    	
     	if (dbEtappe != null) {
-    		//Haal de renners op uit de DB
-    		etappe.setRenners(rennerDao.loadAllRennersOrdered());
-    		etappe.setDatum(dbEtappe.getDatum());
-    		etappe.setEtappenummer(dbEtappe.getEtappenummer());
-    		etappe.setStartPlaats(dbEtappe.getStartplaats());
-    		etappe.setFinishPlaats(dbEtappe.getFinishplaats());
+    		//Maak een nieuw FormBackingObject aan
+        	logger.debug("Instantiating new EtappeUitslagCommand.");
+        	if (dbEtappe instanceof StandaardEtappe || dbEtappe instanceof PloegenTijdrit) {
+        		etappe = new EtappeUitslagCommand(config.getAantalEtappeUitslagen(), config.getAantalEtappeGeleTruiUitslagen(), config.getAantalEtappeGroeneTruiUitslagen(), config.getAantalEtappeBolletjesTruiUitslagen());
+        		etappe.setStartPlaats(((Etappe) dbEtappe).getStartplaats());
+	    		etappe.setFinishPlaats(((Etappe) dbEtappe).getFinishplaats());
+	    		etappe.setDatum(((Etappe) dbEtappe).getDatum());
+	    		//Als het een standaardEtappe is dan moet ook de normale uitslag gevuld worden.
+	    		if (dbEtappe instanceof StandaardEtappe) {
+	    			etappe.setTypeEtappe(EtappeType.Etappe);
+	    			etappe.setUitslag(setUitslag(etappe.getRenners(), ((StandaardEtappe) dbEtappe).getEtappeUitslag(), etappe.getUitslag()));
+	    		} else {
+	    			etappe.setTypeEtappe(EtappeType.PloegenTijdrit);
+	    		}
+        	} else {
+        		etappe = new EtappeUitslagCommand(0, config.getAantalEinduitslagGeleTruiUitslagen(), config.getAantalEinduitslagGroeneTruiUitslagen(), config.getAantalEinduitslagBolletjesTruiUitslagen());
+        		if (((EindUitslag) dbEtappe).getWitteTrui() != null) {
+        			etappe.setWitteTrui(((EindUitslag) dbEtappe).getWitteTrui().getNummer());
+        		}
+        		if (((EindUitslag)dbEtappe).getRodeLantaren() != null) {
+        			etappe.setRodeLantaren(((EindUitslag)dbEtappe).getRodeLantaren().getNummer());
+        		}
+        		if (((EindUitslag)dbEtappe).getEersteUitvaller() != null) {
+        			etappe.setEersteUitvaller(((EindUitslag)dbEtappe).getEersteUitvaller().getNummer());
+        		}
+        		etappe.setTypeEtappe(EtappeType.EindUitslag);
+        	}
+        	//TODO Als de etappe geen StandaardEtappe, PloegenTijdrit of EindUitslag is gaat dit fout. Kan 'by contract' eigenlijk nooit gebeuren, maar toch.
+        	//Haal de renners op uit de DB
+        	etappe.setRenners(rennerDao.loadAllRennersOrdered());
+        	etappe.setEtappenummer(dbEtappe.getEtappenummer());
     		//Zet nu de geleTruiUitslag rennernummers goed in het command object
-    		
     		etappe.setGeleTruiUitslag(setGeleTruiUitslag(etappe.getRenners(), dbEtappe.getGeleTruiUitslag(), etappe.getGeleTruiUitslag()));
     		etappe.setGroeneTruiUitslag(setGroeneTruiUitslag(etappe.getRenners(), dbEtappe.getGroeneTruiUitslag(), etappe.getGroeneTruiUitslag()));
     		etappe.setBolletjesTruiUitslag(setBolletjesTruiUitslag(etappe.getRenners(), dbEtappe.getBolletjesTruiUitslag(), etappe.getBolletjesTruiUitslag()));
-    		
-    		//Als het een standaardEtappe is dan moet ook de normale uitslag gevuld worden.
-    		if (dbEtappe instanceof StandaardEtappe) {
-    			etappe.setStandaardEtappe(true);
-    			etappe.setUitslag(setUitslag(etappe.getRenners(), ((StandaardEtappe) dbEtappe).getEtappeUitslag(), etappe.getUitslag()));
-    		} else {
-    			etappe.setStandaardEtappe(false);
-    		}
     	} else {
     		throw new EditEtappeUitslagFormRequestException("Etappe niet gevonden in database.");
     	}
@@ -280,7 +303,6 @@ public class EditEtappeUitslagFormController extends SimpleFormController {
 			}
 		}
 		return uitslag;
-		
 	}
 	
 	/**
@@ -301,14 +323,14 @@ public class EditEtappeUitslagFormController extends SimpleFormController {
 	/**
 	 * @return the dbEtappe
 	 */
-	public Etappe getDbEtappe() {
+	public AbstractEtappeAndEindUitslag getDbEtappe() {
 		return dbEtappe;
 	}
 
 	/**
 	 * @param dbEtappe the dbEtappe to set
 	 */
-	public void setDbEtappe(Etappe dbEtappe) {
+	public void setDbEtappe(AbstractEtappeAndEindUitslag dbEtappe) {
 		this.dbEtappe = dbEtappe;
 	}
 

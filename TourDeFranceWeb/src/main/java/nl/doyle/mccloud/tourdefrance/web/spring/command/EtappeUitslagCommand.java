@@ -13,6 +13,8 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 public class EtappeUitslagCommand {
 
+	public enum EtappeType {Etappe, PloegenTijdrit, EindUitslag};
+	
 	private static Log logger = LogFactory.getLog(EtappeUitslagCommand.class);
 	private List<Renner> renners;
 	
@@ -25,12 +27,16 @@ public class EtappeUitslagCommand {
 	private int[] groeneTruiUitslag;
 	private int[] bolletjesTruiUitslag;
 	
+	private int witteTrui;
+	private int rodeLantaren;
+	private int eersteUitvaller;
+	
 	private int etappenummer;
 	private Stad startPlaats;
 	private Stad finishPlaats;
 	private Date datum;
 	
-	private boolean standaardEtappe;
+	private EtappeType typeEtappe;
 	
 	public EtappeUitslagCommand(int uitslag, int geleTruiUitslag, int groeneTruiUitslag, int bolletjesTruiUitslag) {
 		this.uitslag = new int[uitslag];
@@ -109,20 +115,6 @@ public class EtappeUitslagCommand {
 	}
 
 	/**
-	 * @return the isPloegenTijdrit
-	 */
-	public boolean isStandaardEtappe() {
-		return standaardEtappe;
-	}
-
-	/**
-	 * @param isPloegenTijdrit the isPloegenTijdrit to set
-	 */
-	public void setStandaardEtappe(boolean isStandaardEtappe) {
-		this.standaardEtappe = isStandaardEtappe;
-	}
-
-	/**
 	 * @return the bolletjesTruiUitslag
 	 */
 	public int[] getBolletjesTruiUitslag() {
@@ -177,5 +169,58 @@ public class EtappeUitslagCommand {
 	public void setUitslag(int[] uitslag) {
 		this.uitslag = uitslag;
 	}
+	/**
+	 * @return the typeEtappe
+	 */
+	public EtappeType getTypeEtappe() {
+		return typeEtappe;
+	}
+	/**
+	 * @param typeEtappe the typeEtappe to set
+	 */
+	public void setTypeEtappe(EtappeType typeEtappe) {
+		this.typeEtappe = typeEtappe;
+	}
+	/**
+	 * @return the eersteUitvaller
+	 */
+	public int getEersteUitvaller() {
+		return eersteUitvaller;
+	}
+	/**
+	 * @param eersteUitvaller the eersteUitvaller to set
+	 */
+	public void setEersteUitvaller(int eersteUitvaller) {
+		this.eersteUitvaller = eersteUitvaller;
+	}
+	/**
+	 * @return the rodeLantaren
+	 */
+	public int getRodeLantaren() {
+		return rodeLantaren;
+	}
+	/**
+	 * @param rodeLantaren the rodeLantaren to set
+	 */
+	public void setRodeLantaren(int rodeLantaren) {
+		this.rodeLantaren = rodeLantaren;
+	}
+	/**
+	 * @return the witteTrui
+	 */
+	public int getWitteTrui() {
+		return witteTrui;
+	}
+	/**
+	 * @param witteTrui the witteTrui to set
+	 */
+	public void setWitteTrui(int witteTrui) {
+		this.witteTrui = witteTrui;
+	}
+	
+	
+	
+	
+	
 	
 }

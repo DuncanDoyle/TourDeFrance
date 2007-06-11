@@ -29,8 +29,11 @@ public class InitializeGameValidator implements Validator {
 			errors.rejectValue("aantalPloegen", "error.too-low", new Object[] {new Integer(0)}, "Value too low.");
 		}
 		
-		if (initGameCommand.getPloegenTijdritEtappeNummer() <= 0) {
+		if (initGameCommand.getPloegenTijdritEtappeNummer() < 0) {
 			errors.rejectValue("ploegenTijdritEtappeNummer", "error.too-low", new Object[] {new Integer(0)}, "Value too low.");
+		}
+		if (initGameCommand.getPloegenTijdritEtappeNummer() > initGameCommand.getAantalEtappes()) {
+			errors.rejectValue("ploegenTijdritEtappeNummer", "error.too-high", new Object[] {new Integer(0)}, "Value too high.");
 		}
 	}
 
