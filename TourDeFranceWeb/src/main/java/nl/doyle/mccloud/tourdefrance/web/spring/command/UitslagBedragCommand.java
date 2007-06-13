@@ -12,12 +12,15 @@ public class UitslagBedragCommand {
 	private double[] geleTruiEind;
 	private double[] groeneTruiEind;
 	private double[] bolletjesTruiEind;
+	private double[] witteTruiEind;
+	private double[] rodeLantarenEind;
+	private double[] eersteUitvallerEind;
 	
 	/**
 	 * Default constructor
 	 */
 	
-	public UitslagBedragCommand(int etappe, int geleTrui, int groeneTrui, int bolletjesTrui, int geleTruiEind, int groeneTruiEind, int bolletjesTruiEind) {
+	public UitslagBedragCommand(int etappe, int geleTrui, int groeneTrui, int bolletjesTrui, int geleTruiEind, int groeneTruiEind, int bolletjesTruiEind, int witteTruiEind, int rodeLantarenEind, int eersteUitvallerEind) {
 		this.etappe = new double[etappe];
 		this.geleTrui = new double[geleTrui];
 		this.groeneTrui = new  double[groeneTrui];
@@ -25,6 +28,9 @@ public class UitslagBedragCommand {
 		this.geleTruiEind = new double[geleTruiEind];
 		this.groeneTruiEind = new double[groeneTruiEind];
 		this.bolletjesTruiEind = new double[bolletjesTruiEind];
+		this.witteTruiEind = new double[witteTruiEind];
+		this.rodeLantarenEind = new double[rodeLantarenEind];
+		this.eersteUitvallerEind = new double[eersteUitvallerEind];
 	}
 		
 	/**
@@ -124,6 +130,49 @@ public class UitslagBedragCommand {
 	public void setGroeneTrui(double[] groeneTrui) {
 		this.groeneTrui = groeneTrui;
 	}
+
+	/**
+	 * @return the eersteUitvallerEind
+	 */
+	public double[] getEersteUitvallerEind() {
+		return eersteUitvallerEind;
+	}
+
+	/**
+	 * @param eersteUitvallerEind the eersteUitvallerEind to set
+	 */
+	public void setEersteUitvallerEind(double[] eersteUitvallerEind) {
+		this.eersteUitvallerEind = eersteUitvallerEind;
+	}
+
+	/**
+	 * @return the rodeLantarenEind
+	 */
+	public double[] getRodeLantarenEind() {
+		return rodeLantarenEind;
+	}
+
+	/**
+	 * @param rodeLantarenEind the rodeLantarenEind to set
+	 */
+	public void setRodeLantarenEind(double[] rodeLantarenEind) {
+		this.rodeLantarenEind = rodeLantarenEind;
+	}
+
+	/**
+	 * @return the witteTruiEind
+	 */
+	public double[] getWitteTruiEind() {
+		return witteTruiEind;
+	}
+
+	/**
+	 * @param witteTruiEind the witteTruiEind to set
+	 */
+	public void setWitteTruiEind(double[] witteTruiEind) {
+		this.witteTruiEind = witteTruiEind;
+	}
+	
 	
 
 }

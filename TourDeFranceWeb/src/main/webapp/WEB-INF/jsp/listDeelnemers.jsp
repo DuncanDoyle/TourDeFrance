@@ -15,9 +15,9 @@
 		<display:table id="deelnemersTable" name="model.deelnemers" class="listTable deelnemersTable" requestURI="listDeelnemers.htm" sort="list" defaultsort="1">
 			<display:column property="nummer" class="nummerColumn" title="Deelnemernummer" sortable="true"/>
   			<display:column property="voornaam" title="Voornaam" sortable="true"/>
-  			<display:column property="achternaam" title="Achternaam" sortable="true"/>
+  			<display:column property="achternaam" class="achternaamColumn" title="Achternaam" sortable="true"/>
   			<display:column property="email" title="E-Mail" sortable="true"/>
-  			<display:column property="rekeningnummer" title="Rekeningnummer" sortable="true"/>
+  			<display:column property="rekeningnummer" class="rekeningnummerColumn" title="Rekeningnummer" sortable="true"/>
 		</display:table>
 	</body>
 </html>

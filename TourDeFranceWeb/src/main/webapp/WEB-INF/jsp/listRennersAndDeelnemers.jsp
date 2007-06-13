@@ -15,7 +15,7 @@
 			<display:column property="rennerNummer" class="nummerColumn" title="Renner Nummer" sortable="true"/>
   			<display:column property="rennerVoornaam" title="Renner Voornaam" sortable="true"/>
   			<display:column property="rennerAchternaam" title="Renner Achternaam" sortable="true"/>
-  			<display:column property="deelnemerNummer" title="Deelnemer Nummer" sortable="true"/>
+  			<display:column property="deelnemerNummer" class="nummerColumn" title="Deelnemer Nummer" sortable="true"/>
   			<display:column property="deelnemerVoornaam" title="Deelnemer Voornaam" sortable="true"/>
   			<display:column property="deelnemerAchternaam" title="Deelnemer Achternaam" sortable="true"/>
 		</display:table>

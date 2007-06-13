@@ -12,7 +12,7 @@
 <body>
 <h1>Edit Renner</h1>
 <form method="POST">
-	<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="5">
+	<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
     	<tr>
       		<td alignment="right" width="10%">Rennernummer:</td>
       		<spring:bind path="rennerCommand.nummer">

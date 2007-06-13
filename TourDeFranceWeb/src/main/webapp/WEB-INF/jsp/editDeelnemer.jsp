@@ -6,17 +6,17 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<jsp:include flush="true" page="includeStyle.jsp"></jsp:include>
-		<title>Edit Deelnmer</title>
+		<title>Edit Deelnemer</title>
 	</head>
 	<body>
-	<h1>Edit Etappe</h1>
+	<h1>Edit Deelnemer: <c:out value="${deelnemerCommand.nummer}"/></h1>
 		<form method="POST">
-			<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="5">
+			<table class="editTable">
 		    	<tr>
       				<td alignment="right" width="10%">Voornaam:</td>
       				<spring:bind path="deelnemerCommand.voornaam">
         				<td width="20%">
-          					<input type="text" name="voornaam" value="<c:out value="${status.value}"/>"/>
+          					<input size="30%" type="text" name="voornaam" value="<c:out value="${status.value}"/>"/>
         				</td>
         				<td width="60%">
           					<font color="red"><c:out value="${status.errorMessage}"/></font>
@@ -27,7 +27,7 @@
       				<td alignment="right" width="10%">Achternaam:</td>
       				<spring:bind path="deelnemerCommand.achternaam">
         				<td width="20%">
-          					<input type="text" name="achternaam" value="<c:out value="${status.value}"/>"/>
+          					<input size="30%" type="text" name="achternaam" value="<c:out value="${status.value}"/>"/>
         				</td>
         				<td width="60%">
           					<font color="red"><c:out value="${status.errorMessage}"/></font>
@@ -38,7 +38,7 @@
         			<td alignment="right" width="10%">E-Mail:</td>
       				<spring:bind path="deelnemerCommand.email">
         				<td width="20%">
-          					<input type="text" name="email" value="<c:out value="${status.value}"/>"/>
+          					<input size="30%" type="text" name="email" value="<c:out value="${status.value}"/>"/>
         				</td>
         				<td width="60%">
           					<font color="red"><c:out value="${status.errorMessage}"/></font>
@@ -49,7 +49,7 @@
         			<td alignment="right" width="10%">Rekeningnummer:</td>
       				<spring:bind path="deelnemerCommand.rekeningnummer">
         				<td width="20%">
-          					<input type="text" name="rekeningnummer" value="<c:out value="${status.value}"/>"/>
+          					<input size="30%" type="text" name="rekeningnummer" value="<c:out value="${status.value}"/>"/>
         				</td>
         				<td width="60%">
           					<font color="red"><c:out value="${status.errorMessage}"/></font>

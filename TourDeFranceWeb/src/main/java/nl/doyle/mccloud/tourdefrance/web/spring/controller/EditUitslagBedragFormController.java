@@ -53,7 +53,9 @@ public class EditUitslagBedragFormController extends SimpleFormController {
 		saveUitslagBedragen(uitslagBedrag.getGeleTruiEind(), Categorien.GeleTruiEind);
 		saveUitslagBedragen(uitslagBedrag.getGroeneTruiEind(), Categorien.GroeneTruiEind);
 		saveUitslagBedragen(uitslagBedrag.getBolletjesTruiEind(), Categorien.BolletjesTruiEind);
-		
+		saveUitslagBedragen(uitslagBedrag.getWitteTruiEind(), Categorien.WitteTruiEind);
+		saveUitslagBedragen(uitslagBedrag.getRodeLantarenEind(), Categorien.RodeLantarenEind);
+		saveUitslagBedragen(uitslagBedrag.getEersteUitvallerEind(), Categorien.EersteUitvallerEind);
 		
 		return new ModelAndView(new RedirectView(getSuccessView()));
 	}
@@ -101,7 +103,10 @@ public class EditUitslagBedragFormController extends SimpleFormController {
 																		config.getAantalEtappeBolletjesTruiUitslagen(),
 																		config.getAantalEinduitslagGeleTruiUitslagen(),
 																		config.getAantalEinduitslagGroeneTruiUitslagen(),
-																		config.getAantalEinduitslagBolletjesTruiUitslagen());
+																		config.getAantalEinduitslagBolletjesTruiUitslagen(),
+																		config.getAantalEinduitslagWitteTrui(),
+																		config.getAantalEinduitslagRodeLantaren(),
+																		config.getAantalEinduitslagEersteUitvaller());
 		//loop door alle uitslagen heen en zet de waardes goed
 		for (UitslagBedrag nextUitslagBedrag: dbUitslagBedragen) {
 			switch (nextUitslagBedrag.getCategorie()) {
@@ -140,9 +145,21 @@ public class EditUitslagBedragFormController extends SimpleFormController {
 					uitslagBedrag.getBolletjesTruiEind()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
 				}
 				break;
+			case WitteTruiEind:
+				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getWitteTruiEind().length) {
+					uitslagBedrag.getWitteTruiEind()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
+				}
+				break;
+			case RodeLantarenEind:
+				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getRodeLantarenEind().length) {
+					uitslagBedrag.getRodeLantarenEind()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
+				}
+				break;
+			case EersteUitvallerEind:
+				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getEersteUitvallerEind().length) {
+					uitslagBedrag.getEersteUitvallerEind()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
+				}
 			}
-			
-			
 		}
 		return uitslagBedrag;
 	}

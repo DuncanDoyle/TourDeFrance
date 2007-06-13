@@ -29,7 +29,7 @@
 			if (pageEtappeType == EtappeType.Etappe) {
 			%>
 				<h3>Etappe Uitslag</h3>
-				<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="5">
+				<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
 					<c:forEach var="counter" begin="0" end="${fn:length(etappeUitslagCommand.uitslag) - 1}">
 						<tr>
 		      				<td alignment="right" width="10%">${counter+1}e plaats:</td>
@@ -53,7 +53,7 @@
 	      		</table>
 	      	<%}%>
 			<h3>Geletrui Uitslag</h3>
-			<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="5">
+			<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
 				<c:forEach var="counter" begin="0" end="${fn:length(etappeUitslagCommand.geleTruiUitslag) - 1}">
 					<tr>
 	      				<td alignment="right" width="10%">${counter+1}e plaats:</td>
@@ -76,7 +76,7 @@
 	      		</c:forEach>
 	      	</table>
 			<h3>Groenetrui Uitslag</h3>
-			<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="5">
+			<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
 				<c:forEach var="counter" begin="0" end="${fn:length(etappeUitslagCommand.groeneTruiUitslag) - 1}">
 					<tr>
 	      				<td alignment="right" width="10%">${counter+1}e plaats:</td>
@@ -99,7 +99,7 @@
 	      		</c:forEach>
 	      	</table>
 			<h3>Bolletjestrui Uitslag</h3>
-			<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="5">
+			<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
 				<c:forEach var="counter" begin="0" end="${fn:length(etappeUitslagCommand.bolletjesTruiUitslag) - 1}">
 					<tr>
 	      				<td alignment="right" width="10%">${counter+1}e plaats:</td>
@@ -126,7 +126,7 @@
 			%>
 			<!-- witteTrui -->
 			<h3>Wittetrui</h3>
-			<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="5">
+			<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
 				<tr>
       				<td alignment="right" width="10%">1e plaats:</td>
       					<spring:bind path="etappeUitslagCommand.witteTrui">
@@ -148,7 +148,7 @@
 	      	</table>
 	      	<!--  Rode Lantaren -->
 	      	<h3>Rode Lantaren</h3>
-			<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="5">
+			<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
 				<tr>
       				<td alignment="right" width="10%">1e plaats:</td>
       					<spring:bind path="etappeUitslagCommand.rodeLantaren">
@@ -170,7 +170,7 @@
 	      	</table>
 	      	<!-- Eerste Uitvaller -->
 	      	<h3>Eerste Uitvaller</h3>
-	      	<table width="95%" bgcolor="f8f8ff" border="0" cellspacing="0" cellpadding="5">
+	      	<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
 				<tr>
       				<td alignment="right" width="10%">1e plaats:</td>
       					<spring:bind path="etappeUitslagCommand.eersteUitvaller">
