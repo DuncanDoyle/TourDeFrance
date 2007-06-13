@@ -115,6 +115,30 @@
 		</property>
 	</bean>
 	
+	<bean id="calculator" class="nl.doyle.mccloud.tourdefrance.calculator.CalculatorImpl">
+		<property name="deelnemerDao">
+			<ref local="deelnemerDao"/>
+		</property>
+		<property name="eindUitslagDao">
+			<ref local="eindUitslagDao"/>
+		</property>
+		<property name="ploegenTijdritDao">
+			<ref local="ploegenTijdritDao"/>
+		</property>
+		<property name="standaardEtappeDao">
+			<ref local="standaardEtappeDao"/>
+		</property>
+		<property name="uitslagBedragDao">
+			<ref local="uitslagBedragDao"/>
+		</property>
+		<property name="tourFacade">
+			<ref bean="tourFacade"/>
+		</property>
+		<property name="tourConfig">
+			<ref local="tourConfiguration"/>
+		</property>
+	</bean>
+	
 	<bean id="dozerMapperIF" class="net.sf.dozer.util.mapping.DozerBeanMapper">
   		<property name="mappingFiles">
     		<list>
@@ -244,6 +268,8 @@
 	    	expression="execution(* nl.doyle.mccloud.tourdefrance.setup.GameSetupControllerImpl.generateDeelnemerTeams(..))"/>
 	    <aop:pointcut id="gameSetupInitializeGame" 
 	    	expression="execution(* nl.doyle.mccloud.tourdefrance.setup.GameSetupControllerImpl.initializeGame(..))"/>
+	    <aop:pointcut id="calculatorPointcut"
+	    	expression="execution(* nl.doyle.mccloud.tourdefrance.calculator.CalculatorImpl.*(..))"/>
 	    	
         <aop:advisor pointcut-ref="hibernateDeelnemerTransactions" advice-ref="hibernateTxAdvice"/>
         <aop:advisor pointcut-ref="hibernateStandaardEtappeTransactions" advice-ref="hibernateTxAdvice"/>
@@ -253,7 +279,13 @@
 		<aop:advisor pointcut-ref="setupDaoTransactions" advice-ref="setupDaoHibernateTxAdvice"/>
 		<aop:advisor pointcut-ref="gameSetupGenerateTeams" advice-ref="gameSetupHibernateTxAdvice"/>
 		<aop:advisor pointcut-ref="gameSetupInitializeGame" advice-ref="gameSetupHibernateTxAdvice"/>
+		
+		<aop:aspect id="jamonPerformanceAspect" ref="jamonPerformanceAop" >
+			<aop:around method="doJamonPerformanceLogging" pointcut-ref="calculatorPointcut"/>
+		</aop:aspect>
 	</aop:config>
+	
+	
     
     <!-- Transaction config in Spring 2.0 -->
  	<tx:advice id="hibernateTxAdvice" transaction-manager="tourHibernateTransactionManager">

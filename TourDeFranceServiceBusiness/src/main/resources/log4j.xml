@@ -33,27 +33,27 @@
 	<appender-ref ref="console"/>
   </category>
   <category name="org.hibernate">
-  	<priority value="DEBUG"/>
+  	<priority value="WARN"/>
   	<appender-ref ref="file"/>
   	<appender-ref ref="console"/>
   </category>
   <category name="org.springframework">
-  	<priority value="DEBUG"/>
+  	<priority value="WARN"/>
   	<appender-ref ref="file"/>
   	<appender-ref ref="console"/>
   </category>
   <category name="org.acegisecurity">
-  	<priority value="DEBUG"/>
+  	<priority value="WARN"/>
   	<appender-ref ref="file"/>
   	<appender-ref ref="console"/>
   </category>
   <category name="org.displaytag">
-  	<priority value="INFO"/>
+  	<priority value="WARN"/>
   	<appender-ref ref="file"/>
   	<appender-ref ref="console"/>
   </category>
   <category name="nl.doyle.mccloud">
-  	<priority value="DEBUG"/>
+  	<priority value="INFO"/>
   	<appender-ref ref="file"/>
   	<appender-ref ref="console"/>
   </category>
