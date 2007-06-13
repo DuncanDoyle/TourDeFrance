@@ -7,7 +7,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class UitslagBedrag implements Serializable {
 
-	public enum Categorien{Etappe,GeleTrui,GroeneTrui,BolletjesTrui,GeleTruiEind, GroeneTruiEind, BolletjesTruiEind};
+	public enum Categorien{Etappe,GeleTrui,GroeneTrui,BolletjesTrui,GeleTruiEind, GroeneTruiEind, BolletjesTruiEind, WitteTruiEind, RodeLantarenEind, EersteUitvallerEind};
 	private static final Log logger = LogFactory.getLog(UitslagBedrag.class);
 	
 	private Categorien categorie;

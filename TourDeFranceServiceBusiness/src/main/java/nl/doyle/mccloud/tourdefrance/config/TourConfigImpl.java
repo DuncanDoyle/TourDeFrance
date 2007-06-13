@@ -72,6 +72,31 @@ public class TourConfigImpl implements TourConfig {
 		return config.getInt("etappe.uitslag");
 	}
 
+	/* (non-Javadoc)
+	 * @see nl.doyle.mccloud.tourdefrance.config.TourConfig#getAantalEinduitslagEersteUitvaller()
+	 */
+	public int getAantalEinduitslagEersteUitvaller() {
+		return config.getInt("einduitslag.eersteuitvaller");
+	}
+
+	/* (non-Javadoc)
+	 * @see nl.doyle.mccloud.tourdefrance.config.TourConfig#getAantalEinduitslagRodeLantaren()
+	 */
+	public int getAantalEinduitslagRodeLantaren() {
+		return config.getInt("einduitslag.rodelantaren");
+	}
+
+
+
+	/* (non-Javadoc)
+	 * @see nl.doyle.mccloud.tourdefrance.config.TourConfig#getAantalEinduitslagWitteTrui()
+	 */
+	public int getAantalEinduitslagWitteTrui() {
+		return config.getInt("einduitslag.wittetrui");
+	}
+	
+	
+	
 	/**
 	 * @return the config
 	 */
@@ -85,6 +110,9 @@ public class TourConfigImpl implements TourConfig {
 	public void setConfig(Configuration config) {
 		this.config = config;
 	}
+
+
+
 	
 	
 	
