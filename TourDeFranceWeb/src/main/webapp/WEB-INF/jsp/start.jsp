@@ -32,6 +32,9 @@
 <a href="editUitslagBedrag.htm">Edit Bedragen</a>
 <br/>
 <br/>
+<a href="listGewonnenBedragen.htm?etappe=1">List Gewonnen Bedragen</a>
+<br/>
+<br/>
 <a href="adminPage.htm">Admin Page</a>
 <br/>
 <br/>

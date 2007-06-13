@@ -9,8 +9,7 @@
 		<script src="<%=request.getContextPath()%>/js/RowHandlers.js" language="javascript" type="text/javascript" /></script>
 		<title>Etappes</title>
 	</head>
-	<body class="listEtappes
-	Body" onload="addRowHandlers('etappesTable', 'rowMouseOver', 'editEtappe.htm', 'etappe', 0)">
+	<body class="listEtappesBody" onload="addRowHandlers('etappesTable', 'rowMouseOver', 'editEtappe.htm', 'etappe', 0)">
 		<h2>Etappes</h2>
 		<display:table id="etappesTable" name="model.etappes" class="listTable etappesTable" requestURI="listEtappes.htm" sort="list" defaultsort="1">
 			<display:column property="etappenummer" class="nummerColumn" title="Etappe Nummer" sortable="true"/>

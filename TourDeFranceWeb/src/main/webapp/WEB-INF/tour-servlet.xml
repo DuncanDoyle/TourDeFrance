@@ -63,6 +63,12 @@
 			<ref bean="stadDao"/>
 		</property>
 	</bean>
+	<bean id="listGewonnenBedragenController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.ListGewonnenBedragenController">
+		<property name="tourCalculator">
+			<ref bean="calculator"/>
+		</property>
+	</bean>
+	
 	<bean id="showAdminPage" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.ShowAdminPage"/>
 	<bean id="generateTeamsController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.GenerateTeamsController">
 		<property name="gameSetupController">
@@ -211,6 +217,7 @@
             	<prop key="/initializeGame.htm">initializeGameForm</prop>
             	<prop key="/generateTeams.htm">generateTeamsController</prop>
             	<prop key="/generateTestData.htm">generateTestDataController</prop>
+            	<prop key="/listGewonnenBedragen.htm">listGewonnenBedragenController</prop>
             </props>
         </property>
     </bean>
