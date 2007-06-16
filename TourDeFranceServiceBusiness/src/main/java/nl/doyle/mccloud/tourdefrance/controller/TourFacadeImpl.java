@@ -3,16 +3,14 @@ package nl.doyle.mccloud.tourdefrance.controller;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 
-import net.sf.dozer.util.mapping.MapperIF;
 import nl.doyle.mccloud.tourdefrance.dao.DeelnemerDao;
 import nl.doyle.mccloud.tourdefrance.dao.EindUitslagDao;
 import nl.doyle.mccloud.tourdefrance.dao.PloegenTijdritDao;
 import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
-import nl.doyle.mccloud.tourdefrance.dto.DeelnemerRennerDto;
+import nl.doyle.mccloud.tourdefrance.dto.DeelnemerWithRennersDto;
+import nl.doyle.mccloud.tourdefrance.dto.RennerDto;
 import nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Deelnemer;
 import nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag;
@@ -31,7 +29,8 @@ public class TourFacadeImpl implements TourFacade {
 	private StandaardEtappeDao standaardEtappeDao;
 	private PloegenTijdritDao ploegenTijdritDao;
 	private EindUitslagDao eindUitslagDao;
-	private MapperIF mapper;	
+	
+	
 	public TourFacadeImpl() {
 	}
 	
@@ -41,18 +40,62 @@ public class TourFacadeImpl implements TourFacade {
 	 * 
 	 * @return De deelnemers met hun renners
 	 */
-	public List<DeelnemerRennerDto> getAllDeelnemersAndRenners() {
+	public List<DeelnemerWithRennersDto> getAllDeelnemersAndRenners() {
 		//Laadt alle deelnemers Eager uit de database
 		List<Deelnemer> deelnemers = deelnemerDao.loadAllDeelnemersEager();
 		
-		List<DeelnemerRennerDto> deelnemerAndRenners = null;
-		List<DeelnemerRennerDto> allDeelnemersAndRenners = new ArrayList<DeelnemerRennerDto>();
+		List<DeelnemerWithRennersDto> allDeelnemersAndRenners = new ArrayList<DeelnemerWithRennersDto>();
 		for(Deelnemer nextDeelnemer: deelnemers) {
-			deelnemerAndRenners = (List<DeelnemerRennerDto>) mapper.map(nextDeelnemer, java.util.List.class);
-			allDeelnemersAndRenners.addAll(deelnemerAndRenners);
+			DeelnemerWithRennersDto deelnemer = new DeelnemerWithRennersDto();
+			deelnemer.setNummer(nextDeelnemer.getNummer());
+			deelnemer.setAchternaam(nextDeelnemer.getAchternaam());
+			deelnemer.setVoornaam(nextDeelnemer.getVoornaam());
+			deelnemer.setEmail(nextDeelnemer.getEmail());
+			deelnemer.setRekeningnummer(nextDeelnemer.getRekeningnummer());
+			deelnemer.setRenners(new TreeSet<RennerDto>(new RennerComparator()));
+			//Nu renners in DTO kopieren
+			for (Renner nextRenner: nextDeelnemer.getRenners()) {
+				RennerDto renner = new RennerDto();
+				renner.setNummer(nextRenner.getNummer());
+				renner.setAchternaam(nextRenner.getAchternaam());
+				renner.setVoornaam(nextRenner.getVoornaam());
+				deelnemer.getRenners().add(renner);
+			}
+			
+			//deelnemerAndRenners = (List<DeelnemerWithRennersDto>) mapper.map(nextDeelnemer, java.util.List.class);
+			allDeelnemersAndRenners.add(deelnemer);
 		}
 		return allDeelnemersAndRenners;
 	}
+	
+	private class RennerComparator implements Comparator {
+
+		public int compare(Object o1, Object o2) {
+			int comparison = 0;
+			
+			if (o1 instanceof RennerDto && o2 instanceof RennerDto) {
+				//Als 1 van de twee een kopman is dan is dat altijd de kleinste
+				if (((RennerDto) o1).getNummer() % 10 == 1) {
+					comparison = -1;
+				} else if (((RennerDto) o2).getNummer() % 10 == 1 ) {
+					comparison = 1;
+				} else if (((RennerDto) o1).getNummer() >  ((RennerDto)o2).getNummer()) {
+					comparison = 1;
+				} else if (((RennerDto) o1).getNummer() <  ((RennerDto)o2).getNummer()) {
+					comparison = -1;
+				}
+			} else {
+				throw new ClassCastException("Objects not of the correct type and can't be compared.");
+			}
+			
+			
+			return comparison;
+		}
+		
+		
+		
+	}
+	
 	
 	/**
 	 * Geeft de opgevraagde etappe terug inclusief uitslag(en) en start- en finishplaats.
@@ -114,23 +157,6 @@ public class TourFacadeImpl implements TourFacade {
 	public void setDeelnemerDao(DeelnemerDao deelnemerDao) {
 		this.deelnemerDao = deelnemerDao;
 	}
-
-
-	/**
-	 * @return the mapper
-	 */
-	public MapperIF getMapper() {
-		return mapper;
-	}
-
-
-	/**
-	 * @param mapper the mapper to set
-	 */
-	public void setMapper(MapperIF mapper) {
-		this.mapper = mapper;
-	}
-
 
 	/**
 	 * @return the ploegenTijdritDao

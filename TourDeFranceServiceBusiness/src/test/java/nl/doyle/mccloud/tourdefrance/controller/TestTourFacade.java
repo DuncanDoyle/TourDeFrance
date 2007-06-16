@@ -3,7 +3,7 @@ package nl.doyle.mccloud.tourdefrance.controller;
 import java.util.Iterator;
 import java.util.List;
 
-import nl.doyle.mccloud.tourdefrance.dto.DeelnemerRennerDto;
+import nl.doyle.mccloud.tourdefrance.dto.DeelnemerWithRennersDto;
 import nl.doyle.mccloud.tourdefrance.test.setup.SetupTestContoller;
 
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
@@ -27,9 +27,9 @@ public class TestTourFacade extends
 	}
 	
 	public void testGetAllDeelnemersAndRenners() {
-		List<DeelnemerRennerDto> deelnemersAndRenners = tourFacade.getAllDeelnemersAndRenners();
+		List<DeelnemerWithRennersDto> deelnemersAndRenners = tourFacade.getAllDeelnemersAndRenners();
 		
-		Iterator<DeelnemerRennerDto> iterate = deelnemersAndRenners.iterator();
+		Iterator<DeelnemerWithRennersDto> iterate = deelnemersAndRenners.iterator();
 		assertEquals(true, iterate.hasNext());
 		while(iterate.hasNext()) {
 			System.out.println(iterate.next().toString());

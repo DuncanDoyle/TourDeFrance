@@ -1,11 +1,11 @@
 package nl.doyle.mccloud.tourdefrance.valueobjects;
 
-import java.util.Date;
 import java.util.Set;
 
 public abstract class AbstractEtappeAndEindUitslag {
 
 	private int etappenummer;
+	private String omschrijving;
 	private Set<GeleTruiUitslag> geleTruiUitslag;
 	private Set<GroeneTruiUitslag> groeneTruiUitslag;
 	private Set<BolletjesTruiUitslag> bolletjesTruiUitslag;
@@ -61,5 +61,19 @@ public abstract class AbstractEtappeAndEindUitslag {
 	public void setGroeneTruiUitslag(Set<GroeneTruiUitslag> groeneTruiUitslag) {
 		this.groeneTruiUitslag = groeneTruiUitslag;
 	}
+	/**
+	 * @return the omschrijving
+	 */
+	public String getOmschrijving() {
+		return omschrijving;
+	}
+	/**
+	 * @param omschrijving the omschrijving to set
+	 */
+	public void setOmschrijving(String omschrijving) {
+		this.omschrijving = omschrijving;
+	}
+
+	
 	
 }

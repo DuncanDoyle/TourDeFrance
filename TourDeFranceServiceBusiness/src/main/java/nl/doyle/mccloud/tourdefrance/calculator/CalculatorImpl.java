@@ -14,6 +14,7 @@ import nl.doyle.mccloud.tourdefrance.dao.PloegenTijdritDao;
 import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
 import nl.doyle.mccloud.tourdefrance.dao.UitslagBedragDao;
 import nl.doyle.mccloud.tourdefrance.dto.DeelnemerBedragDto;
+import nl.doyle.mccloud.tourdefrance.dto.DeelnemerDto;
 import nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Deelnemer;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
@@ -101,7 +102,8 @@ public class CalculatorImpl implements Calculator {
 						if (nextEtappe instanceof StandaardEtappe) {
 							positie = getPositieInUitslag(((StandaardEtappe)nextEtappe).getEtappeUitslag(), nextRenner);
 							if (positie != 0) {
-								deelnemerBedragEtappe = deelnemerBedragEtappe + etappeUitslagBedrag[positie - 1];
+								double uitslagBedrag = etappeUitslagBedrag[positie - 1];
+								deelnemerBedragEtappe = deelnemerBedragEtappe + uitslagBedrag;
 							}
 						}
 					}
@@ -126,9 +128,13 @@ public class CalculatorImpl implements Calculator {
 		int bedragenArrayTeller = 0;
 		for (Deelnemer nextDeelnemer: deelnemers) {
 			DeelnemerBedragDto deelnemerBedrag = new DeelnemerBedragDto();
-			deelnemerBedrag.setNummer(nextDeelnemer.getNummer());
-			deelnemerBedrag.setAchternaam(nextDeelnemer.getAchternaam());
-			deelnemerBedrag.setVoornaam(nextDeelnemer.getVoornaam());
+			DeelnemerDto deelnemer = new DeelnemerDto();
+			deelnemer.setNummer(nextDeelnemer.getNummer());
+			deelnemer.setAchternaam(nextDeelnemer.getAchternaam());
+			deelnemer.setVoornaam(nextDeelnemer.getVoornaam());
+			deelnemer.setEmail(nextDeelnemer.getEmail());
+			deelnemer.setRekeningnummer(nextDeelnemer.getRekeningnummer());
+			deelnemerBedrag.setDeelnemer(deelnemer);
 			//Zet nu het gewonnen bedrag uit de hashmap bij het bedrag
 			deelnemerBedrag.setGewonnenBedrag(bedragenMap.get(nextDeelnemer.getNummer()));
 			deelnemersMetBedragen.add(deelnemerBedrag);
