@@ -18,6 +18,8 @@
 	<body>
 		Etappenummer: <c:out value="${etappeUitslagCommand.etappenummer }"/>
 		<br/>
+		Etappe: <c:out value="${etappeUitslagCommand.omschrijving}"/>
+		<br/>
 		Datum: <c:out value="${etappeUitslagCommand.datum}"/>
 		<br/>
 		Start: <c:out value="${etappeUitslagCommand.startPlaats.stad}"/>

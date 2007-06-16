@@ -22,6 +22,15 @@
 		</property>
 	</bean>
 -->
+
+	<bean id="dozerMapperIF" class="net.sf.dozer.util.mapping.DozerBeanMapper">
+  		<property name="mappingFiles">
+    		<list>
+     	 		<value>dozer/mappings.xml</value>
+    		</list>
+  		</property>
+	</bean>
+
 	<!-- Spring Controllers-->
     <bean id="springappController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.SpringappController"/>
 	<bean id="listRennersController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.ListRennersController">
@@ -35,6 +44,9 @@
 	<bean id="listRennersAndDeelnemersController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.ListRennersAndDeelnemersController">
 		<property name="tourFacade">
 			<ref bean="tourFacade"/>
+		</property>
+		<property name="mapper">
+			<ref local="dozerMapperIF"/>
 		</property>
 	</bean>
 	<bean id="listEtappeUitslagController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.ListEtappeUitslagController">

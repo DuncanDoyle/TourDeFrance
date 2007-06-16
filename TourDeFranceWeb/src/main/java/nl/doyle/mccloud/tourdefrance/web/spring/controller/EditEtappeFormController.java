@@ -55,6 +55,7 @@ public class EditEtappeFormController extends SimpleFormController {
 			//Alle validatie is al gedaan door de validator. Nu de etappe opslaan
 			EtappeCommand etappe = (EtappeCommand) command;
 			//Eerst verschillen bepalen tussen object uit DB en ingevulde waardes
+			dbEtappe.setOmschrijving(etappe.getOmschrijving());
 			dbEtappe.setDatum(etappe.getDatum());
 			//Itereer door de stedenlijst en zet de start en finishplaats.
 			List<Stad> steden = etappe.getSteden();
@@ -124,10 +125,15 @@ public class EditEtappeFormController extends SimpleFormController {
     	if (dbEtappe != null) {
     		etappe.setDatum(dbEtappe.getDatum());
     		etappe.setEtappenummer(dbEtappe.getEtappenummer());
+    		etappe.setOmschrijving(dbEtappe.getOmschrijving());
     		etappe.setSteden(stadDao.loadAllSteden());
     		//Bepaal nu index in de lijst van de startplaats van deze etappe
-    		etappe.setStartPlaatsIndex(dbEtappe.getStartplaats().getId());
-    		etappe.setFinishPlaatsIndex(dbEtappe.getFinishplaats().getId());
+    		if (dbEtappe.getStartplaats() != null) {
+    			etappe.setStartPlaatsIndex(dbEtappe.getStartplaats().getId());
+    		}
+    		if (dbEtappe.getFinishplaats() != null) {
+    			etappe.setFinishPlaatsIndex(dbEtappe.getFinishplaats().getId());
+    		}
     	} else {
     		throw new EditEtappeFormRequestException("Etappe niet gevonden in database.");
     	}

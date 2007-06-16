@@ -32,6 +32,7 @@ public class EtappeUitslagCommand {
 	private int eersteUitvaller;
 	
 	private int etappenummer;
+	private String omschrijving;
 	private Stad startPlaats;
 	private Stad finishPlaats;
 	private Date datum;
@@ -216,6 +217,18 @@ public class EtappeUitslagCommand {
 	 */
 	public void setWitteTrui(int witteTrui) {
 		this.witteTrui = witteTrui;
+	}
+	/**
+	 * @return the omschrijving
+	 */
+	public String getOmschrijving() {
+		return omschrijving;
+	}
+	/**
+	 * @param omschrijving the omschrijving to set
+	 */
+	public void setOmschrijving(String omschrijving) {
+		this.omschrijving = omschrijving;
 	}
 	
 	

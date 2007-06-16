@@ -17,7 +17,7 @@
 	</head>
 	<body class="listEtappeUitslag">
 		<h2>${model.uitslagmodel.typeEtappe}</h2>
-		Etappe Nummer: <c:out value="${model.uitslagmodel.etappe.etappenummer}"/>
+		Etappe: <c:out value="${model.uitslagmodel.etappe.omschrijving}"/>
 		<br/>
 		<%
 		if (!(pageEtappeType == EtappeType.EindUitslag)){ 

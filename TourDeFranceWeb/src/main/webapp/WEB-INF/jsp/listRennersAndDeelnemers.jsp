@@ -12,12 +12,12 @@
 	<body class="listRennersEnDeelnemersBody" onload="addRowHandlers('rennersAndDeelnemersTable', 'rowMouseOver', 'editRenner.htm', 'renner', 0)">
 		<h2>Renners & Deelnemers</h2>
 		<display:table id="rennersAndDeelnemersTable" name="model.rennersAndDeelnemers" class="listTable rennersEnDeelnemersTable" requestURI="listRennersAndDeelnemers.htm" sort="list" defaultsort="1">
-			<display:column property="rennerNummer" class="nummerColumn" title="Renner Nummer" sortable="true"/>
-  			<display:column property="rennerVoornaam" title="Renner Voornaam" sortable="true"/>
-  			<display:column property="rennerAchternaam" title="Renner Achternaam" sortable="true"/>
-  			<display:column property="deelnemerNummer" class="nummerColumn" title="Deelnemer Nummer" sortable="true"/>
-  			<display:column property="deelnemerVoornaam" title="Deelnemer Voornaam" sortable="true"/>
-  			<display:column property="deelnemerAchternaam" title="Deelnemer Achternaam" sortable="true"/>
+			<display:column property="renner.nummer" class="nummerColumn" title="Renner Nummer" sortable="true"/>
+  			<display:column property="renner.voornaam" title="Renner Voornaam" sortable="true"/>
+  			<display:column property="renner.achternaam" title="Renner Achternaam" sortable="true"/>
+  			<display:column property="deelnemer.nummer" class="nummerColumn" title="Deelnemer Nummer" sortable="true"/>
+  			<display:column property="deelnemer.voornaam" title="Deelnemer Voornaam" sortable="true"/>
+  			<display:column property="deelnemer.achternaam" title="Deelnemer Achternaam" sortable="true"/>
 		</display:table>
 	</body>
 </html>

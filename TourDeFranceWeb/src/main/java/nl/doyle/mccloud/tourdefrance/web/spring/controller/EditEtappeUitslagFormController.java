@@ -246,6 +246,7 @@ public class EditEtappeUitslagFormController extends SimpleFormController {
         	//Haal de renners op uit de DB
         	etappe.setRenners(rennerDao.loadAllRennersOrdered());
         	etappe.setEtappenummer(dbEtappe.getEtappenummer());
+        	etappe.setOmschrijving(dbEtappe.getOmschrijving());
     		//Zet nu de geleTruiUitslag rennernummers goed in het command object
     		etappe.setGeleTruiUitslag(setGeleTruiUitslag(etappe.getRenners(), dbEtappe.getGeleTruiUitslag(), etappe.getGeleTruiUitslag()));
     		etappe.setGroeneTruiUitslag(setGroeneTruiUitslag(etappe.getRenners(), dbEtappe.getGroeneTruiUitslag(), etappe.getGroeneTruiUitslag()));

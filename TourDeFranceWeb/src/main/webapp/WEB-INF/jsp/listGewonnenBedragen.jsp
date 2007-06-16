@@ -13,9 +13,9 @@
 	<body class="listDeelnemersAndBedragenBody" onload="addRowHandlers('deelnemersAndBedragenTable', 'rowMouseOver', 'editRenner.htm', 'renner', 0)">
 		<h2>Gewonnen Bedragen</h2>
 		<display:table id="deelnemersAndBedragen" name="model.deelnemersAndBedragen" class="listTable deelnemersAndBedragenTable" requestURI="listRennersAndDeelnemers.htm" sort="list" defaultsort="1">
-			<display:column property="nummer" class="nummerColumn" title="Renner Nummer" sortable="true"/>
-  			<display:column property="voornaam" title="Renner Voornaam" sortable="true"/>
-  			<display:column property="achternaam" title="Renner Achternaam" sortable="true"/>
+			<display:column property="deelnemer.nummer" class="nummerColumn" title="Renner Nummer" sortable="true"/>
+  			<display:column property="deelnemer.voornaam" title="Renner Voornaam" sortable="true"/>
+  			<display:column property="deelnemer.achternaam" title="Renner Achternaam" sortable="true"/>
   			<display:column property="gewonnenBedrag" title="Bedrag" sortable="true"/>
 		</display:table>
 	</body>

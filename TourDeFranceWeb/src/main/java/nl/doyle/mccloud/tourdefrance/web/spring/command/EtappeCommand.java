@@ -15,6 +15,7 @@ public class EtappeCommand {
 	private static final Log logger = LogFactory.getLog(EtappeCommand.class);
 	
 	private int etappenummer;
+	private String omschrijving;
 	private List<Stad> steden;
 	private int startPlaatsIndex;
 	private int finishPlaatsIndex;
@@ -98,4 +99,20 @@ public class EtappeCommand {
 	public void setSteden(List<Stad> steden) {
 		this.steden = steden;
 	}
+
+	/**
+	 * @return the omschrijving
+	 */
+	public String getOmschrijving() {
+		return omschrijving;
+	}
+
+	/**
+	 * @param omschrijving the omschrijving to set
+	 */
+	public void setOmschrijving(String omschrijving) {
+		this.omschrijving = omschrijving;
+	}
+	
+	
 }

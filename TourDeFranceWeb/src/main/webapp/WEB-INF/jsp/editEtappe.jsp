@@ -10,13 +10,14 @@
 	</head>
 	<body>
 		<h1>Edit Etappe</h1>
+		<h2>Etappenummer: <c:out value="${etappeCommand.etappenummer}"/></h2>
 		<form method="POST">
 			<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
 		    	<tr>
-      				<td alignment="right" width="10%">Etappenummer:</td>
-      				<spring:bind path="etappeCommand.etappenummer">
+      				<td alignment="right" width="10%">Omschrijving:</td>
+      				<spring:bind path="etappeCommand.omschrijving">
         				<td width="20%">
-          					<input type="text" name="etappenummer" value="<c:out value="${status.value}"/>"/>
+          					<input type="text" name="omschrijving" value="<c:out value="${status.value}"/>"/>
         				</td>
         				<td width="60%">
           					<font color="red"><c:out value="${status.errorMessage}"/></font>

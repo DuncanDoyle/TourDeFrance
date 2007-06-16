@@ -49,3 +49,10 @@ table.editTable {
 	background-color: #F8F8FF;
 }
 
+table.listTable td.hidden {
+	display:none;
+}
+
+table.listTable th.hidden {
+	display:none;
+}

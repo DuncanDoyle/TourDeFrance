@@ -1,15 +1,12 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import nl.doyle.mccloud.tourdefrance.calculator.Calculator;
-import nl.doyle.mccloud.tourdefrance.dto.DeelnemerBedragDto;
-import nl.doyle.mccloud.tourdefrance.dto.DeelnemerRennerDto;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
