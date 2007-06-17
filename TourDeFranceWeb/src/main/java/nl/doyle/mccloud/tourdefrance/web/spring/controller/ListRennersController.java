@@ -34,8 +34,6 @@ public class ListRennersController extends AbstractController {
 	
 	
 	/**
-	 * @author mccloud
-	 * 
 	 * Handelt het request van ListRenners  af. Deze methode haalt (indirect) de lijst
 	 * met alle Renners uit de DB en stopt deze in een model (d.m.v. een Hashmap).
 	 * Vervolgens wordt dit model met de viewnaam <i>listRenners</i> aan de
@@ -68,8 +66,6 @@ public class ListRennersController extends AbstractController {
 	
 	
 	/**
-	 * @author mccloud
-	 * 
 	 * Getter voor de Renners Dao
 	 * 
 	 * @return RennerDao
@@ -79,8 +75,6 @@ public class ListRennersController extends AbstractController {
 	}
 
 	/**
-	 * @author mccloud
-	 * 
 	 * Setter voor de Renner Dao
 	 * 
 	 * @param rennerDao

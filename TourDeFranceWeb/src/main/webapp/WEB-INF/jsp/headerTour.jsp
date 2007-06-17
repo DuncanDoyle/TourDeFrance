@@ -1,0 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+</head>
+<body>
+	<div id="breadcrumbs">
+      	<div class="xright">      
+           	<a href="j_acegi_logout"><strong>Logout</strong></a>
+		</div>
+      	<div class="clear">
+        	<hr/>
+      	</div>
+    </div>
+</body>
+</html>

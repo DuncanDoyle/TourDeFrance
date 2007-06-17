@@ -1,51 +1,20 @@
-<jsp:root version="1.2" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="urn:jsptld:http://java.sun.com/jstl/core">
-  <!-- <jsp:directive.page contentType="text/html; charset=UTF-8" /> -->
-  <jsp:text>
-    <![CDATA[<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">]]>
-  </jsp:text>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ include file="includeTags.jsp" %>
 
-  <jsp:text>
-    <![CDATA[<html xmlns="http://www.w3.org/1999/xhtml" lang="en">]]>
-  </jsp:text>
-
-  <head>
-  <title>The <![CDATA[&lt;display:*>]]> tag library</title>
-  <meta http-equiv="Expires" content="-1" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Cache-Control" content="no-cache" />
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  <style type="text/css" media="all">
-      @import url("css/maven-base.css");
-      @import url("css/maven-theme.css");
-      @import url("css/site.css");
-      @import url("css/screen.css");
-  </style>
-  <link rel="stylesheet" href="./css/print.css" type="text/css" media="print" />
-
-  </head>
-
-  <jsp:text>
-    <![CDATA[<body class="composite">]]>
-  </jsp:text>
-
-  <div id="banner"><a href="index.jsp" id="bannerRight"> <img
-    src="img/displaytag.png" alt="" /> </a>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<%@ include file="includeStyle.jsp" %>
+  		<script src="<%=request.getContextPath()%>/js/RowHandlers.js" language="javascript" type="text/javascript" /></script>
+		<title>List Deelnemers</title>
+	</head>
+  <body>
   <div class="clear">
   <hr />
   </div>
-  </div>
-  <div id="breadcrumbs">
-
-
-  <div class="xright">
-    <a href="http://displaytag.sf.net">Documentation</a> |
-    <a href="index.jsp">Examples</a>
-  </div>
-  <div class="clear">
-  <hr />
-  </div>
-  </div>
+  
   <div id="leftColumn">
   <div id="navcolumn">
   <h5>Examples</h5>
@@ -84,14 +53,5 @@
   </div>
   </div>
 
-  <jsp:scriptlet>if (request.getRequestURI().indexOf("example-") != -1) {</jsp:scriptlet>
-  <ul id="showsource">
-    <!-- <li><![CDATA[<a href="]]><c:out value="${pageContext.request.requestURI}" /><![CDATA[.source">View source</a>]]></li>  -->
-  </ul>
-  <jsp:scriptlet>}</jsp:scriptlet>
-  <jsp:text>
-    <![CDATA[<div id="bodyColumn">
-      <div id="contentBox">
-      <div class="section">]]>
-  </jsp:text>
-</jsp:root>
+ 
+ </html>

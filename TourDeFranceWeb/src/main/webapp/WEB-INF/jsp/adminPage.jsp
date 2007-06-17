@@ -10,16 +10,21 @@
 		<title>Admin Page</title>
 	</head>
 	<body>
-		<br/>
-		<br/>
-		<a href="initializeGame.htm">Initialize Game</a>
-		<br/>
-		<br/>
-		<a href="generateTeams.htm">Generate Teams</a>
-		<br/>		
-		<br/>
-		<a href="generateTestData.htm">Generate Test Data</a>
-		<br/>
-		<br/>
+		<c:import url="headerTour.jsp"/>
+		<c:import url="banner.jsp"/>
+		<c:import url="leftColumn.jsp"/>
+		<div id="bodyColumn">
+			<br/>
+			<br/>
+			<a href="initializeGame.htm">Initialize Game</a>
+			<br/>
+			<br/>
+			<a href="generateTeams.htm">Generate Teams</a>
+			<br/>		
+			<br/>
+			<a href="generateTestData.htm">Generate Test Data</a>
+			<br/>
+			<br/>
+		</div>
 	</body>
 </html>

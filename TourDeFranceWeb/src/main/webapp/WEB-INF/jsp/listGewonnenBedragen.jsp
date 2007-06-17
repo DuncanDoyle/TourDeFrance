@@ -10,13 +10,18 @@
 		<title>Gewonnen bedragen na etappe: <c:out value="${model.etappenummer}"/></title>
 	</head>
 	
-	<body class="listDeelnemersAndBedragenBody" onload="addRowHandlers('deelnemersAndBedragenTable', 'rowMouseOver', 'editRenner.htm', 'renner', 0)">
-		<h2>Gewonnen Bedragen</h2>
-		<display:table id="deelnemersAndBedragen" name="model.deelnemersAndBedragen" class="listTable deelnemersAndBedragenTable" requestURI="listRennersAndDeelnemers.htm" sort="list" defaultsort="1">
-			<display:column property="deelnemer.nummer" class="nummerColumn" title="Renner Nummer" sortable="true"/>
-  			<display:column property="deelnemer.voornaam" title="Renner Voornaam" sortable="true"/>
-  			<display:column property="deelnemer.achternaam" title="Renner Achternaam" sortable="true"/>
-  			<display:column property="gewonnenBedrag" title="Bedrag" sortable="true"/>
-		</display:table>
+	<body class="listDeelnemersAndBedragenBody" onload="addMouseOverHighlight('deelnemersAndBedragen', 'rowMouseOver')">
+		<c:import url="headerTour.jsp"/>
+		<c:import url="banner.jsp"/>
+		<c:import url="leftColumn.jsp"/>
+		<div id="bodyColumn">
+			<h2>Gewonnen Bedragen</h2>
+			<display:table id="deelnemersAndBedragen" name="model.deelnemersAndBedragen" class="listTable deelnemersAndBedragenTable" requestURI="listRennersAndDeelnemers.htm" sort="list" defaultsort="1">
+				<display:column property="deelnemer.nummer" class="nummerColumn" title="Deelnemernummer" sortable="true"/>
+	  			<display:column property="deelnemer.voornaam" title="Deelnemer Voornaam" sortable="true"/>
+	  			<display:column property="deelnemer.achternaam" title="Deelnemer Achternaam" sortable="true"/>
+	  			<display:column property="gewonnenBedrag" title="Bedrag t/m etappe ${model.etappenummer}" sortable="true"/>
+			</display:table>
+		</div>
 	</body>
 </html>

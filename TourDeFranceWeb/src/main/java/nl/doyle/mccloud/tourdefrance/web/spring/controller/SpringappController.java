@@ -23,6 +23,6 @@ public class SpringappController implements Controller {
     	String now = (new java.util.Date()).toString(); 
         logger.info("returning hello view with " + now);
 
-        return new ModelAndView("start", "now", now);
+        return new ModelAndView("index", "now", now);
     }
 }

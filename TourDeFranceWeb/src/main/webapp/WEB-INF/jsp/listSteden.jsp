@@ -10,14 +10,19 @@
 		<title>List Steden</title>
 	</head>
 	<body class="listStedenBody" onload="addRowHandlers('stedenTable', 'rowMouseOver', 'editStad.htm', 'stadId', 0)">
-		<h2>Etappes</h2>
-		<display:table id="stedenTable" name="model.steden" class="listTable stedenTable" requestURI="listSteden.htm" sort="list" defaultsort="1">
-			<display:column property="id" class="nummerColumn" title="Stad ID" sortable="true"/>
-  			<display:column property="stad" title="Stad" sortable="true"/>
-  			<display:column property="land" title="Land" sortable="true"/>
-  			<display:column property="longitude" title="Longitude" sortable="true"/>
-  			<display:column property="latitude" title="Latitude" sortable="true"/>
-		</display:table>
-		<a href="nieuweStad.htm"/>Nieuwe Stad</a>
+		<c:import url="headerTour.jsp"/>
+		<c:import url="banner.jsp"/>
+		<c:import url="leftColumn.jsp"/>
+		<div id="bodyColumn">
+			<h2>Steden</h2>
+			<display:table id="stedenTable" name="model.steden" class="listTable stedenTable" requestURI="listSteden.htm" sort="list" defaultsort="1">
+				<display:column property="id" class="nummerColumn" title="Stad ID" sortable="true"/>
+	  			<display:column property="stad" title="Stad" sortable="true"/>
+	  			<display:column property="land" title="Land" sortable="true"/>
+	  			<display:column property="longitude" title="Longitude" sortable="true"/>
+	  			<display:column property="latitude" title="Latitude" sortable="true"/>
+			</display:table>
+			<a href="nieuweStad.htm"/>Nieuwe Stad</a>
+		</div>
 	</body>
 </html>

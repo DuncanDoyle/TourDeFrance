@@ -33,6 +33,9 @@ div.clear hr{
 #bannerLeft img, #bannerRight img {
   margin: 0px;
 }
+#bannerCenter {
+	margin: auto 0 auto;
+}
 .xleft, #bannerLeft img {
   float:left;
   text-shadow: #7CFC00;
@@ -42,6 +45,7 @@ div.clear hr{
   text-shadow: #7CFC00;
 }
 #banner {
+	
   padding: 0px;
 }
 #banner img {
@@ -51,11 +55,13 @@ div.clear hr{
   padding: 3px 10px 3px 10px;
 }
 #leftColumn {
- width: 170px;
+ width: 241px;
+ height: 992px;
  float:left;
  overflow: auto;
 }
 #bodyColumn {
+  text-align: center;
   margin-right: 1.5em;
   margin-left: 197px;
 }
@@ -73,11 +79,10 @@ div.clear hr{
 #navcolumn ul {
   margin: 0;
   padding: 0;
-  font-size: small;
+  font-size: 14px;
 }
 #navcolumn li {
   list-style-type: none;
-  background-image: none;
   background-repeat: no-repeat;
   background-position: 0 0.4em;
   padding-left: 16px;

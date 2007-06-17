@@ -9,15 +9,20 @@
   		<script src="<%=request.getContextPath()%>/js/RowHandlers.js" language="javascript" type="text/javascript" /></script>
 		<title>Renners & Deelnemers</title>
 	</head>
-	<body class="listRennersEnDeelnemersBody" onload="addRowHandlers('rennersAndDeelnemersTable', 'rowMouseOver', 'editRenner.htm', 'renner', 0)">
-		<h2>Renners & Deelnemers</h2>
-		<display:table id="rennersAndDeelnemersTable" name="model.rennersAndDeelnemers" class="listTable rennersEnDeelnemersTable" requestURI="listRennersAndDeelnemers.htm" sort="list" defaultsort="1">
-			<display:column property="renner.nummer" class="nummerColumn" title="Renner Nummer" sortable="true"/>
-  			<display:column property="renner.voornaam" title="Renner Voornaam" sortable="true"/>
-  			<display:column property="renner.achternaam" title="Renner Achternaam" sortable="true"/>
-  			<display:column property="deelnemer.nummer" class="nummerColumn" title="Deelnemer Nummer" sortable="true"/>
-  			<display:column property="deelnemer.voornaam" title="Deelnemer Voornaam" sortable="true"/>
-  			<display:column property="deelnemer.achternaam" title="Deelnemer Achternaam" sortable="true"/>
-		</display:table>
+	<body class="listRennersEnDeelnemersBody" onload="addMouseOverHighlight('rennersAndDeelnemersTable', 'rowMouseOver')">
+		<c:import url="headerTour.jsp"/>
+		<c:import url="banner.jsp"/>
+		<c:import url="leftColumn.jsp"/>
+		<div id="bodyColumn">
+			<h2>Ploegen</h2>
+			<display:table id="rennersAndDeelnemersTable" name="model.rennersAndDeelnemers" class="listTable rennersEnDeelnemersTable" requestURI="listRennersAndDeelnemers.htm" sort="list" defaultsort="1">
+				<display:column property="renner.nummer" class="nummerColumn" title="Renner Nummer" sortable="true"/>
+	  			<display:column property="renner.voornaam" title="Renner Voornaam" sortable="true"/>
+	  			<display:column property="renner.achternaam" title="Renner Achternaam" sortable="true"/>
+	  			<display:column property="deelnemer.nummer" class="nummerColumn" title="Deelnemer Nummer" sortable="true"/>
+	  			<display:column property="deelnemer.voornaam" title="Deelnemer Voornaam" sortable="true"/>
+	  			<display:column property="deelnemer.achternaam" title="Deelnemer Achternaam" sortable="true"/>
+			</display:table>
+		</div>
 	</body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ include file="includeTags.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -9,6 +10,9 @@
 		<title>Etappe Details</title>
 	</head>
 	<body onload="showMap();" onunload="GUnload()">
+		<c:import url="headerTour.jsp"/>
+		<c:import url="banner.jsp"/>
+		<c:import url="leftColumn.jsp"/>
 		<div id="map" style="width: 1000px; height: 600px;margin: 50px auto"></div>
 		<!--
 		Stukje code. Lijkt erop dat je met kmz en kml bestanden overlays kan toevoegen aan geintegreerde Google Maps.

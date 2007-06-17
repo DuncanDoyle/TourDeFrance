@@ -4,8 +4,8 @@ table.listTable tr.rowMouseOver {
 	background-color: #00FFFF;
 }
 
-body {
-	text-align: center;
+body.bodyTextCentered {
+	text-align: center;	
 }
 
 table.listTable {
@@ -49,10 +49,25 @@ table.editTable {
 	background-color: #F8F8FF;
 }
 
+table.loginTable {
+	width: 20%;
+	border: 10;
+	cellspacing: 0;
+	cellpadding: 5;
+	text-align: center; 
+	margin: 0 auto !important;
+	background-color: #F8F8FF;
+}
+
 table.listTable td.hidden {
 	display:none;
 }
 
 table.listTable th.hidden {
 	display:none;
+}
+
+
+table.loginTable td.td_centered {
+	text-align:right;
 }

@@ -10,14 +10,24 @@
   		<script src="<%=request.getContextPath()%>/js/RowHandlers.js" language="javascript" type="text/javascript" /></script>
 		<title>List Deelnemers</title>
 	</head>
-	<body class="listDeelnemersBody" onload="addRowHandlers('deelnemersTable', 'rowMouseOver', 'editDeelnemer.htm', 'deelnemer', 0)">
-		<h2>Deelnemers</h2>
-		<display:table id="deelnemersTable" name="model.deelnemers" class="listTable deelnemersTable" requestURI="listDeelnemers.htm" sort="list" defaultsort="1">
-			<display:column property="nummer" class="nummerColumn" title="Deelnemernummer" sortable="true"/>
-  			<display:column property="voornaam" title="Voornaam" sortable="true"/>
-  			<display:column property="achternaam" class="achternaamColumn" title="Achternaam" sortable="true"/>
-  			<display:column property="email" title="E-Mail" sortable="true"/>
-  			<display:column property="rekeningnummer" class="rekeningnummerColumn" title="Rekeningnummer" sortable="true"/>
-		</display:table>
+	<authz:authorize ifAllGranted="ROLE_ADMIN">
+		<body class="listDeelnemersBody composite" onload="addRowHandlers('deelnemersTable', 'rowMouseOver', 'editDeelnemer.htm', 'deelnemer', 0)">
+	</authz:authorize>
+	<authz:authorize ifNotGranted="ROLE_ADMIN">
+		<body class="listDeelnemersBody" onload="addMouseOverHighlight('deelnemersTable', 'rowMouseOver')">
+	</authz:authorize>
+		<c:import url="headerTour.jsp"/>
+		<c:import url="banner.jsp"/>
+		<c:import url="leftColumn.jsp"/>
+		<div id="bodyColumn">
+			<h2>Deelnemers</h2>
+			<display:table id="deelnemersTable" name="model.deelnemers" class="listTable deelnemersTable" requestURI="listDeelnemers.htm" sort="list" defaultsort="1">
+				<display:column property="nummer" class="nummerColumn" title="Deelnemernummer" sortable="true"/>
+	  			<display:column property="voornaam" title="Voornaam" sortable="true"/>
+	  			<display:column property="achternaam" class="achternaamColumn" title="Achternaam" sortable="true"/>
+	  			<display:column property="email" title="E-Mail" sortable="true"/>
+	  			<display:column property="rekeningnummer" class="rekeningnummerColumn" title="Rekeningnummer" sortable="true"/>
+			</display:table>
+		</div>
 	</body>
 </html>

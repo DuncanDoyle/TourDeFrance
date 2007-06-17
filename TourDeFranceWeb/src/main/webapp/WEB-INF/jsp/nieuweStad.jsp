@@ -9,61 +9,66 @@
 		<title>Nieuwe Stad</title>
 	</head>
 	<body>
-		<h1>Nieuwe Stad</h1>
-		<form method="POST">
-			<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
-				<tr>
-      				<td alignment="right" width="10%">Stad:</td>
-      				<spring:bind path="stadCommand.stad">
-     					<td width="20%">
-         					<input type="text" name="stad" value="<c:out value="${status.value}"/>"/>
-       					</td>
-       					<td width="60%">
-         					<font color="red"><c:out value="${status.errorMessage}"/></font>
-       					</td>
-       				</spring:bind>
-        		</tr>
-        		<tr>
-        			<td alignment="right" width="10%">Land:</td>
-        			<spring:bind path="stadCommand.land">
-	       				<td width="20%">
-    	     				<input type="text" name="land" value="<c:out value="${status.value}"/>"/>
-       					</td>
-       					<td width="60%">
-       	  					<font color="red"><c:out value="${status.errorMessage}"/></font>
-       					</td>
-       				</spring:bind>
-      			</tr>
-      			<tr>
-      				<td alignment="right" width="10%">Longitude:</td>
-      				<spring:bind path="stadCommand.longitude">
-       					<td width="20%">
-       						<input type="text" name="longitude" value="<c:out value="${status.value}"/>"/>
-       					</td>
-       					<td width="60%">
-       						<font color="red"><c:out value="${status.errorMessage}"/></font>
-       					</td>
-       				</spring:bind>
-      			</tr>
-      			<tr>
-      				<td alignment="right" width="10%">Latitude:</td>
-      				<spring:bind path="stadCommand.latitude">
-	       				<td width="20%">
-    	   					<input type="text" name="latitude" value="<c:out value="${status.value}"/>"/>
-       					</td>
-       					<td width="60%">
-       						<font color="red"><c:out value="${status.errorMessage}"/></font>
-       					</td>
-       				</spring:bind>
-      			</tr>
-  		</table>
-  		<br>
-  		<spring:hasBindErrors name="rennerCommand">
-    		<b>Please fix all errors!</b>
-  		</spring:hasBindErrors>
-  		<br><br>
-  		<input type="submit" alignment="center" value="Save"/>
-  		<input type="button" name="back" value="Back" class="input" onClick="javascript:window.location='listSteden.htm';"/>
-		</form>
+		<c:import url="headerTour.jsp"/>
+		<c:import url="banner.jsp"/>
+		<c:import url="leftColumn.jsp"/>
+		<div id="bodyColumn">
+			<h1>Nieuwe Stad</h1>
+			<form method="POST">
+				<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
+					<tr>
+	      				<td alignment="right" width="10%">Stad:</td>
+	      				<spring:bind path="stadCommand.stad">
+	     					<td width="20%">
+	         					<input type="text" name="stad" value="<c:out value="${status.value}"/>"/>
+	       					</td>
+	       					<td width="60%">
+	         					<font color="red"><c:out value="${status.errorMessage}"/></font>
+	       					</td>
+	       				</spring:bind>
+	        		</tr>
+	        		<tr>
+	        			<td alignment="right" width="10%">Land:</td>
+	        			<spring:bind path="stadCommand.land">
+		       				<td width="20%">
+	    	     				<input type="text" name="land" value="<c:out value="${status.value}"/>"/>
+	       					</td>
+	       					<td width="60%">
+	       	  					<font color="red"><c:out value="${status.errorMessage}"/></font>
+	       					</td>
+	       				</spring:bind>
+	      			</tr>
+	      			<tr>
+	      				<td alignment="right" width="10%">Longitude:</td>
+	      				<spring:bind path="stadCommand.longitude">
+	       					<td width="20%">
+	       						<input type="text" name="longitude" value="<c:out value="${status.value}"/>"/>
+	       					</td>
+	       					<td width="60%">
+	       						<font color="red"><c:out value="${status.errorMessage}"/></font>
+	       					</td>
+	       				</spring:bind>
+	      			</tr>
+	      			<tr>
+	      				<td alignment="right" width="10%">Latitude:</td>
+	      				<spring:bind path="stadCommand.latitude">
+		       				<td width="20%">
+	    	   					<input type="text" name="latitude" value="<c:out value="${status.value}"/>"/>
+	       					</td>
+	       					<td width="60%">
+	       						<font color="red"><c:out value="${status.errorMessage}"/></font>
+	       					</td>
+	       				</spring:bind>
+	      			</tr>
+	  		</table>
+	  		<br>
+	  		<spring:hasBindErrors name="rennerCommand">
+	    		<b>Please fix all errors!</b>
+	  		</spring:hasBindErrors>
+	  		<br><br>
+	  		<input type="submit" alignment="center" value="Save"/>
+	  		<input type="button" name="back" value="Back" class="input" onClick="javascript:window.location='listSteden.htm';"/>
+			</form>
+		</div>
 	</body>		
 </html>

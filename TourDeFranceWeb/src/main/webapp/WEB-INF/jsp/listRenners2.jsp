@@ -10,12 +10,22 @@
   		<script src="<%=request.getContextPath()%>/js/RowHandlers.js" language="javascript" type="text/javascript" /></script>
 		<title>List Renners</title>
 	</head>
-	<body class="listRennersBody" onload="addRowHandlers('rennersTable', 'rowMouseOver', 'editRenner.htm', 'renner', 0)">
-		<h2>Renners</h2>
-		<display:table id="rennersTable" name="model.renners" class="listTable rennersTable" requestURI="listRenners.htm" sort="list" defaultsort="1">
-			<display:column property="nummer" class="nummerColumn" title="Rennernummer" sortable="true"/>
-  			<display:column property="voornaam" title="Voornaam" sortable="true"/>
-  			<display:column property="achternaam" title="Achternaam" sortable="true"/>
-		</display:table>
+	<authz:authorize ifAllGranted="ROLE_ADMIN">
+		<body class="listRennersBody" onload="addRowHandlers('rennersTable', 'rowMouseOver', 'editRenner.htm', 'renner', 0)">
+	</authz:authorize>
+	<authz:authorize ifNotGranted="ROLE_ADMIN">
+		<body class="listRennersEnDeelnemersBody" onload="addMouseOverHighlight('rennersTable', 'rowMouseOver')">
+	</authz:authorize>
+		<c:import url="headerTour.jsp"/>
+		<c:import url="banner.jsp"/>
+		<c:import url="leftColumn.jsp"/>
+		<div id="bodyColumn">
+			<h2>Renners</h2>
+			<display:table id="rennersTable" name="model.renners" class="listTable rennersTable" requestURI="listRenners.htm" sort="list" defaultsort="1">
+				<display:column property="nummer" class="nummerColumn" title="Rennernummer" sortable="true"/>
+	  			<display:column property="voornaam" title="Voornaam" sortable="true"/>
+	  			<display:column property="achternaam" title="Achternaam" sortable="true"/>
+			</display:table>
+		</div>
 	</body>
 </html>

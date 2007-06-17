@@ -10,43 +10,43 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<title>Login</title>
+		<%@ include file="includeStyle.jsp" %>
 	</head>
 	<body>
-		<c:if test="${not empty param.login_error}">
-        	<font color="red">
-        		Your login attempt was not successful, try again.
-        		<BR>
-        		<BR>
-        	</font>
-    	</c:if>
-    	<form action="<c:url value='j_acegi_security_check'/>" method="POST">
-			<center>
-				<table align="center" cellpadding="4" cellspacing="0" border="0"
-				            class="loginform">
-				    <tr>
-				        <td bgcolor="f0f0f0" colspan="2">Enter your details below to
-				            login to admin site:</td>
-				    </tr>
-				    <tr />
-				    <tr>
-				        <td nowrap align="right" valign="top"><label class="label"><u>U</u>sername:</label></td>
-				        <td><input type='text' name='j_username' accessKey="U"></td>
-				    </tr>
-				    <tr>
-				        <td nowrap align="right" valign="top">
-				        	<label class="label"><u>P</u>assword:</label>
-				        </td>
-				        <td>
-				        	<input type='password' name='j_password' accessKey="P">
-				        </td>
-				    </tr>
-            		<tr>
-                		<td valign="middle" align="center" colspan="2">
-			                <input id="loginButton" type="submit" value="Log In" />
-						</td>
-        		    </tr>
-		        </table>
-    		</center>
-    	</form>
+		<c:import url="headerTour.jsp"/>
+		<c:import url="banner.jsp"/>
+		<c:import url="leftColumn.jsp"/>
+		<div id="bodyColumn">
+			<h2>Login</h2>
+			<c:if test="${not empty param.login_error}">
+	        	<font color="red">
+	        		Your login attempt was not successful, try again.
+	        		<br/>
+	        		<br/>
+	        	</font>
+	    	</c:if>
+	    	<form action="<c:url value='j_acegi_security_check'/>" method="POST">
+				<h3>Enter your details below to login to the site</h3>
+				<br/>
+				<table class="loginTable">
+					    <tr>
+					        <td width="20%"><label class="label"><u>U</u>sername:</label></td>
+					        <td><input size="30%" type="tex"' name="j_username" accessKey="U"></td>
+					    </tr>
+					    <tr>
+					        <td width="20%"><label class="label"><u>P</u>assword:</label></td>
+					        <td>
+					        	<input size="30%" type="password" name="j_password" accessKey="P">
+					        </td>
+					    </tr>
+	            		<tr> 
+	            			<td/>
+	            			<td>
+	                			<input id="loginButton" type="submit" value="Log In" />
+	                		</td>
+	                	</tr>
+			        </table>
+	    	</form>
+	    </div>
 	</body>
 </html>

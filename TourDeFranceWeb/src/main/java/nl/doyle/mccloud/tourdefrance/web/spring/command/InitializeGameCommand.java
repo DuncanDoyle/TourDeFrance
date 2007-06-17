@@ -55,7 +55,7 @@ public class InitializeGameCommand {
 
 
 	/**
-	 * @param ploegenTijdrit the ploegenTijdrit to set
+	 * @param ploegenTijdritEtappeNummer the ploegenTijdrit to set
 	 */
 	public void setPloegenTijdritEtappeNummer(int ploegenTijdritEtappeNummer) {
 		this.ploegenTijdritEtappeNummer = ploegenTijdritEtappeNummer;

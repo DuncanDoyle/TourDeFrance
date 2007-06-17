@@ -63,8 +63,14 @@
                 <![CDATA[
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
-                /editdeelnemer.htm=ROLE_ADMIN
-                /listdeelnemers.htm=ROLE_USER
+                /adminpage.htm=ROLE_ADMIN
+                /initializegame.htm=ROLE_ADMIN
+                /generateteams.htm=ROLE_ADMIN
+                /generatetestdata.htm=ROLE_ADMIN
+                /nieuwestad.htm=ROLE_ADMIN
+                /edit*.htm=ROLE_ADMIN
+                /list*.htm=ROLE_USER
+                
             ]]>
             </value>
         </property>
@@ -101,7 +107,7 @@
         <property name="userMap">
 			<value>
 				adoyle=master,ROLE_ADMIN, ROLE_USER
-				ddoyle=programmer,ROLE_USER
+				tourdeelnemer=tourmanager,ROLE_USER
 			</value>
 		</property>
     </bean>

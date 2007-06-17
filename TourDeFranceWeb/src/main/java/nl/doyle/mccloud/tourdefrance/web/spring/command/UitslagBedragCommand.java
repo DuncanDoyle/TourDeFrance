@@ -118,14 +118,14 @@ public class UitslagBedragCommand {
 	}
 
 	/**
-	 * @return the groenTrui
+	 * @return the groeneTrui
 	 */
 	public double[] getGroeneTrui() {
 		return groeneTrui;
 	}
 
 	/**
-	 * @param groenTrui the groenTrui to set
+	 * @param groeneTrui the groenTrui to set
 	 */
 	public void setGroeneTrui(double[] groeneTrui) {
 		this.groeneTrui = groeneTrui;
