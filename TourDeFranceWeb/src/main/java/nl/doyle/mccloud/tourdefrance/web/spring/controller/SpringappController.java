@@ -19,10 +19,6 @@ public class SpringappController implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	
-    	String now = (new java.util.Date()).toString(); 
-        logger.info("returning hello view with " + now);
-
-        return new ModelAndView("index", "now", now);
+    	return new ModelAndView("index");
     }
 }

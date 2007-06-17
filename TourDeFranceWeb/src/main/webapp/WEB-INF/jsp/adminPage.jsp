@@ -14,15 +14,16 @@
 		<c:import url="banner.jsp"/>
 		<c:import url="leftColumn.jsp"/>
 		<div id="bodyColumn">
+			<h2>Administrator Page</h2>
 			<br/>
 			<br/>
-			<a href="initializeGame.htm">Initialize Game</a>
+			<a href="initializeGame.htm"><strong>Initialize Game</strong></a>
 			<br/>
 			<br/>
-			<a href="generateTeams.htm">Generate Teams</a>
+			<a href="generateTeams.htm"><strong>Generate Teams</strong></a>
 			<br/>		
 			<br/>
-			<a href="generateTestData.htm">Generate Test Data</a>
+			<a href="generateTestData.htm"><strong>Generate Test Data</strong></a>
 			<br/>
 			<br/>
 		</div>

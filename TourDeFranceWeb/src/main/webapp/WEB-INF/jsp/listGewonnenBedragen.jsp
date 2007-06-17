@@ -20,7 +20,7 @@
 				<display:column property="deelnemer.nummer" class="nummerColumn" title="Deelnemernummer" sortable="true"/>
 	  			<display:column property="deelnemer.voornaam" title="Deelnemer Voornaam" sortable="true"/>
 	  			<display:column property="deelnemer.achternaam" title="Deelnemer Achternaam" sortable="true"/>
-	  			<display:column property="gewonnenBedrag" title="Bedrag t/m etappe ${model.etappenummer}" sortable="true"/>
+	  			<display:column property="gewonnenBedrag" class="bedragColumn" title="Bedrag t/m etappe ${model.etappenummer}" sortable="true"/>
 			</display:table>
 		</div>
 	</body>

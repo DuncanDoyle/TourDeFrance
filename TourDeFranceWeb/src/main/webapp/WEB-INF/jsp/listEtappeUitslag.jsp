@@ -90,7 +90,9 @@
 			<%}%>
 			<br/>
 			<br/>
-			<a href="editEtappeUitslag.htm?etappe=${model.uitslagmodel.etappe.etappenummer}"/><strong>Edit Etappe Uitslag</strong></a>
+			<authz:authorize ifAllGranted="ROLE_ADMIN">
+				<a href="editEtappeUitslag.htm?etappe=${model.uitslagmodel.etappe.etappenummer}"/><strong>Edit Etappe Uitslag</strong></a>
+			</authz:authorize>
 		</div>
 	</body>
 </html>

@@ -9,7 +9,12 @@
 		<script src="<%=request.getContextPath()%>/js/RowHandlers.js" language="javascript" type="text/javascript" /></script>
 		<title>Etappes</title>
 	</head>
-	<body class="listEtappesBody" onload="addRowHandlers('etappesTable', 'rowMouseOver', 'editEtappe.htm', 'etappe', 0)">
+	<authz:authorize ifAllGranted="ROLE_ADMIN">
+		<body class="listEtappesBody" onload="addRowHandlers('etappesTable', 'rowMouseOver', 'editEtappe.htm', 'etappe', 0)">
+	</authz:authorize>
+	<authz:authorize ifNotGranted="ROLE_ADMIN">
+		<body class="listEtappesBody" onload="addMouseOverHighlight('etappesTable', 'rowMouseOver')">
+	</authz:authorize>
 		<c:import url="headerTour.jsp"/>
 		<c:import url="banner.jsp"/>
 		<c:import url="leftColumn.jsp"/>
@@ -17,15 +22,15 @@
 			<h2>Etappes</h2>
 			<display:table id="etappesTable" name="model.etappes" class="listTable etappesTable" requestURI="listEtappes.htm" sort="list" defaultsort="1">
 				<display:column property="etappenummer" class="hidden" headerClass="hidden" title="Etappe Nummer" sortable="true"/>
-				<display:column property="omschrijving" title="Etappe Omschrijving"/>
+				<display:column property="omschrijving" title="Etappe Omschrijving" class="etappeomschrijving"/>
 	  			<display:column property="datum" title="Datum" sortable="true"/>
 	  			<%-- Hier gaan nog dingen fout met Lazy-Initialization. Moet nog een object tussen
 	  			gezet worden die een mapping naar een String doet.
 	  			 --%>
 	  			<display:column property="startplaats.stad" title="Startplaats" sortable="true"/>
 	  			<display:column property="finishplaats.stad" title="Finishplaats" sortable="true"/>
-	  			<display:column value="Test" title="Etappe Uitslag"/>
-	  			<display:column href="listGewonnenBedragen?etappe=${etappenummer}" value="bla" title="Stand na etappe"/>
+	  			<display:column href="listEtappeUitslag.htm" paramId="etappe" paramProperty="etappenummer" value="Etappe Uitslag" title="Etappe Uitslag"/>
+	  			<display:column href="listGewonnenBedragen.htm" paramId="etappe" paramProperty="etappenummer" value="Stand na etappe" title="Stand na etappe"/>
 	  		</display:table>
 		</div>
 	</body>

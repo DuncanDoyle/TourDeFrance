@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ include file="includeTags.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,8 +10,9 @@
 <body>
 <div id="leftColumn">
 		<div id="navcolumn">
-			<li class="expanded">
-              <strong>Index</strong>
+			<ul>
+			<li class="expanded"/>
+              <a href="index.htm"><strong>Index</strong></a>
                 <ul>
                   	<li class="none">
 				    	<a href="listRenners.htm">Renners</a>
@@ -24,30 +26,29 @@
 					<li class="none">
               			<a href="listEtappes.htm">Etappes</a>
 	        		</li>
-	        		<li class="none">
-              			<a href="listEtappeUitslag.htm?etappe=1">Etappe Uitslagen</a>
-	        		</li>
-	        		<li class="none">
-              			<a href="listSteden.htm">Steden Lijst</a>
-	        		</li>
+	        		
 	        		<li class="none">
               			<a href="etappeDetails.htm">Etappe Details</a>
 	        		</li>
 	        		<li class="none">
-              			<a href="editUitslagBedrag.htm">Edit Bedragen</a>
-	        		</li>
-	        		<li class="none">
-              			<a href="listGewonnenBedragen.htm?etappe=1">Stand</a>
-	        		</li>
-	        		<li class="none">
-              			<a href="adminPage.htm">Admin Page</a>
-	        		</li>
-	        		<li class="none">
               			<a href="http://tourmanager2007.forumcircle.com">Forum</a>
 	        		</li>
-	        		<br/>
-        		</ul>
+	        	</ul>
         	</li>
+        	<authz:authorize ifAllGranted="ROLE_ADMIN">
+	        	<li class="expanded">
+	              	<a href="adminPage.htm"><strong>Admin</strong></a>
+	              	<ul>
+	              		<li class="none">
+	              			<a href="editUitslagBedrag.htm">Edit Bedragen</a>
+		        		</li>
+		        		<li class="none">
+	              			<a href="listSteden.htm">Steden Lijst</a>
+		        		</li>
+		        	</ul>
+		        </li>
+		      </authz:authorize>
+        	</ul>
          </div>
 	</div>
 </body>

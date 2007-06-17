@@ -5,8 +5,9 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<jsp:include flush="true" page="includeStyle.jsp"></jsp:include>
-		<title>Index</title>
+		<%@ include file="includeStyle.jsp" %>
+  		<script src="<%=request.getContextPath()%>/js/RowHandlers.js" language="javascript" type="text/javascript" /></script>
+		<title>Welcome</title>
 	</head>
 	<body>
 		<c:import url="headerTour.jsp"/>

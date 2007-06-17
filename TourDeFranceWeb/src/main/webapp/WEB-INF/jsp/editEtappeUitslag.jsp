@@ -20,6 +20,7 @@
 		<c:import url="banner.jsp"/>
 		<c:import url="leftColumn.jsp"/>
 		<div id="bodyColumn">
+			<h2>Edit Etappe Uitslag</h2>
 			Etappenummer: <c:out value="${etappeUitslagCommand.etappenummer }"/>
 			<br/>
 			Etappe: <c:out value="${etappeUitslagCommand.omschrijving}"/>
