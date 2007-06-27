@@ -11,6 +11,31 @@ public class EindUitslag extends AbstractEtappeAndEindUitslag {
 	public EindUitslag() {
 	}
 
+	public int getPositieInRodeLantarenUitslag(Renner renner) {
+		int positie = 0;
+		if (renner.equals(rodeLantaren)) {
+			positie = 1;
+		}
+		return positie;
+	}
+	
+	public int getPositieInWitteTruiUitslag(Renner renner) {
+		int positie = 0;
+		if (renner.equals(witteTrui)) {
+			positie = 1;
+		}
+		return positie;
+	}
+	
+	public int getPositieInEersteUitvallerUitslag(Renner renner) {
+		int positie = 0;
+		if (renner.equals(eersteUitvaller)) {
+			positie = 1;
+		}
+		return positie;
+	}
+	
+	
 	/**
 	 * @return the eersteUitvaller
 	 */

@@ -11,6 +11,10 @@ public class StandaardEtappe extends Etappe {
 	private Set<EtappeUitslag> etappeUitslag;
 	
 	
+	public int getPositieInEtappeUitslag(Renner renner) {
+		return getPositieInUitslag(etappeUitslag, renner);
+	}
+	
 	/**
 	 * @author mccloud
 	 * 

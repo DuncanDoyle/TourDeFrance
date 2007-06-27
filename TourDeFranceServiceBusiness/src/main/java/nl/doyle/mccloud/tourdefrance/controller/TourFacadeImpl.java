@@ -104,15 +104,15 @@ public class TourFacadeImpl implements TourFacade {
 	 * @return Etappe
 	 */
 	public AbstractEtappeAndEindUitslag getEtappeWithUitslag(int etappeNummer) {
-		//Haal de etappe op uit de db. Als het geen standaardetappe is, haal dan een ploegentijdrit op.
-		AbstractEtappeAndEindUitslag etappe  = standaardEtappeDao.loadStandaardEtappeWithUitslagEager(etappeNummer);
-		if (etappe == null) {
-			etappe = ploegenTijdritDao.loadPloegenTijdritWithUitslagEager(etappeNummer);
-		} 
-		//Als het ook geen ploegentijdrit is, probeer dan de EindUitslag
-		if (etappe == null) {
+		AbstractEtappeAndEindUitslag etappe;
+		if (etappeNummer == 0) {
 			etappe = eindUitslagDao.loadEindUitslagWithUitslagEager();
-		}
+		} else 
+			//Haal de etappe op uit de db. Als het geen standaardetappe is, haal dan een ploegentijdrit op.
+			etappe = standaardEtappeDao.loadStandaardEtappeWithUitslagEager(etappeNummer);
+			if (etappe == null) {
+				etappe = ploegenTijdritDao.loadPloegenTijdritWithUitslagEager(etappeNummer);
+			} 
 		return etappe;
 	}
 	/**

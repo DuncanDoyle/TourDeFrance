@@ -1,5 +1,6 @@
 package nl.doyle.mccloud.tourdefrance.valueobjects;
 
+import java.util.Iterator;
 import java.util.Set;
 
 public abstract class AbstractEtappeAndEindUitslag {
@@ -9,6 +10,36 @@ public abstract class AbstractEtappeAndEindUitslag {
 	private Set<GeleTruiUitslag> geleTruiUitslag;
 	private Set<GroeneTruiUitslag> groeneTruiUitslag;
 	private Set<BolletjesTruiUitslag> bolletjesTruiUitslag;
+	
+	
+	public int getPositieInGeleTruiUitslag(Renner renner) {
+		return getPositieInUitslag(geleTruiUitslag, renner);
+	}
+	
+	public int getPositieInGroeneTruiUitslag(Renner renner) {
+		return getPositieInUitslag(groeneTruiUitslag, renner);
+	}
+	
+	public int getPositieInBolletjesTruiUitslag(Renner renner) {
+		return getPositieInUitslag(bolletjesTruiUitslag, renner);
+	}
+	
+	protected int getPositieInUitslag(Set<? extends Uitslag> uitslagen, Renner renner) {
+		int positie = 0;
+		boolean found = false;
+		Iterator<? extends Uitslag> iterate = uitslagen.iterator();
+		while(iterate.hasNext() && !found) {
+			Uitslag nextUitslag = iterate.next();
+			//TODO Dit moet eigenlijk met de equals method van Renner. Moeten we nog implementeren
+			if (nextUitslag.getRenner().equals(renner)) {
+				positie = nextUitslag.getPositie();
+				found = true;
+				//TODO Geoptimaliseerd  door deze entry uit deze Uitslagen Set te halen. De andere renners kunnen namelijk nooit op deze positie staan. Wel goed testen of dit werkt.
+				uitslagen.remove(nextUitslag);
+			}
+		}
+		return positie;
+	}
 	
 	
 	

@@ -1,9 +1,8 @@
 package nl.doyle.mccloud.tourdefrance.dto;
 
-public class DeelnemerBedragDto {
+public class DeelnemerBedragDto extends DeelnemerDto {
 	
 	private double gewonnenBedrag;
-	private DeelnemerDto deelnemer;
 	
 	public DeelnemerBedragDto() {
 	}
@@ -21,21 +20,5 @@ public class DeelnemerBedragDto {
 	public void setGewonnenBedrag(double gewonnenBedrag) {
 		this.gewonnenBedrag = gewonnenBedrag;
 	}
-
-	/**
-	 * @return the deelnemer
-	 */
-	public DeelnemerDto getDeelnemer() {
-		return deelnemer;
-	}
-
-	/**
-	 * @param deelnemer the deelnemer to set
-	 */
-	public void setDeelnemer(DeelnemerDto deelnemer) {
-		this.deelnemer = deelnemer;
-	}
-	
-	
 	
 }

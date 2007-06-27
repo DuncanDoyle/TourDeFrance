@@ -1,5 +1,7 @@
 package nl.doyle.mccloud.tourdefrance.valueobjects;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 public abstract class Persoon {
@@ -40,6 +42,36 @@ public abstract class Persoon {
 										.append("Voornaam", this.getVoornaam())
 										.append("Achternaam", this.getAchternaam()).toString();
 	}
-	
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		boolean equals = false;
+		
+		if (obj instanceof Persoon) {
+		   if (this == obj) {
+		     equals = true;
+		   } else {
+			   Persoon equalsPersoon = (Persoon) obj;
+			   equals = new EqualsBuilder()
+			   				.append(this.getNummer(), equalsPersoon.getNummer())
+			   				.append(this.getAchternaam(), equalsPersoon.getAchternaam())
+			   				.append(this.getVoornaam(), equalsPersoon.getVoornaam())
+			   				.isEquals();
+		   }
+		}
+		return equals;
+	}
+	
+	public int hashCode() {
+	     // you pick a hard-coded, randomly chosen, non-zero, odd number
+	     // ideally different for each class
+	     return new HashCodeBuilder(17, 37)
+	       			.append(this.getNummer())
+	       			.append(this.getVoornaam())
+	       			.append(this.getAchternaam())
+	       			.toHashCode();
+	   }
 }

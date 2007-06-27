@@ -2,6 +2,7 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 
 import java.util.Set;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
 
@@ -56,4 +57,15 @@ public class Deelnemer extends Persoon {
 				toString();
 	}
 		
+	/* (non-Javadoc)
+	 * @see nl.doyle.mccloud.tourdefrance.valueobjects.Persoon#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		// you pick a hard-coded, randomly chosen, non-zero, odd number
+		// ideally different for each class
+		return new HashCodeBuilder(11,181)
+					.appendSuper(super.hashCode())
+					.toHashCode();
+	}
 }
