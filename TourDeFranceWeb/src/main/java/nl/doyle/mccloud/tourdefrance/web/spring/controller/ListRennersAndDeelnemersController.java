@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.dozer.util.mapping.MapperIF;
+import nl.doyle.mccloud.tourdefrance.controller.TourFacade;
 import nl.doyle.mccloud.tourdefrance.controller.TourFacadeImpl;
 import nl.doyle.mccloud.tourdefrance.dto.DeelnemerWithRennersDto;
 import nl.doyle.mccloud.tourdefrance.web.spring.model.DeelnemerRennerModel;
@@ -21,7 +22,7 @@ import org.springframework.web.servlet.mvc.Controller;
 public class ListRennersAndDeelnemersController implements Controller {
 
 	private static final Log logger = LogFactory.getLog(ListRennersAndDeelnemersController.class);
-	private TourFacadeImpl tourFacade;
+	private TourFacade tourFacade;
 	private MapperIF mapper;
 	
 	public ModelAndView handleRequest(HttpServletRequest request,
@@ -50,14 +51,14 @@ public class ListRennersAndDeelnemersController implements Controller {
 	/**
 	 * @return the tourFacade
 	 */
-	public TourFacadeImpl getTourFacade() {
+	public TourFacade getTourFacade() {
 		return tourFacade;
 	}
 
 	/**
 	 * @param tourFacade the tourFacade to set
 	 */
-	public void setTourFacade(TourFacadeImpl tourFacade) {
+	public void setTourFacade(TourFacade tourFacade) {
 		this.tourFacade = tourFacade;
 	}
 	

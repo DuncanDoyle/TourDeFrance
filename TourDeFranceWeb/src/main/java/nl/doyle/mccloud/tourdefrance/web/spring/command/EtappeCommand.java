@@ -40,7 +40,6 @@ public class EtappeCommand {
 	 * @param datum the datum to set
 	 */
 	public void setDatum(Date datum) {
-		//TODO Door deze constructie is dit geen JavaBean meer. Oplossing zoeken (misschien het form een Datum object laten aanmaken of in dit object Datum als string representeren)
 		this.datum = datum;
 	}
 

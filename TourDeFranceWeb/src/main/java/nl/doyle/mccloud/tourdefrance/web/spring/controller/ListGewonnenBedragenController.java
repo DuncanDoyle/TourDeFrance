@@ -1,6 +1,9 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.controller;
 
+import java.text.Format;
+import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +28,10 @@ public class ListGewonnenBedragenController implements Controller {
 		
 		Integer etappeNummer = ServletRequestUtils.getIntParameter(arg0,"etappe");
 		Map<String, Object> listGewonnenBedragenModel = new HashMap<String, Object>();
+		
+//		Locale currentLocale = new Locale("NL");
+//		Format formatter = NumberFormat.getCurrencyInstance(currentLocale);	
+		
 		listGewonnenBedragenModel.put("deelnemersAndBedragen", tourCalculator.getAllDeelnemersAndBedragAfterEtappe(etappeNummer));
 		listGewonnenBedragenModel.put("etappenummer", etappeNummer);
 		return new ModelAndView("listGewonnenBedragen", "model", listGewonnenBedragenModel);

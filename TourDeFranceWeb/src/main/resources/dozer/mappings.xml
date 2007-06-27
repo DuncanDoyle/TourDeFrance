@@ -11,6 +11,16 @@
         <class-a>nl.doyle.mccloud.tourdefrance.dto.DeelnemerWithRennersDto</class-a>
         <class-b>java.util.List</class-b>
       </converter>
-    </custom-converters>  
+    </custom-converters>
+    <!-- 
+    <mapping>
+    <class-a>yourpackage.yourSourceClassName</class-a>
+    <class-b>yourpackage.yourDestinationClassName</class-b>
+      <field>
+        <A>yourSourceFieldName</A>
+        <B>yourDestinationFieldName</B>
+      </field>
+  </mapping> 
+   -->
   </configuration>
 </mappings>

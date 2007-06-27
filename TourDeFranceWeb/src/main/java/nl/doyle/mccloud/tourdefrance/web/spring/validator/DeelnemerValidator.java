@@ -16,7 +16,7 @@ public class DeelnemerValidator implements Validator {
 	}
 	
 	public void validate(Object target, Errors errors) {
-		// TODO Auto-generated method stub
+		// TODO Validatie moet nog geimplementeerd worden.
 		 
 		/*
 		RennerCommand rc = (RennerCommand) obj;
