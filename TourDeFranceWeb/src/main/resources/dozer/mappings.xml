@@ -11,7 +11,14 @@
         <class-a>nl.doyle.mccloud.tourdefrance.dto.DeelnemerWithRennersDto</class-a>
         <class-b>java.util.List</class-b>
       </converter>
+      <converter type="nl.doyle.mccloud.tourdefrance.web.dozer.DeelnemerBedragCustomConverter" >
+        <class-a>nl.doyle.mccloud.tourdefrance.dto.DeelnemerBedragDto</class-a>
+        <class-b>nl.doyle.mccloud.tourdefrance.web.spring.model.DeelnemerAndBedragModel</class-b>
+      </converter>
+     </custom-converters>
+     <!--  
     </custom-converters>
+    -->
     <!-- 
     <mapping>
     <class-a>yourpackage.yourSourceClassName</class-a>

@@ -4,32 +4,16 @@ import nl.doyle.mccloud.tourdefrance.dto.DeelnemerDto;
 
 public class DeelnemerAndBedragModel extends DeelnemerModel {
 
-	private double gewonnenBedrag;
-	private DeelnemerModel deelnemer;
+	private String gewonnenBedrag;
 	
 	public DeelnemerAndBedragModel() {
 		
 	}
 
 	/**
-	 * @return the deelnemer
-	 */
-	public DeelnemerModel getDeelnemer() {
-		return deelnemer;
-	}
-
-	/**
-	 * @param deelnemer the deelnemer to set
-	 */
-	public void setDeelnemer(DeelnemerModel deelnemer) {
-		this.deelnemer = deelnemer;
-	}
-
-
-	/**
 	 * @return the gewonnenBedrag
 	 */
-	public double getGewonnenBedrag() {
+	public String getGewonnenBedrag() {
 		return gewonnenBedrag;
 	}
 
@@ -37,7 +21,7 @@ public class DeelnemerAndBedragModel extends DeelnemerModel {
 	/**
 	 * @param gewonnenBedrag the gewonnenBedrag to set
 	 */
-	public void setGewonnenBedrag(double gewonnenBedrag) {
+	public void setGewonnenBedrag(String gewonnenBedrag) {
 		this.gewonnenBedrag = gewonnenBedrag;
 	}
 	

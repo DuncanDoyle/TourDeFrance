@@ -79,6 +79,9 @@
 		<property name="tourCalculator">
 			<ref bean="calculator"/>
 		</property>
+		<property name="mapper">
+			<ref local="dozerMapperIF"/>
+		</property>
 	</bean>
 	
 	<bean id="showAdminPage" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.ShowAdminPage"/>
