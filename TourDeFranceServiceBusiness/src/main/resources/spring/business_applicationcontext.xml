@@ -203,7 +203,6 @@
 			<list>
  				<value>hibernate/Renner.hbm.xml</value>
 				<value>hibernate/Deelnemer.hbm.xml</value>
-				<!-- <value>hibernate/EindUitslag.hbm.xml</value>  -->
 				<value>hibernate/EtappeHierarchy.hbm.xml</value>
 				<value>hibernate/GeleTruiUitslag.hbm.xml</value>
 				<value>hibernate/GroeneTruiUitslag.hbm.xml</value>

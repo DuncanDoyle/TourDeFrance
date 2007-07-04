@@ -2,7 +2,6 @@ package nl.doyle.mccloud.tourdefrance.calculator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -14,14 +13,13 @@ import nl.doyle.mccloud.tourdefrance.dao.PloegenTijdritDao;
 import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
 import nl.doyle.mccloud.tourdefrance.dao.UitslagBedragDao;
 import nl.doyle.mccloud.tourdefrance.dto.DeelnemerBedragDto;
-import nl.doyle.mccloud.tourdefrance.dto.DeelnemerDto;
 import nl.doyle.mccloud.tourdefrance.exceptions.DataNotFoundException;
 import nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Deelnemer;
+import nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
-import nl.doyle.mccloud.tourdefrance.valueobjects.Uitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagBedrag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagBedrag.Categorien;
 
@@ -54,12 +52,35 @@ public class CalculatorImpl implements Calculator {
 	}
 	
 	
+	
+	
+	public List<DeelnemerBedragDto> getAllDeelnemersAndGewonnenBedragAfterEtappe(int etappenummer) {
+		List<DeelnemerBedragDto> deelnemersAndBedragen;
+		//Etappenummer 0 is het etappenummer van de einduitslag
+		if (etappenummer == 0) {
+			deelnemersAndBedragen = getAllDeelnemersAndBedragEindUitslag();
+		} else {
+			deelnemersAndBedragen = getAllDeelnemersAndBedragAfterEtappe(etappenummer);
+		}
+		return deelnemersAndBedragen;
+	}
+
+
+
+
 	/**
 	 * Geeft een lijst van DeelnemerBedragDto's terug met bedragen t/m de opgegeven etappe.
 	 */
-	public List<DeelnemerBedragDto> getAllDeelnemersAndBedragAfterEtappe(
+	private List<DeelnemerBedragDto> getAllDeelnemersAndBedragAfterEtappe(
 			int etappenummer) {
 		// TODO Botte bijl implementatie. Moet nog geoptimaliseerd worden.
+		//TODO Checken of etappenummer tussen min en max etappe inzit
+		
+		if ((etappenummer < 1) || (etappenummer > tourFacade.getHighestEtappeNummer())) {
+			throw new IllegalArgumentException("Etappenummer niet aanwezig in de database");
+		}
+		//Initialiseer de return ArrayList
+		List<DeelnemerBedragDto> deelnemersMetBedragen = new ArrayList<DeelnemerBedragDto>();
 		
 		//Laadt de uitslagbedragen uit de db en stop ze in double arrays
 		double[] etappeUitslagBedrag = getEtappeUitslagBedragenPerPositie();
@@ -127,7 +148,7 @@ public class CalculatorImpl implements Calculator {
 		
 		//Maak nu de DTOs aan
 		//Zet eerste alle deelnemers in de lijst met DeelnemerBedragDto's
-		List<DeelnemerBedragDto> deelnemersMetBedragen = new ArrayList<DeelnemerBedragDto>();
+		
 		//Lijst met deelnemers waar doorheen gelooped wordt is eerder al gezet.
 		int bedragenArrayTeller = 0;
 		for (Deelnemer nextDeelnemer: deelnemers) {
@@ -142,7 +163,6 @@ public class CalculatorImpl implements Calculator {
 			deelnemersMetBedragen.add(deelnemerBedrag);
 			bedragenArrayTeller++;
 		}
-		
 		return deelnemersMetBedragen;
 	}
 	
@@ -152,19 +172,73 @@ public class CalculatorImpl implements Calculator {
 	 * 
 	 * @return Lijst van DeelnemerBedragDto's 
 	 */
-	public List<DeelnemerBedragDto> getAllDeelnemersAndBedragAtEnd() {
-		// TODO Auto-generated method stub
-		//		TODO De waardes voor witteTrui, rodeLantaren en eersteUitvaller moeten nog uit de DB worden opgehaald.
-		double witteTrui;
-		double rodeLantaren;
-		double eersteUitvaller;
+	private List<DeelnemerBedragDto> getAllDeelnemersAndBedragEindUitslag() {
+		double[] eindUitslagWitteTruiUitslagBedrag = getEindUitslagWitteTruiUitslagBedrag();
+		double[] eindUitslagRodeLantarenUitslagBedrag = getEindUitslagRodeLantarenUitslagBedrag();
+		double[] eindUitslagEersteUitvallerUitslagBedrag = getEindUitslagEersteUitvallerUitslagBedrag();
 		
-		double[] eindUitslagBolletjesTruiUitslagBedrag = getEtappeBolletjesTruiUitslagBedragenPerPositie();
+		double[] eindUitslagBolletjesTruiUitslagBedrag = getEindUitslagBolletjesTruiUitslagBedragPerPositie();
 		double[] eindUitslagGeleTruiUitslagBedrag = getEindUitslagGeleTruiUitslagBedragenPerPositie();
 		double[] eindUitslagGroeneTruiUitslagBedrag = getEindUitslagGroeneTruiUitslagBedragenPerPositie();
 		
 		
-		return null;
+		//Bepaal het nummer van de laatste etappe en laad de deelnemers en bedragen van alle etappes
+		int etappenummer = tourFacade.getHighestEtappeNummer();
+		List<DeelnemerBedragDto> deelnemersBedragEtappe = getAllDeelnemersAndBedragAfterEtappe(etappenummer);
+		
+		
+		List<DeelnemerBedragDto> deelnemerAndBedrag = new ArrayList<DeelnemerBedragDto>();
+		List<Deelnemer> deelnemers = deelnemerDao.loadAllDeelnemersEager();
+		for (Deelnemer nextDeelnemer: deelnemers) {
+			DeelnemerBedragDto dbDto = new DeelnemerBedragDto();
+			dbDto.setNummer(nextDeelnemer.getNummer());
+			dbDto.setVoornaam(nextDeelnemer.getVoornaam());
+			dbDto.setAchternaam(nextDeelnemer.getAchternaam());
+			dbDto.setRekeningnummer(nextDeelnemer.getRekeningnummer());
+			dbDto.setEmail(nextDeelnemer.getEmail());
+			double bedrag = 0;
+			int positie = 0;
+			AbstractEtappeAndEindUitslag uitslag = tourFacade.getEtappeWithUitslag(0);
+			if (uitslag instanceof EindUitslag) {
+				for (Renner nextRenner: nextDeelnemer.getRenners()) {
+					positie = uitslag.getPositieInGeleTruiUitslag(nextRenner);
+					if (positie != 0) {
+						bedrag = bedrag + eindUitslagGeleTruiUitslagBedrag[positie - 1];
+					}
+					positie = uitslag.getPositieInGroeneTruiUitslag(nextRenner);
+					if (positie != 0) {
+						bedrag = bedrag + eindUitslagGroeneTruiUitslagBedrag[positie - 1];
+					}
+					positie = uitslag.getPositieInBolletjesTruiUitslag(nextRenner);
+					if (positie != 0) {
+						bedrag = bedrag + eindUitslagBolletjesTruiUitslagBedrag[positie - 1];
+					}
+					positie = ((EindUitslag) uitslag).getPositieInWitteTruiUitslag(nextRenner);
+					if (positie != 0) {
+						bedrag = bedrag + eindUitslagWitteTruiUitslagBedrag[positie - 1];
+					}
+					positie = ((EindUitslag) uitslag).getPositieInRodeLantarenUitslag(nextRenner);
+					if (positie != 0) {
+						bedrag = bedrag + eindUitslagRodeLantarenUitslagBedrag[positie - 1];
+					}
+					positie = ((EindUitslag) uitslag).getPositieInEersteUitvallerUitslag(nextRenner);
+					if (positie != 0) {
+						bedrag = bedrag + eindUitslagWitteTruiUitslagBedrag[positie - 1];
+					}
+				}
+			} else {
+				throw new IllegalClassException("EindUitslag is niet van het juiste type");
+			}
+			//Bepaal nu het bedrag van alle etappes.
+			for (DeelnemerBedragDto nextDeelnemerBedrag: deelnemersBedragEtappe) {
+				if (nextDeelnemer.getNummer() == nextDeelnemerBedrag.getNummer()) {
+					bedrag = bedrag +  nextDeelnemerBedrag.getGewonnenBedrag();
+				}
+			}
+			dbDto.setGewonnenBedrag(bedrag);
+			deelnemerAndBedrag.add(dbDto);
+		}
+		return deelnemerAndBedrag;
 	}
 	
 	private double[] getEtappeUitslagBedragenPerPositie() {
@@ -195,16 +269,16 @@ public class CalculatorImpl implements Calculator {
 		return setBedragen(tourConfig.getAantalEinduitslagBolletjesTruiUitslagen(),uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.BolletjesTruiEind));
 	}
 	
-	private double[] loadEindUitslagWitteTruiUitslagBedrag(List<UitslagBedrag> bedragen) {
-		return setBedragen(tourConfig.getAantalEinduitslagWitteTrui(), bedragen);
+	private double[] getEindUitslagWitteTruiUitslagBedrag() {
+		return setBedragen(tourConfig.getAantalEinduitslagWitteTrui(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.WitteTruiEind));
 	}
 	
-	private double[] loadEindUitslagRodeLantarenUitslagBedrag(List<UitslagBedrag> bedragen) {
-		return setBedragen(tourConfig.getAantalEinduitslagRodeLantaren(), bedragen);
+	private double[] getEindUitslagRodeLantarenUitslagBedrag() {
+		return setBedragen(tourConfig.getAantalEinduitslagRodeLantaren(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.RodeLantarenEind));
 	}
 	
-	private double[] loadEindUitslagEersteUitvallerUitslagBedrag(List<UitslagBedrag> bedragen) {
-		return setBedragen(tourConfig.getAantalEinduitslagEersteUitvaller(), bedragen);
+	private double[] getEindUitslagEersteUitvallerUitslagBedrag() {
+		return setBedragen(tourConfig.getAantalEinduitslagEersteUitvaller(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.EersteUitvallerEind));
 	}
 	
 	private double[] setBedragen(int arrayPosities, List<UitslagBedrag> bedragen) {
@@ -228,11 +302,6 @@ public class CalculatorImpl implements Calculator {
 	 */
 	public DeelnemerBedragDto getDeelnemerAndBedragAfterEtappe(
 			int deelnemernummer, int etappenummer) {
-		
-		
-		
-		
-		
 		
 		return null;
 	}

@@ -13,6 +13,7 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 
 public class EindUitslagDaoHibernateImpl extends HibernateDaoSupport implements EindUitslagDao {
 
+	/*
 	public EindUitslag loadEindUitslag() {
 		EindUitslag uitslag;
 		try {
@@ -22,6 +23,17 @@ public class EindUitslagDaoHibernateImpl extends HibernateDaoSupport implements 
 			uitslag = null;
 		}
 		return uitslag;
+	}
+	*/
+	public EindUitslag loadEindUitslag() {
+		List<EindUitslag> result = getHibernateTemplate().find("from EindUitslag se where se.etappenummer=?", new Integer(0));
+		//We hebben op primary key gezocht, dus er is maar 1 etappe (of geen) in de lijst
+		EindUitslag returnEtappe = null;
+		Iterator<EindUitslag> listIterator = result.iterator();
+		if (listIterator.hasNext()) {
+			returnEtappe = listIterator.next();
+		}
+		return returnEtappe;
 	}
 
 	public EindUitslag loadEindUitslagWithUitslagEager() {

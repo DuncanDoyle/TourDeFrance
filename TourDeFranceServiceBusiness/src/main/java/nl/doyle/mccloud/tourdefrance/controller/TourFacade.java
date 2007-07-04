@@ -12,4 +12,5 @@ public interface TourFacade {
 	public AbstractEtappeAndEindUitslag getEtappeWithUitslag(int etappeNummer); 
 	public Etappe getEtappeWithStartAndFinish(int etappeNummer);
 	public void saveEtappe(AbstractEtappeAndEindUitslag etappe);
+	public int getHighestEtappeNummer();
 }

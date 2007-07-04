@@ -186,4 +186,20 @@ public class StandaardEtappeDaoHibernateImpl extends HibernateDaoSupport impleme
 	public void deleteStandaardEtappe(StandaardEtappe deleteStandaardEtappe) {
 		getHibernateTemplate().delete(deleteStandaardEtappe);
 	}
+	
+	public int getHighestEtappeNummer() {
+		int nummer = 0;
+		final String hql = "select max(etappenummer) from StandaardEtappe";
+		Object nummerObject = getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) throws HibernateException {
+				Query query = session.createQuery(hql);
+				return query.uniqueResult();
+			}
+		});
+		if (nummerObject != null) {
+			nummer = (Integer) nummerObject;
+		}
+		return nummer;
+	}
+	
 }
