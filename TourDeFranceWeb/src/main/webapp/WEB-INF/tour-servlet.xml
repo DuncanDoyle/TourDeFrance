@@ -69,6 +69,9 @@
 		<property name="ploegenTijdritDao">
 			<ref bean="ploegenTijdritDao"/>
 		</property>  
+		<property name="eindUitslagDao">
+			<ref bean="eindUitslagDao"/>
+		</property>
 	</bean>
 	<bean id="listStedenController" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.ListStedenController">
 		<property name="stadDao">

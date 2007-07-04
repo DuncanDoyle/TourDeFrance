@@ -31,8 +31,7 @@ public class ListGewonnenBedragenController implements Controller {
 		
 		Integer etappeNummer = ServletRequestUtils.getIntParameter(arg0,"etappe");
 		Map<String, Object> listGewonnenBedragenModel = new HashMap<String, Object>();
-		
-		List<DeelnemerBedragDto> deelnemerAndBedrag = tourCalculator.getAllDeelnemersAndBedragAfterEtappe(etappeNummer);
+		List<DeelnemerBedragDto> deelnemerAndBedrag = tourCalculator.getAllDeelnemersAndGewonnenBedragAfterEtappe(etappeNummer);
 		List<DeelnemerAndBedragModel> deelnemerAndBedragModel = new ArrayList<DeelnemerAndBedragModel>();
 		logger.debug("Mapping objects to view model.");
 		for (DeelnemerBedragDto dbDto: deelnemerAndBedrag) {

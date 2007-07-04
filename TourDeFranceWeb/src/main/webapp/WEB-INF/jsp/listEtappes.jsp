@@ -24,14 +24,21 @@
 				<display:column property="etappenummer" class="hidden" headerClass="hidden" title="Etappe Nummer" sortable="true"/>
 				<display:column property="omschrijving" title="Etappe Omschrijving" class="etappeomschrijving"/>
 	  			<display:column property="datum" title="Datum" sortable="true"/>
-	  			<%-- Hier gaan nog dingen fout met Lazy-Initialization. Moet nog een object tussen
-	  			gezet worden die een mapping naar een String doet.
-	  			 --%>
 	  			<display:column property="startplaats.stad" title="Startplaats" sortable="true"/>
 	  			<display:column property="finishplaats.stad" title="Finishplaats" sortable="true"/>
 	  			<display:column href="listEtappeUitslag.htm" paramId="etappe" paramProperty="etappenummer" value="Etappe Uitslag" title="Etappe Uitslag"/>
 	  			<display:column href="listGewonnenBedragen.htm" paramId="etappe" paramProperty="etappenummer" value="Stand na etappe" title="Stand na etappe"/>
 	  		</display:table>
-		</div>
+	  		<br/>
+	  		<br/>
+	  		<h2>EindUitslag</h2>
+	  		<display:table id="eindUitslagTable" name="model.einduitslag" class="listTable eindUitslagTable" requestURI="listEtappes.htm" sort="list" defaultsort="1">
+				<display:column property="etappenummer" class="hidden" headerClass="hidden" title="Etappe Nummer" sortable="true"/>
+				<display:column property="omschrijving" title="Etappe Omschrijving" class="etappeomschrijving"/>
+	  			<display:column href="listEtappeUitslag.htm" paramId="etappe" paramProperty="etappenummer" value="Etappe Uitslag" title="Etappe Uitslag"/>
+	  			<display:column href="listGewonnenBedragen.htm" paramId="etappe" paramProperty="etappenummer" value="Stand na etappe" title="Stand na etappe"/>
+	  		</display:table>
+	  		
+	  	</div>
 	</body>
 </html>

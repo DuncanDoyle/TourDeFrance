@@ -8,10 +8,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import nl.doyle.mccloud.tourdefrance.dao.EindUitslagDao;
 import nl.doyle.mccloud.tourdefrance.dao.PloegenTijdritDao;
 import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
+import nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag;
+import nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
-import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,6 +25,7 @@ public class ListEtappesController implements Controller {
 	private static Log logger;
 	private StandaardEtappeDao standaardEtappeDao;
 	private PloegenTijdritDao ploegenTijdritDao;
+	private EindUitslagDao eindUitslagDao;
 	
 	
 	//Statically initialize logger
@@ -36,11 +39,14 @@ public class ListEtappesController implements Controller {
 		List<Etappe> etappes = new ArrayList<Etappe>();
 		etappes.addAll(standaardEtappeDao.loadAllStandaardEtappesWithStedenEager());
 		etappes.addAll(ploegenTijdritDao.loadAllPloegenTijdrittenWithStedenEager());
-		Map<String, List<Etappe>> etappesModel = new HashMap<String, List<Etappe>>();
+		List<EindUitslag> eindUitslag = new ArrayList<EindUitslag>();
+		eindUitslag.add(eindUitslagDao.loadEindUitslag());
+		Map<String, List<? extends AbstractEtappeAndEindUitslag>> etappesModel = new HashMap<String, List<? extends AbstractEtappeAndEindUitslag>>();
 		if (logger.isDebugEnabled()) {
 			logger.debug("Putting Etappe objects in model map.");
 		}
 		etappesModel.put("etappes", etappes);
+		etappesModel.put("einduitslag", eindUitslag);
 		if (logger.isDebugEnabled()) {
 			logger.debug("Returning ModelAnView 'listRenners' with model 'model'");
 			
@@ -77,6 +83,20 @@ public class ListEtappesController implements Controller {
 	public void setStandaardEtappeDao(StandaardEtappeDao standaardEtappeDao) {
 		this.standaardEtappeDao = standaardEtappeDao;
 	}
+
+
+
+	public EindUitslagDao getEindUitslagDao() {
+		return eindUitslagDao;
+	}
+
+
+
+	public void setEindUitslagDao(EindUitslagDao eindUitslagDao) {
+		this.eindUitslagDao = eindUitslagDao;
+	}
+	
+	
 	
 	
 	

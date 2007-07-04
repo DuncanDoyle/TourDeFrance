@@ -24,7 +24,7 @@
 			Etappe: <c:out value="${model.uitslagmodel.etappe.omschrijving}"/>
 			<br/>
 			<%
-			if (!(pageEtappeType == EtappeType.EindUitslag)){ 
+			if (pageEtappeType != EtappeType.EindUitslag) {
 			%>
 				Datum: <c:out value="${model.uitslagmodel.etappe.datum}"/>
 				<br/>
