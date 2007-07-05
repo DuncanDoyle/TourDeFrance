@@ -20,8 +20,14 @@ table.deelnemersTable {
 	margin: 0 auto !important;
 }
 
+table.deelnemersTableNonAdmin {
+	width: 30%;
+	text-align: center; 
+	margin: 0 auto !important;
+}
+
 table.rennersEnDeelnemersTable {
-	width: 50%;
+	width: 52%;
 	text-align: center; 
 	margin: 0 auto !important;
 }
@@ -33,12 +39,16 @@ table.deelnemersAndBedragenTable {
 }
 
 table.listTable td.nummerColumn {
-	width: 10%;
+	width: 8%;
 	text-align: center;
 }
 
 table.listTable td.achternaamColumn {
 	width: 20%;
+}
+
+table.deelnemersTableNonAdmin td.achternaamColumn {
+	width: 35%;
 }
 
 table.listTable td.rekeningnummerColumn {

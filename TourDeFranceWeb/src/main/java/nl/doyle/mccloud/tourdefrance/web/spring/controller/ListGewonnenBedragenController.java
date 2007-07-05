@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.dozer.util.mapping.MapperIF;
 import nl.doyle.mccloud.tourdefrance.calculator.Calculator;
+import nl.doyle.mccloud.tourdefrance.controller.TourFacade;
 import nl.doyle.mccloud.tourdefrance.dto.DeelnemerBedragDto;
+import nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag;
 import nl.doyle.mccloud.tourdefrance.web.spring.model.DeelnemerAndBedragModel;
 
 import org.apache.commons.logging.Log;
@@ -24,6 +26,7 @@ public class ListGewonnenBedragenController implements Controller {
 	private static final Log logger = LogFactory.getLog(ListGewonnenBedragenController.class);
 	
 	private Calculator tourCalculator;
+	private TourFacade tourFacade;
 	private MapperIF mapper;
 	
 	public ModelAndView handleRequest(HttpServletRequest arg0,
@@ -39,9 +42,10 @@ public class ListGewonnenBedragenController implements Controller {
 			 logger.debug("Adding model entry to view model.");
 			 deelnemerAndBedragModel.add(dbModel);
 		}
+		AbstractEtappeAndEindUitslag etappe = tourFacade.getEtappe(etappeNummer);
 		logger.debug("View model constructed.");
 		listGewonnenBedragenModel.put("deelnemersAndBedragen", deelnemerAndBedragModel);
-		listGewonnenBedragenModel.put("etappenummer", etappeNummer);
+		listGewonnenBedragenModel.put("etappeomschrijving", etappe.getOmschrijving());
 		return new ModelAndView("listGewonnenBedragen", "model", listGewonnenBedragenModel);
 	}
 	
@@ -95,7 +99,14 @@ public class ListGewonnenBedragenController implements Controller {
 		this.mapper = mapper;
 	}
 
-	
-	
+
+	public TourFacade getTourFacade() {
+		return tourFacade;
+	}
+
+
+	public void setTourFacade(TourFacade tourFacade) {
+		this.tourFacade = tourFacade;
+	}
 	
 }

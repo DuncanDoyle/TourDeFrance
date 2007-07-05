@@ -37,43 +37,43 @@
 	   		if (pageEtappeType == EtappeType.Etappe) {		
 	   		%>
 		   		<h3>Etappe Uitslag</h3>
-				<display:table id="etappeUitslagTable" name="model.uitslagmodel.etappe.etappeUitslag" class="listTable etappeUitslagTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
-					<display:column property="positie" title="Positie" sortable="true"/>
-					<display:column property="renner.nummer" title="Rennernummer" sortable="false"/>
+				<display:table id="etappeUitslagTable" name="model.uitslagmodel.etappe.etappeUitslag" class="listTable rennersEnDeelnemersTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
+					<display:column property="positie" class="nummerColumn" title="Positie" sortable="true"/>
+					<display:column property="renner.nummer" class="nummerColumn" title="Rennernummer" sortable="false"/>
 		  			<display:column property="renner.voornaam" title="Renner Voornaam" sortable="false"/>
 		  			<display:column property="renner.achternaam" title="Renner Achternaam" sortable="false"/>
-		  			<display:column property="deelnemer.nummer" title="Deelnemernummer" sortable="false"/>
+		  			<display:column property="deelnemer.nummer" class="nummerColumn" title="Deelnemernummer" sortable="false"/>
 		  			<display:column property="deelnemer.voornaam" title="Deelnemer Voornaam" sortable="false"/>
 		  			<display:column property="deelnemer.achternaam" title="Deelnemer Achternaam" sortable="false"/>
 				</display:table>
 			<%}%>
 			<h3>GeleTruiUitslag</h3>
-			<display:table id="geleTruiUitslagTable" name="model.uitslagmodel.etappe.geleTruiUitslag" class="listTable geleTruiUitslagTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
-				<display:column property="positie" title="Positie" sortable="true"/>
-				<display:column property="renner.nummer" title="Rennernummer" sortable="false"/>
+			<display:table id="geleTruiUitslagTable" name="model.uitslagmodel.etappe.geleTruiUitslag" class="listTable rennersEnDeelnemersTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
+				<display:column property="positie" class="nummerColumn" title="Positie" sortable="true"/>
+				<display:column property="renner.nummer" class="nummerColumn" title="Rennernummer" sortable="false"/>
 	  			<display:column property="renner.voornaam" title="Renner Voornaam" sortable="false"/>
 	  			<display:column property="renner.achternaam" title="Renner Achternaam" sortable="false"/>
-	  			<display:column property="deelnemer.nummer" title="Deelnemernummer" sortable="false"/>
+	  			<display:column property="deelnemer.nummer" class="nummerColumn" title="Deelnemernummer" sortable="false"/>
 		  		<display:column property="deelnemer.voornaam" title="Deelnemer Voornaam" sortable="false"/>
 		  		<display:column property="deelnemer.achternaam" title="Deelnemer Achternaam" sortable="false"/>
 			</display:table>
 			<h3>GroeneTruiUitslag</h3>
-			<display:table id="groeneTruiUitslagTable" name="model.uitslagmodel.etappe.groeneTruiUitslag" class="listTable groeneTruiUitslagTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
-				<display:column property="positie" title="Positie" sortable="true"/>
-				<display:column property="renner.nummer" title="Rennernummer" sortable="false"/>
+			<display:table id="groeneTruiUitslagTable" name="model.uitslagmodel.etappe.groeneTruiUitslag" class="listTable rennersEnDeelnemersTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
+				<display:column property="positie" class="nummerColumn" title="Positie" sortable="true"/>
+				<display:column property="renner.nummer" class="nummerColumn" title="Rennernummer" sortable="false"/>
 	  			<display:column property="renner.voornaam" title="Renner Voornaam" sortable="false"/>
 	  			<display:column property="renner.achternaam" title="Renner Achternaam" sortable="false"/>
-	  			<display:column property="deelnemer.nummer" title="Deelnemernummer" sortable="false"/>
+	  			<display:column property="deelnemer.nummer" class="nummerColumn" title="Deelnemernummer" sortable="false"/>
 		  		<display:column property="deelnemer.voornaam" title="Deelnemer Voornaam" sortable="false"/>
 		  		<display:column property="deelnemer.achternaam" title="Deelnemer Achternaam" sortable="false"/>
 			</display:table>
 			<h3>BolletjesTruiUitslag</h3>
-			<display:table id="bolletjesTruiUitslagTable" name="model.uitslagmodel.etappe.bolletjesTruiUitslag" class="listTable bolletjesTruiUitslagTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
-				<display:column property="positie" title="Positie" sortable="true"/>
-				<display:column property="renner.nummer" title="Rennernummer" sortable="false"/>
+			<display:table id="bolletjesTruiUitslagTable" name="model.uitslagmodel.etappe.bolletjesTruiUitslag" class="listTable rennersEnDeelnemersTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
+				<display:column property="positie" class="nummerColumn" title="Positie" sortable="true"/>
+				<display:column property="renner.nummer" class="nummerColumn" title="Rennernummer" sortable="false"/>
 	  			<display:column property="renner.voornaam" title="Renner Voornaam" sortable="false"/>
 	  			<display:column property="renner.achternaam" title="Renner Achternaam" sortable="false"/>
-	  			<display:column property="deelnemer.nummer" title="Deelnemernummer" sortable="false"/>
+	  			<display:column property="deelnemer.nummer" class="nummerColumn" title="Deelnemernummer" sortable="false"/>
 		  		<display:column property="deelnemer.voornaam" title="Deelnemer Voornaam" sortable="false"/>
 		  		<display:column property="deelnemer.achternaam" title="Deelnemer Achternaam" sortable="false"/>
 			</display:table>
@@ -82,29 +82,31 @@
 			if (pageEtappeType == EtappeType.EindUitslag) {
 			%>
 				<h3>WitteTruiUitslag</h3>
-				<display:table id="witteTruiUitslagTable" name="model.uitslagmodel.etappe.witteTrui" class="listTable witteTruiUitslagTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
-					<display:column property="renner.nummer" title="Rennernummer" sortable="false"/>
+				<display:table id="witteTruiUitslagTable" name="model.uitslagmodel.etappe.witteTrui" class="listTable rennersEnDeelnemersTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
+					<display:column property="positie" class="nummerColumn" title="Positie" sortable="true"/>
+					<display:column property="renner.nummer" class="nummerColumn" title="Rennernummer" sortable="false"/>
 			 		<display:column property="renner.voornaam" title="Renner Voornaam" sortable="false"/>
 			 		<display:column property="renner.achternaam" title="Renner Achternaam" sortable="false"/>
-			 		<display:column property="deelnemer.nummer" title="Deelnemernummer" sortable="false"/>
+			 		<display:column property="deelnemer.nummer" class="nummerColumn" title="Deelnemernummer" sortable="false"/>
 		  			<display:column property="deelnemer.voornaam" title="Deelnemer Voornaam" sortable="false"/>
 		  			<display:column property="deelnemer.achternaam" title="Deelnemer Achternaam" sortable="false"/>
 				</display:table>
 				<h3>RodeLantaren</h3>
-				<display:table id="rodeLantarenUitslagTable" name="model.uitslagmodel.etappe.rodeLantaren" class="listTable rodeLantarenUitslagTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
-					<display:column property="renner.nummer" title="Rennernummer" sortable="false"/>
+				<display:table id="rodeLantarenUitslagTable" name="model.uitslagmodel.etappe.rodeLantaren" class="listTable rennersEnDeelnemersTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
+					<display:column property="positie" class="nummerColumn" title="Positie" sortable="true"/>
+					<display:column property="renner.nummer" class="nummerColumn" title="Rennernummer" sortable="false"/>
 			 		<display:column property="renner.voornaam" title="Renner Voornaam" sortable="false"/>
 			 		<display:column property="renner.achternaam" title="Renner Achternaam" sortable="false"/>
-			 		<display:column property="deelnemer.nummer" title="Deelnemernummer" sortable="false"/>
+			 		<display:column property="deelnemer.nummer" class="nummerColumn" title="Deelnemernummer" sortable="false"/>
 		  			<display:column property="deelnemer.voornaam" title="Deelnemer Voornaam" sortable="false"/>
 		  			<display:column property="deelnemer.achternaam" title="Deelnemer Achternaam" sortable="false"/>
 				</display:table>
 				<h3>EersteUitvaller</h3>
-				<display:table id="eersteUitvallerUitslagTable" name="model.uitslagmodel.etappe.eersteUitvaller" class="listTable eersteUitvallerUitslagTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
-					<display:column property="renner.nummer" title="Rennernummer" sortable="false"/>
+				<display:table id="eersteUitvallerUitslagTable" name="model.uitslagmodel.etappe.eersteUitvaller" class="listTable rennersEnDeelnemersTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
+					<display:column property="renner.nummer" class="nummerColumn" title="Rennernummer" sortable="false"/>
 			 		<display:column property="renner.voornaam" title="Renner Voornaam" sortable="false"/>
 			 		<display:column property="renner.achternaam" title="Renner Achternaam" sortable="false"/>
-			 		<display:column property="deelnemer.nummer" title="Deelnemernummer" sortable="false"/>
+			 		<display:column property="deelnemer.nummer" class="nummerColumn" title="Deelnemernummer" sortable="false"/>
 		  			<display:column property="deelnemer.voornaam" title="Deelnemer Voornaam" sortable="false"/>
 		  			<display:column property="deelnemer.achternaam" title="Deelnemer Achternaam" sortable="false"/>
 				</display:table>

@@ -26,10 +26,6 @@
 					<li class="none">
               			<a href="listEtappes.htm">Etappes</a>
 	        		</li>
-	        		
-	        		<li class="none">
-              			<a href="etappeDetails.htm">Etappe Details</a>
-	        		</li>
 	        		<li class="none">
               			<a href="http://tourmanager2007.forumcircle.com">Forum</a>
 	        		</li>

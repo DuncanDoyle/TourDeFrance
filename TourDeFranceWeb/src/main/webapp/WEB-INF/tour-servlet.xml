@@ -82,6 +82,9 @@
 		<property name="tourCalculator">
 			<ref bean="calculator"/>
 		</property>
+		<property name="tourFacade">
+			<ref bean="tourFacade"/>
+		</property>
 		<property name="mapper">
 			<ref local="dozerMapperIF"/>
 		</property>
