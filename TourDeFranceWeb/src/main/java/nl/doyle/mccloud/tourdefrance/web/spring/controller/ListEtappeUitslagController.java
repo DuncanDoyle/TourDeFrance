@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import nl.doyle.mccloud.tourdefrance.controller.TourFacade;
+import nl.doyle.mccloud.tourdefrance.dto.AbstractEtappeAndEindUitslagDto;
+import nl.doyle.mccloud.tourdefrance.dto.PloegenTijdritDto;
+import nl.doyle.mccloud.tourdefrance.dto.StandaardEtappeDto;
 import nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
@@ -35,7 +38,7 @@ public class ListEtappeUitslagController extends AbstractController {
 		if (logger.isDebugEnabled()) {
 			logger.debug("Etappenummer = " + etappeNummer);
 		}
-		AbstractEtappeAndEindUitslag etappe = tourFacade.getEtappeWithUitslag(etappeNummer);
+		AbstractEtappeAndEindUitslagDto etappe = tourFacade.getEtappeDtoWithUitslag(etappeNummer);
 		
 		if (logger.isDebugEnabled()) {
 			logger.debug("Etappenummer = " + etappe.getEtappenummer());
@@ -48,10 +51,10 @@ public class ListEtappeUitslagController extends AbstractController {
 		//etappeUitslagModel.put("etappe", etappe);
 		ListUitslagModel uitslagModel = new ListUitslagModel();
 		uitslagModel.setEtappe(etappe);
-		if (etappe instanceof StandaardEtappe) {
+		if (etappe instanceof StandaardEtappeDto) {
 			uitslagModel.setTypeEtappe(EtappeType.Etappe);
 			//etappeUitslagModel.put("isStandaardEtappe", new Boolean(true));
-		} else  if (etappe instanceof PloegenTijdrit) {
+		} else  if (etappe instanceof PloegenTijdritDto) {
 			uitslagModel.setTypeEtappe(EtappeType.PloegenTijdrit);
 			//etappeUitslagModel.put("isStandaardEtappe", new Boolean(false));
 		} else {

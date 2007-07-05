@@ -1,5 +1,6 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.model;
 
+import nl.doyle.mccloud.tourdefrance.dto.AbstractEtappeAndEindUitslagDto;
 import nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag;
 
 import org.apache.commons.logging.Log;
@@ -12,7 +13,7 @@ public class ListUitslagModel {
 	public enum EtappeType{Etappe, PloegenTijdrit, EindUitslag};
 
 	private EtappeType typeEtappe;
-	private AbstractEtappeAndEindUitslag etappe;
+	private AbstractEtappeAndEindUitslagDto etappe;
 	
 	public ListUitslagModel() {
 	}
@@ -20,14 +21,14 @@ public class ListUitslagModel {
 	/**
 	 * @return the etappe
 	 */
-	public AbstractEtappeAndEindUitslag getEtappe() {
+	public AbstractEtappeAndEindUitslagDto getEtappe() {
 		return etappe;
 	}
 
 	/**
 	 * @param etappe the etappe to set
 	 */
-	public void setEtappe(AbstractEtappeAndEindUitslag etappe) {
+	public void setEtappe(AbstractEtappeAndEindUitslagDto etappe) {
 		this.etappe = etappe;
 	}
 
