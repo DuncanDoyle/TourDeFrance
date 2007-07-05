@@ -2,22 +2,32 @@ package nl.doyle.mccloud.tourdefrance.controller;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 
 import nl.doyle.mccloud.tourdefrance.dao.DeelnemerDao;
 import nl.doyle.mccloud.tourdefrance.dao.EindUitslagDao;
 import nl.doyle.mccloud.tourdefrance.dao.PloegenTijdritDao;
 import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
+import nl.doyle.mccloud.tourdefrance.dto.AbstractEtappeAndEindUitslagDto;
+import nl.doyle.mccloud.tourdefrance.dto.DeelnemerDto;
 import nl.doyle.mccloud.tourdefrance.dto.DeelnemerWithRennersDto;
+import nl.doyle.mccloud.tourdefrance.dto.EindUitslagDto;
+import nl.doyle.mccloud.tourdefrance.dto.PloegenTijdritDto;
 import nl.doyle.mccloud.tourdefrance.dto.RennerDto;
+import nl.doyle.mccloud.tourdefrance.dto.StandaardEtappeDto;
+import nl.doyle.mccloud.tourdefrance.dto.UitslagDto;
 import nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Deelnemer;
 import nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
+import nl.doyle.mccloud.tourdefrance.valueobjects.GeleTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
+import nl.doyle.mccloud.tourdefrance.valueobjects.Uitslag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -112,12 +122,96 @@ public class TourFacadeImpl implements TourFacade {
 			// haal dan een ploegentijdrit op.
 			etappe = standaardEtappeDao
 					.loadStandaardEtappeWithUitslagEager(etappeNummer);
+			
 		if (etappe == null) {
 			etappe = ploegenTijdritDao
 					.loadPloegenTijdritWithUitslagEager(etappeNummer);
 		}
 		return etappe;
 	}
+	
+	
+	public AbstractEtappeAndEindUitslagDto getEtappeDtoWithUitslag(	int etappeNummer) {
+		AbstractEtappeAndEindUitslag etappe = getEtappeWithUitslag(etappeNummer);
+		
+		AbstractEtappeAndEindUitslagDto etappeDto = mapAbstractEtappeAndEindUitslagWithUitslagToDto(etappe);
+		return etappeDto;
+	}
+	
+	private AbstractEtappeAndEindUitslagDto mapAbstractEtappeAndEindUitslagWithUitslagToDto(AbstractEtappeAndEindUitslag etappe) {
+		AbstractEtappeAndEindUitslagDto dto = null;
+		if (etappe instanceof StandaardEtappe) {
+			dto = new StandaardEtappeDto();
+			((StandaardEtappeDto)dto).setEtappeUitslag(mapUitslagToDto(((StandaardEtappe)etappe).getEtappeUitslag()));
+		} else if (etappe instanceof PloegenTijdrit) {
+			dto = new PloegenTijdritDto();
+		} else if (etappe instanceof EindUitslag) {
+			//TODO Dit moet een stuk netter geimplementeerd worden, zitten nu om het probleem heen te werken
+			dto = new EindUitslagDto();
+			Set<Uitslag> eersteUitvaller = new HashSet<Uitslag>();
+			if (((EindUitslag) etappe).getEersteUitvaller() != null) {
+				GeleTruiUitslag eersteUitvallerUitslag = new GeleTruiUitslag();
+				eersteUitvallerUitslag.setPositie(1);
+				eersteUitvallerUitslag.setEtappenummer(etappe.getEtappenummer());
+				eersteUitvallerUitslag.setRenner(((EindUitslag) etappe).getEersteUitvaller());
+				eersteUitvaller.add(eersteUitvallerUitslag);
+			}
+			((EindUitslagDto)dto).setEersteUitvaller(mapUitslagToDto(eersteUitvaller));
+			
+			Set<Uitslag> rodeLantaren = new HashSet<Uitslag>();
+			if (((EindUitslag) etappe).getRodeLantaren() != null) {
+				GeleTruiUitslag rodeLantarenUitslag = new GeleTruiUitslag();
+				rodeLantarenUitslag.setPositie(1);
+				rodeLantarenUitslag.setEtappenummer(etappe.getEtappenummer());
+				rodeLantarenUitslag.setRenner(((EindUitslag) etappe).getRodeLantaren());
+				rodeLantaren.add(rodeLantarenUitslag);
+			}
+			((EindUitslagDto)dto).setRodeLantaren(mapUitslagToDto(rodeLantaren));
+			
+			Set<Uitslag> witteTrui = new HashSet<Uitslag>();
+			if (((EindUitslag) etappe).getWitteTrui() != null) {
+				GeleTruiUitslag witteTruiUitslag = new GeleTruiUitslag();
+				witteTruiUitslag.setPositie(1);
+				witteTruiUitslag.setEtappenummer(etappe.getEtappenummer());
+				witteTruiUitslag.setRenner(((EindUitslag) etappe).getWitteTrui());
+				witteTrui.add(witteTruiUitslag);
+			}
+			((EindUitslagDto)dto).setWitteTrui(mapUitslagToDto(witteTrui));
+		} else {
+			throw new IllegalArgumentException("Etappe niet van het juiste type");
+		}
+		dto.setEtappenummer(etappe.getEtappenummer());
+		dto.setOmschrijving(etappe.getOmschrijving());
+		dto.setGeleTruiUitslag(mapUitslagToDto(etappe.getGeleTruiUitslag()));
+		dto.setGroeneTruiUitslag(mapUitslagToDto(etappe.getGroeneTruiUitslag()));
+		dto.setBolletjesTruiUitslag(mapUitslagToDto(etappe.getBolletjesTruiUitslag()));
+		return dto;
+	}
+	
+	private Set<UitslagDto> mapUitslagToDto(Set<? extends Uitslag> uitslag) {
+		Set<UitslagDto> uitslagDto = new HashSet<UitslagDto>();
+		
+		for(Uitslag nextUitslag: uitslag) {
+			UitslagDto dto = new UitslagDto();
+			dto.setPositie(nextUitslag.getPositie());
+			
+			RennerDto rennerDto = new RennerDto();
+			rennerDto.setNummer(nextUitslag.getRenner().getNummer());
+			rennerDto.setVoornaam(nextUitslag.getRenner().getVoornaam());
+			rennerDto.setAchternaam(nextUitslag.getRenner().getAchternaam());
+			dto.setRenner(rennerDto);
+			
+			DeelnemerDto deelnemerDto = new DeelnemerDto();
+			Deelnemer deelnemer = deelnemerDao.loadDeelnemerHavingRenner(nextUitslag.getRenner());
+			deelnemerDto.setNummer(deelnemer.getNummer());
+			deelnemerDto.setAchternaam(deelnemer.getAchternaam());
+			deelnemerDto.setVoornaam(deelnemer.getVoornaam());
+			dto.setDeelnemer(deelnemerDto);
+			uitslagDto.add(dto);
+		}
+		return uitslagDto;
+	}
+	
 
 	/**
 	 * Geeft de opgevraagde etappe terug inclusief start- en finishplaats

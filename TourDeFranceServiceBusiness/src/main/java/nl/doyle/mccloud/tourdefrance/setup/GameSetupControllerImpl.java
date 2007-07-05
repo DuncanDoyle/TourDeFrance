@@ -196,7 +196,8 @@ public class GameSetupControllerImpl implements GameSetupController {
 			HashSet<Renner> rennersSet = new HashSet<Renner>();
 			for (int rennerTeller = 0; rennerTeller < 9; rennerTeller++) {
 				Renner storeRenner = new Renner();
-				storeRenner.setNummer((teller * 10) + (rennerTeller + 1));
+				//rennerteller + 11 voor Tour 2007. De eerste ploeg bestaat in die tour niet.
+				storeRenner.setNummer((teller * 10) + (rennerTeller + 11));
 				rennersSet.add(storeRenner);
 			}
 			storeTeam.setRenners(rennersSet);
@@ -267,6 +268,7 @@ public class GameSetupControllerImpl implements GameSetupController {
 	private void createEindUitslag() {
 		EindUitslag storeEindUitslag = new EindUitslag();
 		storeEindUitslag.setEtappenummer(0);
+		storeEindUitslag.setOmschrijving("Eind Uitslag");
 		eindUitslagDao.saveEindUitslag(storeEindUitslag);
 	}
 

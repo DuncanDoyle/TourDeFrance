@@ -5,6 +5,8 @@ import java.util.List;
 
 import nl.doyle.mccloud.tourdefrance.dao.DeelnemerDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Deelnemer;
+import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
+import nl.doyle.mccloud.tourdefrance.valueobjects.Stad;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -165,6 +167,27 @@ public class DeelnemerDaoHibernateImpl extends HibernateDaoSupport implements De
 	
 	public void deleteDeelnemer(final Deelnemer delDeelnemer) {
 		getHibernateTemplate().delete(delDeelnemer);
+	}
+
+	
+	/**
+	 * Haalt een deelnemer uit de db op die de meegegeven renner in zijn renners Set heeft.
+	 * 
+	 * @param renner De renner die in de rennerset van de deelnemer moet zitten
+	 * 
+	 * @return deelnemer
+	 */
+	public Deelnemer loadDeelnemerHavingRenner(final Renner renner) {
+		final String hql = "select deelnemer from Deelnemer as deelnemer, Renner as renner where renner in elements(deelnemer.renners) and renner.nummer=:rennernummer";
+		Deelnemer deelnemer = 
+			(Deelnemer) getHibernateTemplate().execute(new HibernateCallback() {
+				public Object doInHibernate(Session session) throws HibernateException {
+					Query query = session.createQuery(hql);
+					query.setInteger("rennernummer", renner.getNummer());
+					return query.uniqueResult();
+				}
+			});
+		return deelnemer;
 	}
 		
 }
