@@ -162,7 +162,8 @@
 		<property name="url">
 		<!-- <value>jdbc:derby:./TourDeFranceDB;user=tour;password=manager</value>  -->
 <!-- 		<value>jdbc:derby:C:/eclipse_workspaces/TourDeFranceWebApp/TourDeFranceServiceBusiness/TourDeFranceDB;user=tour;password=manager</value>  -->
-		<value>jdbc:derby:C:/TourDeFranceDB;user=tour;password=manager</value>
+		<!-- <value>jdbc:derby:C:/TourDeFranceDB;user=tour;password=manager</value>  -->
+			<value>jdbc:derby:TourDeFranceDB;user=tour;password=manager</value>
 		</property>
 	</bean>
 	

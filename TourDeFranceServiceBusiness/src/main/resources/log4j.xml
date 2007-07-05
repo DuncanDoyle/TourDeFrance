@@ -12,7 +12,7 @@
 
 	
   <appender name="file" class="org.apache.log4j.FileAppender">
-		<param name="File" value="C:/tour.log"/>
+		<param name="File" value="${user.home}/tour.log"/>
 <!-- 		<param name="MaxFileSize" value="100B"/>
 		<param name="MaxBackupIndex" value="3"/>
  		<param name="Append" value="false"/>   -->
@@ -53,15 +53,13 @@
   	<appender-ref ref="console"/>
   </category>
   <category name="nl.doyle.mccloud">
-  	<priority value="DEBUG"/>
+  	<priority value="INFO"/>
   	<appender-ref ref="file"/>
   	<appender-ref ref="console"/>
   </category>
   
-  
-  
   <root>
-    <priority value="DEBUG" />
+    <priority value="INFO" />
     <appender-ref ref="console" />
     <appender-ref ref="file" />
   </root>

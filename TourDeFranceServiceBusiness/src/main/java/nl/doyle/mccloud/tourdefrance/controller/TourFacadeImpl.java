@@ -230,6 +230,20 @@ public class TourFacadeImpl implements TourFacade {
 		}
 		return etappe;
 	}
+	
+	public AbstractEtappeAndEindUitslag getEtappe(int etappeNummer) {
+		AbstractEtappeAndEindUitslag etappe;
+		if (etappeNummer == 0) {
+			etappe = eindUitslagDao.loadEindUitslag();
+		} else
+			etappe = standaardEtappeDao
+					.loadStandaardEtappe(etappeNummer);
+		if (etappe == null) {
+			etappe = ploegenTijdritDao
+					.loadPloegenTijdrit(etappeNummer);
+		}
+		return etappe;
+	}
 
 	public void saveEtappe(AbstractEtappeAndEindUitslag etappe) {
 		if (etappe instanceof StandaardEtappe) {
