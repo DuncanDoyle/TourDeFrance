@@ -20,7 +20,7 @@
 		<c:import url="leftColumn.jsp"/>
 		<div id="bodyColumn">
 			<h2>Gewonnen Bedragen</h2>
-			<display:table id="deelnemersAndBedragen" name="model.deelnemersAndBedragen" class="listTable deelnemersAndBedragenTable" requestURI="listRennersAndDeelnemers.htm" sort="list" defaultsort="1">
+			<display:table id="deelnemersAndBedragen" name="model.deelnemersAndBedragen" class="listTable deelnemersAndBedragenTable" requestURI="listGewonnenBedragen.htm" sort="list" defaultsort="1">
 				<display:column property="nummer" class="nummerColumn" title="Deelnemernummer" sortable="true"/>
 	  			<display:column property="voornaam" title="Deelnemer Voornaam" sortable="true"/>
 	  			<display:column property="achternaam" title="Deelnemer Achternaam" sortable="true"/>
