@@ -152,6 +152,9 @@
 		<property name="eindUitslagDao">
 			<ref local="eindUitslagDao"/>
 		</property>
+		<property name="uitslagBedragDao">
+			<ref local="uitslagBedragDao"/>
+		</property>
 	</bean>
  	
 	<!-- Tour de France DataSource Property -->
@@ -160,10 +163,9 @@
 			<value>org.apache.derby.jdbc.EmbeddedDriver</value>
 		</property>
 		<property name="url">
-		<!-- <value>jdbc:derby:./TourDeFranceDB;user=tour;password=manager</value>  -->
-<!-- 		<value>jdbc:derby:C:/eclipse_workspaces/TourDeFranceWebApp/TourDeFranceServiceBusiness/TourDeFranceDB;user=tour;password=manager</value>  -->
+		<!-- 		<value>jdbc:derby:C:/eclipse_workspaces/TourDeFranceWebApp/TourDeFranceServiceBusiness/TourDeFranceDB;user=tour;password=manager</value>  -->
 		<!-- <value>jdbc:derby:C:/TourDeFranceDB;user=tour;password=manager</value>  -->
-			<value>jdbc:derby:TourDeFranceDB;user=tour;password=manager</value>
+		<value>jdbc:derby:TourDeFranceDB2007;user=tour;password=manager</value>
 		</property>
 	</bean>
 	

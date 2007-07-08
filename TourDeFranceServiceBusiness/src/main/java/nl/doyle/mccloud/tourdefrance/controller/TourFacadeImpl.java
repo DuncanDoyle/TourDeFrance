@@ -1,9 +1,11 @@
 package nl.doyle.mccloud.tourdefrance.controller;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -11,7 +13,9 @@ import nl.doyle.mccloud.tourdefrance.dao.DeelnemerDao;
 import nl.doyle.mccloud.tourdefrance.dao.EindUitslagDao;
 import nl.doyle.mccloud.tourdefrance.dao.PloegenTijdritDao;
 import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
+import nl.doyle.mccloud.tourdefrance.dao.UitslagBedragDao;
 import nl.doyle.mccloud.tourdefrance.dto.AbstractEtappeAndEindUitslagDto;
+import nl.doyle.mccloud.tourdefrance.dto.DeelnemerBedragDto;
 import nl.doyle.mccloud.tourdefrance.dto.DeelnemerDto;
 import nl.doyle.mccloud.tourdefrance.dto.DeelnemerWithRennersDto;
 import nl.doyle.mccloud.tourdefrance.dto.EindUitslagDto;
@@ -24,10 +28,13 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.Deelnemer;
 import nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
 import nl.doyle.mccloud.tourdefrance.valueobjects.GeleTruiUitslag;
+import nl.doyle.mccloud.tourdefrance.valueobjects.GroeneTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Uitslag;
+import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagBedrag;
+import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagBedrag.Categorien;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,6 +46,7 @@ public class TourFacadeImpl implements TourFacade {
 	private StandaardEtappeDao standaardEtappeDao;
 	private PloegenTijdritDao ploegenTijdritDao;
 	private EindUitslagDao eindUitslagDao;
+	private UitslagBedragDao uitslagBedragDao;
 
 	public TourFacadeImpl() {
 	}
@@ -60,8 +68,7 @@ public class TourFacadeImpl implements TourFacade {
 			deelnemer.setVoornaam(nextDeelnemer.getVoornaam());
 			deelnemer.setEmail(nextDeelnemer.getEmail());
 			deelnemer.setRekeningnummer(nextDeelnemer.getRekeningnummer());
-			deelnemer
-					.setRenners(new TreeSet<RennerDto>(new RennerComparator()));
+			deelnemer.setRenners(new TreeSet<RennerDto>(new RennerComparator()));
 			// Nu renners in DTO kopieren
 			for (Renner nextRenner : nextDeelnemer.getRenners()) {
 				RennerDto renner = new RennerDto();
@@ -89,16 +96,13 @@ public class TourFacadeImpl implements TourFacade {
 					comparison = -1;
 				} else if (((RennerDto) o2).getNummer() % 10 == 1) {
 					comparison = 1;
-				} else if (((RennerDto) o1).getNummer() > ((RennerDto) o2)
-						.getNummer()) {
+				} else if (((RennerDto) o1).getNummer() > ((RennerDto) o2).getNummer()) {
 					comparison = 1;
-				} else if (((RennerDto) o1).getNummer() < ((RennerDto) o2)
-						.getNummer()) {
+				} else if (((RennerDto) o1).getNummer() < ((RennerDto) o2).getNummer()) {
 					comparison = -1;
 				}
 			} else {
-				throw new ClassCastException(
-						"Objects not of the correct type and can't be compared.");
+				throw new ClassCastException("Objects not of the correct type and can't be compared.");
 			}
 
 			return comparison;
@@ -120,34 +124,59 @@ public class TourFacadeImpl implements TourFacade {
 		} else
 			// Haal de etappe op uit de db. Als het geen standaardetappe is,
 			// haal dan een ploegentijdrit op.
-			etappe = standaardEtappeDao
-					.loadStandaardEtappeWithUitslagEager(etappeNummer);
-			
+			etappe = standaardEtappeDao.loadStandaardEtappeWithUitslagEager(etappeNummer);
+
 		if (etappe == null) {
-			etappe = ploegenTijdritDao
-					.loadPloegenTijdritWithUitslagEager(etappeNummer);
+			etappe = ploegenTijdritDao.loadPloegenTijdritWithUitslagEager(etappeNummer);
 		}
 		return etappe;
 	}
-	
-	
-	public AbstractEtappeAndEindUitslagDto getEtappeDtoWithUitslag(	int etappeNummer) {
+
+	public AbstractEtappeAndEindUitslagDto getEtappeDtoWithUitslag(int etappeNummer) {
 		AbstractEtappeAndEindUitslag etappe = getEtappeWithUitslag(etappeNummer);
-		
 		AbstractEtappeAndEindUitslagDto etappeDto = mapAbstractEtappeAndEindUitslagWithUitslagToDto(etappe);
 		return etappeDto;
 	}
-	
-	private AbstractEtappeAndEindUitslagDto mapAbstractEtappeAndEindUitslagWithUitslagToDto(AbstractEtappeAndEindUitslag etappe) {
+
+	private AbstractEtappeAndEindUitslagDto initDto(AbstractEtappeAndEindUitslag etappe) {
 		AbstractEtappeAndEindUitslagDto dto = null;
+
 		if (etappe instanceof StandaardEtappe) {
 			dto = new StandaardEtappeDto();
-			((StandaardEtappeDto)dto).setEtappeUitslag(mapUitslagToDto(((StandaardEtappe)etappe).getEtappeUitslag()));
 		} else if (etappe instanceof PloegenTijdrit) {
 			dto = new PloegenTijdritDto();
 		} else if (etappe instanceof EindUitslag) {
-			//TODO Dit moet een stuk netter geimplementeerd worden, zitten nu om het probleem heen te werken
 			dto = new EindUitslagDto();
+		} else {
+			throw new IllegalArgumentException("Etappe niet van het juiste type");
+		}
+		dto.setEtappenummer(etappe.getEtappenummer());
+		dto.setOmschrijving(etappe.getOmschrijving());
+		return dto;
+
+	}
+
+	private AbstractEtappeAndEindUitslagDto mapAbstractEtappeAndEindUitslagWithUitslagToDto(AbstractEtappeAndEindUitslag etappe) {
+		AbstractEtappeAndEindUitslagDto dto = initDto(etappe);
+
+		if (etappe instanceof Etappe) {
+			dto.setGeleTruiUitslag(mapUitslagToDto(etappe.getGeleTruiUitslag(), Categorien.GeleTrui));
+			dto.setGroeneTruiUitslag(mapUitslagToDto(etappe.getGroeneTruiUitslag(), Categorien.GroeneTrui));
+			dto.setBolletjesTruiUitslag(mapUitslagToDto(etappe.getBolletjesTruiUitslag(), Categorien.BolletjesTrui));
+
+			if (etappe instanceof StandaardEtappe) {
+				((StandaardEtappeDto) dto).setEtappeUitslag(mapUitslagToDto(((StandaardEtappe) etappe).getEtappeUitslag(), Categorien.Etappe));
+			} else if (etappe instanceof PloegenTijdrit) {
+				dto = new PloegenTijdritDto();
+			} else {
+				throw new IllegalArgumentException("Etappe niet van het juiste type");
+			}
+		} else if (etappe instanceof EindUitslag) {
+			// TODO Dit moet een stuk netter geimplementeerd worden, zitten nu om het probleem heen te werken
+			dto.setGeleTruiUitslag(mapUitslagToDto(etappe.getGeleTruiUitslag(), Categorien.GeleTruiEind));
+			dto.setGroeneTruiUitslag(mapUitslagToDto(etappe.getGroeneTruiUitslag(), Categorien.GroeneTruiEind));
+			dto.setBolletjesTruiUitslag(mapUitslagToDto(etappe.getBolletjesTruiUitslag(), Categorien.BolletjesTruiEind));
+
 			Set<Uitslag> eersteUitvaller = new HashSet<Uitslag>();
 			if (((EindUitslag) etappe).getEersteUitvaller() != null) {
 				GeleTruiUitslag eersteUitvallerUitslag = new GeleTruiUitslag();
@@ -156,8 +185,8 @@ public class TourFacadeImpl implements TourFacade {
 				eersteUitvallerUitslag.setRenner(((EindUitslag) etappe).getEersteUitvaller());
 				eersteUitvaller.add(eersteUitvallerUitslag);
 			}
-			((EindUitslagDto)dto).setEersteUitvaller(mapUitslagToDto(eersteUitvaller));
-			
+			((EindUitslagDto) dto).setEersteUitvaller(mapUitslagToDto(eersteUitvaller, Categorien.EersteUitvallerEind));
+
 			Set<Uitslag> rodeLantaren = new HashSet<Uitslag>();
 			if (((EindUitslag) etappe).getRodeLantaren() != null) {
 				GeleTruiUitslag rodeLantarenUitslag = new GeleTruiUitslag();
@@ -166,8 +195,8 @@ public class TourFacadeImpl implements TourFacade {
 				rodeLantarenUitslag.setRenner(((EindUitslag) etappe).getRodeLantaren());
 				rodeLantaren.add(rodeLantarenUitslag);
 			}
-			((EindUitslagDto)dto).setRodeLantaren(mapUitslagToDto(rodeLantaren));
-			
+			((EindUitslagDto) dto).setRodeLantaren(mapUitslagToDto(rodeLantaren, Categorien.RodeLantarenEind));
+
 			Set<Uitslag> witteTrui = new HashSet<Uitslag>();
 			if (((EindUitslag) etappe).getWitteTrui() != null) {
 				GeleTruiUitslag witteTruiUitslag = new GeleTruiUitslag();
@@ -176,31 +205,35 @@ public class TourFacadeImpl implements TourFacade {
 				witteTruiUitslag.setRenner(((EindUitslag) etappe).getWitteTrui());
 				witteTrui.add(witteTruiUitslag);
 			}
-			((EindUitslagDto)dto).setWitteTrui(mapUitslagToDto(witteTrui));
+			((EindUitslagDto) dto).setWitteTrui(mapUitslagToDto(witteTrui, Categorien.WitteTruiEind));
 		} else {
 			throw new IllegalArgumentException("Etappe niet van het juiste type");
 		}
-		dto.setEtappenummer(etappe.getEtappenummer());
-		dto.setOmschrijving(etappe.getOmschrijving());
-		dto.setGeleTruiUitslag(mapUitslagToDto(etappe.getGeleTruiUitslag()));
-		dto.setGroeneTruiUitslag(mapUitslagToDto(etappe.getGroeneTruiUitslag()));
-		dto.setBolletjesTruiUitslag(mapUitslagToDto(etappe.getBolletjesTruiUitslag()));
+
 		return dto;
 	}
-	
-	private Set<UitslagDto> mapUitslagToDto(Set<? extends Uitslag> uitslag) {
+
+	private Set<UitslagDto> mapUitslagToDto(Set<? extends Uitslag> uitslag, Categorien categorie) {
 		Set<UitslagDto> uitslagDto = new HashSet<UitslagDto>();
+		Locale dutch = new Locale("nl", "NL");
+    	NumberFormat format = NumberFormat.getInstance(dutch);
+    	format.setMinimumFractionDigits(2);
 		
-		for(Uitslag nextUitslag: uitslag) {
+		for (Uitslag nextUitslag : uitslag) {
 			UitslagDto dto = new UitslagDto();
 			dto.setPositie(nextUitslag.getPositie());
-			
+			UitslagBedrag bedrag = uitslagBedragDao.loadUitslagBedrag(categorie, nextUitslag.getPositie());
+			if (bedrag != null) {
+				dto.setPositieBedrag(format.format(bedrag.getBedrag()));
+			} else {
+				dto.setPositieBedrag("");
+			}
 			RennerDto rennerDto = new RennerDto();
 			rennerDto.setNummer(nextUitslag.getRenner().getNummer());
 			rennerDto.setVoornaam(nextUitslag.getRenner().getVoornaam());
 			rennerDto.setAchternaam(nextUitslag.getRenner().getAchternaam());
 			dto.setRenner(rennerDto);
-			
+
 			DeelnemerDto deelnemerDto = new DeelnemerDto();
 			Deelnemer deelnemer = deelnemerDao.loadDeelnemerHavingRenner(nextUitslag.getRenner());
 			deelnemerDto.setNummer(deelnemer.getNummer());
@@ -211,7 +244,6 @@ public class TourFacadeImpl implements TourFacade {
 		}
 		return uitslagDto;
 	}
-	
 
 	/**
 	 * Geeft de opgevraagde etappe terug inclusief start- en finishplaats
@@ -222,25 +254,21 @@ public class TourFacadeImpl implements TourFacade {
 	 * @return Etappe
 	 */
 	public Etappe getEtappeWithStartAndFinish(int etappeNummer) {
-		Etappe etappe = standaardEtappeDao
-				.loadStandaardEtappeWithStartAndFinish(etappeNummer);
+		Etappe etappe = standaardEtappeDao.loadStandaardEtappeWithStartAndFinish(etappeNummer);
 		if (etappe == null) {
-			etappe = ploegenTijdritDao
-					.loadPloegenTijdritWithStartAndFinish(etappeNummer);
+			etappe = ploegenTijdritDao.loadPloegenTijdritWithStartAndFinish(etappeNummer);
 		}
 		return etappe;
 	}
-	
+
 	public AbstractEtappeAndEindUitslag getEtappe(int etappeNummer) {
 		AbstractEtappeAndEindUitslag etappe;
 		if (etappeNummer == 0) {
 			etappe = eindUitslagDao.loadEindUitslag();
 		} else
-			etappe = standaardEtappeDao
-					.loadStandaardEtappe(etappeNummer);
+			etappe = standaardEtappeDao.loadStandaardEtappe(etappeNummer);
 		if (etappe == null) {
-			etappe = ploegenTijdritDao
-					.loadPloegenTijdrit(etappeNummer);
+			etappe = ploegenTijdritDao.loadPloegenTijdrit(etappeNummer);
 		}
 		return etappe;
 	}
@@ -253,11 +281,10 @@ public class TourFacadeImpl implements TourFacade {
 		} else if (etappe instanceof EindUitslag) {
 			eindUitslagDao.saveEindUitslag((EindUitslag) etappe);
 		} else {
-			throw new RuntimeException(
-					"Etappe kan niet worden opgeslagen. Etappe is van het verkeerde type.");
+			throw new RuntimeException("Etappe kan niet worden opgeslagen. Etappe is van het verkeerde type.");
 		}
 	}
-	
+
 	/**
 	 * Bepaalt het hoogste etappenummer in de DB.
 	 * 
@@ -274,7 +301,7 @@ public class TourFacadeImpl implements TourFacade {
 		} else {
 			throw new IllegalStateException("Fout bij het bepalen van het hoogste etappenummer.");
 		}
-			
+
 		return nummer;
 	}
 
@@ -336,6 +363,14 @@ public class TourFacadeImpl implements TourFacade {
 	 */
 	public void setEindUitslagDao(EindUitslagDao eindUitslagDao) {
 		this.eindUitslagDao = eindUitslagDao;
+	}
+
+	public UitslagBedragDao getUitslagBedragDao() {
+		return uitslagBedragDao;
+	}
+
+	public void setUitslagBedragDao(UitslagBedragDao uitslagBedragDao) {
+		this.uitslagBedragDao = uitslagBedragDao;
 	}
 
 }
