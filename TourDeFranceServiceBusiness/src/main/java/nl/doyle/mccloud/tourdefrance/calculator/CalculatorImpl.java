@@ -223,7 +223,7 @@ public class CalculatorImpl implements Calculator {
 					}
 					positie = ((EindUitslag) uitslag).getPositieInEersteUitvallerUitslag(nextRenner);
 					if (positie != 0) {
-						bedrag = bedrag + eindUitslagWitteTruiUitslagBedrag[positie - 1];
+						bedrag = bedrag + eindUitslagEersteUitvallerUitslagBedrag[positie - 1];
 					}
 				}
 			} else {
