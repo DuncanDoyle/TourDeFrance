@@ -273,6 +273,7 @@ public class TourFacadeImpl implements TourFacade {
 		return etappe;
 	}
 
+	//TODO This can be easily solved using dynamic binding. Just create an EtappeDao with 3 overloaded methods, one for each etappe type.
 	public void saveEtappe(AbstractEtappeAndEindUitslag etappe) {
 		if (etappe instanceof StandaardEtappe) {
 			standaardEtappeDao.saveStandaardEtappe((StandaardEtappe) etappe);

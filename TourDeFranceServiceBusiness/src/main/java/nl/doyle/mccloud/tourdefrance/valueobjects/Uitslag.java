@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 public abstract class Uitslag implements Serializable {
 
 	private static final Logger logger = Logger.getLogger(Uitslag.class);
-	
+	//TODO Maybe change this implementation. The etappe owns its uitslag object, so maybe this should contain an array of renners, no etappenummer.
 	private int etappenummer;
 	private int positie;
 	private Renner renner;

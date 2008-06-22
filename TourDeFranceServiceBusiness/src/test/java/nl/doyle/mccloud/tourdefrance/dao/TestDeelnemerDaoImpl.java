@@ -41,7 +41,7 @@ public class TestDeelnemerDaoImpl extends AbstractDependencyInjectionSpringConte
 	 * @return String[]: lokaties van de Spring configuratiebestanden.
 	 */
 	protected String[] getConfigLocations() {
-		return new String[] { "classpath:spring/business_applicationcontext.xml", "classpath:spring/testBusiness_applicationcontext.xml" };
+		return new String[] { "classpath:spring/testBusiness_applicationcontext.xml" };
 	}
 	
 	
