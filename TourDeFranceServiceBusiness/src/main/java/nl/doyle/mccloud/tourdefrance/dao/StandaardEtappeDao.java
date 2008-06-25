@@ -2,7 +2,6 @@ package nl.doyle.mccloud.tourdefrance.dao;
 
 import java.util.List;
 
-import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 
 public interface StandaardEtappeDao {

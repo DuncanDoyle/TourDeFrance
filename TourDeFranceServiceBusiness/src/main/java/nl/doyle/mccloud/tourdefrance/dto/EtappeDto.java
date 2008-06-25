@@ -2,8 +2,6 @@ package nl.doyle.mccloud.tourdefrance.dto;
 
 import java.util.Date;
 
-import nl.doyle.mccloud.tourdefrance.valueobjects.Stad;
-
 public abstract class EtappeDto extends AbstractEtappeAndEindUitslagDto {
 
 	private Date datum;

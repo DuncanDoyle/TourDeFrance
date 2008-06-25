@@ -1,7 +1,6 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.controller;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 
 import nl.doyle.mccloud.tourdefrance.setup.GameSetupController;
 import nl.doyle.mccloud.tourdefrance.web.spring.command.InitializeGameCommand;

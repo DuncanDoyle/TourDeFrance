@@ -6,8 +6,6 @@ import java.util.List;
 import nl.doyle.mccloud.tourdefrance.dao.RennerDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -15,11 +13,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 public class RennerDaoHibernateImpl extends HibernateDaoSupport implements RennerDao {
-	
-	private static final Log log = LogFactory.getLog(RennerDaoHibernateImpl.class);
-	
-	
-	
+
 	/**
 	 * Default Constructor
 	 */
@@ -29,7 +23,8 @@ public class RennerDaoHibernateImpl extends HibernateDaoSupport implements Renne
 	/**
 	 * Verwijdert de Renner uit de database
 	 * 
-	 * @param deleteRenner de te verwijderen Renner
+	 * @param deleteRenner
+	 *            de te verwijderen Renner
 	 * 
 	 * @see Renner
 	 */
@@ -44,13 +39,15 @@ public class RennerDaoHibernateImpl extends HibernateDaoSupport implements Renne
 	 * 
 	 * @see Renner
 	 */
+	@SuppressWarnings("unchecked")
 	public List<Renner> loadAllRenners() {
 		return getHibernateTemplate().loadAll(Renner.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Renner> loadAllRennersOrdered() {
 		final String hql = "from Renner ren ORDER BY ren.nummer";
-		
+
 		List<Renner> renners = (List<Renner>) getHibernateTemplate().execute(new HibernateCallback() {
 			public Object doInHibernate(Session session) throws HibernateException {
 				Query query = session.createQuery(hql);
@@ -59,37 +56,40 @@ public class RennerDaoHibernateImpl extends HibernateDaoSupport implements Renne
 		});
 		return renners;
 	}
-		
+
 	/**
 	 * Laadt de renner met de meegegeven primary key (rennerNummer) uit de database
 	 * 
-	 * @param rennerNummer het nummer van de te laden Renner
+	 * @param rennerNummer
+	 *            het nummer van de te laden Renner
 	 * 
 	 * @return de Renner
 	 * 
 	 * @see Renner
 	 */
+	@SuppressWarnings("unchecked")
 	public Renner loadRenner(int rennerNummer) {
-		List result = getHibernateTemplate().find("from Renner renner where renner.nummer=?", new Integer(rennerNummer));
-		//We hebben op primary key gezocht, dus er is maar 1 renner (of geen) in de lijst
+		List<Renner> result = getHibernateTemplate().find("from Renner renner where renner.nummer=?", new Integer(rennerNummer));
+		// We hebben op primary key gezocht, dus er is maar 1 renner (of geen) in de lijst
 		Renner returnRenner = null;
-		Iterator listIterator = result.iterator();
+		Iterator<Renner> listIterator = result.iterator();
 		if (listIterator.hasNext()) {
 			returnRenner = (Renner) listIterator.next();
 		}
 		return returnRenner;
 	}
-	
+
 	/**
-	 * Slaat de renner op in de database. Maakt een nieuwe db-entry aan als er nog geen renner met
-	 * dit rennernummer (primary key) in de database zit. Update een renner als deze reeds aanwezig is.
+	 * Slaat de renner op in de database. Maakt een nieuwe db-entry aan als er nog geen renner met dit rennernummer (primary key) in de
+	 * database zit. Update een renner als deze reeds aanwezig is.
 	 * 
-	 * @param saveRenner de Renner die moet worden opgeslagen
+	 * @param saveRenner
+	 *            de Renner die moet worden opgeslagen
 	 * 
 	 * @see Renner
 	 */
 	public void saveRenner(Renner saveRenner) {
 		getHibernateTemplate().saveOrUpdate(saveRenner);
 	}
-	
+
 }

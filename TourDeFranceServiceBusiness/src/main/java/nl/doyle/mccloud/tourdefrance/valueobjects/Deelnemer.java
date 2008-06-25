@@ -4,11 +4,8 @@ import java.util.Set;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.log4j.Logger;
 
 public class Deelnemer extends Persoon {
-	
-	private static Logger logger = Logger.getLogger(Deelnemer.class);
 	
 	private String email;
 	private String rekeningnummer;

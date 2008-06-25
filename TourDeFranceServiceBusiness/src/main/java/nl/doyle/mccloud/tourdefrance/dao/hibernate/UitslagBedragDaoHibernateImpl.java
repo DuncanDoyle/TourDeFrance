@@ -14,10 +14,12 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 public class UitslagBedragDaoHibernateImpl extends HibernateDaoSupport implements UitslagBedragDao {
 
+	@SuppressWarnings("unchecked")
 	public List<UitslagBedrag> loadAllUitslagBedragen() {
 		return getHibernateTemplate().loadAll(UitslagBedrag.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<UitslagBedrag> loadAllUitslagBedragenPerCategorie(final Categorien categorie) {
 		final String hql = "from UitslagBedrag ub WHERE ub.categorie=:currentcategorie";
 		

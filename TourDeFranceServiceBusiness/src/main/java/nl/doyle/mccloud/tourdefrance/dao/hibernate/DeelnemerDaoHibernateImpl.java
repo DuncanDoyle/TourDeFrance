@@ -6,7 +6,6 @@ import java.util.List;
 import nl.doyle.mccloud.tourdefrance.dao.DeelnemerDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Deelnemer;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
-import nl.doyle.mccloud.tourdefrance.valueobjects.Stad;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -54,11 +53,12 @@ public class DeelnemerDaoHibernateImpl extends HibernateDaoSupport implements De
 	}
 	*/
 	
+	@SuppressWarnings("unchecked")
 	public Deelnemer loadDeelnemer(final int deelnemerNummer) {
-		List result = getHibernateTemplate().find("from Deelnemer deelnemer where deelnemer.nummer=?", new Integer(deelnemerNummer));
+		List<Deelnemer> result = getHibernateTemplate().find("from Deelnemer deelnemer where deelnemer.nummer=?", new Integer(deelnemerNummer));
 		//We hebben op primary key gezocht, dus er is maar 1 deelnemer (of geen) in de lijst
 		Deelnemer returnDeelnemer = null;
-		Iterator listIterator = result.iterator();
+		Iterator<Deelnemer> listIterator = result.iterator();
 		if (listIterator.hasNext()) {
 			returnDeelnemer = (Deelnemer) listIterator.next();
 		}
@@ -91,8 +91,8 @@ public class DeelnemerDaoHibernateImpl extends HibernateDaoSupport implements De
 	 * 
 	 * @see Deelnemer
 	 */
+	@SuppressWarnings("unchecked")
 	public List<Deelnemer> loadAllDeelnemers() {
-		//return getHibernateTemplate().loadAll(Deelnemer.class);
 		return getHibernateTemplate().loadAll(Deelnemer.class);
 	}
 	
@@ -104,6 +104,7 @@ public class DeelnemerDaoHibernateImpl extends HibernateDaoSupport implements De
 	 * 
 	 * @see Deelnemer
 	 */
+	@SuppressWarnings("unchecked")
 	public List<Deelnemer> loadAllDeelnemersEager() {
 		//TODO Performance verbeteren. Misschien kunnen we dit verbeteren door een HQL statement aan te maken waarin we de renners meteen fetchen.
 		List<Deelnemer> deelnemers = getHibernateTemplate().loadAll(Deelnemer.class);

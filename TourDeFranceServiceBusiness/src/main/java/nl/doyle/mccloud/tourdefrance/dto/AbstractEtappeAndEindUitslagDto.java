@@ -2,10 +2,6 @@ package nl.doyle.mccloud.tourdefrance.dto;
 
 import java.util.Set;
 
-import nl.doyle.mccloud.tourdefrance.valueobjects.BolletjesTruiUitslag;
-import nl.doyle.mccloud.tourdefrance.valueobjects.GeleTruiUitslag;
-import nl.doyle.mccloud.tourdefrance.valueobjects.GroeneTruiUitslag;
-
 public abstract class AbstractEtappeAndEindUitslagDto {
 
 	private int etappenummer;

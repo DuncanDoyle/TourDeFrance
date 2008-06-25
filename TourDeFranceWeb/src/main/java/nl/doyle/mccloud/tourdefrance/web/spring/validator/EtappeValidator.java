@@ -11,6 +11,7 @@ public class EtappeValidator implements Validator {
 
 	private static final Log logger = LogFactory.getLog(EtappeValidator.class);
 	
+	@SuppressWarnings("unchecked")
 	public boolean supports(Class clazz) {
 		return clazz.equals(EtappeCommand.class);
 	}

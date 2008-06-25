@@ -24,8 +24,6 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagBedrag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagBedrag.Categorien;
 
 import org.apache.commons.lang.IllegalClassException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Utility klasse die de gewonnen bedragen per deelnemer uitrekent.
@@ -33,8 +31,6 @@ import org.apache.commons.logging.LogFactory;
  * @author idxdoadmin
  */
 public class CalculatorImpl implements Calculator {
-	
-	private static final Log logger = LogFactory.getLog(CalculatorImpl.class);
 	
 	private DeelnemerDao deelnemerDao;
 	private EindUitslagDao eindUitslagDao;

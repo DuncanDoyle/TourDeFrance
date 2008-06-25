@@ -2,16 +2,37 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 
 import java.io.Serializable;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
+/**
+ * Defines the winning amount for the specified categorie and position.
+ * 
+ * @author Duncan Doyle
+ * @since 0.1
+ * @see Categorien
+ */
 public class UitslagBedrag implements Serializable {
 
-	public enum Categorien{Etappe,GeleTrui,GroeneTrui,BolletjesTrui,GeleTruiEind, GroeneTruiEind, BolletjesTruiEind, WitteTruiEind, RodeLantarenEind, EersteUitvallerEind};
-	private static final Log logger = LogFactory.getLog(UitslagBedrag.class);
 	
+	/**
+	 * Serial version UID.
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	public enum Categorien{Etappe,GeleTrui,GroeneTrui,BolletjesTrui,GeleTruiEind, GroeneTruiEind, BolletjesTruiEind, WitteTruiEind, RodeLantarenEind, EersteUitvallerEind};
+	
+	/**
+	 * The categorie of the amount.
+	 */
 	private Categorien categorie;
+	
+	/**
+	 * The position within the categorie.
+	 */
 	private int positie;
+	
+	/**
+	 * The amount.
+	 */
 	private double bedrag;
 	
 	

@@ -6,8 +6,6 @@ import java.util.List;
 import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -17,36 +15,30 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 public class StandaardEtappeDaoHibernateImpl extends HibernateDaoSupport implements StandaardEtappeDao {
 
-	private static final Log log = LogFactory.getLog(StandaardEtappeDaoHibernateImpl.class);
-	
 	/**
-	 * @author mccloud
-	 * 
 	 * Default constructor
 	 */
 	public StandaardEtappeDaoHibernateImpl() {
 	}
 	
 	/**
-	 * @author mccloud
-	 * 
 	 * Laadt alle standaardetappes uit de database
 	 * 
 	 * @return Collection van StandaardEtappes
 	 */
+	@SuppressWarnings("unchecked")
 	public List<StandaardEtappe> loadAllStandaardEtappes() {
 		return getHibernateTemplate().loadAll(StandaardEtappe.class);
 	}
 	
 	/**
-	 * @author mccloud
-	 * 
 	 * Laadt de etappe met de meegegeven primary key uit de database
 	 * 
 	 * @param int etappenummer
 	 * 
 	 * @return StandaardEtappe
 	 */
+	@SuppressWarnings("unchecked")
 	public StandaardEtappe loadStandaardEtappe(int etappenummer) {
 		List<StandaardEtappe> result = getHibernateTemplate().find("from StandaardEtappe se where se.etappenummer=?", new Integer(etappenummer));
 		//We hebben op primary key gezocht, dus er is maar 1 etappe (of geen) in de lijst
@@ -151,6 +143,7 @@ public class StandaardEtappeDaoHibernateImpl extends HibernateDaoSupport impleme
 	 * 
 	 * @return StandaardEtappe
 	 */
+	@SuppressWarnings("unchecked")
 	public List<StandaardEtappe> loadAllStandaardEtappesWithStedenEager() {
 		final String hql = "from StandaardEtappe st " +
 		"left join fetch st.startplaats " +

@@ -3,13 +3,11 @@ package nl.doyle.mccloud.tourdefrance.dao.hibernate;
 import java.util.Iterator;
 import java.util.List;
 
-import org.hibernate.Hibernate;
-import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-
 import nl.doyle.mccloud.tourdefrance.dao.EindUitslagDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag;
-import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
+
+import org.hibernate.Hibernate;
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 public class EindUitslagDaoHibernateImpl extends HibernateDaoSupport implements EindUitslagDao {
 
@@ -25,6 +23,7 @@ public class EindUitslagDaoHibernateImpl extends HibernateDaoSupport implements 
 		return uitslag;
 	}
 	*/
+	@SuppressWarnings("unchecked")
 	public EindUitslag loadEindUitslag() {
 		List<EindUitslag> result = getHibernateTemplate().find("from EindUitslag se where se.etappenummer=?", new Integer(0));
 		//We hebben op primary key gezocht, dus er is maar 1 etappe (of geen) in de lijst

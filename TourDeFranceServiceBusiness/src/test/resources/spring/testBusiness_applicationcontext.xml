@@ -4,9 +4,9 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 
 <import resource="business_applicationcontext.xml"/>
 	<bean id="setupTestController" class="nl.doyle.mccloud.tourdefrance.test.setup.SetupTestControllerImpl"> 
@@ -42,16 +42,22 @@
 		</property>
 	</bean>
 	
+	<!-- 
 	<bean id="commonsLoggingAop" class="nl.doyle.mccloud.aop.CommonsLoggingAop">
 		<constructor-arg index="0" value="INFO"/>
 	</bean>
+	 -->
 	
 	<!-- AOP config in Spring 2.0 -->
+<!-- 
 	<aop:config>
 		<aop:aspect id="commonsLoggingAspect" ref="commonsLoggingAop">
 			<aop:pointcut id="commonsLoggingPointcut" expression="execution(* nl.doyle.mccloud.tourdefrance.dao.hibernate.*.*(..))"/>
+ -->			
  			<!-- <aop:around method="doAroundImplementationLoggingWithParams" pointcut-ref="commonsLoggingPointcut"/>  -->
 <!-- 		<aop:around method="doAroundInterfaceLogging" pointcut-ref="commonsLoggingPointcut"/>  -->
+<!-- 
 		</aop:aspect>
-	</aop:config>	
+	</aop:config>
+ -->	
 </beans>

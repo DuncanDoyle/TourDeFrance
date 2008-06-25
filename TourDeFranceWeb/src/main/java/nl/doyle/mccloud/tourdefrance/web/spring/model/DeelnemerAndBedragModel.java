@@ -1,6 +1,5 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.model;
 
-import nl.doyle.mccloud.tourdefrance.dto.DeelnemerDto;
 
 public class DeelnemerAndBedragModel extends DeelnemerModel {
 

@@ -14,16 +14,18 @@ public class EtappeUitslagDaoHibernateImpl extends HibernateDaoSupport implement
 		getHibernateTemplate().delete(delEtappeUitslag);		
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<EtappeUitslag> loadAllEtappeUitslagen() {
 		return getHibernateTemplate().loadAll(EtappeUitslag.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	public EtappeUitslag loadDEtappeUitslag(int etappeNummer, int positieNummer) {
 		Integer [] parameters = {new Integer(etappeNummer), new Integer(positieNummer)};
-		List result = getHibernateTemplate().find("from EtappeUitslag uitslag where uitslag.etappenummer=? and uitslag.positie=?", parameters);
+		List<EtappeUitslag> result = getHibernateTemplate().find("from EtappeUitslag uitslag where uitslag.etappenummer=? and uitslag.positie=?", parameters);
 		//	We hebben op primary key gezocht, dus er is maar 1 uitslag (of geen) in de lijst
 		EtappeUitslag returnEtappeUitslag = null;
-		Iterator listIterator = result.iterator();
+		Iterator<EtappeUitslag> listIterator = result.iterator();
 		if (listIterator.hasNext()) {
 			returnEtappeUitslag = (EtappeUitslag) listIterator.next();
 		}

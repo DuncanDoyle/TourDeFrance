@@ -29,10 +29,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 /**
- * @author mccloud
+ * Class which inserts test data into the test database. Unit tests use this class to setup the DB. 
  * 
- * Klasse die functionaliteit bevat om de database met juiste waardes te vullen voordat de test begint
- *
+ * @author Duncan Doyle
+ * @since 0.1
  */
 
 public class SetupTestControllerImpl implements SetupTestContoller {

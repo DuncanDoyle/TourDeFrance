@@ -22,7 +22,6 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 import nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand;
 import nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand.EtappeType;
 
-import org.apache.commons.digester.SetRootRule;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.ServletRequestUtils;

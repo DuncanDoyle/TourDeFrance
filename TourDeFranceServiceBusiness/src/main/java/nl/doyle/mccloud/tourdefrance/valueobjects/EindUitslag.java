@@ -1,6 +1,5 @@
 package nl.doyle.mccloud.tourdefrance.valueobjects;
 
-import java.util.Set;
 
 public class EindUitslag extends AbstractEtappeAndEindUitslag {
 	

@@ -7,18 +7,13 @@ import net.sf.dozer.util.mapping.MappingException;
 import net.sf.dozer.util.mapping.converters.CustomConverter;
 import nl.doyle.mccloud.tourdefrance.dto.DeelnemerWithRennersDto;
 import nl.doyle.mccloud.tourdefrance.dto.RennerDto;
-import nl.doyle.mccloud.tourdefrance.valueobjects.Deelnemer;
 import nl.doyle.mccloud.tourdefrance.web.spring.model.DeelnemerModel;
 import nl.doyle.mccloud.tourdefrance.web.spring.model.DeelnemerRennerModel;
 import nl.doyle.mccloud.tourdefrance.web.spring.model.RennerModel;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class DeelnemerRennerCustomConverter implements CustomConverter {
 	
-	private static final Log logger = LogFactory.getLog(DeelnemerRennerCustomConverter.class);
-	
+	@SuppressWarnings("unchecked")
 	public Object convert(Object destination, Object source, Class destClass, Class sourceClass) {
 	    //TODO Hier moet nog beter gechecked worden op types. Als types niet kloppen dan moet een Dozer exception gegooid worden.
 		if (source == null) {

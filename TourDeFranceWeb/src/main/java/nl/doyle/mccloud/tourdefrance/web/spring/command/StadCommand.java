@@ -1,11 +1,7 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.command;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public class StadCommand {
-	
-	private static final Log logger = LogFactory.getLog(StadCommand.class);
 	
 	private int id;
 	private String stad;

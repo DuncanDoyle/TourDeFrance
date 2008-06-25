@@ -1,15 +1,8 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.model;
 
-import nl.doyle.mccloud.tourdefrance.dto.RennerDto;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public class DeelnemerRennerModel {
-	
-	
-private static final Log logger = LogFactory.getLog(DeelnemerRennerModel.class);
 	
 	private RennerModel renner;
 	private DeelnemerModel deelnemer;

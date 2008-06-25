@@ -1,7 +1,6 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.model;
 
 import nl.doyle.mccloud.tourdefrance.dto.AbstractEtappeAndEindUitslagDto;
-import nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -15,9 +15,10 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
 
 /**
- * @author mccloud
+ * Form Controller which controls the editting of the racers.
  * 
- * Form Controller die het editten van rennergegevens afhandelt
+ * @author Duncan Doyle
+ * @since 1.0
  */
 
 public class EditRennerFormController extends SimpleFormController {

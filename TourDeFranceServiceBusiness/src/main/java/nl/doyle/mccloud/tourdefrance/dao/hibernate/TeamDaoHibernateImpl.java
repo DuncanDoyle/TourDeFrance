@@ -25,11 +25,12 @@ public class TeamDaoHibernateImpl extends HibernateDaoSupport implements TeamDao
 		return getHibernateTemplate().loadAll(Team.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Team loadTeam(int teamNummer) {
-		List result = getHibernateTemplate().find("from Team team where team.nummer=?", new Integer(teamNummer));
+		List<Team> result = getHibernateTemplate().find("from Team team where team.nummer=?", new Integer(teamNummer));
 		//	We hebben op primary key gezocht, dus er is maar 1 ploegentijdrit (of geen) in de lijst
 		Team returnTeam = null;
-		Iterator listIterator = result.iterator();
+		Iterator<Team> listIterator = result.iterator();
 		if (listIterator.hasNext()) {
 			returnTeam = (Team) listIterator.next();
 		}

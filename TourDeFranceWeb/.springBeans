@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
-	<configExtensions>
-		<configExtension>xml</configExtension>
-	</configExtensions>
+	<version>1</version>
+	<pluginVersion><![CDATA[2.0.5.v200805211800]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
 		<config>src/main/webapp/WEB-INF/tour-servlet.xml</config>
 	</configs>
 	<configSets>
+		<configSet>
+			<name><![CDATA[TourSpringConfig]]></name>
+			<allowBeanDefinitionOverriding>true</allowBeanDefinitionOverriding>
+			<incomplete>false</incomplete>
+			<configs>
+				<config>/TourDeFranceServiceBusiness/src/main/resources/beanRefContext.xml</config>
+				<config>/TourDeFranceServiceBusiness/src/main/resources/spring/business_applicationcontext.xml</config>
+				<config>src/main/webapp/WEB-INF/tour-servlet.xml</config>
+			</configs>
+		</configSet>
 	</configSets>
 </beansProjectDescription>

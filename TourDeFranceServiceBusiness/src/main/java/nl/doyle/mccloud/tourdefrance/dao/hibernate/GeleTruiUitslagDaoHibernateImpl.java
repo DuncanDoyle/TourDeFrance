@@ -15,16 +15,18 @@ public class GeleTruiUitslagDaoHibernateImpl extends HibernateDaoSupport impleme
 		getHibernateTemplate().delete(delGeleTruiUitslag);		
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<GeleTruiUitslag> loadAllGeleTruiUitslagen() {
 		return getHibernateTemplate().loadAll(GeleTruiUitslag.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	public GeleTruiUitslag loadGeleTruiUitslag(int etappeNummer, int positieNummer) {
 		Integer [] parameters = {new Integer(etappeNummer), new Integer(positieNummer)};
-		List result = getHibernateTemplate().find("from GeleTruiUitslag uitslag where uitslag.etappenummer=? and uitslag.positie=?", parameters);
+		List<GeleTruiUitslag> result = getHibernateTemplate().find("from GeleTruiUitslag uitslag where uitslag.etappenummer=? and uitslag.positie=?", parameters);
 		//	We hebben op primary key gezocht, dus er is maar 1 uitslag (of geen) in de lijst
 		GeleTruiUitslag returnGeleTruiUitslag = null;
-		Iterator listIterator = result.iterator();
+		Iterator<GeleTruiUitslag> listIterator = result.iterator();
 		if (listIterator.hasNext()) {
 			returnGeleTruiUitslag = (GeleTruiUitslag) listIterator.next();
 		}

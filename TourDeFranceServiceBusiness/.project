@@ -36,19 +36,25 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+			<name>org.devzuz.q.maven.jdt.core.mavenIncrementalBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
 			<name>org.springframework.ide.eclipse.core.springbuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
 	<natures>
+		<nature>org.springframework.ide.eclipse.core.springnature</nature>
+		<nature>org.eclipse.hyades.probekit.probekitnature</nature>
+		<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
+		<nature>org.apache.derby.ui.derbyEngine</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.maven.ide.eclipse.maven2Nature</nature>
-		<nature>org.springframework.ide.eclipse.core.springnature</nature>
-		<nature>org.apache.derby.ui.derbyEngine</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
-		<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
 		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
-		<nature>org.eclipse.hyades.probekit.probekitnature</nature>
+		<nature>org.devzuz.q.maven.jdt.core.mavenNature</nature>
 	</natures>
 </projectDescription>

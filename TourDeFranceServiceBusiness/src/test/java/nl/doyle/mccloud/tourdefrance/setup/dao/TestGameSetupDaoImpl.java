@@ -1,6 +1,5 @@
 package nl.doyle.mccloud.tourdefrance.setup.dao;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 public class TestGameSetupDaoImpl extends AbstractDependencyInjectionSpringContextTests {

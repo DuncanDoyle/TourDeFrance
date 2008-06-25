@@ -1,6 +1,5 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.command;
 
-import nl.doyle.mccloud.tourdefrance.config.TourConfig;
 
 public class UitslagBedragCommand {
 	

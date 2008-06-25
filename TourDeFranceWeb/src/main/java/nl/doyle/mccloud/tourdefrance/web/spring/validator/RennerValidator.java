@@ -11,6 +11,7 @@ public class RennerValidator implements Validator {
 
 	private static final Log logger = LogFactory.getLog(RennerValidator.class);
 	
+	@SuppressWarnings("unchecked")
 	public boolean supports(Class clazz) {
 		return clazz.equals(RennerCommand.class);
 	}

@@ -15,7 +15,6 @@ import nl.doyle.mccloud.tourdefrance.dao.PloegenTijdritDao;
 import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
 import nl.doyle.mccloud.tourdefrance.dao.UitslagBedragDao;
 import nl.doyle.mccloud.tourdefrance.dto.AbstractEtappeAndEindUitslagDto;
-import nl.doyle.mccloud.tourdefrance.dto.DeelnemerBedragDto;
 import nl.doyle.mccloud.tourdefrance.dto.DeelnemerDto;
 import nl.doyle.mccloud.tourdefrance.dto.DeelnemerWithRennersDto;
 import nl.doyle.mccloud.tourdefrance.dto.EindUitslagDto;
@@ -28,7 +27,6 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.Deelnemer;
 import nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
 import nl.doyle.mccloud.tourdefrance.valueobjects.GeleTruiUitslag;
-import nl.doyle.mccloud.tourdefrance.valueobjects.GroeneTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
@@ -36,12 +34,8 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.Uitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagBedrag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagBedrag.Categorien;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class TourFacadeImpl implements TourFacade {
 
-	private static final Log logger = LogFactory.getLog(TourFacadeImpl.class);
 	private DeelnemerDao deelnemerDao;
 	private StandaardEtappeDao standaardEtappeDao;
 	private PloegenTijdritDao ploegenTijdritDao;
@@ -85,11 +79,11 @@ public class TourFacadeImpl implements TourFacade {
 		return allDeelnemersAndRenners;
 	}
 
-	private class RennerComparator implements Comparator {
+	private class RennerComparator implements Comparator<RennerDto> {
 
-		public int compare(Object o1, Object o2) {
+		public int compare(RennerDto o1, RennerDto o2) {
 			int comparison = 0;
-
+			// TODO Is het nog nodig om deze check te doen (met het oog op type erasure at runtime).
 			if (o1 instanceof RennerDto && o2 instanceof RennerDto) {
 				// Als 1 van de twee een kopman is dan is dat altijd de kleinste
 				if (((RennerDto) o1).getNummer() % 10 == 1) {
@@ -110,8 +104,7 @@ public class TourFacadeImpl implements TourFacade {
 	}
 
 	/**
-	 * Geeft de opgevraagde etappe terug inclusief uitslag(en) en start- en
-	 * finishplaats.
+	 * Geeft de opgevraagde etappe terug inclusief uitslag(en) en start- en finishplaats.
 	 * 
 	 * @param etappeNummer
 	 *            Het nummer van de etappe
@@ -165,7 +158,8 @@ public class TourFacadeImpl implements TourFacade {
 			dto.setBolletjesTruiUitslag(mapUitslagToDto(etappe.getBolletjesTruiUitslag(), Categorien.BolletjesTrui));
 
 			if (etappe instanceof StandaardEtappe) {
-				((StandaardEtappeDto) dto).setEtappeUitslag(mapUitslagToDto(((StandaardEtappe) etappe).getEtappeUitslag(), Categorien.Etappe));
+				((StandaardEtappeDto) dto).setEtappeUitslag(mapUitslagToDto(((StandaardEtappe) etappe).getEtappeUitslag(),
+						Categorien.Etappe));
 			} else if (etappe instanceof PloegenTijdrit) {
 				dto = new PloegenTijdritDto();
 			} else {
@@ -216,9 +210,9 @@ public class TourFacadeImpl implements TourFacade {
 	private Set<UitslagDto> mapUitslagToDto(Set<? extends Uitslag> uitslag, Categorien categorie) {
 		Set<UitslagDto> uitslagDto = new HashSet<UitslagDto>();
 		Locale dutch = new Locale("nl", "NL");
-    	NumberFormat format = NumberFormat.getInstance(dutch);
-    	format.setMinimumFractionDigits(2);
-		
+		NumberFormat format = NumberFormat.getInstance(dutch);
+		format.setMinimumFractionDigits(2);
+
 		for (Uitslag nextUitslag : uitslag) {
 			UitslagDto dto = new UitslagDto();
 			dto.setPositie(nextUitslag.getPositie());
@@ -273,7 +267,7 @@ public class TourFacadeImpl implements TourFacade {
 		return etappe;
 	}
 
-	//TODO This can be easily solved using dynamic binding. Just create an EtappeDao with 3 overloaded methods, one for each etappe type.
+	// TODO This can be easily solved using dynamic binding. Just create an EtappeDao with 3 overloaded methods, one for each etappe type.
 	public void saveEtappe(AbstractEtappeAndEindUitslag etappe) {
 		if (etappe instanceof StandaardEtappe) {
 			standaardEtappeDao.saveStandaardEtappe((StandaardEtappe) etappe);

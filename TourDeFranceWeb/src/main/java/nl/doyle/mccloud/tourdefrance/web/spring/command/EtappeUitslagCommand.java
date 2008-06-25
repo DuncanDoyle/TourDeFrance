@@ -3,19 +3,13 @@ package nl.doyle.mccloud.tourdefrance.web.spring.command;
 import java.util.Date;
 import java.util.List;
 
-import nl.doyle.mccloud.tourdefrance.config.TourConfig;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Stad;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 public class EtappeUitslagCommand {
 
 	public enum EtappeType {Etappe, PloegenTijdrit, EindUitslag};
 	
-	private static Log logger = LogFactory.getLog(EtappeUitslagCommand.class);
 	private List<Renner> renners;
 	
 	//private UitslagCommand uitslag;

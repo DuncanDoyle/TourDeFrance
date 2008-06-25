@@ -1,6 +1,5 @@
 package nl.doyle.mccloud.tourdefrance.dto;
 
-import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 
 public class UitslagDto {
 	

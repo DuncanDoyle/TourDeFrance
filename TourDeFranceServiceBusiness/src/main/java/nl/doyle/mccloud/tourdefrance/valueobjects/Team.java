@@ -2,14 +2,21 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 
 import java.util.Set;
 
-import org.apache.log4j.Logger;
-
 public class Team {
 	
-	private static Logger logger = Logger.getLogger(Team.class);
-	
+	/**
+	 * The team number.
+	 */
 	private int nummer;
+	
+	/**
+	 * The team name.
+	 */
 	private String naam;
+	
+	/**
+	 * The team's renners.
+	 */
 	private Set<Renner> renners;
 	
 	/**

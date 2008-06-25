@@ -11,6 +11,7 @@ public class EtappeUitslagValidator implements Validator {
 
 private static final Log logger = LogFactory.getLog(EtappeUitslagValidator.class);
 	
+	@SuppressWarnings("unchecked")
 	public boolean supports(Class clazz) {
 		return clazz.equals(EtappeUitslagCommand.class);
 	}

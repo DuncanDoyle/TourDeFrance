@@ -2,12 +2,11 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 
 import java.util.Set;
 
-import org.apache.log4j.Logger;
-
 public class StandaardEtappe extends Etappe {
 	
-	private static final Logger logger = Logger.getLogger(StandaardEtappe.class);
-	
+	/**
+	 * Set of uitslagen.
+	 */
 	private Set<EtappeUitslag> etappeUitslag;
 	
 	

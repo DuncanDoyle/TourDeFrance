@@ -15,16 +15,18 @@ public class GroeneTruiUitslagDaoHibernateImpl extends HibernateDaoSupport imple
 		getHibernateTemplate().delete(delGroeneTruiUitslag);		
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<GroeneTruiUitslag> loadAllGroeneTruiUitslagen() {
 		return getHibernateTemplate().loadAll(GroeneTruiUitslag.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	public GroeneTruiUitslag loadGroeneTruiUitslag(int etappeNummer, int positieNummer) {
 		Integer [] parameters = {new Integer(etappeNummer), new Integer(positieNummer)};
-		List result = getHibernateTemplate().find("from GroeneTruiUitslag uitslag where uitslag.etappenummer=? and uitslag.positie=?", parameters);
+		List<GroeneTruiUitslag> result = getHibernateTemplate().find("from GroeneTruiUitslag uitslag where uitslag.etappenummer=? and uitslag.positie=?", parameters);
 		//	We hebben op primary key gezocht, dus er is maar 1 uitslag (of geen) in de lijst
 		GroeneTruiUitslag returnGroeneTruiUitslag = null;
-		Iterator listIterator = result.iterator();
+		Iterator<GroeneTruiUitslag> listIterator = result.iterator();
 		if (listIterator.hasNext()) {
 			returnGroeneTruiUitslag = (GroeneTruiUitslag) listIterator.next();
 		}

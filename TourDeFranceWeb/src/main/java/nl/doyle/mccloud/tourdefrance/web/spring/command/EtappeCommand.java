@@ -1,19 +1,12 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.command;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import nl.doyle.mccloud.tourdefrance.valueobjects.Stad;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class EtappeCommand {
 
-	private static final Log logger = LogFactory.getLog(EtappeCommand.class);
-	
 	private int etappenummer;
 	private String omschrijving;
 	private List<Stad> steden;

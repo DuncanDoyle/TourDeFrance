@@ -1,7 +1,6 @@
 package nl.doyle.mccloud.tourdefrance.dao;
 
 import nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag;
-import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 
 public interface EindUitslagDao {
 	

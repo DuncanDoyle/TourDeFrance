@@ -5,7 +5,6 @@ import java.util.List;
 
 import nl.doyle.mccloud.tourdefrance.dao.PloegenTijdritDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
-import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -14,8 +13,7 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
-public class PloegenTijdritDaoHibernateImpl extends HibernateDaoSupport
-		implements PloegenTijdritDao {
+public class PloegenTijdritDaoHibernateImpl extends HibernateDaoSupport implements PloegenTijdritDao {
 
 	/**
 	 * Verwijdert de ploegentijdrit uit de database
@@ -32,21 +30,21 @@ public class PloegenTijdritDaoHibernateImpl extends HibernateDaoSupport
 	 * 
 	 * @return Lijst met ploegentijdritten
 	 */
+	@SuppressWarnings("unchecked")
 	public List<PloegenTijdrit> loadAllPloegenTijdritten() {
 		return getHibernateTemplate().loadAll(PloegenTijdrit.class);
 	}
 
 	/**
-	 * Laadt de ploegentijdrit. Geeft null terug wanneer de ploegentijdrit niet
-	 * in de database staat.
+	 * Laadt de ploegentijdrit. Geeft null terug wanneer de ploegentijdrit niet in de database staat.
 	 * 
 	 * @param etappenummer
 	 *            Het etappenummer
 	 * @return De ploegentijdrit
 	 */
+	@SuppressWarnings("unchecked")
 	public PloegenTijdrit loadPloegenTijdrit(int etappenummer) {
-		List<PloegenTijdrit> result = getHibernateTemplate().find(
-				"from PloegenTijdrit tijdrit where tijdrit.etappenummer=?",
+		List<PloegenTijdrit> result = getHibernateTemplate().find("from PloegenTijdrit tijdrit where tijdrit.etappenummer=?",
 				new Integer(etappenummer));
 		// We hebben op primary key gezocht, dus er is maar 1 ploegentijdrit (of
 		// geen) in de lijst
@@ -59,10 +57,8 @@ public class PloegenTijdritDaoHibernateImpl extends HibernateDaoSupport
 	}
 
 	/**
-	 * Laadt de ploegentijdrit inclusief de start- en finishplaats en de
-	 * uitslagen. Deze methode heeft een AOP Hibernate Transactie nodig om te
-	 * werken. Geeft null terug wanneer de ploegentijdrit niet in de database
-	 * staat.
+	 * Laadt de ploegentijdrit inclusief de start- en finishplaats en de uitslagen. Deze methode heeft een AOP Hibernate Transactie nodig om
+	 * te werken. Geeft null terug wanneer de ploegentijdrit niet in de database staat.
 	 * 
 	 * @param etappenummer
 	 *            Het etappenummer
@@ -81,28 +77,23 @@ public class PloegenTijdritDaoHibernateImpl extends HibernateDaoSupport
 	}
 
 	/**
-	 * Laadt de ploegentijdrit inclusief start- en finishplaats. Geeft null
-	 * terug wanneer de ploegentijdrit niet in de database staat.
+	 * Laadt de ploegentijdrit inclusief start- en finishplaats. Geeft null terug wanneer de ploegentijdrit niet in de database staat.
 	 * 
 	 * @param etappenummer
 	 *            Het etappenummer
 	 * @return De ploegentijdrit
 	 */
-	public PloegenTijdrit loadPloegenTijdritWithStartAndFinish(
-			final int etappenummer) {
-		final String hql = "from PloegenTijdrit pt "
-				+ "left join fetch pt.startplaats "
+	public PloegenTijdrit loadPloegenTijdritWithStartAndFinish(final int etappenummer) {
+		final String hql = "from PloegenTijdrit pt " + "left join fetch pt.startplaats "
 				+ "left join fetch pt.finishplaats where pt.etappenummer=:etappenummer";
 
-		PloegenTijdrit etappe = (PloegenTijdrit) getHibernateTemplate()
-				.execute(new HibernateCallback() {
-					public Object doInHibernate(Session session)
-							throws HibernateException {
-						Query query = session.createQuery(hql);
-						query.setInteger("etappenummer", etappenummer);
-						return query.uniqueResult();
-					}
-				});
+		PloegenTijdrit etappe = (PloegenTijdrit) getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) throws HibernateException {
+				Query query = session.createQuery(hql);
+				query.setInteger("etappenummer", etappenummer);
+				return query.uniqueResult();
+			}
+		});
 		return etappe;
 	}
 
@@ -121,19 +112,16 @@ public class PloegenTijdritDaoHibernateImpl extends HibernateDaoSupport
 	 * 
 	 * @return StandaardEtappe
 	 */
+	@SuppressWarnings("unchecked")
 	public List<PloegenTijdrit> loadAllPloegenTijdrittenWithStedenEager() {
-		final String hql = "from PloegenTijdrit pt "
-				+ "left join fetch pt.startplaats "
-				+ "left join fetch pt.finishplaats";
+		final String hql = "from PloegenTijdrit pt " + "left join fetch pt.startplaats " + "left join fetch pt.finishplaats";
 
-		List<PloegenTijdrit> etappes = (List<PloegenTijdrit>) getHibernateTemplate()
-				.execute(new HibernateCallback() {
-					public Object doInHibernate(Session session)
-							throws HibernateException {
-						Query query = session.createQuery(hql);
-						return query.list();
-					}
-				});
+		List<PloegenTijdrit> etappes = (List<PloegenTijdrit>) getHibernateTemplate().execute(new HibernateCallback() {
+			public Object doInHibernate(Session session) throws HibernateException {
+				Query query = session.createQuery(hql);
+				return query.list();
+			}
+		});
 		return etappes;
 	}
 

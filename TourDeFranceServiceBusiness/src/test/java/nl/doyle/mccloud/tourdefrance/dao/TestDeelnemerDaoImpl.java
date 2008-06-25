@@ -1,7 +1,7 @@
-package nl.doyle.mccloud.tourdefrance.dao;
+ package nl.doyle.mccloud.tourdefrance.dao;
 
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import nl.doyle.mccloud.tourdefrance.test.setup.SetupTestContoller;
@@ -63,8 +63,8 @@ public class TestDeelnemerDaoImpl extends AbstractDependencyInjectionSpringConte
 	 */
     
 	public void testLoadAllDeelnemers() {
-		Collection<Deelnemer> deelnemers = dlnmrDao.loadAllDeelnemers();
-		Iterator iterate = deelnemers.iterator();
+		List<Deelnemer> deelnemers = dlnmrDao.loadAllDeelnemers();
+		Iterator<Deelnemer> iterate = deelnemers.iterator();
 		while (iterate.hasNext()) {
 			Deelnemer dlnmr = (Deelnemer) iterate.next();
 			System.out.println(dlnmr.getNummer());

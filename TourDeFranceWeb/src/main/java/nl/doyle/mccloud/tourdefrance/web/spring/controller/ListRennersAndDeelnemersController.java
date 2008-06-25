@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.dozer.util.mapping.MapperIF;
 import nl.doyle.mccloud.tourdefrance.controller.TourFacade;
-import nl.doyle.mccloud.tourdefrance.controller.TourFacadeImpl;
 import nl.doyle.mccloud.tourdefrance.dto.DeelnemerWithRennersDto;
 import nl.doyle.mccloud.tourdefrance.web.spring.model.DeelnemerRennerModel;
 
@@ -25,6 +24,7 @@ public class ListRennersAndDeelnemersController implements Controller {
 	private TourFacade tourFacade;
 	private MapperIF mapper;
 	
+	@SuppressWarnings("unchecked")
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		

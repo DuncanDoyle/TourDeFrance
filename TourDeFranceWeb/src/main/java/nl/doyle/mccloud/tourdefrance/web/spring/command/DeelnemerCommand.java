@@ -1,16 +1,31 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.command;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public class DeelnemerCommand {
 	
-	private static final Log logger = LogFactory.getLog(DeelnemerCommand.class);
-	
+	/**
+	 * Deelnemer number.
+	 */
 	private int nummer;
+	
+	/**
+	 * Deelnemer firstname.
+	 */
 	private String voornaam;
+	
+	/**
+	 * Deelnemer surname.
+	 */
 	private String achternaam;
+	
+	/**
+	 * Deelnemer e-mail.
+	 */
 	private String email;
+	
+	/**
+	 * Deelnemer accountnumber.
+	 */
 	private String rekeningnummer;
 	
 	/**

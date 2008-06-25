@@ -1,8 +1,6 @@
 package nl.doyle.mccloud.tourdefrance.web.dozer;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import net.sf.dozer.util.mapping.MappingException;
@@ -17,6 +15,7 @@ public class DeelnemerBedragCustomConverter implements CustomConverter {
 
 private static final Log logger = LogFactory.getLog(DeelnemerBedragCustomConverter.class);
 	
+	@SuppressWarnings("unchecked")
 	public Object convert(Object destination, Object source, Class destClass, Class sourceClass) {
 	    //TODO Hier moet nog beter gechecked worden op types. Als types niet kloppen dan moet een Dozer exception gegooid worden.
 		if (source == null) {

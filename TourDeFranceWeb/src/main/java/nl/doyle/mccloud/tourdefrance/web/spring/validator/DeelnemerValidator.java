@@ -11,6 +11,7 @@ public class DeelnemerValidator implements Validator {
 
 	private static final Log logger = LogFactory.getLog(DeelnemerValidator.class);
 	
+	@SuppressWarnings("unchecked")
 	public boolean supports(Class clazz) {
 		return clazz.equals(DeelnemerCommand.class);
 	}

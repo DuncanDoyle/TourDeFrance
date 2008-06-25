@@ -1,17 +1,12 @@
 package nl.doyle.mccloud.tourdefrance.setup;
 
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import nl.doyle.mccloud.tourdefrance.dao.BolletjesTruiUitslagDao;
 import nl.doyle.mccloud.tourdefrance.dao.DeelnemerDao;
 import nl.doyle.mccloud.tourdefrance.dao.EindUitslagDao;
-import nl.doyle.mccloud.tourdefrance.dao.EtappeUitslagDao;
-import nl.doyle.mccloud.tourdefrance.dao.GeleTruiUitslagDao;
-import nl.doyle.mccloud.tourdefrance.dao.GroeneTruiUitslagDao;
 import nl.doyle.mccloud.tourdefrance.dao.PloegenTijdritDao;
 import nl.doyle.mccloud.tourdefrance.dao.RennerDao;
 import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
@@ -24,127 +19,146 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Team;
 
-import org.apache.log4j.Logger;
-
 public class GameSetupControllerImpl implements GameSetupController {
-	
-	private static Logger log;
-	private DeelnemerDao deelnemerDao;
-	private RennerDao rennerDao;
-	private StandaardEtappeDao standaardEtappeDao;
-	private PloegenTijdritDao ploegenTijdritDao;
-	private EtappeUitslagDao etappeUitslagDao;
-	private TeamDao teamDao;
-	private GeleTruiUitslagDao geleTruiUitslagDao;
-	private GroeneTruiUitslagDao groeneTruiUitslagDao;
-	private BolletjesTruiUitslagDao bolletjesTruiUitslagDao;
-	private EindUitslagDao eindUitslagDao;
-	private GameSetupDao gameSetupDao;
-		
-	
-	static {
-		log = Logger.getLogger(GameSetupControllerImpl.class);
-	}
-		
+
 	/**
-	 * Initialiseert de database aan de hand van het aantal ploegen, aantal etappes 
-	 * en het etappenummer van de ploegentijdrit.
+	 * The deelnemer DAO.
+	 */
+	private DeelnemerDao deelnemerDao;
+
+	/**
+	 * The renner DAO.
+	 */
+	private RennerDao rennerDao;
+
+	/**
+	 * The standaardEtappe DAO.
+	 */
+	private StandaardEtappeDao standaardEtappeDao;
+
+	/**
+	 * The ploegentijdrit DAO.
+	 */
+	private PloegenTijdritDao ploegenTijdritDao;
+
+	/**
+	 * The team DAO.
+	 */
+	private TeamDao teamDao;
+
+	/**
+	 * The einduitslag DAO.
+	 */
+	private EindUitslagDao eindUitslagDao;
+
+	/**
+	 * The gamesetup DAO.
+	 */
+	private GameSetupDao gameSetupDao;
+
+	/**
+	 * Initialiseert de database aan de hand van het aantal ploegen, aantal etappes en het etappenummer van de ploegentijdrit.
 	 * <p>
-	 * Het aantal ploegen bepaalt tevens het aantal deelnemers (evenveel) en het
-	 * aantal renners (9 * aantalPloegen).
+	 * Het aantal ploegen bepaalt tevens het aantal deelnemers (evenveel) en het aantal renners (9 * aantalPloegen).
 	 * <p>
-	 * De inhoud van de volledige database wordt gewist. In de database worden alleen
-	 * de nummers (deelnemers, renners, etc.) aangemaakt. Waardes kunnen daarna ingevuld
-	 * worden.
+	 * De inhoud van de volledige database wordt gewist. In de database worden alleen de nummers (deelnemers, renners, etc.) aangemaakt.
+	 * Waardes kunnen daarna ingevuld worden.
 	 * 
-	 * @param aantalPloegen het aantal ploegen dat meedoet aan de Tour de France
-	 * @param aantalEtappes het aantal etappes
-	 * @param ploegenTijdrit het etappenummer van de ploegentijdrit
+	 * @param aantalPloegen
+	 *            het aantal ploegen dat meedoet aan de Tour de France
+	 * @param aantalEtappes
+	 *            het aantal etappes
+	 * @param ploegenTijdrit
+	 *            het etappenummer van de ploegentijdrit
 	 */
 	public void initializeGame(final int aantalPloegen, final int aantalEtappes, final int ploegenTijdrit) {
 		setupDatabase(aantalPloegen, aantalEtappes, ploegenTijdrit);
 	}
-	
+
 	/**
 	 * Wijst renners aan deelnemers toe. Dit gebeurt d.m.v. een random generator.
 	 * <p>
 	 * Elke deelnemer krijgt een kopman. De rest van de renners wordt random toegewezen.
 	 */
 	public void generateDeelnemerTeams() {
-		//TODO: Testen of de gegevens in de database goed zijn zodat de generatie ook echt kan draaien.
+		// TODO: Testen of de gegevens in de database goed zijn zodat de generatie ook echt kan draaien.
 		gameSetupDao.deleteAllTeamRecords();
-		//Laad alle Deelnemers in een List
+		// Laad alle Deelnemers in een List
 		List<Deelnemer> deelnemersKopman = deelnemerDao.loadAllDeelnemers();
-		//Doorloop de list en maak de interne objecten voor Rennerverdeling aan
+		// Doorloop de list en maak de interne objecten voor Rennerverdeling aan
 		Iterator<Deelnemer> deelnemerIterator = deelnemersKopman.iterator();
 		List<DeelnemerRenners> deelnemersRenners = new LinkedList<DeelnemerRenners>();
-		//Voeg de DeelnemerRenners toe aan de nieuwe LinkedList
+		// Voeg de DeelnemerRenners toe aan de nieuwe LinkedList
 		List<Deelnemer> storeDeelnemers = new LinkedList<Deelnemer>();
 		while (deelnemerIterator.hasNext()) {
 			Deelnemer initializeDeelnemer = deelnemerIterator.next();
-			/* Zet de Renners set van een deelnemer op een nieuwe HashSet. Dit heeft 2 doelen:
-			 * - Als de deelnemer al Renners had toegewezen gekregen dan zijn deze nu verwijderd.
-			 * - Er komt geen Lazy-Loading exception van Hibernate als er een RennerSet wordt opgevraagd omdat de HashSet opnieuw is gezet. (Alle deelnemers worden lazy geladen)
+			/*
+			 * Zet de Renners set van een deelnemer op een nieuwe HashSet. Dit heeft 2 doelen: - Als de deelnemer al Renners had toegewezen
+			 * gekregen dan zijn deze nu verwijderd. - Er komt geen Lazy-Loading exception van Hibernate als er een RennerSet wordt
+			 * opgevraagd omdat de HashSet opnieuw is gezet. (Alle deelnemers worden lazy geladen)
 			 */
 			initializeDeelnemer.setRenners(new HashSet<Renner>());
 			deelnemersRenners.add(new DeelnemerRenners(initializeDeelnemer));
 		}
-		//Laad alle Renners in een List
+		// Laad alle Renners in een List
 		List<Renner> renners = rennerDao.loadAllRenners();
-		
-		//Laad nu een Renner uit de List (random)
-		
+
+		// Laad nu een Renner uit de List (random)
+
 		while (renners.size() != 0) {
-			//Bepaal nu random een renner
+			// Bepaal nu random een renner
 			int randomRennerNummer = new Double(Math.floor((Math.random() * renners.size()))).intValue();
-			Renner randomRenner = renners.get(randomRennerNummer); 
-			//Bepaal nu of de renner een kopman is
+			Renner randomRenner = renners.get(randomRennerNummer);
+			// Bepaal nu of de renner een kopman is
 			if (randomRenner.getNummer() % 10 == 1) {
-				//bepaal nu random een deelnemer uit de kopman lijst
+				// bepaal nu random een deelnemer uit de kopman lijst
 				int randomDeelnemerNummer = new Double(Math.floor((Math.random() * deelnemersKopman.size()))).intValue();
 				Deelnemer randomDeelnemer = deelnemersKopman.get(randomDeelnemerNummer);
 				randomDeelnemer.getRenners().add(randomRenner);
-				//Verwijder de deelnemer uit de deelnemerskopman lijst
+				// Verwijder de deelnemer uit de deelnemerskopman lijst
 				deelnemersKopman.remove(randomDeelnemerNummer);
-				/* Sla nu de deelnemer op in de store list
-				 * Dit is nodig om een referentie naar het Deelnemer object te behouden omdat de Deelnemers uit 
-				 * beide lijsten worden gehaald als ze en een kopman en alle renners hebben toegewezen gekregen 
+				/*
+				 * Sla nu de deelnemer op in de store list Dit is nodig om een referentie naar het Deelnemer object te behouden omdat de
+				 * Deelnemers uit beide lijsten worden gehaald als ze en een kopman en alle renners hebben toegewezen gekregen
 				 */
 				storeDeelnemers.add(randomDeelnemer);
 			} else {
 				int randomDeelnemerNummer = new Double(Math.floor((Math.random() * deelnemersRenners.size()))).intValue();
 				DeelnemerRenners randomDeelnemerRenners = deelnemersRenners.get(randomDeelnemerNummer);
-				//Voeg renner toe aan de Deelnemer's rennerlijst
+				// Voeg renner toe aan de Deelnemer's rennerlijst
 				randomDeelnemerRenners.getDeelnemer().getRenners().add(randomRenner);
-				//Haal nu 1 van het aantal Renners van deze deelnemer af
+				// Haal nu 1 van het aantal Renners van deze deelnemer af
 				randomDeelnemerRenners.decreaseAantalRenners();
-				//bepaal of deze DeelnemerRenners uit de lijst verwijderd moet worden omdat de deelnemer al 8 renners heeft
+				// bepaal of deze DeelnemerRenners uit de lijst verwijderd moet worden omdat de deelnemer al 8 renners heeft
 				if (randomDeelnemerRenners.getAantalRenners() == 0) {
 					deelnemersRenners.remove(randomDeelnemerNummer);
 				}
 			}
-			//Haal nu de randomRenner uit de rennerslijst
+			// Haal nu de randomRenner uit de rennerslijst
 			renners.remove(randomRennerNummer);
 		}
-		
-		//Sla nu alle deelnemers op
+
+		// Sla nu alle deelnemers op
 		Iterator<Deelnemer> iterate = storeDeelnemers.iterator();
-		while(iterate.hasNext()) {
+		while (iterate.hasNext()) {
 			deelnemerDao.saveDeelnemer(iterate.next());
 		}
 	}
-	
+
 	/**
-	 * Doet de setup van de database. Maakt het juiste aantal deelnemers, teams, etappes, etc. 
-	 * aan met default instellingen (geen namen, data, etc.). Deze gegevens moeten later ingevuld
-	 * worden. 
+	 * Doet de setup van de database. Maakt het juiste aantal deelnemers, teams, etappes, etc. aan met default instellingen (geen namen,
+	 * data, etc.). Deze gegevens moeten later ingevuld worden.
 	 * 
-	 * @param aantalPloegen Het aantal ploegen dat meedoet aan de Tour de France. Definieert tevens het aantal deelnemers dat mee kan doen aan het spel.
-	 * @param aantalEtappes Het aantal etappes van de Tour de France.
-	 * @param ploegenTijdrit Geeft aan welke etappe de ploegentijdrit is. Ploegentijdrit heeft namelijk andere opties dan een normale etappe.
+	 * @param aantalPloegen
+	 *            Het aantal ploegen dat meedoet aan de Tour de France. Definieert tevens het aantal deelnemers dat mee kan doen aan het
+	 *            spel.
+	 * @param aantalEtappes
+	 *            Het aantal etappes van de Tour de France.
+	 * @param ploegenTijdrit
+	 *            Geeft aan welke etappe de ploegentijdrit is. Ploegentijdrit heeft namelijk andere opties dan een normale etappe.
 	 */
-	
-	private void setupDatabase(final int aantalPloegen, final int aantalEtappes, final int ploegenTijdrit) {	
+
+	private void setupDatabase(final int aantalPloegen, final int aantalEtappes, final int ploegenTijdrit) {
 		dropAllData();
 		createDeelnemers(aantalPloegen);
 		createTeamsAndRenners(aantalPloegen);
@@ -152,68 +166,69 @@ public class GameSetupControllerImpl implements GameSetupController {
 		createPloegenTijdrit(ploegenTijdrit);
 		createEindUitslag();
 	}
-	
-	
+
 	/**
 	 * Verwijdert alle data uit de database.
 	 */
 	private void dropAllData() {
-		//GameSetupDao gebruiken om alle data uit de database te verwijderen.
+		// GameSetupDao gebruiken om alle data uit de database te verwijderen.
 		gameSetupDao.deleteAllRecordsFromDatabase();
 	}
-	
-	
+
 	/**
 	 * Maakt de deelnemers met default instellingen aan en slaat deze op in de database.
 	 * 
-	 * @param aantal aantal deelnemers aan het spel
+	 * @param aantal
+	 *            aantal deelnemers aan het spel
 	 */
 	private void createDeelnemers(final int aantal) {
 		Deelnemer storeDeelnemer;
-		for(int teller = 0; teller < aantal; teller++) {
+		for (int teller = 0; teller < aantal; teller++) {
 			storeDeelnemer = new Deelnemer();
 			storeDeelnemer.setNummer(teller + 1001);
 			deelnemerDao.saveDeelnemer(storeDeelnemer);
 		}
 	}
-	
+
 	/**
-	 *  Maakt de teams en renners aan en slaat deze op in de database.
+	 * Maakt de teams en renners aan en slaat deze op in de database.
 	 * 
-	 * @param aantal het aantal teams
+	 * @param numberOfTeams
+	 *            het aantal teams
 	 * 
 	 * @see Team
 	 * @see Renner
 	 */
-	
-	private void createTeamsAndRenners(int aantal) {
+
+	private void createTeamsAndRenners(int numberOfTeams) {
 		Team storeTeam;
-		for (int teller = 0; teller < aantal; teller++) {
+		//Create the teams one by one.
+		for (int teamCounter = 0; teamCounter < numberOfTeams; teamCounter++) {
 			storeTeam = new Team();
-			storeTeam.setNummer(teller + 1);
-			//Voeg de juiste renners toe aan de teams
-			//Creeer de renners van het team
-			HashSet<Renner> rennersSet = new HashSet<Renner>();
-			for (int rennerTeller = 0; rennerTeller < 9; rennerTeller++) {
+			storeTeam.setNummer(teamCounter + 1);
+			// Create the team's racers.
+			HashSet<Renner> racersSet = new HashSet<Renner>();
+			for (int racerCounter = 0; racerCounter < 9; racerCounter++) {
 				Renner storeRenner = new Renner();
-				//rennerteller + 11 voor Tour 2007. De eerste ploeg bestaat in die tour niet.
-				storeRenner.setNummer((teller * 10) + (rennerTeller + 11));
-				rennersSet.add(storeRenner);
+				storeRenner.setNummer((teamCounter * 10) + (racerCounter + 1));
+				racersSet.add(storeRenner);
 			}
-			storeTeam.setRenners(rennersSet);
+			storeTeam.setRenners(racersSet);
 			teamDao.saveTeam(storeTeam);
 		}
 	}
-	
+
 	/**
 	 * Maakt alle etappes aan en slaat ze op in de database.
 	 * 
-	 * @param aantal het aantal etappes
-	 * @param ploegenTijdrit het etappenummer van de ploegentijdrit
+	 * @param aantal
+	 *            het aantal etappes
+	 * @param ploegenTijdrit
+	 *            het etappenummer van de ploegentijdrit
 	 */
 	private void createStandaardEtappes(int aantal, int ploegenTijdrit) {
 		StandaardEtappe storeEtappe;
-		for(int teller = 0; teller < aantal; teller++) {
+		for (int teller = 0; teller < aantal; teller++) {
 			int etappeNummer = teller + 1;
 			if (etappeNummer != ploegenTijdrit) {
 				storeEtappe = new StandaardEtappe();
@@ -222,12 +237,12 @@ public class GameSetupControllerImpl implements GameSetupController {
 			}
 		}
 	}
-	
-	
+
 	/**
 	 * Maakt de ploegentijdrit aan en slaat deze op in de database.
 	 * 
-	 * @param ploegenTijdrit het etappenummer van de ploegentijdrit
+	 * @param ploegenTijdrit
+	 *            het etappenummer van de ploegentijdrit
 	 */
 	private void createPloegenTijdrit(int ploegenTijdrit) {
 		if (ploegenTijdrit > 0) {
@@ -235,33 +250,32 @@ public class GameSetupControllerImpl implements GameSetupController {
 			storeTijdrit.setEtappenummer(ploegenTijdrit);
 			ploegenTijdritDao.savePloegenTijdrit(storeTijdrit);
 		} else {
-			//TODO Gooi exception als het de ploegentijdrit geen juist getal is. Misschien moeten de parameters wel eerder gechecked worden.
+			// TODO Gooi exception als het de ploegentijdrit geen juist getal is. Misschien moeten de parameters wel eerder gechecked
+			// worden.
 		}
 	}
-	
+
 	public void generateTestData() {
-		//Bepaal eerst het aantal deelnemers
+		// Bepaal eerst het aantal deelnemers
 		List<Deelnemer> deelnemers = deelnemerDao.loadAllDeelnemers();
-		for (Deelnemer nextDeelnemer: deelnemers) {
+		for (Deelnemer nextDeelnemer : deelnemers) {
 			nextDeelnemer.setAchternaam("de Tester-" + nextDeelnemer.getNummer());
 			nextDeelnemer.setVoornaam("Jan-" + nextDeelnemer.getNummer());
 			nextDeelnemer.setEmail("Jan.de.Tester@tester.nl");
 			nextDeelnemer.setRekeningnummer("12345678");
 			deelnemerDao.saveDeelnemer(nextDeelnemer);
 		}
-		//Bepaal het aantal renners
+		// Bepaal het aantal renners
 		List<Renner> renners = rennerDao.loadAllRenners();
-		for (Renner nextRenner: renners) {
+		for (Renner nextRenner : renners) {
 			nextRenner.setAchternaam("Boogerd-" + nextRenner.getNummer());
 			nextRenner.setVoornaam("Michael-" + nextRenner.getNummer());
 			rennerDao.saveRenner(nextRenner);
 		}
-		
-		//Genereer renners
+
+		// Genereer renners
 	}
-	
-	
-	
+
 	/**
 	 * Maakt de einduitslag aan en slaat deze op in de database.
 	 */
@@ -280,31 +294,12 @@ public class GameSetupControllerImpl implements GameSetupController {
 		this.ploegenTijdritDao = ploegenTijdritDao;
 	}
 
-
 	public void setRennerDao(RennerDao rennerDao) {
 		this.rennerDao = rennerDao;
 	}
 
-
 	public void setStandaardEtappeDao(StandaardEtappeDao standaardEtappeDao) {
 		this.standaardEtappeDao = standaardEtappeDao;
-	}
-
-	public void setBolletjesTruiUitslagDao(
-			BolletjesTruiUitslagDao bolletjesTruiUitslagDao) {
-		this.bolletjesTruiUitslagDao = bolletjesTruiUitslagDao;
-	}
-
-	public void setEtappeUitslagDao(EtappeUitslagDao etappeUitslagDao) {
-		this.etappeUitslagDao = etappeUitslagDao;
-	}
-
-	public void setGeleTruiUitslagDao(GeleTruiUitslagDao geleTruiUitslagDao) {
-		this.geleTruiUitslagDao = geleTruiUitslagDao;
-	}
-
-	public void setGroeneTruiUitslagDao(GroeneTruiUitslagDao groeneTruiUitslagDao) {
-		this.groeneTruiUitslagDao = groeneTruiUitslagDao;
 	}
 
 	public void setTeamDao(TeamDao teamDao) {
@@ -316,38 +311,34 @@ public class GameSetupControllerImpl implements GameSetupController {
 	}
 
 	/**
-	 * @param eindUitslagDao the eindUitslagDao to set
+	 * @param eindUitslagDao
+	 *            the eindUitslagDao to set
 	 */
 	public void setEindUitslagDao(EindUitslagDao eindUitslagDao) {
 		this.eindUitslagDao = eindUitslagDao;
 	}
-	
-	
+
 	private class DeelnemerRenners {
-		
+
 		private Deelnemer deelnemer;
 		private int aantalRenners;
-				
+
 		public DeelnemerRenners(Deelnemer deelnemer) {
 			this.deelnemer = deelnemer;
 			aantalRenners = 8;
 		}
-		
+
 		public int getAantalRenners() {
 			return aantalRenners;
 		}
-		
+
 		public void decreaseAantalRenners() {
 			aantalRenners = aantalRenners - 1;
 		}
-		
+
 		public Deelnemer getDeelnemer() {
 			return deelnemer;
 		}
 	}
 
-
-
-	
-		
 }

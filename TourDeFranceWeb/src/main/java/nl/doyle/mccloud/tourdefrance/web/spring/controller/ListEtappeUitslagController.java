@@ -10,9 +10,6 @@ import nl.doyle.mccloud.tourdefrance.controller.TourFacade;
 import nl.doyle.mccloud.tourdefrance.dto.AbstractEtappeAndEindUitslagDto;
 import nl.doyle.mccloud.tourdefrance.dto.PloegenTijdritDto;
 import nl.doyle.mccloud.tourdefrance.dto.StandaardEtappeDto;
-import nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag;
-import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
-import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 import nl.doyle.mccloud.tourdefrance.web.spring.model.ListUitslagModel;
 import nl.doyle.mccloud.tourdefrance.web.spring.model.ListUitslagModel.EtappeType;
 
