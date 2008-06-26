@@ -164,7 +164,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<forkMode>once</forkMode>
-					<argLine>-Xmx128m</argLine>
+					<argLine>-Xmx128m -Dderby.system.home=%DERBY_SYSTEM_HOME%</argLine>
 				</configuration>
 			</plugin>
 			<plugin>

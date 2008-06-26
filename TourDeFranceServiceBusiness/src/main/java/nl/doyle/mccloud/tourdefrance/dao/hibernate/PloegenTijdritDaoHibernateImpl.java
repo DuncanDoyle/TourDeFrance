@@ -72,6 +72,7 @@ public class PloegenTijdritDaoHibernateImpl extends HibernateDaoSupport implemen
 			Hibernate.initialize(etappe.getBolletjesTruiUitslag());
 			Hibernate.initialize(etappe.getGeleTruiUitslag());
 			Hibernate.initialize(etappe.getGroeneTruiUitslag());
+			Hibernate.initialize(etappe.getMostCombativeRacer());
 		}
 		return etappe;
 	}

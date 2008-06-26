@@ -1,28 +1,29 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.command;
 
-
 public class UitslagBedragCommand {
-	
-	
+
 	private double[] etappe;
 	private double[] geleTrui;
 	private double[] groeneTrui;
 	private double[] bolletjesTrui;
+	private double[] mostCombativeStage;
 	private double[] geleTruiEind;
 	private double[] groeneTruiEind;
 	private double[] bolletjesTruiEind;
 	private double[] witteTruiEind;
 	private double[] rodeLantarenEind;
 	private double[] eersteUitvallerEind;
-	
+	private double[] mostCombativeFinal;
+
 	/**
 	 * Default constructor
 	 */
-	
-	public UitslagBedragCommand(int etappe, int geleTrui, int groeneTrui, int bolletjesTrui, int geleTruiEind, int groeneTruiEind, int bolletjesTruiEind, int witteTruiEind, int rodeLantarenEind, int eersteUitvallerEind) {
+	public UitslagBedragCommand(int etappe, int geleTrui, int groeneTrui, int bolletjesTrui, int geleTruiEind, int groeneTruiEind,
+			int bolletjesTruiEind, int witteTruiEind, int rodeLantarenEind, int eersteUitvallerEind, int mostCombativeStage,
+			int mostCombativeFinal) {
 		this.etappe = new double[etappe];
 		this.geleTrui = new double[geleTrui];
-		this.groeneTrui = new  double[groeneTrui];
+		this.groeneTrui = new double[groeneTrui];
 		this.bolletjesTrui = new double[bolletjesTrui];
 		this.geleTruiEind = new double[geleTruiEind];
 		this.groeneTruiEind = new double[groeneTruiEind];
@@ -30,8 +31,10 @@ public class UitslagBedragCommand {
 		this.witteTruiEind = new double[witteTruiEind];
 		this.rodeLantarenEind = new double[rodeLantarenEind];
 		this.eersteUitvallerEind = new double[eersteUitvallerEind];
+		this.mostCombativeStage = new double[mostCombativeStage];
+		this.mostCombativeFinal = new double[mostCombativeFinal];
 	}
-		
+
 	/**
 	 * @return the bolletjesTrui
 	 */
@@ -40,7 +43,8 @@ public class UitslagBedragCommand {
 	}
 
 	/**
-	 * @param bolletjesTrui the bolletjesTrui to set
+	 * @param bolletjesTrui
+	 *            the bolletjesTrui to set
 	 */
 	public void setBolletjesTrui(double[] bolletjesTrui) {
 		this.bolletjesTrui = bolletjesTrui;
@@ -54,7 +58,8 @@ public class UitslagBedragCommand {
 	}
 
 	/**
-	 * @param bolletjesTruiEind the bolletjesTruiEind to set
+	 * @param bolletjesTruiEind
+	 *            the bolletjesTruiEind to set
 	 */
 	public void setBolletjesTruiEind(double[] bolletjesTruiEind) {
 		this.bolletjesTruiEind = bolletjesTruiEind;
@@ -68,7 +73,8 @@ public class UitslagBedragCommand {
 	}
 
 	/**
-	 * @param etappe the etappe to set
+	 * @param etappe
+	 *            the etappe to set
 	 */
 	public void setEtappe(double[] etappe) {
 		this.etappe = etappe;
@@ -82,7 +88,8 @@ public class UitslagBedragCommand {
 	}
 
 	/**
-	 * @param geleTrui the geleTrui to set
+	 * @param geleTrui
+	 *            the geleTrui to set
 	 */
 	public void setGeleTrui(double[] geleTrui) {
 		this.geleTrui = geleTrui;
@@ -96,7 +103,8 @@ public class UitslagBedragCommand {
 	}
 
 	/**
-	 * @param geleTruiEind the geleTruiEind to set
+	 * @param geleTruiEind
+	 *            the geleTruiEind to set
 	 */
 	public void setGeleTruiEind(double[] geleTruiEind) {
 		this.geleTruiEind = geleTruiEind;
@@ -110,7 +118,8 @@ public class UitslagBedragCommand {
 	}
 
 	/**
-	 * @param groeneTruiEind the groeneTruiEind to set
+	 * @param groeneTruiEind
+	 *            the groeneTruiEind to set
 	 */
 	public void setGroeneTruiEind(double[] groeneTruiEind) {
 		this.groeneTruiEind = groeneTruiEind;
@@ -124,7 +133,8 @@ public class UitslagBedragCommand {
 	}
 
 	/**
-	 * @param groeneTrui the groenTrui to set
+	 * @param groeneTrui
+	 *            the groenTrui to set
 	 */
 	public void setGroeneTrui(double[] groeneTrui) {
 		this.groeneTrui = groeneTrui;
@@ -138,7 +148,8 @@ public class UitslagBedragCommand {
 	}
 
 	/**
-	 * @param eersteUitvallerEind the eersteUitvallerEind to set
+	 * @param eersteUitvallerEind
+	 *            the eersteUitvallerEind to set
 	 */
 	public void setEersteUitvallerEind(double[] eersteUitvallerEind) {
 		this.eersteUitvallerEind = eersteUitvallerEind;
@@ -152,7 +163,8 @@ public class UitslagBedragCommand {
 	}
 
 	/**
-	 * @param rodeLantarenEind the rodeLantarenEind to set
+	 * @param rodeLantarenEind
+	 *            the rodeLantarenEind to set
 	 */
 	public void setRodeLantarenEind(double[] rodeLantarenEind) {
 		this.rodeLantarenEind = rodeLantarenEind;
@@ -166,12 +178,41 @@ public class UitslagBedragCommand {
 	}
 
 	/**
-	 * @param witteTruiEind the witteTruiEind to set
+	 * @param witteTruiEind
+	 *            the witteTruiEind to set
 	 */
 	public void setWitteTruiEind(double[] witteTruiEind) {
 		this.witteTruiEind = witteTruiEind;
 	}
-	
-	
+
+	/**
+	 * @return the mostCombativeStage
+	 */
+	public double[] getMostCombativeStage() {
+		return mostCombativeStage;
+	}
+
+	/**
+	 * @param mostCombativeStage
+	 *            the mostCombativeStage to set
+	 */
+	public void setMostCombativeStage(double[] mostCombativeStage) {
+		this.mostCombativeStage = mostCombativeStage;
+	}
+
+	/**
+	 * @return the mostCombativeFinal
+	 */
+	public double[] getMostCombativeFinal() {
+		return mostCombativeFinal;
+	}
+
+	/**
+	 * @param mostCombativeFinal
+	 *            the mostCombativeFinal to set
+	 */
+	public void setMostCombativeFinal(double[] mostCombativeFinal) {
+		this.mostCombativeFinal = mostCombativeFinal;
+	}
 
 }

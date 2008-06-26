@@ -133,6 +133,7 @@ public class StandaardEtappeDaoHibernateImpl extends HibernateDaoSupport impleme
 			Hibernate.initialize(etappe.getGeleTruiUitslag());
 			Hibernate.initialize(etappe.getGroeneTruiUitslag());
 			Hibernate.initialize(etappe.getEtappeUitslag());
+			Hibernate.initialize(etappe.getMostCombativeRacer());
 		}
 		return etappe;
 	}

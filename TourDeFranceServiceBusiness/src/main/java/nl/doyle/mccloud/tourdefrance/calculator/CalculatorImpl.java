@@ -83,6 +83,7 @@ public class CalculatorImpl implements Calculator {
 		double[] etappeGeleTruiUitslagBedrag = getEtappeGeleTruiUitslagBedragenPerPositie();
 		double[] etappeGroeneTruiUitslagBedrag = getEtappeGroeneTruiUitslagBedragenPerPositie();
 		double[] etappeBolletjesTruiUitslagBedrag = getEtappeBolletjesTruiUitslagBedragenPerPositie();
+		double[] stageMostCombativeRacerResultAmount = getStageMostCombativeRacerResultAmount();
 		
 		//Maak HashMap om bedragen per renner in op te slaan. Integer is het rennernummer, Double het bedrag
 		HashMap<Integer, Double> bedragenMap = new HashMap<Integer, Double>();
@@ -120,6 +121,12 @@ public class CalculatorImpl implements Calculator {
 						if (positie != 0) {
 							deelnemerBedragEtappe = deelnemerBedragEtappe + etappeBolletjesTruiUitslagBedrag[positie - 1];
 						}
+						//Most combative race
+						positie = nextEtappe.getPositionInMostCombativeRacerResult(nextRenner);
+						if (positie != 0) {
+							deelnemerBedragEtappe = deelnemerBedragEtappe + stageMostCombativeRacerResultAmount[positie -1];
+						}
+						
 						//Als het een standaardetappe is dan ook nog bedragen voor etappe uitslag
 						if (nextEtappe instanceof StandaardEtappe) {
 							positie = ((StandaardEtappe) nextEtappe).getPositieInEtappeUitslag(nextRenner);
@@ -128,6 +135,7 @@ public class CalculatorImpl implements Calculator {
 							}
 						}
 					}
+					
 					//Nu moet het bedrag dat deze deelnemer in deze etappe heeft gewonnen opgeslagen worden. Dit doen we nu in een HashMap
 					//We tellen het gewonnenbedrag uit deze etappe op bij het bedrag uit de vorige etappes.
 					Double currentBedrag = bedragenMap.get(nextDeelnemer.getNummer());
@@ -172,6 +180,7 @@ public class CalculatorImpl implements Calculator {
 		double[] eindUitslagWitteTruiUitslagBedrag = getEindUitslagWitteTruiUitslagBedrag();
 		double[] eindUitslagRodeLantarenUitslagBedrag = getEindUitslagRodeLantarenUitslagBedrag();
 		double[] eindUitslagEersteUitvallerUitslagBedrag = getEindUitslagEersteUitvallerUitslagBedrag();
+		double[] finalMostCombativeRacerResultAmount = getFinalMostCombativeRacerResultAmount();
 		
 		double[] eindUitslagBolletjesTruiUitslagBedrag = getEindUitslagBolletjesTruiUitslagBedragPerPositie();
 		double[] eindUitslagGeleTruiUitslagBedrag = getEindUitslagGeleTruiUitslagBedragenPerPositie();
@@ -221,6 +230,10 @@ public class CalculatorImpl implements Calculator {
 					if (positie != 0) {
 						bedrag = bedrag + eindUitslagEersteUitvallerUitslagBedrag[positie - 1];
 					}
+					positie = ((EindUitslag) uitslag).getPositionInMostCombativeRacerResult(nextRenner);
+					if (positie != 0) {
+						bedrag = bedrag + finalMostCombativeRacerResultAmount[positie - 1];
+					}
 				}
 			} else {
 				throw new IllegalClassException("EindUitslag is niet van het juiste type");
@@ -253,6 +266,10 @@ public class CalculatorImpl implements Calculator {
 		return setBedragen(tourConfig.getAantalEtappeBolletjesTruiUitslagen(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.BolletjesTrui));
 	}
 	
+	private double[] getStageMostCombativeRacerResultAmount() {
+		return setBedragen(tourConfig.getAantalEinduitslagWitteTrui(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.MostCombativeStage));
+	}
+	
 	private double[] getEindUitslagGeleTruiUitslagBedragenPerPositie() {
 		return setBedragen(tourConfig.getAantalEinduitslagGeleTruiUitslagen(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.GeleTruiEind));
 	}
@@ -275,6 +292,10 @@ public class CalculatorImpl implements Calculator {
 	
 	private double[] getEindUitslagEersteUitvallerUitslagBedrag() {
 		return setBedragen(tourConfig.getAantalEinduitslagEersteUitvaller(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.EersteUitvallerEind));
+	}
+	
+	private double[] getFinalMostCombativeRacerResultAmount() {
+		return setBedragen(tourConfig.getAantalEinduitslagWitteTrui(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.MostCombativeFinal));
 	}
 	
 	private double[] setBedragen(int arrayPosities, List<UitslagBedrag> bedragen) {

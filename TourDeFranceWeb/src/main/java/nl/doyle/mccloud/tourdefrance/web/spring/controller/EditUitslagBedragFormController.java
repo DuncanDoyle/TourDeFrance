@@ -56,6 +56,8 @@ public class EditUitslagBedragFormController extends SimpleFormController {
 		saveUitslagBedragen(uitslagBedrag.getWitteTruiEind(), Categorien.WitteTruiEind);
 		saveUitslagBedragen(uitslagBedrag.getRodeLantarenEind(), Categorien.RodeLantarenEind);
 		saveUitslagBedragen(uitslagBedrag.getEersteUitvallerEind(), Categorien.EersteUitvallerEind);
+		saveUitslagBedragen(uitslagBedrag.getMostCombativeStage(), Categorien.MostCombativeStage);
+		saveUitslagBedragen(uitslagBedrag.getMostCombativeFinal(), Categorien.MostCombativeFinal);
 		
 		return new ModelAndView(new RedirectView(getSuccessView()));
 	}
@@ -106,7 +108,9 @@ public class EditUitslagBedragFormController extends SimpleFormController {
 																		config.getAantalEinduitslagBolletjesTruiUitslagen(),
 																		config.getAantalEinduitslagWitteTrui(),
 																		config.getAantalEinduitslagRodeLantaren(),
-																		config.getAantalEinduitslagEersteUitvaller());
+																		config.getAantalEinduitslagEersteUitvaller(),
+																		config.getNumberOfStageMostCombative(),
+																		config.getNumberOfFinalMostCombative());
 		//loop door alle uitslagen heen en zet de waardes goed
 		for (UitslagBedrag nextUitslagBedrag: dbUitslagBedragen) {
 			switch (nextUitslagBedrag.getCategorie()) {
@@ -159,6 +163,17 @@ public class EditUitslagBedragFormController extends SimpleFormController {
 				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getEersteUitvallerEind().length) {
 					uitslagBedrag.getEersteUitvallerEind()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
 				}
+				break;
+			case MostCombativeStage:
+				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getMostCombativeStage().length) {
+					uitslagBedrag.getMostCombativeStage()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
+				}
+				break;
+			case MostCombativeFinal:
+				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getMostCombativeFinal().length) {
+					uitslagBedrag.getMostCombativeFinal()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
+				}
+				break;
 			}
 		}
 		return uitslagBedrag;

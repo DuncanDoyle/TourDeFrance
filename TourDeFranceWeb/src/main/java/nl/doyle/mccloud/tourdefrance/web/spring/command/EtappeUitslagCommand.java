@@ -24,6 +24,7 @@ public class EtappeUitslagCommand {
 	private int witteTrui;
 	private int rodeLantaren;
 	private int eersteUitvaller;
+	private int mostCombative;
 	
 	private int etappenummer;
 	private String omschrijving;
@@ -224,10 +225,17 @@ public class EtappeUitslagCommand {
 	public void setOmschrijving(String omschrijving) {
 		this.omschrijving = omschrijving;
 	}
-	
-	
-	
-	
-	
+	/**
+	 * @return the mostCombative
+	 */
+	public int getMostCombative() {
+		return mostCombative;
+	}
+	/**
+	 * @param mostCombative the mostCombative to set
+	 */
+	public void setMostCombative(int mostCombative) {
+		this.mostCombative = mostCombative;
+	}
 	
 }

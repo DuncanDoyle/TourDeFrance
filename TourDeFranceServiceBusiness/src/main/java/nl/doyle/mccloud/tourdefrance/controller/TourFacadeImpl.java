@@ -157,6 +157,17 @@ public class TourFacadeImpl implements TourFacade {
 			dto.setGroeneTruiUitslag(mapUitslagToDto(etappe.getGroeneTruiUitslag(), Categorien.GroeneTrui));
 			dto.setBolletjesTruiUitslag(mapUitslagToDto(etappe.getBolletjesTruiUitslag(), Categorien.BolletjesTrui));
 
+			Set<Uitslag> mostCombative = new HashSet<Uitslag>();
+			if (etappe.getMostCombativeRacer() != null) {
+				GeleTruiUitslag mostCombativeResult = new GeleTruiUitslag();
+				mostCombativeResult.setPositie(1);
+				mostCombativeResult.setEtappenummer(etappe.getEtappenummer());
+				mostCombativeResult.setRenner(((Etappe) etappe).getMostCombativeRacer());
+				mostCombative.add(mostCombativeResult);
+			}
+			dto.setMostCombativeResult(mapUitslagToDto(mostCombative, Categorien.MostCombativeStage));
+			
+			
 			if (etappe instanceof StandaardEtappe) {
 				((StandaardEtappeDto) dto).setEtappeUitslag(mapUitslagToDto(((StandaardEtappe) etappe).getEtappeUitslag(),
 						Categorien.Etappe));
@@ -200,6 +211,17 @@ public class TourFacadeImpl implements TourFacade {
 				witteTrui.add(witteTruiUitslag);
 			}
 			((EindUitslagDto) dto).setWitteTrui(mapUitslagToDto(witteTrui, Categorien.WitteTruiEind));
+			
+			Set<Uitslag> mostCombative = new HashSet<Uitslag>();
+			if (etappe.getMostCombativeRacer() != null) {
+				GeleTruiUitslag mostCombativeResult = new GeleTruiUitslag();
+				mostCombativeResult.setPositie(1);
+				mostCombativeResult.setEtappenummer(etappe.getEtappenummer());
+				mostCombativeResult.setRenner(((EindUitslag) etappe).getMostCombativeRacer());
+				mostCombative.add(mostCombativeResult);
+			}
+			dto.setMostCombativeResult(mapUitslagToDto(mostCombative, Categorien.MostCombativeFinal));
+			
 		} else {
 			throw new IllegalArgumentException("Etappe niet van het juiste type");
 		}
@@ -268,6 +290,7 @@ public class TourFacadeImpl implements TourFacade {
 	}
 
 	// TODO This can be easily solved using dynamic binding. Just create an EtappeDao with 3 overloaded methods, one for each etappe type.
+	// TODO That won't work with overloaded methods, because it is determined at compile time.
 	public void saveEtappe(AbstractEtappeAndEindUitslag etappe) {
 		if (etappe instanceof StandaardEtappe) {
 			standaardEtappeDao.saveStandaardEtappe((StandaardEtappe) etappe);

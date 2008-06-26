@@ -71,6 +71,10 @@ public class TourConfigImpl implements TourConfig {
 	public int getAantalEtappeUitslagen() {
 		return config.getInt("etappe.uitslag");
 	}
+	
+	public int getNumberOfStageMostCombative() {
+		return config.getInt("etappe.mostcombative");
+	}
 
 	/* (non-Javadoc)
 	 * @see nl.doyle.mccloud.tourdefrance.config.TourConfig#getAantalEinduitslagEersteUitvaller()
@@ -95,8 +99,10 @@ public class TourConfigImpl implements TourConfig {
 		return config.getInt("einduitslag.wittetrui");
 	}
 	
-	
-	
+	public int getNumberOfFinalMostCombative() {
+		return config.getInt("einduitslag.mostcombative");
+	}
+
 	/**
 	 * @return the config
 	 */

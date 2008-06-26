@@ -10,6 +10,10 @@ public abstract class AbstractEtappeAndEindUitslag {
 	private Set<GeleTruiUitslag> geleTruiUitslag;
 	private Set<GroeneTruiUitslag> groeneTruiUitslag;
 	private Set<BolletjesTruiUitslag> bolletjesTruiUitslag;
+	/**
+	 * The most combative race
+	 */
+	private Renner mostCombativeRacer;
 	
 	
 	public int getPositieInGeleTruiUitslag(Renner renner) {
@@ -22,6 +26,14 @@ public abstract class AbstractEtappeAndEindUitslag {
 	
 	public int getPositieInBolletjesTruiUitslag(Renner renner) {
 		return getPositieInUitslag(bolletjesTruiUitslag, renner);
+	}
+	
+	public int getPositionInMostCombativeRacerResult(Renner renner) {
+		int position = 0;
+		if (renner.equals(mostCombativeRacer)) {
+			position = 1;
+		}
+		return position; 
 	}
 	
 	protected int getPositieInUitslag(Set<? extends Uitslag> uitslagen, Renner renner) {
@@ -92,6 +104,16 @@ public abstract class AbstractEtappeAndEindUitslag {
 	public void setGroeneTruiUitslag(Set<GroeneTruiUitslag> groeneTruiUitslag) {
 		this.groeneTruiUitslag = groeneTruiUitslag;
 	}
+	
+	
+	public Renner getMostCombativeRacer() {
+		return mostCombativeRacer;
+	}
+
+	public void setMostCombativeRacer(Renner mostCombativeRacer) {
+		this.mostCombativeRacer = mostCombativeRacer;
+	}
+
 	/**
 	 * @return the omschrijving
 	 */

@@ -118,6 +118,17 @@
 		  			<display:column property="positieBedrag" class="bedragColumn" title="Bedrag" sortable="false"/>
 				</display:table>
 			<%}%>
+				<h3>Strijdlustigste Renner</h3>
+				<display:table id="strijdLustigsteRennerUitslagTable" name="model.uitslagmodel.etappe.mostCombativeResult" class="listTable rennersEnDeelnemersTable" requestURI="listEtappeUitslag.htm" sort="list" defaultsort="1">
+					<display:column property="positie" class="nummerColumn" title="Positie" sortable="true"/>
+					<display:column property="renner.nummer" class="nummerColumn" title="Rennernummer" sortable="false"/>
+			 		<display:column property="renner.voornaam" title="Renner Voornaam" sortable="false"/>
+			 		<display:column property="renner.achternaam" title="Renner Achternaam" sortable="false"/>
+			 		<display:column property="deelnemer.nummer" class="nummerColumn" title="Deelnemernummer" sortable="false"/>
+		  			<display:column property="deelnemer.voornaam" title="Deelnemer Voornaam" sortable="false"/>
+		  			<display:column property="deelnemer.achternaam" title="Deelnemer Achternaam" sortable="false"/>
+		  			<display:column property="positieBedrag" class="bedragColumn" title="Bedrag" sortable="false"/>
+				</display:table>
 			<br/>
 			<br/>
 			<authz:authorize ifAllGranted="ROLE_ADMIN">

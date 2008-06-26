@@ -12,5 +12,7 @@ public interface TourConfig {
 	public abstract int getAantalEinduitslagWitteTrui();
 	public abstract int getAantalEinduitslagRodeLantaren();
 	public abstract int getAantalEinduitslagEersteUitvaller();
+	public abstract int getNumberOfStageMostCombative();
+	public abstract int getNumberOfFinalMostCombative();
 		
 }

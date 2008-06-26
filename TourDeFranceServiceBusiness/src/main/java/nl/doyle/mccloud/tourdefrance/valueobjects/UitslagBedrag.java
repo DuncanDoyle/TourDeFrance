@@ -18,7 +18,7 @@ public class UitslagBedrag implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public enum Categorien{Etappe,GeleTrui,GroeneTrui,BolletjesTrui,GeleTruiEind, GroeneTruiEind, BolletjesTruiEind, WitteTruiEind, RodeLantarenEind, EersteUitvallerEind};
+	public enum Categorien{Etappe,GeleTrui,GroeneTrui,BolletjesTrui,GeleTruiEind, GroeneTruiEind, BolletjesTruiEind, WitteTruiEind, RodeLantarenEind, EersteUitvallerEind, MostCombativeStage, MostCombativeFinal};
 	
 	/**
 	 * The categorie of the amount.

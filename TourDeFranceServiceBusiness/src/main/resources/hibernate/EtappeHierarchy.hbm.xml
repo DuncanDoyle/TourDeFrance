@@ -29,6 +29,9 @@
         	<one-to-many class="nl.doyle.mccloud.tourdefrance.valueobjects.BolletjesTruiUitslag"/>
 		</set>
 	
+		<!-- MostCombativeRacer is present in every stage -->
+		<many-to-one name="mostCombativeRacer" class="nl.doyle.mccloud.tourdefrance.valueobjects.Renner" column="MOST_COMBATIVE_RACER" unique="true"/>
+	
 		<joined-subclass name="nl.doyle.mccloud.tourdefrance.valueobjects.Etappe" table="ETAPPE">
 			<key column="ETAPPENUMMER"/>
 			<property name="datum" type="date" column="DATUM"/>

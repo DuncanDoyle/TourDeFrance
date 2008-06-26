@@ -43,6 +43,7 @@ public class EindUitslagDaoHibernateImpl extends HibernateDaoSupport implements 
 			Hibernate.initialize(uitslag.getEersteUitvaller());
 			Hibernate.initialize(uitslag.getRodeLantaren());
 			Hibernate.initialize(uitslag.getWitteTrui());
+			Hibernate.initialize(uitslag.getMostCombativeRacer());
 			Hibernate.initialize(uitslag.getBolletjesTruiUitslag());
 			Hibernate.initialize(uitslag.getGeleTruiUitslag());
 			Hibernate.initialize(uitslag.getGroeneTruiUitslag());

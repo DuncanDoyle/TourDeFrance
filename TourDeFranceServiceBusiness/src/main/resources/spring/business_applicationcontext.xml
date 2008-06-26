@@ -46,10 +46,7 @@
 			<ref local="commonsConfiguration" />
 		</property>
 	</bean>
-	<bean id="test" class="testspringcontext.TestImpl">
-		<property name="message" value="You say goodbye, I say Hello" />
-	</bean>
-
+	
 	<!-- Declaration of all DAO's -->
 	<bean id="abstractDaoHibernate" abstract="true">
 		<property name="sessionFactory">
@@ -176,7 +173,7 @@
 	<bean id="tourDeFranceDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<!-- <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver" />  -->
 		<property name="driverClass" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-		<property name="jdbcUrl" value="jdbc:derby:${user.home}/TourDeFranceDb2008;create=true" />
+		<property name="jdbcUrl" value="jdbc:derby:TourDeFranceDb2008;create=true" />
 		<property name="user" value="tour" />
 		<property name="password" value="manager" />
 		<property name="initialPoolSize" value="5" />
