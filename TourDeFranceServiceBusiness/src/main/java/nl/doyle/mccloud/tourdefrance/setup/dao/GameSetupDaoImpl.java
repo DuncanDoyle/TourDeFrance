@@ -39,9 +39,6 @@ public class GameSetupDaoImpl extends JdbcDaoSupport implements GameSetupDao {
 		String sqlDeelnemer = "delete from deelnemer";
 		getJdbcTemplate().execute(sqlDeelnemer);
 		
-		String sqlRenner = "delete from renner";
-		getJdbcTemplate().execute(sqlRenner);
-		
 		String sqlStandaardEtappes = "delete from standaardetappe";
 		getJdbcTemplate().execute(sqlStandaardEtappes);
 		
@@ -53,6 +50,9 @@ public class GameSetupDaoImpl extends JdbcDaoSupport implements GameSetupDao {
 		
 		String sqlEtappeAndEindUitslag = "delete from etappeandeinduitslag";
 		getJdbcTemplate().execute(sqlEtappeAndEindUitslag);
+		
+		String sqlRenner = "delete from renner";
+		getJdbcTemplate().execute(sqlRenner);
 		
 		String sqlSteden = "delete from stad";
 		getJdbcTemplate().execute(sqlSteden);
