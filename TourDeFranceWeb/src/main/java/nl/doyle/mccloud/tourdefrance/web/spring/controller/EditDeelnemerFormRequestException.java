@@ -1,0 +1,13 @@
+package nl.doyle.mccloud.tourdefrance.web.spring.controller;
+
+public class EditDeelnemerFormRequestException extends Exception {
+
+	/**
+	 * Serial version UID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public EditDeelnemerFormRequestException(String message) {
+		super(message);
+	}
+}

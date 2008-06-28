@@ -1,0 +1,108 @@
+table.listTable tr.rowMouseOver {
+	/*background-image: url(../images/selected.gif); */
+	/*background-repeat: repeat-x; */
+	background-color: #00FFFF;
+}
+
+body.bodyTextCentered {
+	text-align: center;	
+}
+
+table.listTable {
+	width: 30%;
+	text-align: center; 
+	margin: 0 auto !important;
+}
+
+table.deelnemersTable {
+	width: 50%;
+	text-align: center; 
+	margin: 0 auto !important;
+}
+
+table.deelnemersTableNonAdmin {
+	width: 30%;
+	text-align: center; 
+	margin: 0 auto !important;
+}
+
+table.rennersEnDeelnemersTable {
+	width: 56%;
+	text-align: center; 
+	margin: 0 auto !important;
+}
+
+table.deelnemersAndBedragenTable {
+	width: 40%;
+	text-align: center; 
+	margin: 0 auto !important;
+}
+
+table.listTable td.nummerColumn {
+	width: 8%;
+	text-align: center;
+}
+
+table.listTable td.achternaamColumn {
+	width: 20%;
+}
+
+table.deelnemersTableNonAdmin td.achternaamColumn {
+	width: 35%;
+}
+
+table.listTable td.rekeningnummerColumn {
+	text-align: center;
+}
+
+table.editTable {
+	width: 40%;
+	border: 10;
+	cellspacing: 0;
+	cellpadding: 5;
+	text-align: center; 
+	margin: 0 auto !important;
+	background-color: #F8F8FF;
+}
+
+table.etappesTable {
+	width: 50%;
+	border: 10;
+	cellspacing: 0;
+	cellpadding: 5;
+	text-align: center; 
+	margin: 0 auto !important;
+	background-color: #F8F8FF;
+}
+
+td.etappeomschrijving {
+	width: 10%;
+}
+
+td.bedragColumn {
+	width: 12%;
+	text-align: right;
+}
+
+table.loginTable {
+	width: 20%;
+	border: 10;
+	cellspacing: 0;
+	cellpadding: 5;
+	text-align: center; 
+	margin: 0 auto !important;
+	background-color: #F8F8FF;
+}
+
+table.listTable td.hidden {
+	display:none;
+}
+
+table.listTable th.hidden {
+	display:none;
+}
+
+
+table.loginTable td.td_centered {
+	text-align:right;
+}

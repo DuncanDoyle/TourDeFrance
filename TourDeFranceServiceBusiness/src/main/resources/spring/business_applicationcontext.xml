@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+ 
+	 <!-- Apache Commons Configuration Composite configuration -->
+	<bean id="configurations"
+		class="org.springmodules.commons.configuration.CommonsConfigurationFactoryBean">
+		<property name="configurations">
+			<list>
+  
+            	<!--  System properties   -->
+				<bean class="org.apache.commons.configuration.SystemConfiguration" />
+				<bean class="org.apache.commons.configuration.XMLConfiguration">
+					<constructor-arg type="java.net.URL"
+						value="file:${user.home}/tour-config.xml" />
+					<property name="reloadingStrategy">
+						<bean
+							class="org.apache.commons.configuration.reloading.FileChangedReloadingStrategy" />
+					</property>
+				</bean>
+			</list>
+		</property>
+		<!--
+			define configuration as a set of spring resources <property
+			name="locations" value="classpath*:META-INF/default.properties" />
+		-->
+	</bean>
+	<!--
+		De &amp;configurations in de onderstaande configuratie geeft de bean
+		hierboven "configurations" terug. Dit is nodig omdat deze bean een
+		Spring FactoryBean is. Een normale referentie zonder &amp; zou het
+		object teruggeven dat door de FactoryBean 'getObject' wordt
+		teruggegeven. De Spring FactoryBean heeft deze eigenschap en kan
+		daarom niet zomaar als een normal bean worden gebruikt. Hij wordt veel
+		gebruikt in de 'internals' van het framework.
+	-->
+	<bean id="commonsConfiguration" factory-bean="&amp;configurations"
+		factory-method="getConfiguration" />
+	<bean id="tourConfiguration" class="nl.doyle.mccloud.tourdefrance.config.TourConfigImpl">
+		<property name="config">
+			<ref local="commonsConfiguration" />
+		</property>
+	</bean>
+	
+	<!-- Declaration of all DAO's -->
+	<bean id="abstractDaoHibernate" abstract="true">
+		<property name="sessionFactory">
+			<ref local="tourDeFranceSessionFactory" />
+		</property>
+	</bean>
+	<bean id="abstractDaoJdbc" abstract="true">
+		<property name="dataSource">
+			<ref bean="tourDeFranceDataSource" />
+			<!-- <ref local="jamonMonitoredDataSource"/>   -->
+		</property>
+	</bean>
+	<bean id="deelnemerDao" parent="abstractDaoHibernate"
+		class="nl.doyle.mccloud.tourdefrance.dao.hibernate.DeelnemerDaoHibernateImpl" />
+	<bean id="rennerDao" parent="abstractDaoHibernate"
+		class="nl.doyle.mccloud.tourdefrance.dao.hibernate.RennerDaoHibernateImpl" />
+	<bean id="standaardEtappeDao" parent="abstractDaoHibernate"
+		class="nl.doyle.mccloud.tourdefrance.dao.hibernate.StandaardEtappeDaoHibernateImpl" />
+	<bean id="ploegenTijdritDao" parent="abstractDaoHibernate"
+		class="nl.doyle.mccloud.tourdefrance.dao.hibernate.PloegenTijdritDaoHibernateImpl" />
+	<bean id="etappeUitslagDao" parent="abstractDaoHibernate"
+		class="nl.doyle.mccloud.tourdefrance.dao.hibernate.EtappeUitslagDaoHibernateImpl" />
+	<bean id="geleTruiUitslagDao" parent="abstractDaoHibernate"
+		class="nl.doyle.mccloud.tourdefrance.dao.hibernate.GeleTruiUitslagDaoHibernateImpl" />
+	<bean id="groeneTruiUitslagDao" parent="abstractDaoHibernate"
+		class="nl.doyle.mccloud.tourdefrance.dao.hibernate.GroeneTruiUitslagDaoHibernateImpl" />
+	<bean id="bolletjesTruiUitslagDao" parent="abstractDaoHibernate"
+		class="nl.doyle.mccloud.tourdefrance.dao.hibernate.BolletjesTruiUitslagDaoHibernateImpl" />
+	<bean id="teamDao" parent="abstractDaoHibernate"
+		class="nl.doyle.mccloud.tourdefrance.dao.hibernate.TeamDaoHibernateImpl" />
+	<bean id="gameSetupDao" parent="abstractDaoJdbc"
+		class="nl.doyle.mccloud.tourdefrance.setup.dao.GameSetupDaoImpl" />
+	<bean id="stadDao" parent="abstractDaoHibernate"
+		class="nl.doyle.mccloud.tourdefrance.dao.hibernate.StadDaoHibernateImpl" />
+	<bean id="uitslagBedragDao" parent="abstractDaoHibernate"
+		class="nl.doyle.mccloud.tourdefrance.dao.hibernate.UitslagBedragDaoHibernateImpl" />
+	<bean id="eindUitslagDao" parent="abstractDaoHibernate"
+		class="nl.doyle.mccloud.tourdefrance.dao.hibernate.EindUitslagDaoHibernateImpl" />
+	 
+	<!-- Definition of all controllers -->
+	<bean id="gameSetupController"
+		class="nl.doyle.mccloud.tourdefrance.setup.GameSetupControllerImpl">
+		<property name="deelnemerDao">
+			<ref local="deelnemerDao" />
+		</property>
+		<property name="rennerDao">
+			<ref local="rennerDao" />
+		</property>
+		<property name="standaardEtappeDao">
+			<ref local="standaardEtappeDao" />
+		</property>
+		<property name="ploegenTijdritDao">
+			<ref local="ploegenTijdritDao" />
+		</property>
+		<property name="teamDao">
+			<ref local="teamDao" />
+		</property>
+		<property name="eindUitslagDao">
+			<ref local="eindUitslagDao" />
+		</property>
+		<property name="gameSetupDao">
+			<ref local="gameSetupDao" />
+		</property>
+	</bean>
+	<bean id="calculator" class="nl.doyle.mccloud.tourdefrance.calculator.CalculatorImpl">
+		<property name="deelnemerDao">
+			<ref local="deelnemerDao" />
+		</property>
+		<property name="eindUitslagDao">
+			<ref local="eindUitslagDao" />
+		</property>
+		<property name="ploegenTijdritDao">
+			<ref local="ploegenTijdritDao" />
+		</property>
+		<property name="standaardEtappeDao">
+			<ref local="standaardEtappeDao" />
+		</property>
+		<property name="uitslagBedragDao">
+			<ref local="uitslagBedragDao" />
+		</property>
+		<property name="tourFacade">
+			<ref bean="tourFacade" />
+		</property>
+		<property name="tourConfig">
+			<ref local="tourConfiguration" />
+		</property>
+	</bean>
+	<bean id="tourFacade" class="nl.doyle.mccloud.tourdefrance.controller.TourFacadeImpl">
+		<property name="deelnemerDao">
+			<ref local="deelnemerDao" />
+		</property>
+		<property name="standaardEtappeDao">
+			<ref local="standaardEtappeDao" />
+		</property>
+		<property name="ploegenTijdritDao">
+			<ref local="ploegenTijdritDao" />
+		</property>
+		<property name="eindUitslagDao">
+			<ref local="eindUitslagDao" />
+		</property>
+		<property name="uitslagBedragDao">
+			<ref local="uitslagBedragDao" />
+		</property>
+	</bean>
+ 	
+	<!-- Tour de France DataSource Property -->
+	<!--
+		<bean id="tourDeFranceDataSource"
+		class="org.apache.commons.dbcp.BasicDataSource"> <property
+		name="driverClassName">
+		<value>org.apache.derby.jdbc.EmbeddedDriver</value> </property>
+		<property name="url">
+	-->
+	<!--
+		<value>jdbc:derby:C:/eclipse_workspaces/TourDeFranceWebApp/TourDeFranceServiceBusiness/TourDeFranceDB;user=tour;password=manager</value>
+	-->
+	<!--
+		<value>jdbc:derby:C:/TourDeFranceDB;user=tour;password=manager</value>
+	-->
+	<!--
+		<value>jdbc:derby:TourDeFranceDb2008;user=tour;password=manager</value>
+		</property> </bean>
+	-->
+	<bean id="tourDeFranceDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<!-- <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver" />  -->
+		<property name="driverClass" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+		<property name="jdbcUrl" value="jdbc:derby:TourDeFranceDb2008;create=true" />
+		<property name="user" value="tour" />
+		<property name="password" value="manager" />
+		<property name="initialPoolSize" value="5" />
+		<property name="minPoolSize" value="5" />
+		<property name="maxPoolSize" value="50" />
+		<property name="testConnectionOnCheckout" value="false" />
+	</bean>
+	<!--
+		<bean id="jamonMonitoredDataSource"
+		class="com.jamonapi.proxy.JAMonDataSource"> <constructor-arg> <ref
+		bean="tourDeFranceDataSource"/> </constructor-arg> </bean>
+	-->
+ 
+	<!-- Tour de France Database Property -->
+	<bean id="tourDeFranceHibernateProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
+				<prop key="hibernate.query.substitutions">true 'T', false 'F'</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.connection.release_mode">auto</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">validate</prop>  -->
+			</props>
+		</property>
+	</bean>
+
+	<!-- Hibernate SessionFactory -->
+	<bean id="tourDeFranceSessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="tourDeFranceDataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<ref bean="tourDeFranceHibernateProperties" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>hibernate/Renner.hbm.xml</value>
+				<value>hibernate/Deelnemer.hbm.xml</value>
+				<value>hibernate/EtappeHierarchy.hbm.xml</value>
+				<value>hibernate/GeleTruiUitslag.hbm.xml</value>
+				<value>hibernate/GroeneTruiUitslag.hbm.xml</value>
+				<value>hibernate/BolletjesTruiUitslag.hbm.xml</value>
+				<value>hibernate/EtappeUitslag.hbm.xml</value>
+				<value>hibernate/Team.hbm.xml</value>
+				<value>hibernate/Stad.hbm.xml</value>
+				<value>hibernate/UitslagBedrag.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Definitie van Hibernate Transaction Manager. -->
+	<bean id="tourHibernateTransactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="tourDeFranceSessionFactory" />
+		</property>
+	</bean>
+	
+	<!-- Definitie van JDBC Transaction Manager -->
+	<bean id="tourJdbcTransactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	    <property name="dataSource" ref="tourDeFranceDataSource"/>
+		<!-- <property name="dataSource" ref="jamonMonitoredDataSource" />  -->
+	</bean>
+	<!--
+		<bean id="commonsLoggingAop"
+		class="nl.doyle.mccloud.aop.CommonsLoggingAop"> <constructor-arg
+		index="0" value="INFO"/> </bean>
+	-->
+	<!--
+		<bean id="jamonPerformanceAop"
+		class="nl.doyle.mccloud.aop.JamonPerformanceAop"/>
+	-->	
+
+	<!-- AOP config voor TransactionManagement -->
+	<aop:config>
+		<aop:pointcut id="hibernateDeelnemerTransactions"
+			expression="execution(* nl.doyle.mccloud.tourdefrance.dao.hibernate.DeelnemerDaoHibernateImpl.*(..))" />
+		<aop:pointcut id="hibernateStandaardEtappeTransactions"
+			expression="execution(* nl.doyle.mccloud.tourdefrance.dao.hibernate.StandaardEtappeDaoHibernateImpl.*(..))" />
+		<aop:pointcut id="hibernatePloegenTijdritTransactions"
+			expression="execution(* nl.doyle.mccloud.tourdefrance.dao.hibernate.PloegenTijdritDaoHibernateImpl.*(..))" />
+		<aop:pointcut id="hibernateEindUitslagTransactions"
+			expression="execution(* nl.doyle.mccloud.tourdefrance.dao.hibernate.EindUitslagDaoHibernateImpl.*(..))" />
+		<!--
+			<aop:pointcut id="jdbcTransactions" expression="execution(*
+			nl.doyle.mccloud.tourdefrance.setup.dao.*.*(..))"/>
+		-->
+		<!--
+			JDBC calls kunnen ook meefietsen op een Hibernate transaction wanneer
+			er gebruik wordt gemaakt van JDBCDaoSupport Zo kunnen we Hibernate en
+			JDBC mixen in dezelfde transactie
+		-->
+		<aop:pointcut id="setupDaoTransactions"
+			expression="execution(* nl.doyle.mccloud.tourdefrance.setup.dao.*.*(..))" />
+		<aop:pointcut id="gameSetupGenerateTeams"
+			expression="execution(* nl.doyle.mccloud.tourdefrance.setup.GameSetupControllerImpl.generateDeelnemerTeams(..))" />
+		<aop:pointcut id="gameSetupInitializeGame"
+			expression="execution(* nl.doyle.mccloud.tourdefrance.setup.GameSetupControllerImpl.initializeGame(..))" />
+		<aop:pointcut id="calculatorPointcut"
+			expression="execution(* nl.doyle.mccloud.tourdefrance.calculator.CalculatorImpl.*(..))" />
+		<aop:advisor pointcut-ref="hibernateDeelnemerTransactions"
+			advice-ref="hibernateTxAdvice" />
+		<aop:advisor pointcut-ref="hibernateStandaardEtappeTransactions"
+			advice-ref="hibernateTxAdvice" />
+		<aop:advisor pointcut-ref="hibernatePloegenTijdritTransactions"
+			advice-ref="hibernateTxAdvice" />
+		<aop:advisor pointcut-ref="hibernateEindUitslagTransactions"
+			advice-ref="hibernateTxAdvice" />
+		<!--
+			<aop:advisor pointcut-ref="jdbcTransactions"
+			advice-ref="jdbcTxAdvice"/>
+		-->
+		<aop:advisor pointcut-ref="setupDaoTransactions"
+			advice-ref="setupDaoHibernateTxAdvice" />
+		<aop:advisor pointcut-ref="gameSetupGenerateTeams"
+			advice-ref="gameSetupHibernateTxAdvice" />
+		<aop:advisor pointcut-ref="gameSetupInitializeGame"
+			advice-ref="gameSetupHibernateTxAdvice" />
+			<!-- 
+		<aop:aspect id="jamonPerformanceAspect" ref="jamonPerformanceAop">
+			<aop:around method="doJamonPerformanceLogging"
+				pointcut-ref="calculatorPointcut" />
+		</aop:aspect>
+		 -->
+	</aop:config>
+	
+	
+    
+    <!-- Transaction config in Spring 2.5 -->
+	<tx:advice id="hibernateTxAdvice" transaction-manager="tourHibernateTransactionManager">
+		<tx:attributes>
+			<tx:method name="*Eager" read-only="true" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<tx:advice id="gameSetupHibernateTxAdvice"
+		transaction-manager="tourHibernateTransactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<tx:advice id="setupDaoHibernateTxAdvice"
+		transaction-manager="tourHibernateTransactionManager">
+		<tx:attributes>
+			<tx:method name="deleteAll*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<!--
+		<tx:advice id="jdbcTxAdvice"
+		transaction-manager="tourJdbcTransactionManager"> <tx:attributes>
+		<tx:method name="deleteAllRecordsFromDatabase"
+		propagation="REQUIRED"/> </tx:attributes> </tx:advice>
+	-->
+</beans>

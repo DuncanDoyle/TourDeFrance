@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag" table="ETAPPEANDEINDUITSLAG">
+		<id name="etappenummer" column="ETAPPENUMMER">
+		</id>
+		
+		<!-- Gele trui uitslagen gelden voor alle soorten etappes -->
+		<set name="geleTruiUitslag" cascade="all">
+        	<key> 
+        		<column name="ETAPPENUMMER"/>
+        	</key>
+         	<one-to-many class="nl.doyle.mccloud.tourdefrance.valueobjects.GeleTruiUitslag"/>
+        </set>
+
+		<property name="omschrijving" column="OMSCHRIJVING"/>
+
+
+		<!-- Groene trui uitslagen gelden voor alle soorten etappes -->
+		<set name="groeneTruiUitslag" cascade="all" >
+        	<key column="ETAPPENUMMER"/>
+        	<one-to-many class="nl.doyle.mccloud.tourdefrance.valueobjects.GroeneTruiUitslag"/>
+		</set>
+		
+		<!-- Bolletjes trui uitslagen gelden voor alle soorten etappes -->
+		<set name="bolletjesTruiUitslag" cascade="all" >
+        	<key column="ETAPPENUMMER"/>
+        	<one-to-many class="nl.doyle.mccloud.tourdefrance.valueobjects.BolletjesTruiUitslag"/>
+		</set>
+	
+		<!-- MostCombativeRacer is present in every stage -->
+		<many-to-one name="mostCombativeRacer" class="nl.doyle.mccloud.tourdefrance.valueobjects.Renner" column="MOST_COMBATIVE_RACER" unique="true"/>
+	
+		<joined-subclass name="nl.doyle.mccloud.tourdefrance.valueobjects.Etappe" table="ETAPPE">
+			<key column="ETAPPENUMMER"/>
+			<property name="datum" type="date" column="DATUM"/>
+			<many-to-one name="startplaats" column="STARTPLAATS" class="nl.doyle.mccloud.tourdefrance.valueobjects.Stad" cascade="save-update"/>
+			<many-to-one name="finishplaats" column="FINISHPLAATS" class="nl.doyle.mccloud.tourdefrance.valueobjects.Stad" cascade="save-update"/>
+			
+			<joined-subclass name="nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe" table="STANDAARDETAPPE">
+				<key column="ETAPPENUMMER"/>
+				<!-- Etappe uitslagen gelden alleen voor standaard etappes (dus niet voor ploegentijdritten -->
+				<set name="etappeUitslag" table="STANDAARDETAPPE_ETAPPEUITSLAG" cascade="all" >
+	        		<key column="ETAPPENUMMER"/>
+		        	<one-to-many class="nl.doyle.mccloud.tourdefrance.valueobjects.EtappeUitslag"/>
+				</set>
+			</joined-subclass>
+			
+			<joined-subclass name="nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit" table="PLOEGENTIJDRIT">
+				<key column="ETAPPENUMMER"/>
+			</joined-subclass>
+		</joined-subclass>
+		<joined-subclass name="nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag">
+			<key column="ETAPPENUMMER"/>
+			<many-to-one name="eersteUitvaller" class="nl.doyle.mccloud.tourdefrance.valueobjects.Renner" column="EERSTEUITVALLER" unique="true"/>
+			<many-to-one name="rodeLantaren" class="nl.doyle.mccloud.tourdefrance.valueobjects.Renner" column="RODELANTAREN" unique="true"/>
+			<many-to-one name="witteTrui" class="nl.doyle.mccloud.tourdefrance.valueobjects.Renner" column="WITTETRUI" unique="true"/>
+		</joined-subclass>
+		
+	</class>
+</hibernate-mapping>
+
