@@ -20,8 +20,8 @@ import nl.doyle.mccloud.tourdefrance.web.spring.controller.EditEtappeFormControl
 import nl.doyle.mccloud.tourdefrance.web.spring.controller.EditEtappeUitslagFormController;
 
 /**
- * Visitor for the {@link EditEtappeFormController} which gets the values from and sets the values on the value objects of the business
- * layer.
+ * Visitor for the {@link EditEtappeFormController} which gets the values from the value objects of the business
+ * layer and sets them on the {@link EtappeUitslagCommand}.
  * 
  * @author Duncan Doyle
  * @since 0.3
