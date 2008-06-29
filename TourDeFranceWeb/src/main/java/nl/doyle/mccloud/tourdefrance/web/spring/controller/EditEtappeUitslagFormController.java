@@ -1,8 +1,6 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.controller;
 
 import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,15 +10,12 @@ import nl.doyle.mccloud.tourdefrance.dao.RennerDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.BolletjesTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag;
-import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
 import nl.doyle.mccloud.tourdefrance.valueobjects.EtappeUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.GeleTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.GroeneTruiUitslag;
-import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
-import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 import nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand;
-import nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand.EtappeType;
+import nl.doyle.mccloud.tourdefrance.web.spring.controller.visitor.EditEtappeUitslagFormBackingObjectVisitor;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,10 +34,12 @@ public class EditEtappeUitslagFormController extends SimpleFormController {
 	private AbstractEtappeAndEindUitslag dbEtappe;
 	private TourFacade tourFacade;
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Called when the form is submitted. Sets the values stored in the command object on the form-backing object. Saves this object in the
+	 * DB. Returns the new {@link ModelAndView}.
 	 * 
-	 * @see org.springframework.web.servlet.mvc.SimpleFormController#onSubmit(java.lang.Object)
+	 * @param command
+	 *            the command object filled by the form
 	 */
 	@Override
 	protected ModelAndView onSubmit(Object command) throws Exception {
@@ -219,107 +216,17 @@ public class EditEtappeUitslagFormController extends SimpleFormController {
 		if (dbEtappe != null) {
 			// Maak een nieuw FormBackingObject aan
 			logger.debug("Instantiating new EtappeUitslagCommand.");
-			if (dbEtappe instanceof StandaardEtappe || dbEtappe instanceof PloegenTijdrit) {
-				etappe = new EtappeUitslagCommand(config.getAantalEtappeUitslagen(), config.getAantalEtappeGeleTruiUitslagen(), config
-						.getAantalEtappeGroeneTruiUitslagen(), config.getAantalEtappeBolletjesTruiUitslagen());
-				etappe.setStartPlaats(((Etappe) dbEtappe).getStartplaats());
-				etappe.setFinishPlaats(((Etappe) dbEtappe).getFinishplaats());
-				etappe.setDatum(((Etappe) dbEtappe).getDatum());
-				// Als het een standaardEtappe is dan moet ook de normale uitslag gevuld worden.
-				if (dbEtappe instanceof StandaardEtappe) {
-					etappe.setTypeEtappe(EtappeType.Etappe);
-					etappe
-							.setUitslag(setUitslag(etappe.getRenners(), ((StandaardEtappe) dbEtappe).getEtappeUitslag(), etappe
-									.getUitslag()));
-				} else {
-					etappe.setTypeEtappe(EtappeType.PloegenTijdrit);
-				}
-			} else {
-				etappe = new EtappeUitslagCommand(0, config.getAantalEinduitslagGeleTruiUitslagen(), config
-						.getAantalEinduitslagGroeneTruiUitslagen(), config.getAantalEinduitslagBolletjesTruiUitslagen());
-				if (((EindUitslag) dbEtappe).getWitteTrui() != null) {
-					etappe.setWitteTrui(((EindUitslag) dbEtappe).getWitteTrui().getNummer());
-				}
-				if (((EindUitslag) dbEtappe).getRodeLantaren() != null) {
-					etappe.setRodeLantaren(((EindUitslag) dbEtappe).getRodeLantaren().getNummer());
-				}
-				if (((EindUitslag) dbEtappe).getEersteUitvaller() != null) {
-					etappe.setEersteUitvaller(((EindUitslag) dbEtappe).getEersteUitvaller().getNummer());
-				}
-				etappe.setTypeEtappe(EtappeType.EindUitslag);
-			}
-			// Set the mostCombative racer
-			if (dbEtappe.getMostCombativeRacer() != null) {
-				etappe.setMostCombative(dbEtappe.getMostCombativeRacer().getNummer());
-			}
+			// create the visitor which will initialize the form backing object
+			EditEtappeUitslagFormBackingObjectVisitor visitor = new EditEtappeUitslagFormBackingObjectVisitor(rennerDao, config);
+			dbEtappe.accept(visitor);
+			// the formbacking object should now be initialized.
+			etappe = visitor.getStageResultCommand();
 
-			// TODO Als de etappe geen StandaardEtappe, PloegenTijdrit of EindUitslag is gaat dit fout. Kan 'by contract' eigenlijk nooit
-			// gebeuren, maar toch.
-			// Haal de renners op uit de DB
-			etappe.setRenners(rennerDao.loadAllRennersOrdered());
-			etappe.setEtappenummer(dbEtappe.getEtappenummer());
-			etappe.setOmschrijving(dbEtappe.getOmschrijving());
-			// Zet nu de geleTruiUitslag rennernummers goed in het command object
-			etappe.setGeleTruiUitslag(setGeleTruiUitslag(etappe.getRenners(), dbEtappe.getGeleTruiUitslag(), etappe.getGeleTruiUitslag()));
-			etappe.setGroeneTruiUitslag(setGroeneTruiUitslag(etappe.getRenners(), dbEtappe.getGroeneTruiUitslag(), etappe
-					.getGroeneTruiUitslag()));
-			etappe.setBolletjesTruiUitslag(setBolletjesTruiUitslag(etappe.getRenners(), dbEtappe.getBolletjesTruiUitslag(), etappe
-					.getBolletjesTruiUitslag()));
 		} else {
 			throw new EditEtappeUitslagFormRequestException("Etappe niet gevonden in database.");
 		}
 		logger.debug("FormBackingObject geinstantieerd.");
 		return etappe;
-	}
-
-	private int[] setGeleTruiUitslag(final List<Renner> renners, final Set<GeleTruiUitslag> geleTruiUitslag, final int[] currentUitslag) {
-		int[] uitslag = currentUitslag;
-		int uitslagArrayLength = uitslag.length;
-		for (GeleTruiUitslag nextGeleTrui : geleTruiUitslag) {
-			// Bepaal of de uitslag wel in het array past.
-			if (nextGeleTrui.getPositie() <= uitslagArrayLength) {
-				uitslag[nextGeleTrui.getPositie() - 1] = nextGeleTrui.getRenner().getNummer();
-			}
-		}
-		return uitslag;
-	}
-
-	private int[] setGroeneTruiUitslag(final List<Renner> renners, final Set<GroeneTruiUitslag> groeneTruiUitslag,
-			final int[] currentUitslag) {
-		int[] uitslag = currentUitslag;
-		int uitslagArrayLength = uitslag.length;
-		for (GroeneTruiUitslag nextGroeneTrui : groeneTruiUitslag) {
-			// Bepaal of de uitslag wel in het array past.
-			if (nextGroeneTrui.getPositie() <= uitslagArrayLength) {
-				uitslag[nextGroeneTrui.getPositie() - 1] = nextGroeneTrui.getRenner().getNummer();
-			}
-		}
-		return uitslag;
-	}
-
-	private int[] setBolletjesTruiUitslag(final List<Renner> renners, final Set<BolletjesTruiUitslag> bolletjesTruiUitslag,
-			final int[] currentUitslag) {
-		int[] uitslag = currentUitslag;
-		int uitslagArrayLength = uitslag.length;
-		for (BolletjesTruiUitslag nextBolletjesTrui : bolletjesTruiUitslag) {
-			// Bepaal of de uitslag wel in het array past.
-			if (nextBolletjesTrui.getPositie() <= uitslagArrayLength) {
-				uitslag[nextBolletjesTrui.getPositie() - 1] = nextBolletjesTrui.getRenner().getNummer();
-			}
-		}
-		return uitslag;
-	}
-
-	private int[] setUitslag(final List<Renner> renners, final Set<EtappeUitslag> etappeUitslag, final int[] currentUitslag) {
-		int[] uitslag = currentUitslag;
-		int uitslagArrayLength = uitslag.length;
-		for (EtappeUitslag nextEtappeUitslagi : etappeUitslag) {
-			// Bepaal of de uitslag wel in het array past.
-			if (nextEtappeUitslagi.getPositie() <= uitslagArrayLength) {
-				uitslag[nextEtappeUitslagi.getPositie() - 1] = nextEtappeUitslagi.getRenner().getNummer();
-			}
-		}
-		return uitslag;
 	}
 
 	/**

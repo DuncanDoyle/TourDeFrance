@@ -2,8 +2,24 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 
 import java.util.Set;
 
+import nl.doyle.mccloud.tourdefrance.valueobjects.visitor.ValueObjectVisitor;
+
 public class StandaardEtappe extends Etappe {
 	
+	/**
+	 * Accepts a {@link ValueObjectVisitor} and calls its {@link ValueObjectVisitor#visit(StandaardEtappe)} method.
+	 * <p>
+	 * See the Visitor pattern.
+	 * 
+	 * @param visitor
+	 *            the accepted visitor.
+	 */
+	@Override
+	public void accept(ValueObjectVisitor visitor) {
+		visitor.visit(this);
+	}
+
+
 	/**
 	 * Set of uitslagen.
 	 */
@@ -23,6 +39,8 @@ public class StandaardEtappe extends Etappe {
 		super();
 	}
 
+	
+	
 
 	public Set<EtappeUitslag> getEtappeUitslag() {
 		return etappeUitslag;

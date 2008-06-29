@@ -1,5 +1,7 @@
 package nl.doyle.mccloud.tourdefrance.valueobjects;
 
+import nl.doyle.mccloud.tourdefrance.valueobjects.visitor.ValueObjectVisitor;
+
 
 public class EindUitslag extends AbstractEtappeAndEindUitslag {
 	
@@ -10,6 +12,20 @@ public class EindUitslag extends AbstractEtappeAndEindUitslag {
 	public EindUitslag() {
 	}
 
+	
+	/**
+	 * Accepts a {@link ValueObjectVisitor} and calls its {@link ValueObjectVisitor#visit(EindUitslag)} method.
+	 * <p>
+	 * See the Visitor pattern.
+	 * 
+	 * @param visitor
+	 *            the accepted visitor.
+	 */
+	@Override
+	public void accept(ValueObjectVisitor visitor) {
+		visitor.visit(this);
+	}
+	
 	public int getPositieInRodeLantarenUitslag(Renner renner) {
 		int positie = 0;
 		if (renner.equals(rodeLantaren)) {

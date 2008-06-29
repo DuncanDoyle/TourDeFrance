@@ -3,6 +3,8 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 import java.util.Iterator;
 import java.util.Set;
 
+import nl.doyle.mccloud.tourdefrance.valueobjects.visitor.ValueObjectVisitor;
+
 public abstract class AbstractEtappeAndEindUitslag {
 
 	private int etappenummer;
@@ -14,6 +16,16 @@ public abstract class AbstractEtappeAndEindUitslag {
 	 * The most combative race
 	 */
 	private Renner mostCombativeRacer;
+	
+	/**
+	 * Accepts a {@link ValueObjectVisitor}.
+	 * <p>
+	 * See the Visitor pattern.
+	 * 
+	 * @param visitor
+	 *            the accepted visitor.
+	 */
+	public abstract void accept(ValueObjectVisitor visitor);
 	
 	
 	public int getPositieInGeleTruiUitslag(Renner renner) {
