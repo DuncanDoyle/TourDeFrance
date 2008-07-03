@@ -1,0 +1,15 @@
+#container { 
+height: 600px;
+width: 600px;
+margin-left: auto;
+margin-right: auto;
+margin-top: -300px;
+top:50%;
+position: relative;
+}
+
+
+
+GEvent.addListener(marker, 'click', function() {
+            	marker.openInfoWindowHtml('Name: <b>Doelstraat 35</b><br/><b>Home of the TourDeFrance hacker</b>');
+            });     

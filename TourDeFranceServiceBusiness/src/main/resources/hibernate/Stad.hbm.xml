@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="nl.doyle.mccloud.tourdefrance.valueobjects.Stad" table="STAD">
+        <id name="id" column="ID">
+        	<generator class="native"/>
+        </id>
+        <!-- Type geeft aan waar de java.util.Date op moet mappen (SQL date, timestamp of time -->
+        <property name="stad" column="STAD"/>
+        <property name="land" column="LAND"/>
+        <property name="latitude" column="LATITUDE"/>
+        <property name="longitude" column="LONGITUDE"/>
+	</class>
+</hibernate-mapping>

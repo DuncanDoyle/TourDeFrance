@@ -1,0 +1,10 @@
+connect 'jdbc:derby:TourDeFranceDB;create=true';
+
+CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.connection.requireAuthentication', 'true');
+ 
+CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.authentication.provider', 'BUILTIN');
+ 
+CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.user.tour', 'manager');
+ 
+CALL SYSCS_UTIL.SYSCS_SET_DATABASE_PROPERTY('derby.database.propertiesOnly', 'true');
+
