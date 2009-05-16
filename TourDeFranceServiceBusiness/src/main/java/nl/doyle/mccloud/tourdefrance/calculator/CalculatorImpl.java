@@ -100,11 +100,11 @@ public class CalculatorImpl implements Calculator {
 			}
 			if (nextEtappe instanceof Etappe) {
 				//Loop door alle Deelnemers
-				for (Deelnemer nextDeelnemer: deelnemers) {
+				for (Deelnemer nextDeelnemer : deelnemers) {
 					double deelnemerBedragEtappe = 0;
 					//Loop door renners
 					Set<Renner> renners = nextDeelnemer.getRenners();
-					for (Renner nextRenner: renners) {
+					for (Renner nextRenner : renners) {
 						//Nu voor deze renner bepalen welke bedragen hij heeft gewonnen in deze etappe.
 						//GeleTrui
 						int positie = nextEtappe.getPositieInGeleTruiUitslag(nextRenner);
@@ -124,7 +124,7 @@ public class CalculatorImpl implements Calculator {
 						//Most combative race
 						positie = nextEtappe.getPositionInMostCombativeRacerResult(nextRenner);
 						if (positie != 0) {
-							deelnemerBedragEtappe = deelnemerBedragEtappe + stageMostCombativeRacerResultAmount[positie -1];
+							deelnemerBedragEtappe = deelnemerBedragEtappe + stageMostCombativeRacerResultAmount[positie - 1];
 						}
 						
 						//Als het een standaardetappe is dan ook nog bedragen voor etappe uitslag
@@ -155,7 +155,7 @@ public class CalculatorImpl implements Calculator {
 		
 		//Lijst met deelnemers waar doorheen gelooped wordt is eerder al gezet.
 		int bedragenArrayTeller = 0;
-		for (Deelnemer nextDeelnemer: deelnemers) {
+		for (Deelnemer nextDeelnemer : deelnemers) {
 			DeelnemerBedragDto deelnemerBedrag = new DeelnemerBedragDto();
 			deelnemerBedrag.setNummer(nextDeelnemer.getNummer());
 			deelnemerBedrag.setAchternaam(nextDeelnemer.getAchternaam());
@@ -194,7 +194,7 @@ public class CalculatorImpl implements Calculator {
 		
 		List<DeelnemerBedragDto> deelnemerAndBedrag = new ArrayList<DeelnemerBedragDto>();
 		List<Deelnemer> deelnemers = deelnemerDao.loadAllDeelnemersEager();
-		for (Deelnemer nextDeelnemer: deelnemers) {
+		for (Deelnemer nextDeelnemer : deelnemers) {
 			DeelnemerBedragDto dbDto = new DeelnemerBedragDto();
 			dbDto.setNummer(nextDeelnemer.getNummer());
 			dbDto.setVoornaam(nextDeelnemer.getVoornaam());
@@ -205,7 +205,7 @@ public class CalculatorImpl implements Calculator {
 			int positie = 0;
 			AbstractEtappeAndEindUitslag uitslag = tourFacade.getEtappeWithUitslag(0);
 			if (uitslag instanceof EindUitslag) {
-				for (Renner nextRenner: nextDeelnemer.getRenners()) {
+				for (Renner nextRenner : nextDeelnemer.getRenners()) {
 					positie = uitslag.getPositieInGeleTruiUitslag(nextRenner);
 					if (positie != 0) {
 						bedrag = bedrag + eindUitslagGeleTruiUitslagBedrag[positie - 1];
@@ -239,7 +239,7 @@ public class CalculatorImpl implements Calculator {
 				throw new IllegalClassException("EindUitslag is niet van het juiste type");
 			}
 			//Bepaal nu het bedrag van alle etappes.
-			for (DeelnemerBedragDto nextDeelnemerBedrag: deelnemersBedragEtappe) {
+			for (DeelnemerBedragDto nextDeelnemerBedrag : deelnemersBedragEtappe) {
 				if (nextDeelnemer.getNummer() == nextDeelnemerBedrag.getNummer()) {
 					bedrag = bedrag +  nextDeelnemerBedrag.getGewonnenBedrag();
 				}
@@ -279,7 +279,8 @@ public class CalculatorImpl implements Calculator {
 	}
 	
 	private double[] getEindUitslagBolletjesTruiUitslagBedragPerPositie() {
-		return setBedragen(tourConfig.getAantalEinduitslagBolletjesTruiUitslagen(),uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.BolletjesTruiEind));
+		return setBedragen(tourConfig.getAantalEinduitslagBolletjesTruiUitslagen(), uitslagBedragDao
+				.loadAllUitslagBedragenPerCategorie(Categorien.BolletjesTruiEind));
 	}
 	
 	private double[] getEindUitslagWitteTruiUitslagBedrag() {
@@ -300,7 +301,7 @@ public class CalculatorImpl implements Calculator {
 	
 	private double[] setBedragen(int arrayPosities, List<UitslagBedrag> bedragen) {
 		double[] bedragarray = new double[arrayPosities];
-		for (UitslagBedrag nextBedrag:bedragen) {
+		for (UitslagBedrag nextBedrag : bedragen) {
 			if (nextBedrag.getPositie() <= bedragarray.length) {
 				bedragarray[nextBedrag.getPositie() - 1] = nextBedrag.getBedrag();
 			}

@@ -17,7 +17,7 @@ public abstract class Persoon {
 		return achternaam;
 	}
 
-	public void setAchternaam(String achternaam) {
+	public void setAchternaam(final String achternaam) {
 		this.achternaam = achternaam;
 	}
 
@@ -25,7 +25,7 @@ public abstract class Persoon {
 		return nummer;
 	}
 
-	public void setNummer(int nummer) {
+	public void setNummer(final int nummer) {
 		this.nummer = nummer;
 	}
 
@@ -33,7 +33,7 @@ public abstract class Persoon {
 		return voornaam;
 	}
 
-	public void setVoornaam(String voornaam) {
+	public void setVoornaam(final String voornaam) {
 		this.voornaam = voornaam;
 	}
 	
@@ -47,7 +47,7 @@ public abstract class Persoon {
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		boolean equals = false;
 		
 		if (obj instanceof Persoon) {
@@ -68,7 +68,7 @@ public abstract class Persoon {
 	public int hashCode() {
 	     // you pick a hard-coded, randomly chosen, non-zero, odd number
 	     // ideally different for each class
-	     return new HashCodeBuilder(17, 37)
+		return new HashCodeBuilder(17, 37)
 	       			.append(this.getNummer())
 	       			.append(this.getVoornaam())
 	       			.append(this.getAchternaam())

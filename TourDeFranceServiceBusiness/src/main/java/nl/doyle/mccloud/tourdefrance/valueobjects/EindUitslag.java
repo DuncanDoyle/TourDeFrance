@@ -22,11 +22,11 @@ public class EindUitslag extends AbstractEtappeAndEindUitslag {
 	 *            the accepted visitor.
 	 */
 	@Override
-	public void accept(ValueObjectVisitor visitor) {
+	public void accept(final ValueObjectVisitor visitor) {
 		visitor.visit(this);
 	}
 	
-	public int getPositieInRodeLantarenUitslag(Renner renner) {
+	public int getPositieInRodeLantarenUitslag(final Renner renner) {
 		int positie = 0;
 		if (renner.equals(rodeLantaren)) {
 			positie = 1;
@@ -34,7 +34,7 @@ public class EindUitslag extends AbstractEtappeAndEindUitslag {
 		return positie;
 	}
 	
-	public int getPositieInWitteTruiUitslag(Renner renner) {
+	public int getPositieInWitteTruiUitslag(final Renner renner) {
 		int positie = 0;
 		if (renner.equals(witteTrui)) {
 			positie = 1;
@@ -42,7 +42,7 @@ public class EindUitslag extends AbstractEtappeAndEindUitslag {
 		return positie;
 	}
 	
-	public int getPositieInEersteUitvallerUitslag(Renner renner) {
+	public int getPositieInEersteUitvallerUitslag(final Renner renner) {
 		int positie = 0;
 		if (renner.equals(eersteUitvaller)) {
 			positie = 1;
@@ -61,7 +61,7 @@ public class EindUitslag extends AbstractEtappeAndEindUitslag {
 	/**
 	 * @param eersteUitvaller the eersteUitvaller to set
 	 */
-	public void setEersteUitvaller(Renner eersteUitvaller) {
+	public void setEersteUitvaller(final Renner eersteUitvaller) {
 		this.eersteUitvaller = eersteUitvaller;
 	}
 
@@ -75,7 +75,7 @@ public class EindUitslag extends AbstractEtappeAndEindUitslag {
 	/**
 	 * @param rodeLantaren the rodeLantaren to set
 	 */
-	public void setRodeLantaren(Renner rodeLantaren) {
+	public void setRodeLantaren(final Renner rodeLantaren) {
 		this.rodeLantaren = rodeLantaren;
 	}
 
@@ -89,7 +89,7 @@ public class EindUitslag extends AbstractEtappeAndEindUitslag {
 	/**
 	 * @param witteTrui the witteTrui to set
 	 */
-	public void setWitteTrui(Renner witteTrui) {
+	public void setWitteTrui(final Renner witteTrui) {
 		this.witteTrui = witteTrui;
 	}
 	

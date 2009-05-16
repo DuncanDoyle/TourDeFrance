@@ -1,7 +1,7 @@
 package nl.doyle.mccloud.tourdefrance.dto;
 
 
-public class UitslagDto {
+public final class UitslagDto {
 	
 	private int positie;
 	private String positieBedrag;
@@ -15,7 +15,7 @@ public class UitslagDto {
 		return positie;
 	}
 
-	public void setPositie(int positie) {
+	public void setPositie(final int positie) {
 		this.positie = positie;
 	}
 
@@ -23,7 +23,7 @@ public class UitslagDto {
 		return renner;
 	}
 
-	public void setRenner(RennerDto renner) {
+	public void setRenner(final RennerDto renner) {
 		this.renner = renner;
 	}
 
@@ -31,7 +31,7 @@ public class UitslagDto {
 		return deelnemer;
 	}
 
-	public void setDeelnemer(DeelnemerDto deelnemer) {
+	public void setDeelnemer(final DeelnemerDto deelnemer) {
 		this.deelnemer = deelnemer;
 	}
 
@@ -39,7 +39,7 @@ public class UitslagDto {
 		return positieBedrag;
 	}
 
-	public void setPositieBedrag(String positieBedrag) {
+	public void setPositieBedrag(final String positieBedrag) {
 		this.positieBedrag = positieBedrag;
 	}
 

@@ -30,7 +30,7 @@ public abstract class Etappe extends AbstractEtappeAndEindUitslag {
 		return datum;
 	}
 
-	public void setDatum(Date datum) {
+	public void setDatum(final Date datum) {
 		this.datum = datum;
 	}
 
@@ -45,7 +45,7 @@ public abstract class Etappe extends AbstractEtappeAndEindUitslag {
 	 * @param finishplaats
 	 *            the finishplaats to set
 	 */
-	public void setFinishplaats(Stad finishplaats) {
+	public void setFinishplaats(final Stad finishplaats) {
 		this.finishplaats = finishplaats;
 	}
 
@@ -60,7 +60,7 @@ public abstract class Etappe extends AbstractEtappeAndEindUitslag {
 	 * @param startplaats
 	 *            the startplaats to set
 	 */
-	public void setStartplaats(Stad startplaats) {
+	public void setStartplaats(final Stad startplaats) {
 		this.startplaats = startplaats;
 	}
 

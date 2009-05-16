@@ -1,6 +1,6 @@
 package nl.doyle.mccloud.tourdefrance.exceptions;
 
-public class DataNotFoundException extends Exception {
+public final class DataNotFoundException extends Exception {
 
 	/**
 	 * Serial version UID.
@@ -13,7 +13,7 @@ public class DataNotFoundException extends Exception {
 	 * @param message
 	 *            the exception message
 	 */
-	public DataNotFoundException(String message) {
+	public DataNotFoundException(final String message) {
 		super(message);
 	}
 

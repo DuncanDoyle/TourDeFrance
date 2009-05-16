@@ -32,7 +32,7 @@ public class Team {
 		return nummer;
 	}
 
-	public void setNummer(int nummer) {
+	public void setNummer(final int nummer) {
 		this.nummer = nummer;
 	}
 
@@ -40,7 +40,7 @@ public class Team {
 		return naam;
 	}
 
-	public void setNaam(String naam) {
+	public void setNaam(final String naam) {
 		this.naam = naam;
 	}
 
@@ -48,7 +48,7 @@ public class Team {
 		return renners;
 	}
 
-	public void setRenners(Set<Renner> renners) {
+	public void setRenners(final Set<Renner> renners) {
 		this.renners = renners;
 	}
 	

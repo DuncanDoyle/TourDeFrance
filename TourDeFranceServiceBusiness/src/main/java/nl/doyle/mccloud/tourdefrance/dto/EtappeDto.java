@@ -15,7 +15,7 @@ public abstract class EtappeDto extends AbstractEtappeAndEindUitslagDto {
 		return datum;
 	}
 
-	public void setDatum(Date datum) {
+	public void setDatum(final Date datum) {
 		this.datum = datum;
 	}
 

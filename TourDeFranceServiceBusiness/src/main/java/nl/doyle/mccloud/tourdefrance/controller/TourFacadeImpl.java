@@ -114,10 +114,11 @@ public class TourFacadeImpl implements TourFacade {
 		AbstractEtappeAndEindUitslag etappe;
 		if (etappeNummer == 0) {
 			etappe = eindUitslagDao.loadEindUitslagWithUitslagEager();
-		} else
+		} else {
 			// Haal de etappe op uit de db. Als het geen standaardetappe is,
 			// haal dan een ploegentijdrit op.
 			etappe = standaardEtappeDao.loadStandaardEtappeWithUitslagEager(etappeNummer);
+		}
 
 		if (etappe == null) {
 			etappe = ploegenTijdritDao.loadPloegenTijdritWithUitslagEager(etappeNummer);

@@ -19,7 +19,7 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Team;
 
-public class GameSetupControllerImpl implements GameSetupController {
+public final class GameSetupControllerImpl implements GameSetupController {
 
 	/**
 	 * The deelnemer DAO.
@@ -200,7 +200,7 @@ public class GameSetupControllerImpl implements GameSetupController {
 	 * @see Renner
 	 */
 
-	private void createTeamsAndRenners(int numberOfTeams) {
+	private void createTeamsAndRenners(final int numberOfTeams) {
 		Team storeTeam;
 		//Create the teams one by one.
 		for (int teamCounter = 0; teamCounter < numberOfTeams; teamCounter++) {
@@ -226,7 +226,7 @@ public class GameSetupControllerImpl implements GameSetupController {
 	 * @param ploegenTijdrit
 	 *            het etappenummer van de ploegentijdrit
 	 */
-	private void createStandaardEtappes(int aantal, int ploegenTijdrit) {
+	private void createStandaardEtappes(final int aantal, final int ploegenTijdrit) {
 		StandaardEtappe storeEtappe;
 		for (int teller = 0; teller < aantal; teller++) {
 			int etappeNummer = teller + 1;
@@ -244,7 +244,7 @@ public class GameSetupControllerImpl implements GameSetupController {
 	 * @param ploegenTijdrit
 	 *            het etappenummer van de ploegentijdrit
 	 */
-	private void createPloegenTijdrit(int ploegenTijdrit) {
+	private void createPloegenTijdrit(final int ploegenTijdrit) {
 		if (ploegenTijdrit > 0) {
 			PloegenTijdrit storeTijdrit = new PloegenTijdrit();
 			storeTijdrit.setEtappenummer(ploegenTijdrit);
@@ -286,27 +286,27 @@ public class GameSetupControllerImpl implements GameSetupController {
 		eindUitslagDao.saveEindUitslag(storeEindUitslag);
 	}
 
-	public void setDeelnemerDao(DeelnemerDao deelnemerDao) {
+	public void setDeelnemerDao(final DeelnemerDao deelnemerDao) {
 		this.deelnemerDao = deelnemerDao;
 	}
 
-	public void setPloegenTijdritDao(PloegenTijdritDao ploegenTijdritDao) {
+	public void setPloegenTijdritDao(final PloegenTijdritDao ploegenTijdritDao) {
 		this.ploegenTijdritDao = ploegenTijdritDao;
 	}
 
-	public void setRennerDao(RennerDao rennerDao) {
+	public void setRennerDao(final RennerDao rennerDao) {
 		this.rennerDao = rennerDao;
 	}
 
-	public void setStandaardEtappeDao(StandaardEtappeDao standaardEtappeDao) {
+	public void setStandaardEtappeDao(final StandaardEtappeDao standaardEtappeDao) {
 		this.standaardEtappeDao = standaardEtappeDao;
 	}
 
-	public void setTeamDao(TeamDao teamDao) {
+	public void setTeamDao(final TeamDao teamDao) {
 		this.teamDao = teamDao;
 	}
 
-	public void setGameSetupDao(GameSetupDao gameSetupDao) {
+	public void setGameSetupDao(final GameSetupDao gameSetupDao) {
 		this.gameSetupDao = gameSetupDao;
 	}
 
@@ -314,7 +314,7 @@ public class GameSetupControllerImpl implements GameSetupController {
 	 * @param eindUitslagDao
 	 *            the eindUitslagDao to set
 	 */
-	public void setEindUitslagDao(EindUitslagDao eindUitslagDao) {
+	public void setEindUitslagDao(final EindUitslagDao eindUitslagDao) {
 		this.eindUitslagDao = eindUitslagDao;
 	}
 
@@ -323,7 +323,7 @@ public class GameSetupControllerImpl implements GameSetupController {
 		private Deelnemer deelnemer;
 		private int aantalRenners;
 
-		public DeelnemerRenners(Deelnemer deelnemer) {
+		public DeelnemerRenners(final Deelnemer deelnemer) {
 			this.deelnemer = deelnemer;
 			aantalRenners = 8;
 		}

@@ -18,7 +18,7 @@ public abstract class PersoonDto {
 	/**
 	 * @param achternaam the achternaam to set
 	 */
-	public void setAchternaam(String achternaam) {
+	public void setAchternaam(final String achternaam) {
 		this.achternaam = achternaam;
 	}
 	/**
@@ -30,7 +30,7 @@ public abstract class PersoonDto {
 	/**
 	 * @param nummer the nummer to set
 	 */
-	public void setNummer(int nummer) {
+	public void setNummer(final int nummer) {
 		this.nummer = nummer;
 	}
 	/**
@@ -42,7 +42,7 @@ public abstract class PersoonDto {
 	/**
 	 * @param voornaam the voornaam to set
 	 */
-	public void setVoornaam(String voornaam) {
+	public void setVoornaam(final String voornaam) {
 		this.voornaam = voornaam;
 	}
 	

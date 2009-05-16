@@ -18,8 +18,9 @@ public abstract class Uitslag implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// TODO Maybe change this implementation. The etappe owns its uitslag object, so maybe this should contain an array of renners, no
-	// etappenummer.
+	/* TODO Maybe change this implementation. The etappe owns its uitslag object, so maybe this should contain an array of renners, no
+	 * etappenummer. If we change this, the etappe should contain a result object, not a set of result objects.
+	 */
 	private int etappenummer;
 	private int positie;
 	private Renner renner;
@@ -36,7 +37,7 @@ public abstract class Uitslag implements Serializable {
 		return positie;
 	}
 
-	public void setPositie(int positie) {
+	public void setPositie(final int positie) {
 		this.positie = positie;
 	}
 
@@ -44,7 +45,7 @@ public abstract class Uitslag implements Serializable {
 		return renner;
 	}
 
-	public void setRenner(Renner renner) {
+	public void setRenner(final Renner renner) {
 		this.renner = renner;
 	}
 
@@ -52,7 +53,7 @@ public abstract class Uitslag implements Serializable {
 		return etappenummer;
 	}
 
-	public void setEtappenummer(int etappenummer) {
+	public void setEtappenummer(final int etappenummer) {
 		this.etappenummer = etappenummer;
 	}
 

@@ -15,7 +15,7 @@ public class StandaardEtappe extends Etappe {
 	 *            the accepted visitor.
 	 */
 	@Override
-	public void accept(ValueObjectVisitor visitor) {
+	public void accept(final ValueObjectVisitor visitor) {
 		visitor.visit(this);
 	}
 
@@ -26,7 +26,7 @@ public class StandaardEtappe extends Etappe {
 	private Set<EtappeUitslag> etappeUitslag;
 	
 	
-	public int getPositieInEtappeUitslag(Renner renner) {
+	public int getPositieInEtappeUitslag(final Renner renner) {
 		return getPositieInUitslag(etappeUitslag, renner);
 	}
 	
@@ -47,7 +47,7 @@ public class StandaardEtappe extends Etappe {
 	}
 
 
-	public void setEtappeUitslag(Set<EtappeUitslag> etappeUitslag) {
+	public void setEtappeUitslag(final Set<EtappeUitslag> etappeUitslag) {
 		this.etappeUitslag = etappeUitslag;
 	}
 	

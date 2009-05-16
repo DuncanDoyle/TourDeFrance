@@ -24,7 +24,7 @@ public class Deelnemer extends Persoon {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
 	}
 
@@ -32,7 +32,7 @@ public class Deelnemer extends Persoon {
 		return rekeningnummer;
 	}
 
-	public void setRekeningnummer(String rekeningnummer) {
+	public void setRekeningnummer(final String rekeningnummer) {
 		this.rekeningnummer = rekeningnummer;
 	}
 
@@ -41,7 +41,7 @@ public class Deelnemer extends Persoon {
 		return renners;
 	}
 
-	public void setRenners(Set<Renner> renners) {
+	public void setRenners(final Set<Renner> renners) {
 		this.renners = renners;
 	}
 	
@@ -61,7 +61,7 @@ public class Deelnemer extends Persoon {
 	public int hashCode() {
 		// you pick a hard-coded, randomly chosen, non-zero, odd number
 		// ideally different for each class
-		return new HashCodeBuilder(11,181)
+		return new HashCodeBuilder(11, 181)
 					.appendSuper(super.hashCode())
 					.toHashCode();
 	}

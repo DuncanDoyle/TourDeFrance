@@ -13,7 +13,7 @@ public class PloegenTijdrit extends Etappe {
 	 *            the accepted visitor.
 	 */
 	@Override
-	public void accept(ValueObjectVisitor visitor) {
+	public void accept(final ValueObjectVisitor visitor) {
 		visitor.visit(this);
 	}
 

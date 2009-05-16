@@ -16,7 +16,7 @@ public class Renner extends Persoon {
 	 * @see nl.doyle.mccloud.tourdefrance.valueobjects.Persoon#equals(java.lang.Object)
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		boolean equals = false;
 		
 		if (obj instanceof Renner) {
@@ -38,7 +38,7 @@ public class Renner extends Persoon {
 		
 		// you pick a hard-coded, randomly chosen, non-zero, odd number
 		// ideally different for each class
-		return new HashCodeBuilder(19,83)
+		return new HashCodeBuilder(19, 83)
 					.appendSuper(super.hashCode())
 					.toHashCode();
 	}
