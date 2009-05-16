@@ -32,7 +32,7 @@ public class EtappeCommand {
 	 * 
 	 * @param datum the datum to set
 	 */
-	public void setDatum(Date datum) {
+	public void setDatum(final Date datum) {
 		this.datum = datum;
 	}
 
@@ -46,7 +46,7 @@ public class EtappeCommand {
 	/**
 	 * @param etappeNummer the etappeNummer to set
 	 */
-	public void setEtappenummer(int etappenummer) {
+	public void setEtappenummer(final int etappenummer) {
 		this.etappenummer = etappenummer;
 	}
 
@@ -60,7 +60,7 @@ public class EtappeCommand {
 	/**
 	 * @param finishPlaatsIndex the finishPlaatsIndex to set
 	 */
-	public void setFinishPlaatsIndex(int finishPlaatsIndex) {
+	public void setFinishPlaatsIndex(final int finishPlaatsIndex) {
 		this.finishPlaatsIndex = finishPlaatsIndex;
 	}
 
@@ -74,7 +74,7 @@ public class EtappeCommand {
 	/**
 	 * @param startPlaatsIndex the startPlaatsIndex to set
 	 */
-	public void setStartPlaatsIndex(int startPlaatsIndex) {
+	public void setStartPlaatsIndex(final int startPlaatsIndex) {
 		this.startPlaatsIndex = startPlaatsIndex;
 	}
 
@@ -88,7 +88,7 @@ public class EtappeCommand {
 	/**
 	 * @param steden the steden to set
 	 */
-	public void setSteden(List<Stad> steden) {
+	public void setSteden(final List<Stad> steden) {
 		this.steden = steden;
 	}
 
@@ -102,7 +102,7 @@ public class EtappeCommand {
 	/**
 	 * @param omschrijving the omschrijving to set
 	 */
-	public void setOmschrijving(String omschrijving) {
+	public void setOmschrijving(final String omschrijving) {
 		this.omschrijving = omschrijving;
 	}
 	

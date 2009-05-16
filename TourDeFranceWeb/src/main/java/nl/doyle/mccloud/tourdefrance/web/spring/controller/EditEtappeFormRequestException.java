@@ -7,7 +7,7 @@ public class EditEtappeFormRequestException extends Exception {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public EditEtappeFormRequestException(String message) {
+	public EditEtappeFormRequestException(final String message) {
 		super(message);
 	}
 

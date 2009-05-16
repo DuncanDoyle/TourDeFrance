@@ -26,6 +26,7 @@
 			<%
 			if (pageEtappeType != EtappeType.EindUitslag) {
 			%>
+			<c:set value="${model}" var="model"/>
 				Datum: <c:out value="${model.uitslagmodel.etappe.datum}"/>
 				<br/>
 				Startplaats: <c:out value="${model.uitslagmodel.etappe.startplaats.stad}"/>

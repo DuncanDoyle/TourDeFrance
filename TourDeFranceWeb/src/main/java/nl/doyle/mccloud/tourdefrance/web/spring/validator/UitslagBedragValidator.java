@@ -5,14 +5,14 @@ import nl.doyle.mccloud.tourdefrance.web.spring.command.UitslagBedragCommand;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-public class UitslagBedragValidator implements Validator {
+public final class UitslagBedragValidator implements Validator {
 
 	@SuppressWarnings("unchecked")
-	public boolean supports(Class clazz) {
+	public boolean supports(final Class clazz) {
 		return clazz.equals(UitslagBedragCommand.class);
 	}
 
-	public void validate(Object arg0, Errors arg1) {
+	public void validate(final Object arg0, final Errors arg1) {
 		// TODO Auto-generated method stub
 
 	}

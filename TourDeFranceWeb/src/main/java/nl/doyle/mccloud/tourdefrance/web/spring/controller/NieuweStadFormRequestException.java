@@ -7,7 +7,7 @@ public class NieuweStadFormRequestException extends Exception {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public NieuweStadFormRequestException(String message) {
+	public NieuweStadFormRequestException(final String message) {
 		super(message);
 	}
 }

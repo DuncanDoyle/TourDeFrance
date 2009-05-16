@@ -15,50 +15,59 @@ import nl.doyle.mccloud.tourdefrance.web.spring.model.ListUitslagModel.EtappeTyp
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
-public class ListEtappeUitslagController extends AbstractController {
+@Controller
+@RequestMapping("/listEtappeUitslag.htm")
+public class ListEtappeUitslagController {
 
-	private static final Log logger = LogFactory.getLog(ListEtappeUitslagController.class);
-	
+	/**
+	 * Commons-Logging logger.
+	 */
+	private static final Log LOG = LogFactory.getLog(ListEtappeUitslagController.class);
+
+	/**
+	 * The business layer interface.
+	 */
 	private TourFacade tourFacade;
-			
-	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		//Haal de etappe met uitslagen op m.b.v. de facade
-		//TODO Hier moet nong gechecked worden op correcte invoer. Geen correcte invoer -> Exception. Misschien moeten we dit toch wel met een commandobject doen. Die heeft namelijk faciliteit voor validatie
-		//int etappeNummer = (Integer) request.getAttribute("etappe");
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView handleRequestInternal(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
+		//TODO replace with @RequestParam
+		
+		// Haal de etappe met uitslagen op m.b.v. de facade
+		// TODO Hier moet nong gechecked worden op correcte invoer. Geen correcte invoer -> Exception. Misschien moeten we dit toch wel met
+		// een commandobject doen. Die heeft namelijk faciliteit voor validatie
+		// int etappeNummer = (Integer) request.getAttribute("etappe");
 		int etappeNummer = ServletRequestUtils.getIntParameter(request, "etappe");
-		if (logger.isDebugEnabled()) {
-			logger.debug("Etappenummer = " + etappeNummer);
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Etappenummer = " + etappeNummer);
 		}
 		AbstractEtappeAndEindUitslagDto etappe = tourFacade.getEtappeDtoWithUitslag(etappeNummer);
-		
-		if (logger.isDebugEnabled()) {
-			logger.debug("Etappenummer = " + etappe.getEtappenummer());
-			//logger.debug("Datum = " + etappe.getDatum());
-			//logger.debug("Startplaats = " + etappe.getStartplaats());
-			//logger.debug("Finishplaats = " + etappe.getFinishplaats());
+
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Etappenummer = " + etappe.getEtappenummer());
 		}
-		
+
 		Map<String, Object> etappeUitslagModel = new HashMap<String, Object>();
-		//etappeUitslagModel.put("etappe", etappe);
+		// etappeUitslagModel.put("etappe", etappe);
 		ListUitslagModel uitslagModel = new ListUitslagModel();
 		uitslagModel.setEtappe(etappe);
 		if (etappe instanceof StandaardEtappeDto) {
 			uitslagModel.setTypeEtappe(EtappeType.Etappe);
-			//etappeUitslagModel.put("isStandaardEtappe", new Boolean(true));
-		} else  if (etappe instanceof PloegenTijdritDto) {
+			// etappeUitslagModel.put("isStandaardEtappe", new Boolean(true));
+		} else if (etappe instanceof PloegenTijdritDto) {
 			uitslagModel.setTypeEtappe(EtappeType.PloegenTijdrit);
-			//etappeUitslagModel.put("isStandaardEtappe", new Boolean(false));
+			// etappeUitslagModel.put("isStandaardEtappe", new Boolean(false));
 		} else {
 			uitslagModel.setTypeEtappe(EtappeType.EindUitslag);
 		}
-		if (logger.isDebugEnabled()) {
-			logger.debug("Putting Etappe Uitslag in model map.");
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Putting Etappe Uitslag in model map.");
 		}
 		etappeUitslagModel.put("uitslagmodel", uitslagModel);
 		return new ModelAndView("listEtappeUitslag", "model", etappeUitslagModel);
@@ -72,13 +81,11 @@ public class ListEtappeUitslagController extends AbstractController {
 	}
 
 	/**
-	 * @param tourFacade the tourFacade to set
+	 * @param tourFacade
+	 *            the tourFacade to set
 	 */
-	public void setTourFacade(TourFacade tourFacade) {
+	public void setTourFacade(final TourFacade tourFacade) {
 		this.tourFacade = tourFacade;
 	}
-	
-	
-	
 
 }

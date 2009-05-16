@@ -10,6 +10,7 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.EtappeUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.GeleTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.GroeneTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
+import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 import nl.doyle.mccloud.tourdefrance.valueobjects.visitor.ValueObjectVisitor;
 import nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand;
@@ -17,8 +18,8 @@ import nl.doyle.mccloud.tourdefrance.web.spring.controller.EditEtappeFormControl
 import nl.doyle.mccloud.tourdefrance.web.spring.controller.EditEtappeUitslagFormController;
 
 /**
- * Visitor for the {@link EditEtappeFormController} which sets the values from the {@link EtappeUitslagCommand| on the value objects of the business
- * layer.
+ * Visitor for the {@link EditEtappeFormController} which sets the values from the {@link EtappeUitslagCommand} on the value objects of the
+ * business layer.
  * 
  * @author Duncan Doyle
  * @since 0.3
@@ -29,7 +30,7 @@ public class EditEtappeUitslagOnSubmitVisitor implements ValueObjectVisitor {
 	 * The stage result command. Used in the {@link EditEtappeUitslagFormController}.
 	 */
 	private EtappeUitslagCommand stageResultCommand;
-	
+
 	/**
 	 * The renner dao.
 	 */
@@ -40,19 +41,21 @@ public class EditEtappeUitslagOnSubmitVisitor implements ValueObjectVisitor {
 	 * 
 	 * @param stageResultCommand
 	 *            the stage result command to be used
+	 * @param rennerDao
+	 *            the DAO for {@link Renner}
 	 */
-	public EditEtappeUitslagOnSubmitVisitor(EtappeUitslagCommand stageResultCommand, RennerDao rennerDao) {
+	public EditEtappeUitslagOnSubmitVisitor(final EtappeUitslagCommand stageResultCommand, final RennerDao rennerDao) {
 		this.stageResultCommand = stageResultCommand;
 		this.rennerDao = rennerDao;
 	}
-	
+
 	/**
 	 * Visits a {@link StandaardEtappe} value object.
 	 * 
 	 * @param stage
 	 *            the {@link StandaardEtappe} to visit
 	 */
-	public void visit(StandaardEtappe stage) {
+	public final void visit(final StandaardEtappe stage) {
 		for (int teller = 0; teller < stageResultCommand.getUitslag().length; teller++) {
 			// Check nu of de waarde niet op 0 is gezet
 			if (stageResultCommand.getUitslag()[teller] != 0) {
@@ -83,7 +86,7 @@ public class EditEtappeUitslagOnSubmitVisitor implements ValueObjectVisitor {
 				}
 			}
 		}
-		//Save values common to endresults and stages
+		// Save values common to endresults and stages
 		setValuesForAll(stage, stageResultCommand);
 	}
 
@@ -93,8 +96,8 @@ public class EditEtappeUitslagOnSubmitVisitor implements ValueObjectVisitor {
 	 * @param stage
 	 *            the {@link PloegenTijdrit} to visit
 	 */
-	public void visit(PloegenTijdrit stage) {
-		//Save values common to endresults and stages
+	public final void visit(final PloegenTijdrit stage) {
+		// Save values common to endresults and stages
 		setValuesForAll(stage, stageResultCommand);
 	}
 
@@ -104,17 +107,17 @@ public class EditEtappeUitslagOnSubmitVisitor implements ValueObjectVisitor {
 	 * @param endResult
 	 *            the {@link EindUitslag} to visit
 	 */
-	public void visit(EindUitslag endResult) {
+	public final void visit(final EindUitslag endResult) {
 		endResult.setWitteTrui(rennerDao.loadRenner(stageResultCommand.getWitteTrui()));
 		endResult.setRodeLantaren(rennerDao.loadRenner(stageResultCommand.getRodeLantaren()));
 		endResult.setEersteUitvaller(rennerDao.loadRenner(stageResultCommand.getEersteUitvaller()));
-		//Save values common to endresults and stages
+		// Save values common to endresults and stages
 		setValuesForAll(endResult, stageResultCommand);
 
 	}
 
 	private void setValuesForAll(final AbstractEtappeAndEindUitslag stageOrEndResult, final EtappeUitslagCommand currentStageResultCommand) {
-		//GeleTruiUitslag
+		// GeleTruiUitslag
 		for (int teller = 0; teller < currentStageResultCommand.getGeleTruiUitslag().length; teller++) {
 			// Check nu of de waarde niet op 0 is gezet
 			if (currentStageResultCommand.getGeleTruiUitslag()[teller] != 0) {

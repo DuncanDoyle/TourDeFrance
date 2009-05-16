@@ -5,41 +5,57 @@ import java.util.List;
 
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Stad;
+import nl.doyle.mccloud.tourdefrance.web.spring.controller.EditEtappeUitslagFormController;
 
+/**
+ * MVC command type for the {@link EditEtappeUitslagFormController}.
+ * 
+ * @author Duncan Doyle
+ * @since 0.1
+ */
 public class EtappeUitslagCommand {
 
-	public enum EtappeType {Etappe, PloegenTijdrit, EindUitslag};
-	
+	/**
+	 * Enumeration of the different stage types. Used for example to define what kind of content to display in a view.
+	 * 
+	 * @author Duncan Doyle
+	 * @since 0.1
+	 */
+	public enum EtappeType {
+		Etappe, PloegenTijdrit, EindUitslag
+	};
+
 	private List<Renner> renners;
-	
-	//private UitslagCommand uitslag;
-	//private GeleTruiUitslagCommand geleTruiUitslag;
-	//private GroeneTruiUitslagCommand groeneTruiUitslag;
-	//private BolletjesTruiUitslagCommand bolletjesTruiUitslag;
+
+	// private UitslagCommand uitslag;
+	// private GeleTruiUitslagCommand geleTruiUitslag;
+	// private GroeneTruiUitslagCommand groeneTruiUitslag;
+	// private BolletjesTruiUitslagCommand bolletjesTruiUitslag;
 	private int[] uitslag;
 	private int[] geleTruiUitslag;
 	private int[] groeneTruiUitslag;
 	private int[] bolletjesTruiUitslag;
-	
+
 	private int witteTrui;
 	private int rodeLantaren;
 	private int eersteUitvaller;
 	private int mostCombative;
-	
+
 	private int etappenummer;
 	private String omschrijving;
 	private Stad startPlaats;
 	private Stad finishPlaats;
 	private Date datum;
-	
+
 	private EtappeType typeEtappe;
-	
-	public EtappeUitslagCommand(int uitslag, int geleTruiUitslag, int groeneTruiUitslag, int bolletjesTruiUitslag) {
+
+	public EtappeUitslagCommand(final int uitslag, final int geleTruiUitslag, final int groeneTruiUitslag, final int bolletjesTruiUitslag) {
 		this.uitslag = new int[uitslag];
 		this.geleTruiUitslag = new int[geleTruiUitslag];
 		this.groeneTruiUitslag = new int[groeneTruiUitslag];
 		this.bolletjesTruiUitslag = new int[bolletjesTruiUitslag];
 	}
+
 	/**
 	 * @return the renners
 	 */
@@ -48,12 +64,13 @@ public class EtappeUitslagCommand {
 	}
 
 	/**
-	 * @param renners the renners to set
+	 * @param renners
+	 *            the renners to set
 	 */
-	public void setRenners(List<Renner> renners) {
+	public void setRenners(final List<Renner> renners) {
 		this.renners = renners;
 	}
-	
+
 	/**
 	 * @return the datum
 	 */
@@ -62,9 +79,10 @@ public class EtappeUitslagCommand {
 	}
 
 	/**
-	 * @param datum the datum to set
+	 * @param datum
+	 *            the datum to set
 	 */
-	public void setDatum(Date datum) {
+	public void setDatum(final Date datum) {
 		this.datum = datum;
 	}
 
@@ -76,9 +94,10 @@ public class EtappeUitslagCommand {
 	}
 
 	/**
-	 * @param etappenummer the etappenummer to set
+	 * @param etappenummer
+	 *            the etappenummer to set
 	 */
-	public void setEtappenummer(int etappenummer) {
+	public void setEtappenummer(final int etappenummer) {
 		this.etappenummer = etappenummer;
 	}
 
@@ -90,9 +109,10 @@ public class EtappeUitslagCommand {
 	}
 
 	/**
-	 * @param finishPlaats the finishPlaats to set
+	 * @param finishPlaats
+	 *            the finishPlaats to set
 	 */
-	public void setFinishPlaats(Stad finishPlaats) {
+	public void setFinishPlaats(final Stad finishPlaats) {
 		this.finishPlaats = finishPlaats;
 	}
 
@@ -104,9 +124,10 @@ public class EtappeUitslagCommand {
 	}
 
 	/**
-	 * @param startPlaats the startPlaats to set
+	 * @param startPlaats
+	 *            the startPlaats to set
 	 */
-	public void setStartPlaats(Stad startPlaats) {
+	public void setStartPlaats(final Stad startPlaats) {
 		this.startPlaats = startPlaats;
 	}
 
@@ -118,9 +139,10 @@ public class EtappeUitslagCommand {
 	}
 
 	/**
-	 * @param bolletjesTruiUitslag the bolletjesTruiUitslag to set
+	 * @param bolletjesTruiUitslag
+	 *            the bolletjesTruiUitslag to set
 	 */
-	public void setBolletjesTruiUitslag(int[] bolletjesTruiUitslag) {
+	public void setBolletjesTruiUitslag(final int[] bolletjesTruiUitslag) {
 		this.bolletjesTruiUitslag = bolletjesTruiUitslag;
 	}
 
@@ -132,9 +154,10 @@ public class EtappeUitslagCommand {
 	}
 
 	/**
-	 * @param geleTruiUitslag the geleTruiUitslag to set
+	 * @param geleTruiUitslag
+	 *            the geleTruiUitslag to set
 	 */
-	public void setGeleTruiUitslag(int[] geleTruiUitslag) {
+	public void setGeleTruiUitslag(final int[] geleTruiUitslag) {
 		this.geleTruiUitslag = geleTruiUitslag;
 	}
 
@@ -146,9 +169,10 @@ public class EtappeUitslagCommand {
 	}
 
 	/**
-	 * @param groenTruiUitslag the groenTruiUitslag to set
+	 * @param groenTruiUitslag
+	 *            the groenTruiUitslag to set
 	 */
-	public void setGroeneTruiUitslag(int[] groeneTruiUitslag) {
+	public void setGroeneTruiUitslag(final int[] groeneTruiUitslag) {
 		this.groeneTruiUitslag = groeneTruiUitslag;
 	}
 
@@ -160,82 +184,101 @@ public class EtappeUitslagCommand {
 	}
 
 	/**
-	 * @param uitslag the uitslag to set
+	 * @param uitslag
+	 *            the uitslag to set
 	 */
-	public void setUitslag(int[] uitslag) {
+	public void setUitslag(final int[] uitslag) {
 		this.uitslag = uitslag;
 	}
+
 	/**
 	 * @return the typeEtappe
 	 */
 	public EtappeType getTypeEtappe() {
 		return typeEtappe;
 	}
+
 	/**
-	 * @param typeEtappe the typeEtappe to set
+	 * @param typeEtappe
+	 *            the typeEtappe to set
 	 */
-	public void setTypeEtappe(EtappeType typeEtappe) {
+	public void setTypeEtappe(final EtappeType typeEtappe) {
 		this.typeEtappe = typeEtappe;
 	}
+
 	/**
 	 * @return the eersteUitvaller
 	 */
 	public int getEersteUitvaller() {
 		return eersteUitvaller;
 	}
+
 	/**
-	 * @param eersteUitvaller the eersteUitvaller to set
+	 * @param eersteUitvaller
+	 *            the eersteUitvaller to set
 	 */
-	public void setEersteUitvaller(int eersteUitvaller) {
+	public void setEersteUitvaller(final int eersteUitvaller) {
 		this.eersteUitvaller = eersteUitvaller;
 	}
+
 	/**
 	 * @return the rodeLantaren
 	 */
 	public int getRodeLantaren() {
 		return rodeLantaren;
 	}
+
 	/**
-	 * @param rodeLantaren the rodeLantaren to set
+	 * @param rodeLantaren
+	 *            the rodeLantaren to set
 	 */
-	public void setRodeLantaren(int rodeLantaren) {
+	public void setRodeLantaren(final int rodeLantaren) {
 		this.rodeLantaren = rodeLantaren;
 	}
+
 	/**
 	 * @return the witteTrui
 	 */
 	public int getWitteTrui() {
 		return witteTrui;
 	}
+
 	/**
-	 * @param witteTrui the witteTrui to set
+	 * @param witteTrui
+	 *            the witteTrui to set
 	 */
-	public void setWitteTrui(int witteTrui) {
+	public void setWitteTrui(final int witteTrui) {
 		this.witteTrui = witteTrui;
 	}
+
 	/**
 	 * @return the omschrijving
 	 */
 	public String getOmschrijving() {
 		return omschrijving;
 	}
+
 	/**
-	 * @param omschrijving the omschrijving to set
+	 * @param omschrijving
+	 *            the omschrijving to set
 	 */
-	public void setOmschrijving(String omschrijving) {
+	public void setOmschrijving(final String omschrijving) {
 		this.omschrijving = omschrijving;
 	}
+
 	/**
 	 * @return the mostCombative
 	 */
 	public int getMostCombative() {
 		return mostCombative;
 	}
+
 	/**
-	 * @param mostCombative the mostCombative to set
+	 * @param mostCombative
+	 *            the mostCombative to set
 	 */
-	public void setMostCombative(int mostCombative) {
+	public void setMostCombative(final int mostCombative) {
 		this.mostCombative = mostCombative;
 	}
-	
+
 }

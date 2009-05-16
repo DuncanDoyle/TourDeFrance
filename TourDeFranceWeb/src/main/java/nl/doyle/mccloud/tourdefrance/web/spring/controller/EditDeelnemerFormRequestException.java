@@ -7,7 +7,7 @@ public class EditDeelnemerFormRequestException extends Exception {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public EditDeelnemerFormRequestException(String message) {
+	public EditDeelnemerFormRequestException(final String message) {
 		super(message);
 	}
 }

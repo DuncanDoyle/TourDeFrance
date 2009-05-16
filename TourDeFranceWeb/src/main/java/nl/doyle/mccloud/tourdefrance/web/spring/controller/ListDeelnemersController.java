@@ -4,41 +4,43 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import nl.doyle.mccloud.tourdefrance.dao.DeelnemerDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Deelnemer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
-public class ListDeelnemersController extends AbstractController {
-	
-	private static Log logger;
+@Controller
+@RequestMapping("/listDeelnemers.htm")
+public class ListDeelnemersController {
+
+	/**
+	 * Commons-Logging logger.
+	 */
+	private static final Log LOG = LogFactory.getLog(ListDeelnemersController.class);
+
+	/**
+	 * The Dao for {@link Deelnemer} objects.
+	 */
 	private DeelnemerDao deelnemerDao;
-	
-	
-	//Statically initialize logger
-	{
-		logger = LogFactory.getLog(ListDeelnemersController.class);
-	}
-	
-	public ModelAndView handleRequestInternal(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		//TODO GUI model definieren en mappings tussen GUI laag en DB / middle laag definieren in Dozer
-		//create new model
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView handleRequest() {
+		// TODO GUI model definieren en mappings tussen GUI laag en DB / middle laag definieren in Dozer
+		// create new model
 		Map<String, List<Deelnemer>> deelnemersModel = new HashMap<String, List<Deelnemer>>();
-		//Haal alle renners op uit de DB
-		if (logger.isDebugEnabled()) {
-			logger.debug("Putting Deelnemer objects in model map.");
+		// Haal alle renners op uit de DB
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Putting Deelnemer objects in model map.");
 		}
 		deelnemersModel.put("deelnemers", deelnemerDao.loadAllDeelnemers());
-		if (logger.isDebugEnabled()) {
-			logger.debug("Returning ModelAnView 'listDeelnemers' with model 'model'");
-			
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Returning ModelAnView 'listDeelnemers' with model 'model'");
+
 		}
 		return new ModelAndView("listDeelnemers", "model", deelnemersModel);
 	}
@@ -51,15 +53,11 @@ public class ListDeelnemersController extends AbstractController {
 	}
 
 	/**
-	 * @param deelnemerDao the deelnemerDao to set
+	 * @param deelnemerDao
+	 *            the deelnemerDao to set
 	 */
-	public void setDeelnemerDao(DeelnemerDao deelnemerDao) {
+	public void setDeelnemerDao(final DeelnemerDao deelnemerDao) {
 		this.deelnemerDao = deelnemerDao;
 	}
-	
-	
-	
-	
-	
 
 }

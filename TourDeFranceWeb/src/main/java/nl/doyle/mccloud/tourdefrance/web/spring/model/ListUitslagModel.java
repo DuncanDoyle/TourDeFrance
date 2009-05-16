@@ -9,7 +9,9 @@ public class ListUitslagModel {
 	
 	public static final Log logger = LogFactory.getLog(ListUitslagModel.class);
 	//TODO Deze public enum moet waarschijnlijke ergens anders gedefinieerd worden
-	public enum EtappeType{Etappe, PloegenTijdrit, EindUitslag};
+	public enum EtappeType {
+		Etappe, PloegenTijdrit, EindUitslag
+	};
 
 	private EtappeType typeEtappe;
 	private AbstractEtappeAndEindUitslagDto etappe;
@@ -27,7 +29,7 @@ public class ListUitslagModel {
 	/**
 	 * @param etappe the etappe to set
 	 */
-	public void setEtappe(AbstractEtappeAndEindUitslagDto etappe) {
+	public void setEtappe(final AbstractEtappeAndEindUitslagDto etappe) {
 		this.etappe = etappe;
 	}
 
@@ -41,7 +43,7 @@ public class ListUitslagModel {
 	/**
 	 * @param typeEtappe the typeEtappe to set
 	 */
-	public void setTypeEtappe(EtappeType typeEtappe) {
+	public void setTypeEtappe(final EtappeType typeEtappe) {
 		this.typeEtappe = typeEtappe;
 	}
 	

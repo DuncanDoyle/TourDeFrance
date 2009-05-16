@@ -28,7 +28,7 @@ public class NieuweStadFormController extends SimpleFormController {
 	 * @exception ServletException
 	 * @see ModelAndView
 	 */
-	public ModelAndView onSubmit(Object command) throws ServletException {
+	public ModelAndView onSubmit(final Object command) throws ServletException {
 		//int increase = ((PriceIncrease) command).getPercentage();
 		StadCommand stadCommand = (StadCommand) command;
         logger.info("Creating new Stad");
@@ -47,9 +47,9 @@ public class NieuweStadFormController extends SimpleFormController {
         return new ModelAndView(new RedirectView(getSuccessView()));
     }
 
-	protected Object formBackingObject(HttpServletRequest request) throws ServletException, NieuweStadFormRequestException {
+	protected Object formBackingObject(final HttpServletRequest request) throws ServletException, NieuweStadFormRequestException {
 //		TODO Dit moet goed geimplementeerd worden zodat er geen verkeerde waardes ingevuld kunnen worden. Security
-    	Integer stadId= ServletRequestUtils.getIntParameter(request,"stadId");
+		Integer stadId = ServletRequestUtils.getIntParameter(request, "stadId");
     	//check of deze parameter wel is ingevuld. Zoniet dan is 'nummer' 'null'.
     	int id;
     	StadCommand stad = new StadCommand();
@@ -87,7 +87,7 @@ public class NieuweStadFormController extends SimpleFormController {
 	/**
 	 * @param stadDao the stadDao to set
 	 */
-	public void setStadDao(StadDao stadDao) {
+	public void setStadDao(final StadDao stadDao) {
 		this.stadDao = stadDao;
 	}
 

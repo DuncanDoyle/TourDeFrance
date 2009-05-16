@@ -49,7 +49,7 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 	 * @param stageResultCommand
 	 *            the command object to set
 	 */
-	public EditEtappeUitslagFormBackingObjectVisitor(RennerDao rennerDao, TourConfig config) {
+	public EditEtappeUitslagFormBackingObjectVisitor(final RennerDao rennerDao, final TourConfig config) {
 		this.rennerDao = rennerDao;
 		this.config = config;
 	}
@@ -60,7 +60,7 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 	 * @param stage
 	 *            the {@link StandaardEtappe} to visit
 	 */
-	public void visit(StandaardEtappe stage) {
+	public void visit(final StandaardEtappe stage) {
 		stageResultCommand = new EtappeUitslagCommand(config.getAantalEtappeUitslagen(), config.getAantalEtappeGeleTruiUitslagen(), config
 				.getAantalEtappeGroeneTruiUitslagen(), config.getAantalEtappeBolletjesTruiUitslagen());
 		// Set the values
@@ -78,7 +78,7 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 	 * @param stage
 	 *            the {@link PloegenTijdrit} to visit
 	 */
-	public void visit(PloegenTijdrit stage) {
+	public void visit(final PloegenTijdrit stage) {
 		stageResultCommand = new EtappeUitslagCommand(config.getAantalEtappeUitslagen(), config.getAantalEtappeGeleTruiUitslagen(), config
 				.getAantalEtappeGroeneTruiUitslagen(), config.getAantalEtappeBolletjesTruiUitslagen());
 		setValuesForAll(stageResultCommand, stage);
@@ -93,7 +93,7 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 	 * @param endResult
 	 *            the {@link EindUitslag} to visit
 	 */
-	public void visit(EindUitslag endResult) {
+	public void visit(final EindUitslag endResult) {
 		stageResultCommand = new EtappeUitslagCommand(0, config.getAantalEinduitslagGeleTruiUitslagen(), config
 				.getAantalEinduitslagGroeneTruiUitslagen(), config.getAantalEinduitslagBolletjesTruiUitslagen());
 		// set the values

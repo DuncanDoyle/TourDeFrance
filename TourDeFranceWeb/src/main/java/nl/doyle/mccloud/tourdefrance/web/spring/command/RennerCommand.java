@@ -4,24 +4,22 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class RennerCommand {
 
-	
 	private String voornaam;
 	private String achternaam;
 	private int nummer;
-	
+
 	/**
-	 * @mccloud
-	 * 
-	 * Default Constructor
+	 * @mccloud Default Constructor
 	 * 
 	 */
-	public RennerCommand() {}
+	public RennerCommand() {
+	}
 
 	public String getAchternaam() {
 		return achternaam;
 	}
 
-	public void setAchternaam(String achternaam) {
+	public void setAchternaam(final String achternaam) {
 		this.achternaam = achternaam;
 	}
 
@@ -29,7 +27,7 @@ public class RennerCommand {
 		return nummer;
 	}
 
-	public void setNummer(int nummer) {
+	public void setNummer(final int nummer) {
 		this.nummer = nummer;
 	}
 
@@ -37,16 +35,14 @@ public class RennerCommand {
 		return voornaam;
 	}
 
-	public void setVoornaam(String voornaam) {
+	public void setVoornaam(final String voornaam) {
 		this.voornaam = voornaam;
 	}
-	
+
 	@Override
 	public String toString() {
-		return new ToStringBuilder(this).append("Rennernummer", this.getNummer()).
-		append("Voornaam", this.getVoornaam()).
-		append("Achternaam", this.getAchternaam()).
-		toString();
+		return new ToStringBuilder(this).append("Rennernummer", this.getNummer()).append("Voornaam", this.getVoornaam()).append(
+				"Achternaam", this.getAchternaam()).toString();
 	}
-	
+
 }

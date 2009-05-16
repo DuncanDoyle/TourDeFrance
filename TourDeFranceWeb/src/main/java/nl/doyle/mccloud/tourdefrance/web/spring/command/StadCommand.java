@@ -26,7 +26,7 @@ public class StadCommand {
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.id = id;
 	}
 
@@ -40,7 +40,7 @@ public class StadCommand {
 	/**
 	 * @param land the land to set
 	 */
-	public void setLand(String land) {
+	public void setLand(final String land) {
 		this.land = land;
 	}
 
@@ -54,7 +54,7 @@ public class StadCommand {
 	/**
 	 * @param lattitude the lattitude to set
 	 */
-	public void setLatitude(double latitude) {
+	public void setLatitude(final double latitude) {
 		this.latitude = latitude;
 	}
 
@@ -68,7 +68,7 @@ public class StadCommand {
 	/**
 	 * @param longitude the longitude to set
 	 */
-	public void setLongitude(double longitude) {
+	public void setLongitude(final double longitude) {
 		this.longitude = longitude;
 	}
 
@@ -82,7 +82,7 @@ public class StadCommand {
 	/**
 	 * @param stad the stad to set
 	 */
-	public void setStad(String stad) {
+	public void setStad(final String stad) {
 		this.stad = stad;
 	}
 	

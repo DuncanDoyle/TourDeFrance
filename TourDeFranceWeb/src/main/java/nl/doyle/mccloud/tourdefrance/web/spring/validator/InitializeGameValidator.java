@@ -5,14 +5,14 @@ import nl.doyle.mccloud.tourdefrance.web.spring.command.InitializeGameCommand;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-public class InitializeGameValidator implements Validator {
+public final class InitializeGameValidator implements Validator {
 
 	@SuppressWarnings("unchecked")
-	public boolean supports(Class clazz) {
+	public boolean supports(final Class clazz) {
 		return clazz.equals(InitializeGameCommand.class);
 	}
 
-	public void validate(Object command, Errors errors) {
+	public void validate(final Object command, final Errors errors) {
 		
 		InitializeGameCommand initGameCommand = (InitializeGameCommand) command;
 		

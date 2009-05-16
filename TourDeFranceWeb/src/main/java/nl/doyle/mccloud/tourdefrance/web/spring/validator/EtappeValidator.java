@@ -7,16 +7,16 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-public class EtappeValidator implements Validator {
+public final class EtappeValidator implements Validator {
 
 	private static final Log logger = LogFactory.getLog(EtappeValidator.class);
 	
 	@SuppressWarnings("unchecked")
-	public boolean supports(Class clazz) {
+	public boolean supports(final Class clazz) {
 		return clazz.equals(EtappeCommand.class);
 	}
 	
-	public void validate(Object target, Errors errors) {
+	public void validate(final Object target, final Errors errors) {
 		
 		// TODO Auto-generated method stub
 		 

@@ -85,4 +85,10 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
+	<distributionManagement>
+		<site>
+			<id>Bla</id>
+			<url>file://${site.distribution.directory}/TourDeFranceWeb</url>
+		</site>
+	</distributionManagement>
 </project>

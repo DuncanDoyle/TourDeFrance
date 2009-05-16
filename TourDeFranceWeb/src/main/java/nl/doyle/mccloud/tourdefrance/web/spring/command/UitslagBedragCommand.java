@@ -18,9 +18,9 @@ public class UitslagBedragCommand {
 	/**
 	 * Default constructor
 	 */
-	public UitslagBedragCommand(int etappe, int geleTrui, int groeneTrui, int bolletjesTrui, int geleTruiEind, int groeneTruiEind,
-			int bolletjesTruiEind, int witteTruiEind, int rodeLantarenEind, int eersteUitvallerEind, int mostCombativeStage,
-			int mostCombativeFinal) {
+	public UitslagBedragCommand(final int etappe, final int geleTrui, final int groeneTrui, final int bolletjesTrui, final int geleTruiEind, final int groeneTruiEind,
+			final int bolletjesTruiEind, final int witteTruiEind, final int rodeLantarenEind, final int eersteUitvallerEind, final int mostCombativeStage,
+			final int mostCombativeFinal) {
 		this.etappe = new double[etappe];
 		this.geleTrui = new double[geleTrui];
 		this.groeneTrui = new double[groeneTrui];
@@ -46,7 +46,7 @@ public class UitslagBedragCommand {
 	 * @param bolletjesTrui
 	 *            the bolletjesTrui to set
 	 */
-	public void setBolletjesTrui(double[] bolletjesTrui) {
+	public void setBolletjesTrui(final double[] bolletjesTrui) {
 		this.bolletjesTrui = bolletjesTrui;
 	}
 
@@ -61,7 +61,7 @@ public class UitslagBedragCommand {
 	 * @param bolletjesTruiEind
 	 *            the bolletjesTruiEind to set
 	 */
-	public void setBolletjesTruiEind(double[] bolletjesTruiEind) {
+	public void setBolletjesTruiEind(final double[] bolletjesTruiEind) {
 		this.bolletjesTruiEind = bolletjesTruiEind;
 	}
 
@@ -76,7 +76,7 @@ public class UitslagBedragCommand {
 	 * @param etappe
 	 *            the etappe to set
 	 */
-	public void setEtappe(double[] etappe) {
+	public void setEtappe(final double[] etappe) {
 		this.etappe = etappe;
 	}
 
@@ -91,7 +91,7 @@ public class UitslagBedragCommand {
 	 * @param geleTrui
 	 *            the geleTrui to set
 	 */
-	public void setGeleTrui(double[] geleTrui) {
+	public void setGeleTrui(final double[] geleTrui) {
 		this.geleTrui = geleTrui;
 	}
 
@@ -106,7 +106,7 @@ public class UitslagBedragCommand {
 	 * @param geleTruiEind
 	 *            the geleTruiEind to set
 	 */
-	public void setGeleTruiEind(double[] geleTruiEind) {
+	public void setGeleTruiEind(final double[] geleTruiEind) {
 		this.geleTruiEind = geleTruiEind;
 	}
 
@@ -121,7 +121,7 @@ public class UitslagBedragCommand {
 	 * @param groeneTruiEind
 	 *            the groeneTruiEind to set
 	 */
-	public void setGroeneTruiEind(double[] groeneTruiEind) {
+	public void setGroeneTruiEind(final double[] groeneTruiEind) {
 		this.groeneTruiEind = groeneTruiEind;
 	}
 
@@ -136,7 +136,7 @@ public class UitslagBedragCommand {
 	 * @param groeneTrui
 	 *            the groenTrui to set
 	 */
-	public void setGroeneTrui(double[] groeneTrui) {
+	public void setGroeneTrui(final double[] groeneTrui) {
 		this.groeneTrui = groeneTrui;
 	}
 
@@ -151,7 +151,7 @@ public class UitslagBedragCommand {
 	 * @param eersteUitvallerEind
 	 *            the eersteUitvallerEind to set
 	 */
-	public void setEersteUitvallerEind(double[] eersteUitvallerEind) {
+	public void setEersteUitvallerEind(final double[] eersteUitvallerEind) {
 		this.eersteUitvallerEind = eersteUitvallerEind;
 	}
 
@@ -166,7 +166,7 @@ public class UitslagBedragCommand {
 	 * @param rodeLantarenEind
 	 *            the rodeLantarenEind to set
 	 */
-	public void setRodeLantarenEind(double[] rodeLantarenEind) {
+	public void setRodeLantarenEind(final double[] rodeLantarenEind) {
 		this.rodeLantarenEind = rodeLantarenEind;
 	}
 
@@ -181,7 +181,7 @@ public class UitslagBedragCommand {
 	 * @param witteTruiEind
 	 *            the witteTruiEind to set
 	 */
-	public void setWitteTruiEind(double[] witteTruiEind) {
+	public void setWitteTruiEind(final double[] witteTruiEind) {
 		this.witteTruiEind = witteTruiEind;
 	}
 
@@ -196,7 +196,7 @@ public class UitslagBedragCommand {
 	 * @param mostCombativeStage
 	 *            the mostCombativeStage to set
 	 */
-	public void setMostCombativeStage(double[] mostCombativeStage) {
+	public void setMostCombativeStage(final double[] mostCombativeStage) {
 		this.mostCombativeStage = mostCombativeStage;
 	}
 
@@ -211,7 +211,7 @@ public class UitslagBedragCommand {
 	 * @param mostCombativeFinal
 	 *            the mostCombativeFinal to set
 	 */
-	public void setMostCombativeFinal(double[] mostCombativeFinal) {
+	public void setMostCombativeFinal(final double[] mostCombativeFinal) {
 		this.mostCombativeFinal = mostCombativeFinal;
 	}
 

@@ -10,7 +10,7 @@ public class DeelnemerRennerModel {
 	/**
 	 * Default Constructor
 	 */
-	public DeelnemerRennerModel(){
+	public DeelnemerRennerModel() {
 	}
 
 	/**
@@ -23,7 +23,7 @@ public class DeelnemerRennerModel {
 	/**
 	 * @param deelnemer the deelnemer to set
 	 */
-	public void setDeelnemer(DeelnemerModel deelnemer) {
+	public void setDeelnemer(final DeelnemerModel deelnemer) {
 		this.deelnemer = deelnemer;
 	}
 
@@ -37,7 +37,7 @@ public class DeelnemerRennerModel {
 	/**
 	 * @param renner the renner to set
 	 */
-	public void setRenner(RennerModel renner) {
+	public void setRenner(final RennerModel renner) {
 		this.renner = renner;
 	}
 

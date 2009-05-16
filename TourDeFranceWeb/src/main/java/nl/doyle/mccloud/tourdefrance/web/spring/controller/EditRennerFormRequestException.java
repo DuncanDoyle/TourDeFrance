@@ -7,7 +7,7 @@ public class EditRennerFormRequestException extends Exception {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public EditRennerFormRequestException(String message) {
+	public EditRennerFormRequestException(final String message) {
 		super(message);
 	}
 

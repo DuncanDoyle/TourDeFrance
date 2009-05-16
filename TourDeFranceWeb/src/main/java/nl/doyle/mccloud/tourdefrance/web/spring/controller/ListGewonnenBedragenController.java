@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import net.sf.dozer.util.mapping.MapperIF;
 import nl.doyle.mccloud.tourdefrance.calculator.Calculator;
 import nl.doyle.mccloud.tourdefrance.controller.TourFacade;
@@ -17,11 +14,15 @@ import nl.doyle.mccloud.tourdefrance.web.spring.model.DeelnemerAndBedragModel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
-public class ListGewonnenBedragenController implements Controller {
+@Controller
+@RequestMapping("/listGewonnenBedragen.htm")
+public class ListGewonnenBedragenController {
 
 	private static final Log logger = LogFactory.getLog(ListGewonnenBedragenController.class);
 	
@@ -29,15 +30,13 @@ public class ListGewonnenBedragenController implements Controller {
 	private TourFacade tourFacade;
 	private MapperIF mapper;
 	
-	public ModelAndView handleRequest(HttpServletRequest arg0,
-			HttpServletResponse arg1) throws Exception {
-		
-		Integer etappeNummer = ServletRequestUtils.getIntParameter(arg0,"etappe");
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView handleRequest(@RequestParam("etappe") final int etappeNummer) {
 		Map<String, Object> listGewonnenBedragenModel = new HashMap<String, Object>();
 		List<DeelnemerBedragDto> deelnemerAndBedrag = tourCalculator.getAllDeelnemersAndGewonnenBedragAfterEtappe(etappeNummer);
 		List<DeelnemerAndBedragModel> deelnemerAndBedragModel = new ArrayList<DeelnemerAndBedragModel>();
 		logger.debug("Mapping objects to view model.");
-		for (DeelnemerBedragDto dbDto: deelnemerAndBedrag) {
+		for (DeelnemerBedragDto dbDto : deelnemerAndBedrag) {
 			 DeelnemerAndBedragModel dbModel =  (DeelnemerAndBedragModel) mapper.map(dbDto, DeelnemerAndBedragModel.class);
 			 logger.debug("Adding model entry to view model.");
 			 deelnemerAndBedragModel.add(dbModel);
@@ -85,7 +84,7 @@ public class ListGewonnenBedragenController implements Controller {
 	/**
 	 * @param tourCalculator the tourCalculator to set
 	 */
-	public void setTourCalculator(Calculator tourCalculator) {
+	public void setTourCalculator(final Calculator tourCalculator) {
 		this.tourCalculator = tourCalculator;
 	}
 
@@ -95,7 +94,7 @@ public class ListGewonnenBedragenController implements Controller {
 	}
 
 
-	public void setMapper(MapperIF mapper) {
+	public void setMapper(final MapperIF mapper) {
 		this.mapper = mapper;
 	}
 
@@ -105,7 +104,7 @@ public class ListGewonnenBedragenController implements Controller {
 	}
 
 
-	public void setTourFacade(TourFacade tourFacade) {
+	public void setTourFacade(final TourFacade tourFacade) {
 		this.tourFacade = tourFacade;
 	}
 	

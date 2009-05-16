@@ -7,16 +7,16 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-public class DeelnemerValidator implements Validator {
+public final class DeelnemerValidator implements Validator {
 
 	private static final Log logger = LogFactory.getLog(DeelnemerValidator.class);
 	
 	@SuppressWarnings("unchecked")
-	public boolean supports(Class clazz) {
+	public boolean supports(final Class clazz) {
 		return clazz.equals(DeelnemerCommand.class);
 	}
 	
-	public void validate(Object target, Errors errors) {
+	public void validate(final Object target, final Errors errors) {
 		// TODO Validatie moet nog geimplementeerd worden.
 		 
 		/*

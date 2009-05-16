@@ -4,7 +4,10 @@ public class DeelnemerModel extends PersoonModel {
 
 	private String email;
 	private String rekeningnummer;
-	
+
+	/**
+	 * Default constructor.
+	 */
 	public DeelnemerModel() {
 	}
 
@@ -16,9 +19,10 @@ public class DeelnemerModel extends PersoonModel {
 	}
 
 	/**
-	 * @param email the email to set
+	 * @param email
+	 *            the email to set
 	 */
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
 	}
 
@@ -30,11 +34,11 @@ public class DeelnemerModel extends PersoonModel {
 	}
 
 	/**
-	 * @param rekeningnummer the rekeningnummer to set
+	 * @param rekeningnummer
+	 *            the rekeningnummer to set
 	 */
-	public void setRekeningnummer(String rekeningnummer) {
+	public void setRekeningnummer(final String rekeningnummer) {
 		this.rekeningnummer = rekeningnummer;
 	}
-	
-	
+
 }

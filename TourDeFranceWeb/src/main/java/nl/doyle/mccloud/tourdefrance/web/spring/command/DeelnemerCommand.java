@@ -1,7 +1,7 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.command;
 
 
-public class DeelnemerCommand {
+public final class DeelnemerCommand {
 	
 	/**
 	 * Deelnemer number.
@@ -31,7 +31,7 @@ public class DeelnemerCommand {
 	/**
 	 * Default Constructor
 	 */
-	public DeelnemerCommand(){
+	public DeelnemerCommand() {
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class DeelnemerCommand {
 	/**
 	 * @param achternaam the achternaam to set
 	 */
-	public void setAchternaam(String achternaam) {
+	public void setAchternaam(final String achternaam) {
 		this.achternaam = achternaam;
 	}
 	/**
@@ -55,7 +55,7 @@ public class DeelnemerCommand {
 	/**
 	 * @param email the email to set
 	 */
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
 	}
 	/**
@@ -67,7 +67,7 @@ public class DeelnemerCommand {
 	/**
 	 * @param nummer the nummer to set
 	 */
-	public void setNummer(int nummer) {
+	public void setNummer(final int nummer) {
 		this.nummer = nummer;
 	}
 	/**
@@ -79,7 +79,7 @@ public class DeelnemerCommand {
 	/**
 	 * @param rekeningnummer the rekeningnummer to set
 	 */
-	public void setRekeningnummer(String rekeningnummer) {
+	public void setRekeningnummer(final String rekeningnummer) {
 		this.rekeningnummer = rekeningnummer;
 	}
 	/**
@@ -91,7 +91,7 @@ public class DeelnemerCommand {
 	/**
 	 * @param voornaam the voornaam to set
 	 */
-	public void setVoornaam(String voornaam) {
+	public void setVoornaam(final String voornaam) {
 		this.voornaam = voornaam;
 	}
 

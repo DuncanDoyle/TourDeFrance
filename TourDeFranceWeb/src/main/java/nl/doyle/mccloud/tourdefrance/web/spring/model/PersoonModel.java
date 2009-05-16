@@ -11,42 +11,42 @@ public abstract class PersoonModel {
 	/**
 	 * @return the achternaam
 	 */
-	public String getAchternaam() {
+	public final String getAchternaam() {
 		return achternaam;
 	}
 
 	/**
 	 * @param achternaam the achternaam to set
 	 */
-	public void setAchternaam(String achternaam) {
+	public final void setAchternaam(final String achternaam) {
 		this.achternaam = achternaam;
 	}
 
 	/**
 	 * @return the nummer
 	 */
-	public int getNummer() {
+	public final int getNummer() {
 		return nummer;
 	}
 
 	/**
 	 * @param nummer the nummer to set
 	 */
-	public void setNummer(int nummer) {
+	public final void setNummer(final int nummer) {
 		this.nummer = nummer;
 	}
 
 	/**
 	 * @return the voornaam
 	 */
-	public String getVoornaam() {
+	public final String getVoornaam() {
 		return voornaam;
 	}
 
 	/**
 	 * @param voornaam the voornaam to set
 	 */
-	public void setVoornaam(String voornaam) {
+	public final void setVoornaam(final String voornaam) {
 		this.voornaam = voornaam;
 	}
 	

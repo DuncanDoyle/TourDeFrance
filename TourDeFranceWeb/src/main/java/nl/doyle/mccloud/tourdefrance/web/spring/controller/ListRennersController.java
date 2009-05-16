@@ -4,90 +4,73 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import nl.doyle.mccloud.tourdefrance.dao.RennerDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
 /**
- * @author mccloud 
+ * Spring MVC Controller which retrieves a list of all {@link Renner}s and stores them in the model to be used in the view.
  * 
- * Controller klasse om een lijst met alle Renners op te halen uit de DB en
- * terug te geven in een Spring ModelAndView aan de DispatcherServlet.
+ * @author Duncan Doyle
+ * @since 0,1
  */
-public class ListRennersController extends AbstractController {
+@Controller
+@RequestMapping("/listRenners.htm")
+public class ListRennersController {
 
-	private static Log logger;
-	private RennerDao rennerDao;
-	
-	
-	//Statically initialize logger
-	{
-		logger = LogFactory.getLog(ListRennersController.class);
-	}
-	
-	
 	/**
-	 * Handelt het request van ListRenners  af. Deze methode haalt (indirect) de lijst
-	 * met alle Renners uit de DB en stopt deze in een model (d.m.v. een Hashmap).
-	 * Vervolgens wordt dit model met de viewnaam <i>listRenners</i> aan de
-	 * Spring DispatcherServlet teruggegeven.
-	 *
-	 * @param arg0: HttpServletRequest
-	 * @param arg1: HttpServletResponse
-	 * 
-	 * @return ModelAndView
+	 * Commons-Logging logger.
 	 */
-	public ModelAndView handleRequestInternal(HttpServletRequest arg0, HttpServletResponse arg1) throws Exception {
-		//TODO GUI model definieren en mappings tussen GUI laag en DB / middle laag definieren in Dozer
-		
-		//create new model
+	private static final Log LOG = LogFactory.getLog(ListRennersController.class);
+
+	/**
+	 * The DAO for {@link Renner} objects.
+	 */
+	private RennerDao rennerDao;
+
+	/**
+	 * Handelt het request van ListRenners af. Deze methode haalt (indirect) de lijst met alle Renners uit de DB en stopt deze in een model
+	 * (d.m.v. een Hashmap). Vervolgens wordt dit model met de viewnaam <i>listRenners</i> aan de Spring DispatcherServlet teruggegeven.
+	 * 
+	 * @return ModelAndView the model and view object containing the populated model and viewname
+	 */
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView handleRequest() {
+		// TODO GUI model definieren en mappings tussen GUI laag en DB / middle laag definieren in Dozer
+
+		// create new model
 		Map<String, List<Renner>> rennersModel = new HashMap<String, List<Renner>>();
-		//Haal alle renners op uit de DB
-		if (logger.isDebugEnabled()) {
-			logger.debug("Putting Renner objects in model map.");
+		// retrieve racers from DB
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Putting Renner objects in model map.");
 		}
 		rennersModel.put("renners", rennerDao.loadAllRenners());
-		if (logger.isDebugEnabled()) {
-			logger.debug("Returning ModelAnView 'listRenners' with model 'model'");
-			
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Returning ModelAnView 'listRenners' with model 'model'");
+
 		}
-		return new ModelAndView("listRenners2", "model", rennersModel);
+		return new ModelAndView("listRenners", "model", rennersModel);
 	}
-	
-	
-	
-	
-	
+
 	/**
-	 * Getter voor de Renners Dao
-	 * 
-	 * @return RennerDao
+	 * @return the rennerDao
 	 */
 	public RennerDao getRennerDao() {
 		return rennerDao;
 	}
 
 	/**
-	 * Setter voor de Renner Dao
-	 * 
 	 * @param rennerDao
+	 *            the rennerDao
 	 */
-	public void setRennerDao(RennerDao rennerDao) {
+	public void setRennerDao(final RennerDao rennerDao) {
 		this.rennerDao = rennerDao;
 	}
-	
-	
 
-	
-	
-	
-	
-	
 }

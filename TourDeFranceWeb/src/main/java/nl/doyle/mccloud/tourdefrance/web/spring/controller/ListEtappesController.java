@@ -5,36 +5,49 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import nl.doyle.mccloud.tourdefrance.dao.EindUitslagDao;
 import nl.doyle.mccloud.tourdefrance.dao.PloegenTijdritDao;
 import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Etappe;
+import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
+import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
-public class ListEtappesController implements Controller {
+@Controller
+@RequestMapping("/listEtappes.htm")
+public class ListEtappesController {
 	
-	private static Log logger;
+	/**
+	 * Commons-Logging logger.
+	 */
+	private static Log LOG = LogFactory.getLog(ListEtappesController.class);
+	
+	/**
+	 * DAO for {@link StandaardEtappe} objects.
+	 */
 	private StandaardEtappeDao standaardEtappeDao;
+	
+	/**
+	 * DAO for {@link PloegenTijdrit} objects.
+	 */
 	private PloegenTijdritDao ploegenTijdritDao;
+	
+	/**
+	 * DAO for {@link EindUitslag} objects.
+	 */
 	private EindUitslagDao eindUitslagDao;
+
 	
-	
-	//Statically initialize logger
-	{
-		logger = LogFactory.getLog(ListEtappesController.class);
-	}
-	
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView handleRequest() {
 		// TODO Deze code moet vervangen worden door iets dat niet afhankelijk is van de DAOs. Beetje ranzige code.
 		List<Etappe> etappes = new ArrayList<Etappe>();
 		etappes.addAll(standaardEtappeDao.loadAllStandaardEtappesWithStedenEager());
@@ -42,13 +55,13 @@ public class ListEtappesController implements Controller {
 		List<EindUitslag> eindUitslag = new ArrayList<EindUitslag>();
 		eindUitslag.add(eindUitslagDao.loadEindUitslag());
 		Map<String, List<? extends AbstractEtappeAndEindUitslag>> etappesModel = new HashMap<String, List<? extends AbstractEtappeAndEindUitslag>>();
-		if (logger.isDebugEnabled()) {
-			logger.debug("Putting Etappe objects in model map.");
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Putting Etappe objects in model map.");
 		}
 		etappesModel.put("etappes", etappes);
 		etappesModel.put("einduitslag", eindUitslag);
-		if (logger.isDebugEnabled()) {
-			logger.debug("Returning ModelAnView 'listRenners' with model 'model'");
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Returning ModelAnView 'listRenners' with model 'model'");
 			
 		}
 		return new ModelAndView("listEtappes", "model", etappesModel);
@@ -66,7 +79,7 @@ public class ListEtappesController implements Controller {
 	/**
 	 * @param ploegenTijdritDao the ploegenTijdritDao to set
 	 */
-	public void setPloegenTijdritDao(PloegenTijdritDao ploegenTijdritDao) {
+	public void setPloegenTijdritDao(final PloegenTijdritDao ploegenTijdritDao) {
 		this.ploegenTijdritDao = ploegenTijdritDao;
 	}
 
@@ -80,7 +93,7 @@ public class ListEtappesController implements Controller {
 	/**
 	 * @param standaardEtappeDao the standaardEtappeDao to set
 	 */
-	public void setStandaardEtappeDao(StandaardEtappeDao standaardEtappeDao) {
+	public void setStandaardEtappeDao(final StandaardEtappeDao standaardEtappeDao) {
 		this.standaardEtappeDao = standaardEtappeDao;
 	}
 
@@ -92,7 +105,7 @@ public class ListEtappesController implements Controller {
 
 
 
-	public void setEindUitslagDao(EindUitslagDao eindUitslagDao) {
+	public void setEindUitslagDao(final EindUitslagDao eindUitslagDao) {
 		this.eindUitslagDao = eindUitslagDao;
 	}
 	

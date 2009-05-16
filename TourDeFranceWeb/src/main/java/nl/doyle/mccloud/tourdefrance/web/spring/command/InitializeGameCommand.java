@@ -25,7 +25,7 @@ public class InitializeGameCommand {
 	/**
 	 * @param aantalEtappes the aantalEtappes to set
 	 */
-	public void setAantalEtappes(int aantalEtappes) {
+	public void setAantalEtappes(final int aantalEtappes) {
 		this.aantalEtappes = aantalEtappes;
 	}
 
@@ -41,7 +41,7 @@ public class InitializeGameCommand {
 	/**
 	 * @param aantalPloegen the aantalPloegen to set
 	 */
-	public void setAantalPloegen(int aantalPloegen) {
+	public void setAantalPloegen(final int aantalPloegen) {
 		this.aantalPloegen = aantalPloegen;
 	}
 
@@ -57,7 +57,7 @@ public class InitializeGameCommand {
 	/**
 	 * @param ploegenTijdritEtappeNummer the ploegenTijdrit to set
 	 */
-	public void setPloegenTijdritEtappeNummer(int ploegenTijdritEtappeNummer) {
+	public void setPloegenTijdritEtappeNummer(final int ploegenTijdritEtappeNummer) {
 		this.ploegenTijdritEtappeNummer = ploegenTijdritEtappeNummer;
 	}
 	

@@ -20,7 +20,7 @@ public class DeelnemerAndBedragModel extends DeelnemerModel {
 	/**
 	 * @param gewonnenBedrag the gewonnenBedrag to set
 	 */
-	public void setGewonnenBedrag(String gewonnenBedrag) {
+	public void setGewonnenBedrag(final String gewonnenBedrag) {
 		this.gewonnenBedrag = gewonnenBedrag;
 	}
 	
