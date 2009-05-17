@@ -1,13 +1,25 @@
 package nl.doyle.mccloud.tourdefrance.valueobjects;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+
+/**
+ * The cyclist which competes in the Tour de France.
+ * 
+ * 
+ * @author Duncan Doyle
+ * @since v0.1
+ */
+@Entity
+@Table(name="TOUR.RENNER")
 public class Renner extends Persoon {
 	
-	
 	/**
-	 * Defautt constructor.
+	 * Default constructor.
 	 */
 	public Renner() {
 	}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+                                 http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+             version="1.0">
+  <!-- transaction type set to RESOURCE_LOCAL, no JTA support -->
+  <persistence-unit name="TourDeFrancePersistenceUnit" transaction-type="RESOURCE_LOCAL">
+    <properties>
+    	<!-- Hibernate configuration is not needed. Is done via Spring's HibernateJpaVendorAdapter class. -->  
+      	<!-- <property name="hibernate.hbm2ddl.auto" value="create-drop"/>  -->
+      
+    </properties>
+  </persistence-unit>
+</persistence>
