@@ -2,21 +2,42 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="TOUR.TEAM")
 public class Team {
 	
 	/**
 	 * The team number.
 	 */
+	@Id
+	@Column(name="NUMMER")
 	private int nummer;
 	
 	/**
 	 * The team name.
 	 */
+	@Column(name="NAAM")
 	private String naam;
 	
 	/**
 	 * The team's renners.
 	 */
+	@OneToMany
+	@JoinTable(name="TEAM_RENNER", 
+			joinColumns = 
+				@JoinColumn(name="TEAMNUMMER", referencedColumnName="NUMMER"),
+			inverseJoinColumns =
+				@JoinColumn(name="RENNERNUMMER", referencedColumnName="NUMMER")
+	)
 	private Set<Renner> renners;
 	
 	/**

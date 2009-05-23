@@ -2,8 +2,16 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import nl.doyle.mccloud.tourdefrance.valueobjects.visitor.ValueObjectVisitor;
 
+@Entity
+@Table(name="STANDAARDETAPPE")
 public class StandaardEtappe extends Etappe {
 	
 	/**
@@ -23,6 +31,15 @@ public class StandaardEtappe extends Etappe {
 	/**
 	 * Set of uitslagen.
 	 */
+	@OneToMany
+	@JoinTable(name="STANDAARDETAPPE_ETAPPEUITSLAG", 
+			joinColumns = 
+				@JoinColumn(name="STANDAARDETAPPE_ETAPPENUMMER", referencedColumnName="ETAPPENUMMER"),
+			inverseJoinColumns = {
+				@JoinColumn(name="ETAPPEUITSLAG_ETAPPENUMMER", referencedColumnName="ETAPPENUMMER"),
+				@JoinColumn(name="ETAPPEUITLSLAG_POSITIE", referencedColumnName="POSITIE")
+		}
+	)
 	private Set<EtappeUitslag> etappeUitslag;
 	
 	

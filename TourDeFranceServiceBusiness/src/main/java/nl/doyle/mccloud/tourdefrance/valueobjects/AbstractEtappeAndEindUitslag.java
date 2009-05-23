@@ -3,19 +3,71 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import nl.doyle.mccloud.tourdefrance.valueobjects.visitor.ValueObjectVisitor;
 
+@Entity
+@Inheritance(strategy=InheritanceType.JOINED)
+@Table(name="TOUR.ETAPPEANDEINDUITSLAG")
 public abstract class AbstractEtappeAndEindUitslag {
 
+	@Id
+	@Column(name="ETAPPENUMMER")
 	private int etappenummer;
+	
+	@Column(name="OMSCHRIJVING")
 	private String omschrijving;
 	//TODO Change this into a single Uitslag object per category. The uitslag object contains the number of recorded positions, etc.
+
+	@OneToMany
+	@JoinTable(name="ETAPPE_GELETRUIUITSLAG", 
+			joinColumns = 
+				@JoinColumn(name="ETAPPE_ETAPPENUMMER", referencedColumnName="ETAPPENUMMER"),
+			inverseJoinColumns = {
+				@JoinColumn(name="GELETRUI_ETAPPENUMMER", referencedColumnName="ETAPPENUMMER"),
+				@JoinColumn(name="GELETRUI_POSITIE", referencedColumnName="POSITIE")
+		}
+	)
 	private Set<GeleTruiUitslag> geleTruiUitslag;
+	
+	
+	@OneToMany
+	@JoinTable(name="ETAPPE_GROENETRUIUITSLAG", 
+			joinColumns = 
+				@JoinColumn(name="ETAPPE_ETAPPENUMMER", referencedColumnName="ETAPPENUMMER"),
+			inverseJoinColumns = {
+				@JoinColumn(name="GROENE_ETAPPENUMMER", referencedColumnName="ETAPPENUMMER"),
+				@JoinColumn(name="GROENETRUI_POSITIE", referencedColumnName="POSITIE")
+		}
+	)
 	private Set<GroeneTruiUitslag> groeneTruiUitslag;
+	
+	@OneToMany
+	@JoinTable(name="ETAPPE_BOLLETJESRUIUITSLAG", 
+			joinColumns = 
+				@JoinColumn(name="ETAPPE_ETAPPENUMMER", referencedColumnName="ETAPPENUMMER"),
+			inverseJoinColumns = {
+				@JoinColumn(name="BOLLETJES_ETAPPENUMMER", referencedColumnName="ETAPPENUMMER"),
+				@JoinColumn(name="BOLLETJES_POSITIE", referencedColumnName="POSITIE")
+		}
+	)
 	private Set<BolletjesTruiUitslag> bolletjesTruiUitslag;
+	
 	/**
 	 * The most combative racer
 	 */
+	@ManyToOne
+	@JoinColumn(name="MOST_COMBATIVE_RACER")
 	private Renner mostCombativeRacer;
 
 	/**

@@ -1,5 +1,8 @@
 package nl.doyle.mccloud.tourdefrance.valueobjects;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * Defines the yellow jersey ranking. Defines the racer's position in the yellow jersey ranking after the specified stage.
  * 
@@ -7,6 +10,8 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
  * @author Duncan Doyle
  * @since 0.1
  */
+@Entity
+@Table(name="GELETRUIUITSLAG")
 public class GeleTruiUitslag extends Uitslag {
 
 	/**

@@ -2,6 +2,14 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
@@ -10,19 +18,24 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author Duncan Doyle
  * @since 0.1
  */
-
+@Entity
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class Uitslag implements Serializable {
 
 	/**
 	 * Serial version UID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	/* TODO Maybe change this implementation. The etappe owns its uitslag object, so maybe this should contain an array of renners, no
 	 * etappenummer. If we change this, the etappe should contain a result object, not a set of result objects.
 	 */
-	private int etappenummer;
-	private int positie;
+	
+	@EmbeddedId
+	private UitslagPk uitslagPk;
+	
+	@ManyToOne
+	@JoinColumn(name="RENNER")
 	private Renner renner;
 
 	/**
@@ -34,11 +47,11 @@ public abstract class Uitslag implements Serializable {
 	}
 
 	public int getPositie() {
-		return positie;
+		return uitslagPk.getPositie();
 	}
 
 	public void setPositie(final int positie) {
-		this.positie = positie;
+		uitslagPk.setPositie(positie);
 	}
 
 	public Renner getRenner() {
@@ -50,11 +63,11 @@ public abstract class Uitslag implements Serializable {
 	}
 
 	public int getEtappenummer() {
-		return etappenummer;
+		return uitslagPk.getEtappenummer();
 	}
 
 	public void setEtappenummer(final int etappenummer) {
-		this.etappenummer = etappenummer;
+		uitslagPk.setEtappenummer(etappenummer);
 	}
 
 	public String toString() {

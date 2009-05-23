@@ -2,6 +2,11 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * Defines the winning amount for the specified categorie and position.
  * 
@@ -9,12 +14,14 @@ import java.io.Serializable;
  * @since 0.1
  * @see Categorien
  */
+@Entity
+@Table(name = "TOUR.UITSLAG_BEDRAG")
 public final class UitslagBedrag implements Serializable {
 
 	/**
 	 * Serial version UID.
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	/**
 	 * Categories in result (both stage and final result).
@@ -38,20 +45,20 @@ public final class UitslagBedrag implements Serializable {
 	};
 
 	/**
-	 * The categorie of the amount.
+	 * The class's composite primary key object. 
 	 */
-	private Categorien categorie;
-
-	/**
-	 * The position within the categorie.
-	 */
-	private int positie;
+	@EmbeddedId
+	private UitslagBedragPk uitslagBedragPk = new UitslagBedragPk();
 
 	/**
 	 * The amount.
 	 */
+	@Column(name = "BEDRAG")
 	private double bedrag;
 
+	/**
+	 * Default constructor.
+	 */
 	public UitslagBedrag() {
 	}
 
@@ -74,7 +81,7 @@ public final class UitslagBedrag implements Serializable {
 	 * @return the categorie
 	 */
 	public Categorien getCategorie() {
-		return categorie;
+		return uitslagBedragPk.getCategorie();
 	}
 
 	/**
@@ -82,14 +89,14 @@ public final class UitslagBedrag implements Serializable {
 	 *            the categorie to set
 	 */
 	public void setCategorie(final Categorien categorie) {
-		this.categorie = categorie;
+		uitslagBedragPk.setCategorie(categorie);
 	}
 
 	/**
 	 * @return the positie
 	 */
 	public int getPositie() {
-		return positie;
+		return uitslagBedragPk.getPositie();
 	}
 
 	/**
@@ -97,7 +104,7 @@ public final class UitslagBedrag implements Serializable {
 	 *            the positie to set
 	 */
 	public void setPositie(final int positie) {
-		this.positie = positie;
+		uitslagBedragPk.setPositie(positie);
 	}
 
 }

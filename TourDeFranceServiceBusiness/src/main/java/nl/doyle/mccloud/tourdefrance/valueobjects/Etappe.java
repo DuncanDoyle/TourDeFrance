@@ -2,21 +2,34 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="TOUR.ETAPPE")
 public abstract class Etappe extends AbstractEtappeAndEindUitslag {
 
 	/**
 	 * The date of the etappe.
 	 */
+	@Column(name="DATUM")
 	private Date datum;
 
 	/**
 	 * The start city.
 	 */
+	@ManyToOne
+	@JoinColumn(name="STARTPLAATS")
 	private Stad startplaats;
 
 	/**
 	 * The finish city.
 	 */
+	@ManyToOne
+	@JoinColumn(name="FINISHPLAATS")
 	private Stad finishplaats;
 
 	/**

@@ -1,7 +1,12 @@
 package nl.doyle.mccloud.tourdefrance.valueobjects;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import nl.doyle.mccloud.tourdefrance.valueobjects.visitor.ValueObjectVisitor;
 
+@Entity
+@Table(name="TOUR.PLOEGENTIJDRIT")
 public class PloegenTijdrit extends Etappe {
 
 	/**

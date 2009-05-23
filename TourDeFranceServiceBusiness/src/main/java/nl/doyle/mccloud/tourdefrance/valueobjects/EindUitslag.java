@@ -1,12 +1,26 @@
 package nl.doyle.mccloud.tourdefrance.valueobjects;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import nl.doyle.mccloud.tourdefrance.valueobjects.visitor.ValueObjectVisitor;
 
-
+@Entity
+@Table(name="TOUR.EINDUITSLAG")
 public class EindUitslag extends AbstractEtappeAndEindUitslag {
 	
+	@ManyToOne
+	@JoinColumn(name="EERSTEUITVALLER", unique=true)
 	private Renner eersteUitvaller;
+	
+	@ManyToOne
+	@JoinColumn(name="RODELANTAREN", unique=true)
 	private Renner rodeLantaren;
+	
+	@ManyToOne
+	@JoinColumn(name="WITTETRUI", unique=true)
 	private Renner witteTrui;
 	
 	public EindUitslag() {
