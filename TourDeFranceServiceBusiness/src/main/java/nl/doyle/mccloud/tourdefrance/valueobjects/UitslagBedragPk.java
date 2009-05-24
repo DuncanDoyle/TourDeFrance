@@ -8,7 +8,7 @@ import javax.persistence.Embeddable;
 import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagBedrag.Categorien;
 
 /**
- * Primary key of the {@link UitslagBedrag} class. Needed for JPA implementation. 
+ * Primary key of the {@link UitslagBedrag} class. Needed for JPA implementation.
  * 
  * @author Duncan Doyle
  * @since 0.3
@@ -21,19 +21,36 @@ public class UitslagBedragPk implements Serializable {
 	 */
 	private static final long serialVersionUID = 2L;
 
-
 	/**
 	 * The categorie of the amount.
 	 */
 	@Column(name = "CATEGORIE", nullable = false)
 	private Categorien categorie;
-	
 
 	/**
 	 * The position within the categorie.
 	 */
 	@Column(name = "POSITIE", nullable = false)
 	private int positie;
+
+	/**
+	 * Default constructor.
+	 */
+	public UitslagBedragPk() {
+	}
+
+	/**
+	 * Constructor which initializes the category and position.
+	 * 
+	 * @param categorie
+	 *            the @link {@link Categorien categorie}.
+	 * @param positie
+	 *            the position.
+	 */
+	public UitslagBedragPk(final Categorien categorie, final int positie) {
+		this.categorie = categorie;
+		this.positie = positie;
+	}
 
 	/**
 	 * @return the categorie
@@ -43,7 +60,8 @@ public class UitslagBedragPk implements Serializable {
 	}
 
 	/**
-	 * @param categorie the categorie to set
+	 * @param categorie
+	 *            the categorie to set
 	 */
 	public void setCategorie(Categorien categorie) {
 		this.categorie = categorie;
@@ -57,12 +75,11 @@ public class UitslagBedragPk implements Serializable {
 	}
 
 	/**
-	 * @param positie the positie to set
+	 * @param positie
+	 *            the positie to set
 	 */
 	public void setPositie(int positie) {
 		this.positie = positie;
 	}
-	
-	
-	
+
 }

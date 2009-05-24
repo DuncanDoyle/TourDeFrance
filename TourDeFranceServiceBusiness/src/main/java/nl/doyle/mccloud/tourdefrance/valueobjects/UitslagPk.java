@@ -13,17 +13,36 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class UitslagPk implements Serializable {
-	
+
 	/**
 	 * Serial version UID.
 	 */
 	private static final long serialVersionUID = 2L;
 
-	@Column(name="ETAPPENUMMER", nullable=false)
+	@Column(name = "ETAPPENUMMER", nullable = false)
 	private int etappenummer;
-	
-	@Column(name="POSITIE", nullable=false)
+
+	@Column(name = "POSITIE", nullable = false)
 	private int positie;
+
+	/**
+	 * Default constructor.
+	 */
+	public UitslagPk() {
+	}
+	
+	/**
+	 * Constructor which initializes the stage number and position.
+	 * 
+	 * @param etappenummer
+	 *            the stage number.
+	 * @param positie
+	 *            the position.
+	 */
+	public UitslagPk(final int etappenummer, final int positie) {
+		this.etappenummer = etappenummer;
+		this.positie = positie;
+	}
 
 	/**
 	 * @return the etappenummer
@@ -33,7 +52,8 @@ public class UitslagPk implements Serializable {
 	}
 
 	/**
-	 * @param etappenummer the etappenummer to set
+	 * @param etappenummer
+	 *            the etappenummer to set
 	 */
 	public void setEtappenummer(int etappenummer) {
 		this.etappenummer = etappenummer;
@@ -47,10 +67,11 @@ public class UitslagPk implements Serializable {
 	}
 
 	/**
-	 * @param positie the positie to set
+	 * @param positie
+	 *            the positie to set
 	 */
 	public void setPositie(int positie) {
 		this.positie = positie;
 	}
-	
+
 }

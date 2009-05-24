@@ -132,7 +132,7 @@ public class StandaardEtappeDaoHibernateImpl extends HibernateDaoSupport impleme
 	 * @return StandaardEtappe
 	 */
 	@SuppressWarnings("unchecked")
-	public List<StandaardEtappe> loadAllStandaardEtappesWithStedenEager() {
+	public List<StandaardEtappe> loadAllStandaardEtappesWithStartAndFinishEager() {
 		final String hql = "from StandaardEtappe st " + "left join fetch st.startplaats " + "left join fetch st.finishplaats";
 
 		List<StandaardEtappe> etappes = (List<StandaardEtappe>) getHibernateTemplate().execute(new HibernateCallback() {

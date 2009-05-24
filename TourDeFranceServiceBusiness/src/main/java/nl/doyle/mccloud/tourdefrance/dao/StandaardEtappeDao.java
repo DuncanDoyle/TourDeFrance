@@ -11,7 +11,7 @@ public interface StandaardEtappeDao {
 	public StandaardEtappe loadStandaardEtappeWithStartAndFinish(final int etappenummer);
 	public void saveStandaardEtappe(final StandaardEtappe saveStandaardEtappe);
 	public StandaardEtappe loadStandaardEtappeWithUitslagEager(final int etappenummer);
-	public List<StandaardEtappe> loadAllStandaardEtappesWithStedenEager();
+	public List<StandaardEtappe> loadAllStandaardEtappesWithStartAndFinishEager();
 	public int getHighestEtappeNummer();
 	//public void deleteAllStandaardEtappes();
 	

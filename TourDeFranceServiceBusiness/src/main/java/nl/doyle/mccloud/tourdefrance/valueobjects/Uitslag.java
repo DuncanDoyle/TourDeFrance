@@ -2,7 +2,6 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -32,7 +31,7 @@ public abstract class Uitslag implements Serializable {
 	 */
 	
 	@EmbeddedId
-	private UitslagPk uitslagPk;
+	private UitslagPk uitslagPk = new UitslagPk();
 	
 	@ManyToOne
 	@JoinColumn(name="RENNER")

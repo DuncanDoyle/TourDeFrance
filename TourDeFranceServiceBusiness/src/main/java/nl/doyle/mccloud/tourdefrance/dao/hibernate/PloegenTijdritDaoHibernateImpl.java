@@ -114,7 +114,7 @@ public class PloegenTijdritDaoHibernateImpl extends HibernateDaoSupport implemen
 	 * @return StandaardEtappe
 	 */
 	@SuppressWarnings("unchecked")
-	public List<PloegenTijdrit> loadAllPloegenTijdrittenWithStedenEager() {
+	public List<PloegenTijdrit> loadAllPloegenTijdrittenWithStartAndFinishEager() {
 		final String hql = "from PloegenTijdrit pt " + "left join fetch pt.startplaats " + "left join fetch pt.finishplaats";
 
 		List<PloegenTijdrit> etappes = (List<PloegenTijdrit>) getHibernateTemplate().execute(new HibernateCallback() {

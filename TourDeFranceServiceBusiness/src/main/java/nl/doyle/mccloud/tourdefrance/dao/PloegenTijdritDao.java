@@ -13,7 +13,7 @@ public interface PloegenTijdritDao {
 	public PloegenTijdrit loadPloegenTijdritWithUitslagEager(final int etappenummer);
 	public PloegenTijdrit loadPloegenTijdritWithStartAndFinish(final int etappenummer);
 	public void savePloegenTijdrit(final PloegenTijdrit savePloegenTijdrit);
-	public List<PloegenTijdrit> loadAllPloegenTijdrittenWithStedenEager();
+	public List<PloegenTijdrit> loadAllPloegenTijdrittenWithStartAndFinishEager();
 	public int getHighestEtappeNummer();
 	//public void deleteAllPloegenTijdritten();
 	
