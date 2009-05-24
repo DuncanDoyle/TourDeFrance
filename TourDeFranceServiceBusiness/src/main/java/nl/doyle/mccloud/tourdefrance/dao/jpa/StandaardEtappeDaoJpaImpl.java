@@ -13,6 +13,7 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 
 import org.springframework.orm.jpa.JpaCallback;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * JPA implementation of the {@link StandaardEtappeDao} interface.
@@ -83,6 +84,7 @@ public class StandaardEtappeDaoJpaImpl extends JpaDaoSupport implements Standaar
 	 *            Nummer van de te laden etappe
 	 * @return StandaardEtappe
 	 */
+	@Transactional
 	public StandaardEtappe loadStandaardEtappeWithUitslagEager(final int etappenummer) {
 		// TODO Deze methode moet in volgende versies van Hibernate makkelijker kunnen.
 		/*
@@ -140,6 +142,7 @@ public class StandaardEtappeDaoJpaImpl extends JpaDaoSupport implements Standaar
 	 * @param saveStandaardEtappe
 	 *            the {@link StandaardEtappe} to be stored.
 	 */
+	@Transactional
 	public void saveStandaardEtappe(final StandaardEtappe saveStandaardEtappe) {
 		getJpaTemplate().merge(saveStandaardEtappe);
 	}
@@ -150,6 +153,7 @@ public class StandaardEtappeDaoJpaImpl extends JpaDaoSupport implements Standaar
 	 * @param deleteStandaardEtappe
 	 *            the {@link StandaardEtappe} to be removed.
 	 */
+	@Transactional
 	public void deleteStandaardEtappe(final StandaardEtappe deleteStandaardEtappe) {
 		getJpaTemplate().remove(deleteStandaardEtappe);
 	}

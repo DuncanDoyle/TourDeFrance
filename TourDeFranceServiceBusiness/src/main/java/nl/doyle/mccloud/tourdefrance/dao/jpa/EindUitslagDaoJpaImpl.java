@@ -5,6 +5,7 @@ import nl.doyle.mccloud.tourdefrance.util.JpaUtil;
 import nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag;
 
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * JPA implementation of the {@link EindUitslagDao} interface.
@@ -28,6 +29,7 @@ public class EindUitslagDaoJpaImpl extends JpaDaoSupport implements EindUitslagD
 	 * 
 	 * @return the {@link EindUitslag}.
 	 */
+	@Transactional
 	public EindUitslag loadEindUitslagWithUitslagEager() {
 		// TODO Auto-generated method stub
 		EindUitslag uitslag = loadEindUitslag();
@@ -52,6 +54,7 @@ public class EindUitslagDaoJpaImpl extends JpaDaoSupport implements EindUitslagD
 	 * @param saveEindUitslag
 	 *            the {@link EindUitslag} to be saved.
 	 */
+	@Transactional
 	public void saveEindUitslag(EindUitslag saveEindUitslag) {
 		getJpaTemplate().merge(saveEindUitslag);
 	}

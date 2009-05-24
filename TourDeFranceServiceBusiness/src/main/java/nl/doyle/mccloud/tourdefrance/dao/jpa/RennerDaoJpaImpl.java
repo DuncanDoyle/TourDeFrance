@@ -9,8 +9,10 @@ import javax.persistence.Query;
 import nl.doyle.mccloud.tourdefrance.dao.RennerDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 
+import org.springframework.beans.factory.config.SetFactoryBean;
 import org.springframework.orm.jpa.JpaCallback;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * JPA implementation of the {@link RennerDao} interface.
@@ -39,6 +41,7 @@ public class RennerDaoJpaImpl extends JpaDaoSupport implements RennerDao {
 	 * 
 	 * @see Renner
 	 */
+	@Transactional
 	public void deleteRenner(Renner deleteRenner) {
 		getJpaTemplate().remove(deleteRenner);
 	}
@@ -90,7 +93,8 @@ public class RennerDaoJpaImpl extends JpaDaoSupport implements RennerDao {
 	 * 
 	 * @see Renner
 	 */
-	public void saveRenner(Renner saveRenner) {
+	@Transactional
+	public void saveRenner(final Renner saveRenner) {
 		getJpaTemplate().merge(saveRenner);
 	}
 

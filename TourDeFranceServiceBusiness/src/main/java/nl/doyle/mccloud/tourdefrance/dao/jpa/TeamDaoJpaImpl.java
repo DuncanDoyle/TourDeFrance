@@ -6,6 +6,7 @@ import nl.doyle.mccloud.tourdefrance.dao.TeamDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Team;
 
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 public class TeamDaoJpaImpl extends JpaDaoSupport implements TeamDao {
 
@@ -20,6 +21,7 @@ public class TeamDaoJpaImpl extends JpaDaoSupport implements TeamDao {
 	 * @param the
 	 *            {@link Team} to be removed.
 	 */
+	@Transactional
 	public void deleteTeam(final Team delTeam) {
 		getJpaTemplate().remove(delTeam);
 	}
@@ -53,6 +55,7 @@ public class TeamDaoJpaImpl extends JpaDaoSupport implements TeamDao {
 	 * @param saveTeam
 	 *            the {@link Team} to be stored.
 	 */
+	@Transactional
 	public void saveTeam(final Team saveTeam) {
 		getJpaTemplate().merge(saveTeam);
 	}

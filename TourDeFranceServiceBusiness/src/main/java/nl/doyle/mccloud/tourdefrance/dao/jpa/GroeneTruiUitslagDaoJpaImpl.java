@@ -7,6 +7,7 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.GroeneTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagPk;
 
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * JPA implementation of the {@link GroeneTruiUitslagDao} interface.
@@ -27,6 +28,7 @@ public class GroeneTruiUitslagDaoJpaImpl extends JpaDaoSupport implements Groene
 	 * @param the
 	 *            {@link GroeneTruiUitslag} to be deleted.
 	 */
+	@Transactional
 	public void deleteGroeneTruiUitslag(GroeneTruiUitslag delGroeneTruiUitslag) {
 		getJpaTemplate().remove(delGroeneTruiUitslag);
 	}
@@ -59,6 +61,7 @@ public class GroeneTruiUitslagDaoJpaImpl extends JpaDaoSupport implements Groene
 	/**
 	 * Saves or updates the given {@link GroeneTruiUitslag} in the database.
 	 */
+	@Transactional
 	public void saveGroeneTruiUitslag(GroeneTruiUitslag saveGroeneTruiUitslag) {
 		getJpaTemplate().merge(saveGroeneTruiUitslag);
 	}

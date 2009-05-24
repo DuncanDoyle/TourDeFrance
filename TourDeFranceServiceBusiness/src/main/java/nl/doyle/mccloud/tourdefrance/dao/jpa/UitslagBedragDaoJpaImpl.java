@@ -12,6 +12,7 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagBedrag.Categorien;
 
 import org.springframework.orm.jpa.JpaCallback;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * JPA implementation of the {@link UitslagBedragDao} interface.
@@ -65,6 +66,7 @@ public class UitslagBedragDaoJpaImpl extends JpaDaoSupport implements UitslagBed
 	 * @param saveUitslagBedrag
 	 *            the {@link UitslagBedrag} to be saved.
 	 */
+	@Transactional
 	public void saveUitslagBedrag(UitslagBedrag saveUitslagBedrag) {
 		getJpaTemplate().merge(saveUitslagBedrag);
 	}

@@ -7,6 +7,7 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.EtappeUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagPk;
 
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * JPA implementation of the {@link EtappeUitslagDao} interface.
@@ -27,6 +28,7 @@ public class EtappeUitslagDaoJpaImpl extends JpaDaoSupport implements EtappeUits
 	 * @param delEtappeUitslag
 	 *            the {@link EtappeUitslag} to be removed.
 	 */
+	@Transactional
 	public void deleteEtappeUitslag(final EtappeUitslag delEtappeUitslag) {
 		getJpaTemplate().remove(delEtappeUitslag);
 	}
@@ -60,7 +62,8 @@ public class EtappeUitslagDaoJpaImpl extends JpaDaoSupport implements EtappeUits
 	 * @param saveEtappeUitslag
 	 *            the {@link EtappeUitslag} to be saved.
 	 */
-	public void saveEtappeUitslag(EtappeUitslag saveEtappeUitslag) {
+	@Transactional
+	public void saveEtappeUitslag(final EtappeUitslag saveEtappeUitslag) {
 		getJpaTemplate().merge(saveEtappeUitslag);
 	}
 

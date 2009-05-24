@@ -11,6 +11,7 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.Stad;
 
 import org.springframework.orm.jpa.JpaCallback;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * JPA implementation of the {@link StadDao} interface.
@@ -31,6 +32,7 @@ public class StadDaoJpaImpl extends JpaDaoSupport implements StadDao {
 	 * @param delStad
 	 *            the {@link Stad} to be deleted.
 	 */
+	@Transactional
 	public void deleteStad(Stad delStad) {
 		getJpaTemplate().remove(delStad);
 
@@ -80,6 +82,7 @@ public class StadDaoJpaImpl extends JpaDaoSupport implements StadDao {
 	/**
 	 * Stores or updates the given {@link Stad} in the database.
 	 */
+	@Transactional
 	public void saveOrUpdateStad(Stad saveStad) {
 		getJpaTemplate().merge(saveStad);
 

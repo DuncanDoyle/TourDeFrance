@@ -15,6 +15,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.orm.jpa.JpaCallback;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * JPA implementation of the {@link DeelnemerDao} interface.
@@ -86,6 +87,7 @@ public class DeelnemerDaoJpaImpl extends JpaDaoSupport implements DeelnemerDao {
 	 * 
 	 * @see Deelnemer
 	 */
+	@Transactional
 	public List<Deelnemer> loadAllDeelnemersEager() {
 		// TODO Performance verbeteren. Misschien kunnen we dit verbeteren door een HQL statement aan te maken waarin we de renners meteen
 		// fetchen.
@@ -103,6 +105,7 @@ public class DeelnemerDaoJpaImpl extends JpaDaoSupport implements DeelnemerDao {
 	 * 
 	 * @param saveDeelnemer the {@link Deelnemer} to be saved.
 	 */
+	@Transactional
 	public void saveDeelnemer(final Deelnemer saveDeelnemer) {
 		getJpaTemplate().merge(saveDeelnemer);
 	}
@@ -121,6 +124,7 @@ public class DeelnemerDaoJpaImpl extends JpaDaoSupport implements DeelnemerDao {
 	 * @param rekeningnummer
 	 *            Rekeningnummer van de deelnemer
 	 */
+	@Transactional
 	public void saveDeelnemerDataExcludingForeignKeys(final int nummer, final String voornaam, final String achternaam, final String email,
 			final String rekeningnummer) {
 
@@ -151,7 +155,7 @@ public class DeelnemerDaoJpaImpl extends JpaDaoSupport implements DeelnemerDao {
 	 * 
 	 * @return
 	 */
-
+	@Transactional
 	public void deleteDeelnemer(final Deelnemer delDeelnemer) {
 		getJpaTemplate().remove(delDeelnemer);
 	}

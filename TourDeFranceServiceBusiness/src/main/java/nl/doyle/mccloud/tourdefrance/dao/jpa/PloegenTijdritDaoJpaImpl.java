@@ -14,6 +14,7 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.Stad;
 
 import org.springframework.orm.jpa.JpaCallback;
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * JPA implementation of the {@link StandaardEtappeDao} interface.
@@ -34,6 +35,7 @@ public class PloegenTijdritDaoJpaImpl extends JpaDaoSupport implements PloegenTi
 	 * @param deletePloegenTijdrit
 	 *            the {@link PloegenTijdrit} to be deleted.
 	 */
+	@Transactional
 	public void deletePloegenTijdrit(final PloegenTijdrit deletePloegenTijdrit) {
 		getJpaTemplate().remove(deletePloegenTijdrit);
 	}
@@ -67,6 +69,7 @@ public class PloegenTijdritDaoJpaImpl extends JpaDaoSupport implements PloegenTi
 	 *            Het etappenummer
 	 * @return De ploegentijdrit
 	 */
+	@Transactional
 	public PloegenTijdrit loadPloegenTijdritWithUitslagEager(int etappenummer) {
 		PloegenTijdrit etappe = loadPloegenTijdritWithStartAndFinish(etappenummer);
 		if (etappe != null) {
@@ -107,6 +110,7 @@ public class PloegenTijdritDaoJpaImpl extends JpaDaoSupport implements PloegenTi
 	 * @param savePloegenTijdrit
 	 *            the {@link PloegenTijdrit} toe be stored.
 	 */
+	@Transactional
 	public void savePloegenTijdrit(final PloegenTijdrit savePloegenTijdrit) {
 		getJpaTemplate().merge(savePloegenTijdrit);
 	}

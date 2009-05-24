@@ -2,6 +2,7 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -30,7 +31,7 @@ public class Team {
 	/**
 	 * The team's renners.
 	 */
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="TEAM_RENNER", 
 			joinColumns = 
 				@JoinColumn(name="TEAMNUMMER", referencedColumnName="NUMMER"),

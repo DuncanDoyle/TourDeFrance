@@ -7,6 +7,7 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.GeleTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagPk;
 
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * JPA implementation of the {@link GeleTruiUitslagDao} interface.
@@ -27,7 +28,8 @@ public class GeleTruiUitslagDaoJpaImpl extends JpaDaoSupport implements GeleTrui
 	 * @param the
 	 *            {@link GeleTruiUitslag} to be deleted.
 	 */
-	public void deleteGeleTruiUitslag(GeleTruiUitslag delGeleTruiUitslag) {
+	@Transactional
+	public void deleteGeleTruiUitslag(final GeleTruiUitslag delGeleTruiUitslag) {
 		getJpaTemplate().remove(delGeleTruiUitslag);
 	}
 
@@ -52,14 +54,15 @@ public class GeleTruiUitslagDaoJpaImpl extends JpaDaoSupport implements GeleTrui
 	 * @return the {@link GeleTruiUitslag} with the given stage number and position.
 	 * 
 	 */
-	public GeleTruiUitslag loadGeleTruiUitslag(int etappeNummer, int positieNummer) {
+	public GeleTruiUitslag loadGeleTruiUitslag(final int etappeNummer, final int positieNummer) {
 		return getJpaTemplate().find(GeleTruiUitslag.class, new UitslagPk(etappeNummer, positieNummer));
 	}
 
 	/**
 	 * Saves or updates the given {@link GeleTruiUitslag} in the database.
 	 */
-	public void saveGeleTruiUitslag(GeleTruiUitslag saveGeleTruiUitslag) {
+	@Transactional
+	public void saveGeleTruiUitslag(final GeleTruiUitslag saveGeleTruiUitslag) {
 		getJpaTemplate().merge(saveGeleTruiUitslag);
 	}
 

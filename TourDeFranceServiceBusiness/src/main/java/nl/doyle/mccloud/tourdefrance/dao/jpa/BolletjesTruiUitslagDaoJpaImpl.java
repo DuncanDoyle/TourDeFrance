@@ -7,6 +7,7 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.BolletjesTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagPk;
 
 import org.springframework.orm.jpa.support.JpaDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * JPA implementation of the {@link BolletjesTruiUitslagDao} interface.
@@ -27,6 +28,7 @@ public class BolletjesTruiUitslagDaoJpaImpl extends JpaDaoSupport implements Bol
 	 * @param delBolletjesTruiUitslag
 	 *            the {@link BolletjesTruiUitslag} to be removed.
 	 */
+	@Transactional
 	public void deleteBolletjesTruiUitslag(final BolletjesTruiUitslag delBolletjesTruiUitslag) {
 		getJpaTemplate().remove(delBolletjesTruiUitslag);
 	}
@@ -63,6 +65,7 @@ public class BolletjesTruiUitslagDaoJpaImpl extends JpaDaoSupport implements Bol
 	 * @param saveBolletjesTruiUitslag
 	 *            the {@link BolletjesTruiUitslag} to be saved.
 	 */
+	@Transactional
 	public void saveBolletjesTruiUitslag(BolletjesTruiUitslag saveBolletjesTruiUitslag) {
 		getJpaTemplate().merge(saveBolletjesTruiUitslag);
 	}

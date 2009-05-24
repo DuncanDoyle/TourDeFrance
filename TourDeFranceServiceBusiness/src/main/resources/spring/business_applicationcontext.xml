@@ -137,6 +137,10 @@
 			<ref local="tourDeFranceDataSource" />
 		</property>
 	</bean>
+	
+	<!-- enable the configuration of transactional behavior based on annotations -->
+	<tx:annotation-driven transaction-manager="tourJpaTransactionManager"/>
+	
 
 	<!--
 		<bean id="productDao" class="nl.doyle.mccloud.dowjones.dao.jpa.JpaProductDao"> <property name="entityManagerFactory"
@@ -144,13 +148,13 @@
 	-->
 
 	<!-- Declaration of all DAO's -->
-	<bean id="abstractDaoHibernate" abstract="true">
 	<!-- 
+	<bean id="abstractDaoHibernate" abstract="true">
 		<property name="sessionFactory">
 			<ref local="tourDeFranceSessionFactory" />
 		</property>
- 	-->	
-	</bean>
+ 	</bean>
+ 	 -->
 	<bean id="abstractDaoJpa" abstract="true">
 		<property name="entityManagerFactory">
 			<ref local="entityManagerFactory" />
@@ -164,19 +168,19 @@
 		</property>
 	</bean>
 	
-	<bean id="deelnemerDao" parent="abstractDaoHibernate" class="nl.doyle.mccloud.tourdefrance.dao.hibernate.DeelnemerDaoHibernateImpl" />
-	<bean id="rennerDao" parent="abstractDaoHibernate" class="nl.doyle.mccloud.tourdefrance.dao.hibernate.RennerDaoHibernateImpl" />
-	<bean id="standaardEtappeDao" parent="abstractDaoHibernate" class="nl.doyle.mccloud.tourdefrance.dao.hibernate.StandaardEtappeDaoHibernateImpl" />
-	<bean id="ploegenTijdritDao" parent="abstractDaoHibernate" class="nl.doyle.mccloud.tourdefrance.dao.hibernate.PloegenTijdritDaoHibernateImpl" />
-	<bean id="etappeUitslagDao" parent="abstractDaoHibernate" class="nl.doyle.mccloud.tourdefrance.dao.hibernate.EtappeUitslagDaoHibernateImpl" />
-	<bean id="geleTruiUitslagDao" parent="abstractDaoHibernate" class="nl.doyle.mccloud.tourdefrance.dao.hibernate.GeleTruiUitslagDaoHibernateImpl" />
-	<bean id="groeneTruiUitslagDao" parent="abstractDaoHibernate" class="nl.doyle.mccloud.tourdefrance.dao.hibernate.GroeneTruiUitslagDaoHibernateImpl" />
-	<bean id="bolletjesTruiUitslagDao" parent="abstractDaoHibernate" class="nl.doyle.mccloud.tourdefrance.dao.hibernate.BolletjesTruiUitslagDaoHibernateImpl" />
-	<bean id="teamDao" parent="abstractDaoHibernate" class="nl.doyle.mccloud.tourdefrance.dao.hibernate.TeamDaoHibernateImpl" />
+	<bean id="deelnemerDao" parent="abstractDaoJpa" class="nl.doyle.mccloud.tourdefrance.dao.jpa.DeelnemerDaoJpaImpl" />
+	<bean id="rennerDao" parent="abstractDaoJpa" class="nl.doyle.mccloud.tourdefrance.dao.jpa.RennerDaoJpaImpl" />
+	<bean id="standaardEtappeDao" parent="abstractDaoJpa" class="nl.doyle.mccloud.tourdefrance.dao.jpa.StandaardEtappeDaoJpaImpl" />
+	<bean id="ploegenTijdritDao" parent="abstractDaoJpa" class="nl.doyle.mccloud.tourdefrance.dao.jpa.PloegenTijdritDaoJpaImpl" />
+	<bean id="etappeUitslagDao" parent="abstractDaoJpa" class="nl.doyle.mccloud.tourdefrance.dao.jpa.EtappeUitslagDaoJpaImpl" />
+	<bean id="geleTruiUitslagDao" parent="abstractDaoJpa" class="nl.doyle.mccloud.tourdefrance.dao.jpa.GeleTruiUitslagDaoJpaImpl" />
+	<bean id="groeneTruiUitslagDao" parent="abstractDaoJpa" class="nl.doyle.mccloud.tourdefrance.dao.jpa.GroeneTruiUitslagDaoJpaImpl" />
+	<bean id="bolletjesTruiUitslagDao" parent="abstractDaoJpa" class="nl.doyle.mccloud.tourdefrance.dao.jpa.BolletjesTruiUitslagDaoJpaImpl" />
+	<bean id="teamDao" parent="abstractDaoJpa" class="nl.doyle.mccloud.tourdefrance.dao.jpa.TeamDaoJpaImpl" />
 	<bean id="gameSetupDao" parent="abstractDaoJdbc" class="nl.doyle.mccloud.tourdefrance.setup.dao.GameSetupDaoImpl" />
-	<bean id="stadDao" parent="abstractDaoHibernate" class="nl.doyle.mccloud.tourdefrance.dao.hibernate.StadDaoHibernateImpl" />
-	<bean id="uitslagBedragDao" parent="abstractDaoHibernate" class="nl.doyle.mccloud.tourdefrance.dao.hibernate.UitslagBedragDaoHibernateImpl" />
-	<bean id="eindUitslagDao" parent="abstractDaoHibernate" class="nl.doyle.mccloud.tourdefrance.dao.hibernate.EindUitslagDaoHibernateImpl" />
+	<bean id="stadDao" parent="abstractDaoJpa" class="nl.doyle.mccloud.tourdefrance.dao.jpa.StadDaoJpaImpl" />
+	<bean id="uitslagBedragDao" parent="abstractDaoJpa" class="nl.doyle.mccloud.tourdefrance.dao.jpa.UitslagBedragDaoJpaImpl" />
+	<bean id="eindUitslagDao" parent="abstractDaoJpa" class="nl.doyle.mccloud.tourdefrance.dao.jpa.EindUitslagDaoJpaImpl" />
 
 	<!-- Definition of all controllers -->
 	<bean id="gameSetupController" class="nl.doyle.mccloud.tourdefrance.setup.GameSetupControllerImpl">
@@ -249,54 +253,5 @@
 	<bean id="jamonPerformanceAop"
 		class="nl.doyle.mccloud.aop.JamonPerformanceAop"/>
 	-->
-
-	<!-- AOP config voor TransactionManagement -->
-	<aop:config>
-		<aop:pointcut id="hibernateDeelnemerTransactions" expression="execution(* nl.doyle.mccloud.tourdefrance.dao.hibernate.DeelnemerDaoHibernateImpl.*(..))" />
-		<aop:pointcut id="hibernateStandaardEtappeTransactions" expression="execution(* nl.doyle.mccloud.tourdefrance.dao.hibernate.StandaardEtappeDaoHibernateImpl.*(..))" />
-		<aop:pointcut id="hibernatePloegenTijdritTransactions" expression="execution(* nl.doyle.mccloud.tourdefrance.dao.hibernate.PloegenTijdritDaoHibernateImpl.*(..))" />
-		<aop:pointcut id="hibernateEindUitslagTransactions" expression="execution(* nl.doyle.mccloud.tourdefrance.dao.hibernate.EindUitslagDaoHibernateImpl.*(..))" />
-		<!--
-			<aop:pointcut id="jdbcTransactions" expression="execution(*
-			nl.doyle.mccloud.tourdefrance.setup.dao.*.*(..))"/>
-		-->
-		<!--
-			JDBC calls kunnen ook meefietsen op een Hibernate transaction wanneer er gebruik wordt gemaakt van JDBCDaoSupport Zo kunnen we Hibernate
-			en JDBC mixen in dezelfde transactie
-		-->
-		<aop:pointcut id="setupDaoTransactions" expression="execution(* nl.doyle.mccloud.tourdefrance.setup.dao.*.*(..))" />
-		<aop:pointcut id="gameSetupGenerateTeams" expression="execution(* nl.doyle.mccloud.tourdefrance.setup.GameSetupControllerImpl.generateDeelnemerTeams(..))" />
-		<aop:pointcut id="gameSetupInitializeGame" expression="execution(* nl.doyle.mccloud.tourdefrance.setup.GameSetupControllerImpl.initializeGame(..))" />
-		<aop:pointcut id="calculatorPointcut" expression="execution(* nl.doyle.mccloud.tourdefrance.calculator.CalculatorImpl.*(..))" />
-		<aop:advisor pointcut-ref="hibernateDeelnemerTransactions" advice-ref="jpaTxAdvice" />
-		<aop:advisor pointcut-ref="hibernateStandaardEtappeTransactions" advice-ref="jpaTxAdvice" />
-		<aop:advisor pointcut-ref="hibernatePloegenTijdritTransactions" advice-ref="jpaTxAdvice" />
-		<aop:advisor pointcut-ref="hibernateEindUitslagTransactions" advice-ref="jpaTxAdvice" />
-		<aop:advisor pointcut-ref="setupDaoTransactions" advice-ref="setupDaoJpaTxAdvice" />
-		<aop:advisor pointcut-ref="gameSetupGenerateTeams" advice-ref="gameSetupJpaTxAdvice" />
-		<aop:advisor pointcut-ref="gameSetupInitializeGame" advice-ref="gameSetupJpaTxAdvice" />
-		<!--
-			<aop:aspect id="jamonPerformanceAspect" ref="jamonPerformanceAop"> <aop:around method="doJamonPerformanceLogging"
-			pointcut-ref="calculatorPointcut" /> </aop:aspect>
-		-->
-	</aop:config>
-
-
-
-	<!-- Transaction config in Spring 2.5 -->
-	<tx:advice id="jpaTxAdvice" transaction-manager="tourJpaTransactionManager">
-		<tx:attributes>
-			<tx:method name="*Eager" read-only="true" propagation="REQUIRED" />
-		</tx:attributes>
-	</tx:advice>
-	<tx:advice id="gameSetupJpaTxAdvice" transaction-manager="tourJpaTransactionManager">
-		<tx:attributes>
-			<tx:method name="*" propagation="REQUIRED" />
-		</tx:attributes>
-	</tx:advice>
-	<tx:advice id="setupDaoJpaTxAdvice" transaction-manager="tourJpaTransactionManager">
-		<tx:attributes>
-			<tx:method name="deleteAll*" propagation="REQUIRED" />
-		</tx:attributes>
-	</tx:advice>
+		
 </beans>

@@ -1,7 +1,14 @@
 package nl.doyle.mccloud.tourdefrance.setup.dao;
 
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Provides game setup utility methods.
+ * 
+ * @author Duncan Doyle
+ * @since 0.1
+ */
 public class GameSetupDaoImpl extends JdbcDaoSupport implements GameSetupDao {
 
 	/**
@@ -10,6 +17,7 @@ public class GameSetupDaoImpl extends JdbcDaoSupport implements GameSetupDao {
 	 * Verwijdert alle data uit de database.
 	 * Via Spring AOP wordt er een JDBC transactie om deze SQL commando's heen gezet.
 	 */
+	@Transactional
 	public void deleteAllRecordsFromDatabase() {
 		
 		deleteAllTeamRecords();
@@ -62,6 +70,7 @@ public class GameSetupDaoImpl extends JdbcDaoSupport implements GameSetupDao {
 		
 	}
 	
+	@Transactional
 	public void deleteAllTeamRecords() {
 		String sqlDeelnemerRenner = "delete from deelnemer_renner";
 		getJdbcTemplate().execute(sqlDeelnemerRenner);

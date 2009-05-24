@@ -50,8 +50,8 @@ public class ListEtappesController {
 	public ModelAndView handleRequest() {
 		// TODO Deze code moet vervangen worden door iets dat niet afhankelijk is van de DAOs. Beetje ranzige code.
 		List<Etappe> etappes = new ArrayList<Etappe>();
-		etappes.addAll(standaardEtappeDao.loadAllStandaardEtappesWithStedenEager());
-		etappes.addAll(ploegenTijdritDao.loadAllPloegenTijdrittenWithStedenEager());
+		etappes.addAll(standaardEtappeDao.loadAllStandaardEtappesWithStartAndFinishEager());
+		etappes.addAll(ploegenTijdritDao.loadAllPloegenTijdrittenWithStartAndFinishEager());
 		List<EindUitslag> eindUitslag = new ArrayList<EindUitslag>();
 		eindUitslag.add(eindUitslagDao.loadEindUitslag());
 		Map<String, List<? extends AbstractEtappeAndEindUitslag>> etappesModel = new HashMap<String, List<? extends AbstractEtappeAndEindUitslag>>();

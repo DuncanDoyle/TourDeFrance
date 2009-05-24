@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import nl.doyle.mccloud.tourdefrance.dao.DeelnemerDao;
 import nl.doyle.mccloud.tourdefrance.dao.EindUitslagDao;
 import nl.doyle.mccloud.tourdefrance.dao.PloegenTijdritDao;
@@ -71,6 +73,7 @@ public final class GameSetupControllerImpl implements GameSetupController {
 	 * @param ploegenTijdrit
 	 *            het etappenummer van de ploegentijdrit
 	 */
+	@Transactional
 	public void initializeGame(final int aantalPloegen, final int aantalEtappes, final int ploegenTijdrit) {
 		setupDatabase(aantalPloegen, aantalEtappes, ploegenTijdrit);
 	}
@@ -80,6 +83,7 @@ public final class GameSetupControllerImpl implements GameSetupController {
 	 * <p>
 	 * Elke deelnemer krijgt een kopman. De rest van de renners wordt random toegewezen.
 	 */
+	@Transactional
 	public void generateDeelnemerTeams() {
 		// TODO: Testen of de gegevens in de database goed zijn zodat de generatie ook echt kan draaien.
 		gameSetupDao.deleteAllTeamRecords();
