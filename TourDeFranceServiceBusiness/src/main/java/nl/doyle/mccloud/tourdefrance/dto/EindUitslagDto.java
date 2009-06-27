@@ -6,7 +6,7 @@ public class EindUitslagDto extends AbstractEtappeAndEindUitslagDto {
 
 	private Set<UitslagDto> eersteUitvaller;
 	private Set<UitslagDto> rodeLantaren;
-	private Set<UitslagDto> witteTrui;
+	private Set<UitslagDto> mostCombativeResult;
 
 	public EindUitslagDto() {
 	}
@@ -27,12 +27,18 @@ public class EindUitslagDto extends AbstractEtappeAndEindUitslagDto {
 		this.rodeLantaren = rodeLantaren;
 	}
 
-	public Set<UitslagDto> getWitteTrui() {
-		return witteTrui;
+	/**
+	 * @return the mostCombativeResult
+	 */
+	public Set<UitslagDto> getMostCombativeResult() {
+		return mostCombativeResult;
 	}
 
-	public void setWitteTrui(Set<UitslagDto> witteTrui) {
-		this.witteTrui = witteTrui;
+	/**
+	 * @param mostCombativeResult the mostCombativeResult to set
+	 */
+	public void setMostCombativeResult(Set<UitslagDto> mostCombativeResult) {
+		this.mostCombativeResult = mostCombativeResult;
 	}
-
+	
 }

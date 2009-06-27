@@ -67,6 +67,13 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 		setValuesForAll(stageResultCommand, stage);
 		setValuesForStandaardEtappeAndPloegenTijdrit(stageResultCommand, stage);
 
+		if (stage.getMostCombativeRacer() != null) {
+			stageResultCommand.setMostCombative(stage.getMostCombativeRacer().getNummer());
+		}
+		if (stage.getRodeLantaren() != null) {
+			stageResultCommand.setRodeLantaren(stage.getRodeLantaren().getNummer());
+		}
+		
 		stageResultCommand.setTypeEtappe(EtappeType.Etappe);
 		stageResultCommand.setUitslag(setUitslag(stage.getEtappeUitslag(), stageResultCommand.getUitslag()));
 
@@ -99,9 +106,10 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 		// set the values
 		setValuesForAll(stageResultCommand, endResult);
 
-		if (endResult.getWitteTrui() != null) {
-			stageResultCommand.setWitteTrui(endResult.getWitteTrui().getNummer());
+		if (endResult.getMostCombativeRacer() != null) {
+			stageResultCommand.setMostCombative(endResult.getMostCombativeRacer().getNummer());
 		}
+		
 		if (endResult.getRodeLantaren() != null) {
 			stageResultCommand.setRodeLantaren(endResult.getRodeLantaren().getNummer());
 		}
@@ -135,10 +143,6 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 	 *            the stage or endresult
 	 */
 	private void setValuesForAll(final EtappeUitslagCommand currentStageResultCommand, final AbstractEtappeAndEindUitslag stageOrEndResult) {
-		if (stageOrEndResult.getMostCombativeRacer() != null) {
-			currentStageResultCommand.setMostCombative(stageOrEndResult.getMostCombativeRacer().getNummer());
-		}
-
 		// Retrieve racers from DB.
 		currentStageResultCommand.setRenners(rennerDao.loadAllRennersOrdered());
 		currentStageResultCommand.setEtappenummer(stageOrEndResult.getEtappenummer());
@@ -150,6 +154,10 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 				currentStageResultCommand.getGroeneTruiUitslag()));
 		currentStageResultCommand.setBolletjesTruiUitslag(setBolletjesTruiUitslag(stageOrEndResult.getBolletjesTruiUitslag(),
 				currentStageResultCommand.getBolletjesTruiUitslag()));
+		if (stageOrEndResult.getWitteTrui() != null) {
+			currentStageResultCommand.setWitteTrui(stageOrEndResult.getWitteTrui().getNummer());
+		}
+
 	}
 
 	/**

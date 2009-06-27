@@ -3,6 +3,7 @@
 <%@ include file="includeTags.jsp" %>
 <%@page import="nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand"%>
 <%@page import="nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand.EtappeType"%>
+<!-- Fix this PageContext cannot be resolved error by defining Tomcat's jsp-api.jar as a provided dependency. -->
 <%EtappeUitslagCommand command = (EtappeUitslagCommand) pageContext.getAttribute("etappeUitslagCommand", PageContext.REQUEST_SCOPE); 
   EtappeType pageEtappeType = command.getTypeEtappe();		
 %>
@@ -128,10 +129,7 @@
 		      			</tr>
 		      		</c:forEach>
 		      	</table>
-				<%
-				if (pageEtappeType == EtappeType.EindUitslag) {
-				%>
-				<!-- witteTrui -->
+		      	<!-- witteTrui -->
 				<h3>Wittetrui</h3>
 				<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
 					<tr>
@@ -153,29 +151,10 @@
 	        			</spring:bind>
 	      			</tr>
 		      	</table>
-		      	<!--  Rode Lantaren -->
-		      	<h3>Rode Lantaren</h3>
-				<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
-					<tr>
-	      				<td alignment="right" width="10%">1e plaats:</td>
-	      					<spring:bind path="etappeUitslagCommand.rodeLantaren">
-	        				<td width="20%">
-	          					<select name="rodeLantaren">
-	          						<option value="0">Uitslag nog niet ingesteld</option>
-	          						<c:forEach var="renner" items="${etappeUitslagCommand.renners}">
-	      								<option <c:if test="${renner.nummer == status.value}"> selected </c:if> value="<c:out value="${renner.nummer}"/>">
-	         								<c:out value="${renner.nummer} - ${renner.voornaam} ${renner.achternaam}"/>
-	              						</option>
-	              					</c:forEach>
-	          					</select>	
-	          				</td>
-	          				<td width="60%">
-	          					<font color="red"><c:out value="${status.errorMessage}"/></font>
-	        				</td>
-	        			</spring:bind>
-	      			</tr>
-		      	</table>
-		      	<!-- Eerste Uitvaller -->
+		      	<%
+				if (pageEtappeType == EtappeType.EindUitslag) {
+				%>
+				<!-- Eerste Uitvaller -->
 		      	<h3>Eerste Uitvaller</h3>
 		      	<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
 					<tr>
@@ -197,10 +176,33 @@
 	        			</spring:bind>
 	      			</tr>
 		      	</table>
-				<%
+		      	<%
 				}
+		      	if (pageEtappeType == EtappeType.EindUitslag || pageEtappeType == EtappeType.Etappe) {
 				%>
-				<!--  Most Combative -->
+				<!--  Rode Lantaren -->
+		      	<h3>Rode Lantaren</h3>
+				<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
+					<tr>
+	      				<td alignment="right" width="10%">1e plaats:</td>
+	      					<spring:bind path="etappeUitslagCommand.rodeLantaren">
+	        				<td width="20%">
+	          					<select name="rodeLantaren">
+	          						<option value="0">Uitslag nog niet ingesteld</option>
+	          						<c:forEach var="renner" items="${etappeUitslagCommand.renners}">
+	      								<option <c:if test="${renner.nummer == status.value}"> selected </c:if> value="<c:out value="${renner.nummer}"/>">
+	         								<c:out value="${renner.nummer} - ${renner.voornaam} ${renner.achternaam}"/>
+	              						</option>
+	              					</c:forEach>
+	          					</select>	
+	          				</td>
+	          				<td width="60%">
+	          					<font color="red"><c:out value="${status.errorMessage}"/></font>
+	        				</td>
+	        			</spring:bind>
+	      			</tr>
+		      	</table>
+		      	<!--  Most Combative -->
 		      	<h3>Strijdlustigste Renner</h3>
 				<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
 					<tr>
@@ -222,6 +224,9 @@
 	        			</spring:bind>
 	      			</tr>
 		      	</table>
+		      	<%
+		      	}
+		      	%>
 		  		<br>
 		  		<spring:hasBindErrors name="etappeUitslagCommand">
 		    		<b>Please fix all errors!</b>

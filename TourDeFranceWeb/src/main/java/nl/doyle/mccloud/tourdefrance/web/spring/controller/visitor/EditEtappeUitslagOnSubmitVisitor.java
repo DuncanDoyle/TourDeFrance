@@ -56,6 +56,8 @@ public class EditEtappeUitslagOnSubmitVisitor implements ValueObjectVisitor {
 	 *            the {@link StandaardEtappe} to visit
 	 */
 	public final void visit(final StandaardEtappe stage) {
+		stage.setMostCombativeRacer(rennerDao.loadRenner(stageResultCommand.getMostCombative()));
+		stage.setRodeLantaren(rennerDao.loadRenner(stageResultCommand.getRodeLantaren()));
 		for (int teller = 0; teller < stageResultCommand.getUitslag().length; teller++) {
 			// Check nu of de waarde niet op 0 is gezet
 			if (stageResultCommand.getUitslag()[teller] != 0) {
@@ -108,7 +110,7 @@ public class EditEtappeUitslagOnSubmitVisitor implements ValueObjectVisitor {
 	 *            the {@link EindUitslag} to visit
 	 */
 	public final void visit(final EindUitslag endResult) {
-		endResult.setWitteTrui(rennerDao.loadRenner(stageResultCommand.getWitteTrui()));
+		endResult.setMostCombativeRacer(rennerDao.loadRenner(stageResultCommand.getMostCombative()));
 		endResult.setRodeLantaren(rennerDao.loadRenner(stageResultCommand.getRodeLantaren()));
 		endResult.setEersteUitvaller(rennerDao.loadRenner(stageResultCommand.getEersteUitvaller()));
 		// Save values common to endresults and stages
@@ -207,8 +209,8 @@ public class EditEtappeUitslagOnSubmitVisitor implements ValueObjectVisitor {
 				}
 			}
 		}
-		// Most Combative
-		stageOrEndResult.setMostCombativeRacer(rennerDao.loadRenner(stageResultCommand.getMostCombative()));
-
+		
+		// Witte trui
+		stageOrEndResult.setWitteTrui(rennerDao.loadRenner(stageResultCommand.getWitteTrui()));
 	}
 }

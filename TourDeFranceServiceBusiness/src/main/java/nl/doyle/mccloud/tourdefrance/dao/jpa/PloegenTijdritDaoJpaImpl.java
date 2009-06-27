@@ -77,8 +77,8 @@ public class PloegenTijdritDaoJpaImpl extends JpaDaoSupport implements PloegenTi
 			JpaUtil.initialize(etappe.getGeleTruiUitslag());
 			JpaUtil.initialize(etappe.getGroeneTruiUitslag());
 
-			// Loading the most combative racer by calling its 'getNummer()' method.
-			etappe.getMostCombativeRacer().getNummer();
+			// Loading the witte trui by calling its 'getNummer()' method.
+			etappe.getWitteTrui().getNummer();
 		}
 		return etappe;
 	}

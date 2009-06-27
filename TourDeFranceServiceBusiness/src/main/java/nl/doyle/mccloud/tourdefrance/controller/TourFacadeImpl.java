@@ -18,6 +18,7 @@ import nl.doyle.mccloud.tourdefrance.dto.AbstractEtappeAndEindUitslagDto;
 import nl.doyle.mccloud.tourdefrance.dto.DeelnemerDto;
 import nl.doyle.mccloud.tourdefrance.dto.DeelnemerWithRennersDto;
 import nl.doyle.mccloud.tourdefrance.dto.EindUitslagDto;
+import nl.doyle.mccloud.tourdefrance.dto.EtappeDto;
 import nl.doyle.mccloud.tourdefrance.dto.PloegenTijdritDto;
 import nl.doyle.mccloud.tourdefrance.dto.RennerDto;
 import nl.doyle.mccloud.tourdefrance.dto.StandaardEtappeDto;
@@ -154,24 +155,49 @@ public class TourFacadeImpl implements TourFacade {
 		AbstractEtappeAndEindUitslagDto dto = initDto(etappe);
 
 		if (etappe instanceof Etappe) {
+			((EtappeDto) dto).setStartplaats(((Etappe) etappe).getStartplaats().getStad());
+			((EtappeDto) dto).setFinishplaats(((Etappe) etappe).getFinishplaats().getStad());
+			((EtappeDto) dto).setDatum(((Etappe) etappe).getDatum());
+			
 			dto.setGeleTruiUitslag(mapUitslagToDto(etappe.getGeleTruiUitslag(), Categorien.GeleTrui));
 			dto.setGroeneTruiUitslag(mapUitslagToDto(etappe.getGroeneTruiUitslag(), Categorien.GroeneTrui));
 			dto.setBolletjesTruiUitslag(mapUitslagToDto(etappe.getBolletjesTruiUitslag(), Categorien.BolletjesTrui));
-
-			Set<Uitslag> mostCombative = new HashSet<Uitslag>();
-			if (etappe.getMostCombativeRacer() != null) {
-				GeleTruiUitslag mostCombativeResult = new GeleTruiUitslag();
-				mostCombativeResult.setPositie(1);
-				mostCombativeResult.setEtappenummer(etappe.getEtappenummer());
-				mostCombativeResult.setRenner(((Etappe) etappe).getMostCombativeRacer());
-				mostCombative.add(mostCombativeResult);
+			
+			//TODO Goeie genade wat ranzig. We moeten deze app gewoon een keer helemaal opnieuw bouwen.
+			Set<Uitslag> witteTrui = new HashSet<Uitslag>();
+			if (etappe.getWitteTrui() != null) {
+				GeleTruiUitslag witteTruiUitslag = new GeleTruiUitslag();
+				witteTruiUitslag.setPositie(1);
+				witteTruiUitslag.setEtappenummer(etappe.getEtappenummer());
+				witteTruiUitslag.setRenner(etappe.getWitteTrui());
+				witteTrui.add(witteTruiUitslag);
 			}
-			dto.setMostCombativeResult(mapUitslagToDto(mostCombative, Categorien.MostCombativeStage));
-			
-			
+			dto.setWitteTrui(mapUitslagToDto(witteTrui, Categorien.WitteTrui));
+
 			if (etappe instanceof StandaardEtappe) {
 				((StandaardEtappeDto) dto).setEtappeUitslag(mapUitslagToDto(((StandaardEtappe) etappe).getEtappeUitslag(),
 						Categorien.Etappe));
+				
+				Set<Uitslag> mostCombative = new HashSet<Uitslag>();
+				if (((StandaardEtappe) etappe).getMostCombativeRacer() != null) {
+					GeleTruiUitslag mostCombativeResult = new GeleTruiUitslag();
+					mostCombativeResult.setPositie(1);
+					mostCombativeResult.setEtappenummer(etappe.getEtappenummer());
+					mostCombativeResult.setRenner(((StandaardEtappe) etappe).getMostCombativeRacer());
+					mostCombative.add(mostCombativeResult);
+				}
+				((StandaardEtappeDto) dto).setMostCombativeResult(mapUitslagToDto(mostCombative, Categorien.MostCombativeStage));
+				
+				Set<Uitslag> rodeLantaren = new HashSet<Uitslag>();
+				if (((StandaardEtappe) etappe).getRodeLantaren() != null) {
+					GeleTruiUitslag rodeLantarenUitslag = new GeleTruiUitslag();
+					rodeLantarenUitslag.setPositie(1);
+					rodeLantarenUitslag.setEtappenummer(etappe.getEtappenummer());
+					rodeLantarenUitslag.setRenner(((StandaardEtappe) etappe).getRodeLantaren());
+					rodeLantaren.add(rodeLantarenUitslag);
+				}
+				((StandaardEtappeDto) dto).setRodeLantaren(mapUitslagToDto(rodeLantaren, Categorien.RodeLantaren));
+				
 			} else if (etappe instanceof PloegenTijdrit) {
 				dto = new PloegenTijdritDto();
 			} else {
@@ -183,6 +209,17 @@ public class TourFacadeImpl implements TourFacade {
 			dto.setGroeneTruiUitslag(mapUitslagToDto(etappe.getGroeneTruiUitslag(), Categorien.GroeneTruiEind));
 			dto.setBolletjesTruiUitslag(mapUitslagToDto(etappe.getBolletjesTruiUitslag(), Categorien.BolletjesTruiEind));
 
+			//TODO Goeie genade wat ranzig. We moeten deze app gewoon een keer helemaal opnieuw bouwen.
+			Set<Uitslag> witteTrui = new HashSet<Uitslag>();
+			if (etappe.getWitteTrui() != null) {
+				GeleTruiUitslag witteTruiUitslag = new GeleTruiUitslag();
+				witteTruiUitslag.setPositie(1);
+				witteTruiUitslag.setEtappenummer(etappe.getEtappenummer());
+				witteTruiUitslag.setRenner(etappe.getWitteTrui());
+				witteTrui.add(witteTruiUitslag);
+			}
+			dto.setWitteTrui(mapUitslagToDto(witteTrui, Categorien.WitteTruiEind));
+			
 			Set<Uitslag> eersteUitvaller = new HashSet<Uitslag>();
 			if (((EindUitslag) etappe).getEersteUitvaller() != null) {
 				GeleTruiUitslag eersteUitvallerUitslag = new GeleTruiUitslag();
@@ -202,26 +239,16 @@ public class TourFacadeImpl implements TourFacade {
 				rodeLantaren.add(rodeLantarenUitslag);
 			}
 			((EindUitslagDto) dto).setRodeLantaren(mapUitslagToDto(rodeLantaren, Categorien.RodeLantarenEind));
-
-			Set<Uitslag> witteTrui = new HashSet<Uitslag>();
-			if (((EindUitslag) etappe).getWitteTrui() != null) {
-				GeleTruiUitslag witteTruiUitslag = new GeleTruiUitslag();
-				witteTruiUitslag.setPositie(1);
-				witteTruiUitslag.setEtappenummer(etappe.getEtappenummer());
-				witteTruiUitslag.setRenner(((EindUitslag) etappe).getWitteTrui());
-				witteTrui.add(witteTruiUitslag);
-			}
-			((EindUitslagDto) dto).setWitteTrui(mapUitslagToDto(witteTrui, Categorien.WitteTruiEind));
 			
 			Set<Uitslag> mostCombative = new HashSet<Uitslag>();
-			if (etappe.getMostCombativeRacer() != null) {
+			if (((EindUitslag) etappe).getMostCombativeRacer() != null) {
 				GeleTruiUitslag mostCombativeResult = new GeleTruiUitslag();
 				mostCombativeResult.setPositie(1);
 				mostCombativeResult.setEtappenummer(etappe.getEtappenummer());
 				mostCombativeResult.setRenner(((EindUitslag) etappe).getMostCombativeRacer());
 				mostCombative.add(mostCombativeResult);
 			}
-			dto.setMostCombativeResult(mapUitslagToDto(mostCombative, Categorien.MostCombativeFinal));
+			((EindUitslagDto) dto).setMostCombativeResult(mapUitslagToDto(mostCombative, Categorien.MostCombativeFinal));
 			
 		} else {
 			throw new IllegalArgumentException("Etappe niet van het juiste type");

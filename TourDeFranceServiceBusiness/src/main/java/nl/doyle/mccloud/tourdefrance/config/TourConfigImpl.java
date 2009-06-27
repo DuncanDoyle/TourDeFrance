@@ -103,6 +103,17 @@ public class TourConfigImpl implements TourConfig {
 		return config.getInt("einduitslag.mostcombative");
 	}
 
+	@Override
+	public int getAantalEtappeRodeLantaren() {
+		return config.getInt("etappe.rodelantaren");	
+	}
+
+	@Override
+	public int getAantalEtappeWitteTrui() {
+		return config.getInt("etappe.wittetrui");
+	}
+
+	
 	/**
 	 * @return the config
 	 */
@@ -116,13 +127,5 @@ public class TourConfigImpl implements TourConfig {
 	public void setConfig(Configuration config) {
 		this.config = config;
 	}
-
-
-
-	
-	
-	
-	
-	
 
 }

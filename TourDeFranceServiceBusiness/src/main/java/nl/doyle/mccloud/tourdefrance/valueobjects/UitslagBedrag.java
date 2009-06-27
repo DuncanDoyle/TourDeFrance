@@ -34,6 +34,8 @@ public final class UitslagBedrag implements Serializable {
 		GeleTrui,
 		GroeneTrui,
 		BolletjesTrui,
+		WitteTrui,
+		RodeLantaren,
 		GeleTruiEind,
 		GroeneTruiEind,
 		BolletjesTruiEind,

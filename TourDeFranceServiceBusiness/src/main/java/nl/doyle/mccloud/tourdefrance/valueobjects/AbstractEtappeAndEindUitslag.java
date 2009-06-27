@@ -3,6 +3,7 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ public abstract class AbstractEtappeAndEindUitslag {
 	private String omschrijving;
 	//TODO Change this into a single Uitslag object per category. The uitslag object contains the number of recorded positions, etc.
 
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="ETAPPE_GELETRUIUITSLAG", 
 			joinColumns = 
 				@JoinColumn(name="ETAPPE_ETAPPENUMMER", referencedColumnName="ETAPPENUMMER"),
@@ -41,7 +42,7 @@ public abstract class AbstractEtappeAndEindUitslag {
 	private Set<GeleTruiUitslag> geleTruiUitslag;
 	
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="ETAPPE_GROENETRUIUITSLAG", 
 			joinColumns = 
 				@JoinColumn(name="ETAPPE_ETAPPENUMMER", referencedColumnName="ETAPPENUMMER"),
@@ -52,7 +53,7 @@ public abstract class AbstractEtappeAndEindUitslag {
 	)
 	private Set<GroeneTruiUitslag> groeneTruiUitslag;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="ETAPPE_BOLLETJESRUIUITSLAG", 
 			joinColumns = 
 				@JoinColumn(name="ETAPPE_ETAPPENUMMER", referencedColumnName="ETAPPENUMMER"),
@@ -62,14 +63,15 @@ public abstract class AbstractEtappeAndEindUitslag {
 		}
 	)
 	private Set<BolletjesTruiUitslag> bolletjesTruiUitslag;
-	
+
 	/**
-	 * The most combative racer
+	 * De witte trui.
 	 */
 	@ManyToOne
-	@JoinColumn(name="MOST_COMBATIVE_RACER")
-	private Renner mostCombativeRacer;
-
+	@JoinColumn(name="WITTETRUI", unique=true)
+	private Renner witteTrui;
+	
+	
 	/**
 	 * Accepts a {@link ValueObjectVisitor}.
 	 * <p>
@@ -92,14 +94,14 @@ public abstract class AbstractEtappeAndEindUitslag {
 		return getPositieInUitslag(bolletjesTruiUitslag, renner);
 	}
 
-	public int getPositionInMostCombativeRacerResult(final Renner renner) {
-		int position = 0;
-		if (renner.equals(mostCombativeRacer)) {
-			position = 1;
+	public int getPositieInWitteTruiUitslag(final Renner renner) {
+		int positie = 0;
+		if (renner.equals(witteTrui)) {
+			positie = 1;
 		}
-		return position;
+		return positie;
 	}
-
+	
 	protected int getPositieInUitslag(final Set<? extends Uitslag> uitslagen, final Renner renner) {
 		int positie = 0;
 		boolean found = false;
@@ -178,14 +180,20 @@ public abstract class AbstractEtappeAndEindUitslag {
 		this.groeneTruiUitslag = groeneTruiUitslag;
 	}
 
-	public Renner getMostCombativeRacer() {
-		return mostCombativeRacer;
+	/**
+	 * @return the witteTrui
+	 */
+	public Renner getWitteTrui() {
+		return witteTrui;
 	}
 
-	public void setMostCombativeRacer(final Renner mostCombativeRacer) {
-		this.mostCombativeRacer = mostCombativeRacer;
+	/**
+	 * @param witteTrui the witteTrui to set
+	 */
+	public void setWitteTrui(final Renner witteTrui) {
+		this.witteTrui = witteTrui;
 	}
-
+	
 	/**
 	 * @return the omschrijving
 	 */

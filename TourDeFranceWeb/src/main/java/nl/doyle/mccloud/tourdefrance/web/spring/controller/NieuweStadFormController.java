@@ -1,7 +1,6 @@
 package nl.doyle.mccloud.tourdefrance.web.spring.controller;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 
 import nl.doyle.mccloud.tourdefrance.dao.StadDao;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Stad;
@@ -9,29 +8,39 @@ import nl.doyle.mccloud.tourdefrance.web.spring.command.StadCommand;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.web.servlet.view.RedirectView;
 
-public class NieuweStadFormController extends SimpleFormController {
+@Controller
+@RequestMapping("/nieuweStad.htm")
+@SessionAttributes("stadCommand")
+public class NieuweStadFormController {
 
 	private static final Log logger = LogFactory.getLog(NieuweStadFormController.class);
 	private StadDao stadDao;
 	
+	/**
+	 * The controller's success view.
+	 */
+	private static final String SUCCESS_VIEW = "listSteden.htm";
 	
 	/**
 	 * Handelt de submit van de newCity pagina af en geeft een model en view terug
 	 * 
-	 * @param command Het command-object dat door het form wordt gepost
+	 * @param stadCommand Het command-object dat door het form wordt gepost
 	 * @return model en view
 	 * @exception ServletException
 	 * @see ModelAndView
 	 */
-	public ModelAndView onSubmit(final Object command) throws ServletException {
-		//int increase = ((PriceIncrease) command).getPercentage();
-		StadCommand stadCommand = (StadCommand) command;
-        logger.info("Creating new Stad");
+	@RequestMapping(method = RequestMethod.POST)
+	public ModelAndView onSubmit(@ModelAttribute("stadCommand") final StadCommand stadCommand) throws ServletException {
+		logger.info("Creating new Stad");
         Stad saveStad = new Stad();
         logger.debug("Waardes: " + stadCommand.getLand() + ", " + stadCommand.getStad());
         saveStad.setId(stadCommand.getId());
@@ -43,13 +52,15 @@ public class NieuweStadFormController extends SimpleFormController {
         //Hier de save van de Renner aanroepen
         stadDao.saveOrUpdateStad(saveStad);
         
-        logger.info("returning from NieweStadFormController view to " + getSuccessView());
-        return new ModelAndView(new RedirectView(getSuccessView()));
+        logger.info("returning from NieweStadFormController view to " + SUCCESS_VIEW);
+        return new ModelAndView(new RedirectView(SUCCESS_VIEW));
     }
 
-	protected Object formBackingObject(final HttpServletRequest request) throws ServletException, NieuweStadFormRequestException {
-//		TODO Dit moet goed geimplementeerd worden zodat er geen verkeerde waardes ingevuld kunnen worden. Security
-		Integer stadId = ServletRequestUtils.getIntParameter(request, "stadId");
+	@RequestMapping(method = RequestMethod.GET)
+	@ModelAttribute("stadCommand")
+	protected StadCommand formBackingObject(@RequestParam(value="stadId", required=false) final Integer stadId) throws NieuweStadFormRequestException {
+		//TODO Dit moet goed geimplementeerd worden zodat er geen verkeerde waardes ingevuld kunnen worden. Security
+		
     	//check of deze parameter wel is ingevuld. Zoniet dan is 'nummer' 'null'.
     	int id;
     	StadCommand stad = new StadCommand();

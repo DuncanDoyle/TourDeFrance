@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
 import nl.doyle.mccloud.tourdefrance.util.JpaUtil;
+import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Stad;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
 
@@ -110,9 +111,20 @@ public class StandaardEtappeDaoJpaImpl extends JpaDaoSupport implements Standaar
 			JpaUtil.initialize(etappe.getGroeneTruiUitslag());
 			JpaUtil.initialize(etappe.getEtappeUitslag());
 
-			// Loading the most combative racer by calling its 'getNummer()' method.
-			etappe.getMostCombativeRacer().getNummer();
-
+			// Loading these racers by calling their  'getNummer()' methods.
+			Renner loadRenner;
+			loadRenner = etappe.getMostCombativeRacer();
+			if (loadRenner != null) {
+				loadRenner.getNummer();
+			}
+			loadRenner = etappe.getWitteTrui();
+			if (loadRenner != null) {
+				loadRenner.getNummer();
+			}
+			loadRenner = etappe.getRodeLantaren();
+			if (loadRenner != null) {
+				loadRenner.getNummer();
+			}
 		}
 		return etappe;
 	}
@@ -145,6 +157,7 @@ public class StandaardEtappeDaoJpaImpl extends JpaDaoSupport implements Standaar
 	@Transactional
 	public void saveStandaardEtappe(final StandaardEtappe saveStandaardEtappe) {
 		getJpaTemplate().merge(saveStandaardEtappe);
+
 	}
 
 	/**

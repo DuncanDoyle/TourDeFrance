@@ -18,10 +18,14 @@ public class EindUitslag extends AbstractEtappeAndEindUitslag {
 	@ManyToOne
 	@JoinColumn(name="RODELANTAREN", unique=true)
 	private Renner rodeLantaren;
-	
+
+	/**
+	 * The most combative racer
+	 */
 	@ManyToOne
-	@JoinColumn(name="WITTETRUI", unique=true)
-	private Renner witteTrui;
+	@JoinColumn(name="MOST_COMBATIVE_RACER")
+	private Renner mostCombativeRacer;
+
 	
 	public EindUitslag() {
 	}
@@ -48,13 +52,7 @@ public class EindUitslag extends AbstractEtappeAndEindUitslag {
 		return positie;
 	}
 	
-	public int getPositieInWitteTruiUitslag(final Renner renner) {
-		int positie = 0;
-		if (renner.equals(witteTrui)) {
-			positie = 1;
-		}
-		return positie;
-	}
+	
 	
 	public int getPositieInEersteUitvallerUitslag(final Renner renner) {
 		int positie = 0;
@@ -62,6 +60,14 @@ public class EindUitslag extends AbstractEtappeAndEindUitslag {
 			positie = 1;
 		}
 		return positie;
+	}
+	
+	public int getPositionInMostCombativeRacerResult(final Renner renner) {
+		int position = 0;
+		if (renner.equals(mostCombativeRacer)) {
+			position = 1;
+		}
+		return position;
 	}
 	
 	
@@ -92,23 +98,13 @@ public class EindUitslag extends AbstractEtappeAndEindUitslag {
 	public void setRodeLantaren(final Renner rodeLantaren) {
 		this.rodeLantaren = rodeLantaren;
 	}
-
-	/**
-	 * @return the witteTrui
-	 */
-	public Renner getWitteTrui() {
-		return witteTrui;
+	
+	public Renner getMostCombativeRacer() {
+		return mostCombativeRacer;
 	}
 
-	/**
-	 * @param witteTrui the witteTrui to set
-	 */
-	public void setWitteTrui(final Renner witteTrui) {
-		this.witteTrui = witteTrui;
+	public void setMostCombativeRacer(final Renner mostCombativeRacer) {
+		this.mostCombativeRacer = mostCombativeRacer;
 	}
-	
-	
-	
-	
 	
 }

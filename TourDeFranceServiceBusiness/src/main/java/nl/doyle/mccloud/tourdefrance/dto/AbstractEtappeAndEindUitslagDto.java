@@ -9,7 +9,7 @@ public abstract class AbstractEtappeAndEindUitslagDto {
 	private Set<UitslagDto> geleTruiUitslag;
 	private Set<UitslagDto> groeneTruiUitslag;
 	private Set<UitslagDto> bolletjesTruiUitslag;
-	private Set<UitslagDto> mostCombativeResult;
+	private Set<UitslagDto> witteTrui;
 
 	
 	public AbstractEtappeAndEindUitslagDto() {
@@ -65,18 +65,19 @@ public abstract class AbstractEtappeAndEindUitslagDto {
 		this.bolletjesTruiUitslag = bolletjesTruiUitslag;
 	}
 
-
-	public Set<UitslagDto> getMostCombativeResult() {
-		return mostCombativeResult;
+	/**
+	 * @return the witteTrui
+	 */
+	public Set<UitslagDto> getWitteTrui() {
+		return witteTrui;
 	}
 
 
-	public void setMostCombativeResult(Set<UitslagDto> mostCombativeResult) {
-		this.mostCombativeResult = mostCombativeResult;
+	/**
+	 * @param witteTrui the witteTrui to set
+	 */
+	public void setWitteTrui(Set<UitslagDto> witteTrui) {
+		this.witteTrui = witteTrui;
 	}
-	
-	
-	
-	
-	
+
 }

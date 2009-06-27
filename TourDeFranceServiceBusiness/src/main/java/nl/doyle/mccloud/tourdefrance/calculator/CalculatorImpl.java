@@ -49,7 +49,11 @@ public class CalculatorImpl implements Calculator {
 	
 	
 	
-	
+	/**
+	 * Calculates the score up to the given stage.
+	 * 
+	 * @return a list of {@link DeelnemerBedragDto}s containing the result after the given stage.
+	 */
 	public List<DeelnemerBedragDto> getAllDeelnemersAndGewonnenBedragAfterEtappe(int etappenummer) {
 		List<DeelnemerBedragDto> deelnemersAndBedragen;
 		//Etappenummer 0 is het etappenummer van de einduitslag
@@ -84,6 +88,10 @@ public class CalculatorImpl implements Calculator {
 		double[] etappeGroeneTruiUitslagBedrag = getEtappeGroeneTruiUitslagBedragenPerPositie();
 		double[] etappeBolletjesTruiUitslagBedrag = getEtappeBolletjesTruiUitslagBedragenPerPositie();
 		double[] stageMostCombativeRacerResultAmount = getStageMostCombativeRacerResultAmount();
+		double[] etappeWitteTruiUitslagBedrag = getEtappeWitteTruiUitslagBedrag();
+		double[] etappeRodeLantarenUitslagBedrag = getEtappeRodeLantarenUitslagBedrag();
+		
+		
 		
 		//Maak HashMap om bedragen per renner in op te slaan. Integer is het rennernummer, Double het bedrag
 		HashMap<Integer, Double> bedragenMap = new HashMap<Integer, Double>();
@@ -121,18 +129,32 @@ public class CalculatorImpl implements Calculator {
 						if (positie != 0) {
 							deelnemerBedragEtappe = deelnemerBedragEtappe + etappeBolletjesTruiUitslagBedrag[positie - 1];
 						}
-						//Most combative race
-						positie = nextEtappe.getPositionInMostCombativeRacerResult(nextRenner);
+						//En het bedrag voor de witte trui
+						positie = nextEtappe.getPositieInWitteTruiUitslag(nextRenner);
 						if (positie != 0) {
-							deelnemerBedragEtappe = deelnemerBedragEtappe + stageMostCombativeRacerResultAmount[positie - 1];
+							deelnemerBedragEtappe = deelnemerBedragEtappe + etappeWitteTruiUitslagBedrag[positie - 1];
 						}
 						
 						//Als het een standaardetappe is dan ook nog bedragen voor etappe uitslag
 						if (nextEtappe instanceof StandaardEtappe) {
+							//Als het een standaardetappe is dan ook nog bedragen voor etappe uitslag
 							positie = ((StandaardEtappe) nextEtappe).getPositieInEtappeUitslag(nextRenner);
 							if (positie != 0) {
 								deelnemerBedragEtappe = deelnemerBedragEtappe + etappeUitslagBedrag[positie - 1];
 							}
+							
+							//Most combative race
+							positie = ((StandaardEtappe) nextEtappe).getPositionInMostCombativeRacerResult(nextRenner);
+							if (positie != 0) {
+								deelnemerBedragEtappe = deelnemerBedragEtappe + stageMostCombativeRacerResultAmount[positie - 1];
+							}
+							
+							//En de rode lantaren
+							positie = ((StandaardEtappe) nextEtappe).getPositionInMostCombativeRacerResult(nextRenner);
+							if (positie != 0) {
+								deelnemerBedragEtappe = deelnemerBedragEtappe + stageMostCombativeRacerResultAmount[positie - 1];
+							}
+							
 						}
 					}
 					
@@ -267,7 +289,15 @@ public class CalculatorImpl implements Calculator {
 	}
 	
 	private double[] getStageMostCombativeRacerResultAmount() {
-		return setBedragen(tourConfig.getAantalEinduitslagWitteTrui(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.MostCombativeStage));
+		return setBedragen(tourConfig.getNumberOfStageMostCombative(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.MostCombativeStage));
+	}
+	
+	private double[] getEtappeWitteTruiUitslagBedrag() {
+		return setBedragen(tourConfig.getAantalEtappeWitteTrui(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.WitteTrui));
+	}
+	
+	private double[] getEtappeRodeLantarenUitslagBedrag() {
+		return setBedragen(tourConfig.getAantalEtappeRodeLantaren(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.RodeLantaren));
 	}
 	
 	private double[] getEindUitslagGeleTruiUitslagBedragenPerPositie() {
@@ -296,7 +326,7 @@ public class CalculatorImpl implements Calculator {
 	}
 	
 	private double[] getFinalMostCombativeRacerResultAmount() {
-		return setBedragen(tourConfig.getAantalEinduitslagWitteTrui(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.MostCombativeFinal));
+		return setBedragen(tourConfig.getNumberOfFinalMostCombative(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.MostCombativeFinal));
 	}
 	
 	private double[] setBedragen(int arrayPosities, List<UitslagBedrag> bedragen) {

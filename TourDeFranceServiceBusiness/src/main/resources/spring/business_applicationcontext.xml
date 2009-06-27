@@ -47,40 +47,6 @@
 	
 	
 	<!-- JPA configuration -->
-
-	<!-- Hibernate SessionFactory -->
-	<!-- 
-	<bean id="tourDeFranceSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-		<property name="dataSource">
-			<ref bean="tourDeFranceDataSource" />
-		</property>
-		<property name="hibernateProperties">
-			<ref bean="tourDeFranceHibernateProperties" />
-		</property>
-		<property name="mappingResources">
-			<list>
-				<value>hibernate/Renner.hbm.xml</value>
-				<value>hibernate/Deelnemer.hbm.xml
-				</value>
-				<value>hibernate/EtappeHierarchy.hbm.xml
-				</value>
-				<value>hibernate/GeleTruiUitslag.hbm.xml
-				</value>
-				<value>hibernate/GroeneTruiUitslag.hbm.xml
-				</value>
-				<value>hibernate/BolletjesTruiUitslag.hbm.xml
-				</value>
-				<value>hibernate/EtappeUitslag.hbm.xml
-				</value>
-				<value>hibernate/Team.hbm.xml</value>
-				<value>hibernate/Stad.hbm.xml</value>
-				<value>hibernate/UitslagBedrag.hbm.xml
-				</value>
-			</list>
-		</property>
-	</bean>
-	-->
-
 	<!-- Spring's JPA EntityManagerFactory -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="tourDeFranceDataSource" />
@@ -141,20 +107,8 @@
 	<!-- enable the configuration of transactional behavior based on annotations -->
 	<tx:annotation-driven transaction-manager="tourJpaTransactionManager"/>
 	
-
-	<!--
-		<bean id="productDao" class="nl.doyle.mccloud.dowjones.dao.jpa.JpaProductDao"> <property name="entityManagerFactory"
-		ref="entityManagerFactory" /> </bean>
-	-->
-
+		
 	<!-- Declaration of all DAO's -->
-	<!-- 
-	<bean id="abstractDaoHibernate" abstract="true">
-		<property name="sessionFactory">
-			<ref local="tourDeFranceSessionFactory" />
-		</property>
- 	</bean>
- 	 -->
 	<bean id="abstractDaoJpa" abstract="true">
 		<property name="entityManagerFactory">
 			<ref local="entityManagerFactory" />

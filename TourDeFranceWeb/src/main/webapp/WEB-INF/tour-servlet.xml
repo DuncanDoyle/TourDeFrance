@@ -117,24 +117,6 @@
 		</property>
 	</bean>
 	<bean id="nieuweStadForm" class="nl.doyle.mccloud.tourdefrance.web.spring.controller.NieuweStadFormController">
-		<property name="sessionForm">
-			<value>true</value>
-		</property>
-		<property name="commandName">
-			<value>stadCommand</value>
-		</property>
-		<property name="commandClass">
-			<value>nl.doyle.mccloud.tourdefrance.web.spring.command.StadCommand</value>
-		</property>
-		<property name="validator">
-			<ref bean="stadValidator" />
-		</property>
-		<property name="formView">
-			<value>nieuweStad</value>
-		</property>
-		<property name="successView">
-			<value>listSteden.htm</value>
-		</property>
 		<property name="stadDao">
 			<ref bean="stadDao" />
 		</property>
