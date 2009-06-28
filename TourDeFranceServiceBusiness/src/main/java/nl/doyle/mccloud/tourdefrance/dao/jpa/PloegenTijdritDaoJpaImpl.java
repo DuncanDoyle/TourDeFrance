@@ -3,6 +3,7 @@ package nl.doyle.mccloud.tourdefrance.dao.jpa;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -10,6 +11,7 @@ import nl.doyle.mccloud.tourdefrance.dao.PloegenTijdritDao;
 import nl.doyle.mccloud.tourdefrance.dao.StandaardEtappeDao;
 import nl.doyle.mccloud.tourdefrance.util.JpaUtil;
 import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
+import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Stad;
 
 import org.springframework.orm.jpa.JpaCallback;
@@ -78,7 +80,11 @@ public class PloegenTijdritDaoJpaImpl extends JpaDaoSupport implements PloegenTi
 			JpaUtil.initialize(etappe.getGroeneTruiUitslag());
 
 			// Loading the witte trui by calling its 'getNummer()' method.
-			etappe.getWitteTrui().getNummer();
+			Renner loadRenner;
+			loadRenner = etappe.getWitteTrui();
+			if (loadRenner != null) {
+				loadRenner.getNummer();
+			}
 		}
 		return etappe;
 	}
@@ -99,7 +105,14 @@ public class PloegenTijdritDaoJpaImpl extends JpaDaoSupport implements PloegenTi
 			public Object doInJpa(EntityManager em) throws PersistenceException {
 				Query query = em.createQuery(queryString);
 				query.setParameter("etappenummer", etappenummer);
-				return query.getSingleResult();
+				Object result;
+				try {
+					result = query.getSingleResult();
+				} catch (NoResultException nre) {
+					//Nothing found. Just return null
+					result = null;
+				}
+				return result;
 			}
 		});
 	}
@@ -146,7 +159,14 @@ public class PloegenTijdritDaoJpaImpl extends JpaDaoSupport implements PloegenTi
 		Object nummerObject = getJpaTemplate().execute(new JpaCallback() {
 			public Object doInJpa(EntityManager em) throws PersistenceException {
 				Query query = em.createQuery(queryString);
-				return query.getSingleResult();
+				Object result;
+				try {
+					result = query.getSingleResult();
+				} catch (NoResultException nre) {
+					//Nothing found. Just return null
+					result = null;
+				}
+				return result;
 			}
 		});
 		if (nummerObject != null) {

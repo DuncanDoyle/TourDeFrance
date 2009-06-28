@@ -3,6 +3,7 @@ package nl.doyle.mccloud.tourdefrance.dao.jpa;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -72,7 +73,14 @@ public class StandaardEtappeDaoJpaImpl extends JpaDaoSupport implements Standaar
 			public Object doInJpa(EntityManager em) throws PersistenceException {
 				Query query = em.createQuery(queryString);
 				query.setParameter("etappenummer", etappenummer);
-				return query.getSingleResult();
+				Object result;
+				try {
+					result = query.getSingleResult();
+				} catch (NoResultException nre) {
+					//Nothing found. Just return null
+					result = null;
+				}
+				return result;
 			}
 		});
 	}
@@ -182,7 +190,14 @@ public class StandaardEtappeDaoJpaImpl extends JpaDaoSupport implements Standaar
 		Object nummerObject = getJpaTemplate().execute(new JpaCallback() {
 			public Object doInJpa(EntityManager em) throws PersistenceException {
 				Query query = em.createQuery(queryString);
-				return query.getSingleResult();
+				Object result;
+				try {
+					result = query.getSingleResult();
+				} catch (NoResultException nre) {
+					//Nothing found. Just return null
+					result = null;
+				}
+				return result;
 			}
 		});
 		if (nummerObject != null) {

@@ -3,6 +3,7 @@ package nl.doyle.mccloud.tourdefrance.dao.jpa;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -38,16 +39,11 @@ public class UitslagBedragDaoJpaImpl extends JpaDaoSupport implements UitslagBed
 
 	@SuppressWarnings("unchecked")
 	public List<UitslagBedrag> loadAllUitslagBedragenPerCategorie(final Categorien categorie) {
-	/*	
-	"SELECT e FROM Professor e WHERE e.id.country = ?1 AND e.id.id = ?2")
-    .setParameter(1, country).setParameter(2, id).getSingleResult();
-		*/
 		final String hql = "from UitslagBedrag ub WHERE ub.uitslagBedragPk.categorie=:currentcategorie";
 
 		List<UitslagBedrag> uitslagBedragen = (List<UitslagBedrag>) getJpaTemplate().execute(new JpaCallback() {
 			public Object doInJpa(EntityManager em) throws PersistenceException {
 				Query query = em.createQuery(hql);
-				//Query query = em.createQuery("SELECT * FROM UITSLAG_BEDRAG ub WHERE ub.uitslagBedragPk.categorie = :currentcategorie");
 				query.setParameter("currentcategorie", categorie);
 				return query.getResultList();
 			}
@@ -61,11 +57,16 @@ public class UitslagBedragDaoJpaImpl extends JpaDaoSupport implements UitslagBed
 		UitslagBedrag uitslagBdr = (UitslagBedrag) getJpaTemplate().execute(new JpaCallback() {
 			public Object doInJpa(EntityManager em) throws PersistenceException {
 				Query query = em.createQuery(queryString);
-				//Query query = em.createQuery("SELECT * FROM UITSLAG_BEDRAG ub WHERE ub.uitslagBedragPk.categorie = :currentcategorie and ub.uitslagBedragPk.positie=:currentpositie");
-
 				query.setParameter("currentcategorie", categorie);
 				query.setParameter("currentpositie", positie);
-				return query.getSingleResult();
+				Object result;
+				try {
+					result = query.getSingleResult();
+				} catch (NoResultException nre) {
+					//No result. We do nothing and return null.
+					result = null;
+				}
+				return result; 
 			}
 		});
 		return uitslagBdr;

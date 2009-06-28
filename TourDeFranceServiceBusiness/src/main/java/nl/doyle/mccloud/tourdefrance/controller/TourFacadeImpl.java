@@ -155,8 +155,13 @@ public class TourFacadeImpl implements TourFacade {
 		AbstractEtappeAndEindUitslagDto dto = initDto(etappe);
 
 		if (etappe instanceof Etappe) {
-			((EtappeDto) dto).setStartplaats(((Etappe) etappe).getStartplaats().getStad());
-			((EtappeDto) dto).setFinishplaats(((Etappe) etappe).getFinishplaats().getStad());
+			
+			if (((Etappe) etappe).getStartplaats() != null) {
+				((EtappeDto) dto).setStartplaats(((Etappe) etappe).getStartplaats().getStad());
+			}
+			if (((Etappe) etappe).getFinishplaats() != null) {
+				((EtappeDto) dto).setFinishplaats(((Etappe) etappe).getFinishplaats().getStad());
+			}
 			((EtappeDto) dto).setDatum(((Etappe) etappe).getDatum());
 			
 			dto.setGeleTruiUitslag(mapUitslagToDto(etappe.getGeleTruiUitslag(), Categorien.GeleTrui));
@@ -198,11 +203,7 @@ public class TourFacadeImpl implements TourFacade {
 				}
 				((StandaardEtappeDto) dto).setRodeLantaren(mapUitslagToDto(rodeLantaren, Categorien.RodeLantaren));
 				
-			} else if (etappe instanceof PloegenTijdrit) {
-				dto = new PloegenTijdritDto();
-			} else {
-				throw new IllegalArgumentException("Etappe niet van het juiste type");
-			}
+			} 
 		} else if (etappe instanceof EindUitslag) {
 			// TODO Dit moet een stuk netter geimplementeerd worden, zitten nu om het probleem heen te werken
 			dto.setGeleTruiUitslag(mapUitslagToDto(etappe.getGeleTruiUitslag(), Categorien.GeleTruiEind));

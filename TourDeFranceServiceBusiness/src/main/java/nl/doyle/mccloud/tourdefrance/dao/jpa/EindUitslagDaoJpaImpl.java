@@ -3,6 +3,7 @@ package nl.doyle.mccloud.tourdefrance.dao.jpa;
 import nl.doyle.mccloud.tourdefrance.dao.EindUitslagDao;
 import nl.doyle.mccloud.tourdefrance.util.JpaUtil;
 import nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag;
+import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 
 import org.springframework.orm.jpa.support.JpaDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,11 +37,24 @@ public class EindUitslagDaoJpaImpl extends JpaDaoSupport implements EindUitslagD
 		// Als er geen etappe is gevonden krijgen we null terug
 		if (uitslag != null) {
 			// Initialize eagerly.
-			uitslag.getEersteUitvaller().getNummer();
-			uitslag.getRodeLantaren().getNummer();
-			uitslag.getWitteTrui().getNummer();
-			uitslag.getMostCombativeRacer().getNummer();
-
+			Renner loadRenner;
+			loadRenner = uitslag.getEersteUitvaller();
+			if (loadRenner != null) {
+				loadRenner.getNummer();
+			}
+			loadRenner = uitslag.getRodeLantaren();
+			if (loadRenner != null) {
+				loadRenner.getNummer();
+			}
+			loadRenner = uitslag.getWitteTrui();
+			if (loadRenner != null) {
+				loadRenner.getNummer();
+			}
+			loadRenner = uitslag.getMostCombativeRacer();
+			if (loadRenner != null) {
+				loadRenner.getNummer();
+			}
+			
 			JpaUtil.initialize(uitslag.getBolletjesTruiUitslag());
 			JpaUtil.initialize(uitslag.getGeleTruiUitslag());
 			JpaUtil.initialize(uitslag.getGroeneTruiUitslag());
