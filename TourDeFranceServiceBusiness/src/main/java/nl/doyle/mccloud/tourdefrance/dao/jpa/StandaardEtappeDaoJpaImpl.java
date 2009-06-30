@@ -117,15 +117,12 @@ public class StandaardEtappeDaoJpaImpl extends JpaDaoSupport implements Standaar
 			JpaUtil.initialize(etappe.getBolletjesTruiUitslag());
 			JpaUtil.initialize(etappe.getGeleTruiUitslag());
 			JpaUtil.initialize(etappe.getGroeneTruiUitslag());
+			JpaUtil.initialize(etappe.getWitteTruiUitslag());
 			JpaUtil.initialize(etappe.getEtappeUitslag());
 
 			// Loading these racers by calling their  'getNummer()' methods.
 			Renner loadRenner;
 			loadRenner = etappe.getMostCombativeRacer();
-			if (loadRenner != null) {
-				loadRenner.getNummer();
-			}
-			loadRenner = etappe.getWitteTrui();
 			if (loadRenner != null) {
 				loadRenner.getNummer();
 			}

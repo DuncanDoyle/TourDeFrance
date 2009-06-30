@@ -13,6 +13,7 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.GeleTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.GroeneTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
+import nl.doyle.mccloud.tourdefrance.valueobjects.WitteTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.visitor.ValueObjectVisitor;
 import nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand;
 import nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand.EtappeType;
@@ -20,8 +21,8 @@ import nl.doyle.mccloud.tourdefrance.web.spring.controller.EditEtappeFormControl
 import nl.doyle.mccloud.tourdefrance.web.spring.controller.EditEtappeUitslagFormController;
 
 /**
- * Visitor for the {@link EditEtappeFormController} which gets the values from the value objects of the business
- * layer and sets them on the {@link EtappeUitslagCommand}.
+ * Visitor for the {@link EditEtappeFormController} which gets the values from the value objects of the business layer and sets them on the
+ * {@link EtappeUitslagCommand}.
  * 
  * @author Duncan Doyle
  * @since 0.3
@@ -62,7 +63,7 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 	 */
 	public void visit(final StandaardEtappe stage) {
 		stageResultCommand = new EtappeUitslagCommand(config.getAantalEtappeUitslagen(), config.getAantalEtappeGeleTruiUitslagen(), config
-				.getAantalEtappeGroeneTruiUitslagen(), config.getAantalEtappeBolletjesTruiUitslagen());
+				.getAantalEtappeGroeneTruiUitslagen(), config.getAantalEtappeBolletjesTruiUitslagen(), config.getAantalEtappeWitteTruiUitslagen());
 		// Set the values
 		setValuesForAll(stageResultCommand, stage);
 		setValuesForStandaardEtappeAndPloegenTijdrit(stageResultCommand, stage);
@@ -73,7 +74,7 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 		if (stage.getRodeLantaren() != null) {
 			stageResultCommand.setRodeLantaren(stage.getRodeLantaren().getNummer());
 		}
-		
+
 		stageResultCommand.setTypeEtappe(EtappeType.Etappe);
 		stageResultCommand.setUitslag(setUitslag(stage.getEtappeUitslag(), stageResultCommand.getUitslag()));
 
@@ -87,7 +88,7 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 	 */
 	public void visit(final PloegenTijdrit stage) {
 		stageResultCommand = new EtappeUitslagCommand(config.getAantalEtappeUitslagen(), config.getAantalEtappeGeleTruiUitslagen(), config
-				.getAantalEtappeGroeneTruiUitslagen(), config.getAantalEtappeBolletjesTruiUitslagen());
+				.getAantalEtappeGroeneTruiUitslagen(), config.getAantalEtappeBolletjesTruiUitslagen(), config.getAantalEtappeWitteTruiUitslagen());
 		setValuesForAll(stageResultCommand, stage);
 		setValuesForStandaardEtappeAndPloegenTijdrit(stageResultCommand, stage);
 		stageResultCommand.setTypeEtappe(EtappeType.PloegenTijdrit);
@@ -102,14 +103,14 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 	 */
 	public void visit(final EindUitslag endResult) {
 		stageResultCommand = new EtappeUitslagCommand(0, config.getAantalEinduitslagGeleTruiUitslagen(), config
-				.getAantalEinduitslagGroeneTruiUitslagen(), config.getAantalEinduitslagBolletjesTruiUitslagen());
+				.getAantalEinduitslagGroeneTruiUitslagen(), config.getAantalEinduitslagBolletjesTruiUitslagen(), config.getAantalEinduitslagWitteTruiUitslagen());
 		// set the values
 		setValuesForAll(stageResultCommand, endResult);
 
 		if (endResult.getMostCombativeRacer() != null) {
 			stageResultCommand.setMostCombative(endResult.getMostCombativeRacer().getNummer());
 		}
-		
+
 		if (endResult.getRodeLantaren() != null) {
 			stageResultCommand.setRodeLantaren(endResult.getRodeLantaren().getNummer());
 		}
@@ -154,10 +155,8 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 				currentStageResultCommand.getGroeneTruiUitslag()));
 		currentStageResultCommand.setBolletjesTruiUitslag(setBolletjesTruiUitslag(stageOrEndResult.getBolletjesTruiUitslag(),
 				currentStageResultCommand.getBolletjesTruiUitslag()));
-		if (stageOrEndResult.getWitteTrui() != null) {
-			currentStageResultCommand.setWitteTrui(stageOrEndResult.getWitteTrui().getNummer());
-		}
-
+		currentStageResultCommand.setWitteTruiUitslag(setWitteTruiUitslag(stageOrEndResult.getWitteTruiUitslag(), currentStageResultCommand
+				.getWitteTruiUitslag()));
 	}
 
 	/**
@@ -172,8 +171,9 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 	 * 
 	 * @param geleTruiUitslag
 	 *            the set which contains the yellow jersey results
-	 * @param currentUitslag the int array with the current results. Needed to determine the lengt of the array that will be returned 
-	 *            
+	 * @param currentUitslag
+	 *            the int array with the current results. Needed to determine the lengt of the array that will be returned
+	 * 
 	 * @return the int array with the racer numbers of the result
 	 */
 	private int[] setGeleTruiUitslag(final Set<GeleTruiUitslag> geleTruiUitslag, final int[] currentUitslag) {
@@ -193,8 +193,9 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 	 * 
 	 * @param geleTruiUitslag
 	 *            the set which contains the yellow jersey results
-	 * @param currentUitslag the int array with the current results. Needed to determine the lengt of the array that will be returned 
-	 *            
+	 * @param currentUitslag
+	 *            the int array with the current results. Needed to determine the lengt of the array that will be returned
+	 * 
 	 * @return the int array with the racer numbers of the result
 	 */
 	private int[] setGroeneTruiUitslag(final Set<GroeneTruiUitslag> groeneTruiUitslag, final int[] currentUitslag) {
@@ -214,8 +215,9 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 	 * 
 	 * @param geleTruiUitslag
 	 *            the set which contains the yellow jersey results
-	 * @param currentUitslag the int array with the current results. Needed to determine the lengt of the array that will be returned 
-	 *            
+	 * @param currentUitslag
+	 *            the int array with the current results. Needed to determine the lengt of the array that will be returned
+	 * 
 	 * @return the int array with the racer numbers of the result
 	 */
 	private int[] setBolletjesTruiUitslag(final Set<BolletjesTruiUitslag> bolletjesTruiUitslag, final int[] currentUitslag) {
@@ -231,21 +233,44 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 	}
 
 	/**
+	 * Returns an integer array with the racer numbers of this white jersey result.
+	 * 
+	 * @param geleTruiUitslag
+	 *            the set which contains the whiyte jersey results
+	 * @param currentUitslag
+	 *            the int array with the current results. Needed to determine the lengt of the array that will be returned
+	 * 
+	 * @return the int array with the racer numbers of the result
+	 */
+	private int[] setWitteTruiUitslag(final Set<WitteTruiUitslag> witteTruiUitslag, final int[] currentUitslag) {
+		int[] uitslag = new int[currentUitslag.length];
+		int uitslagArrayLength = uitslag.length;
+		for (WitteTruiUitslag nextWitteTrui : witteTruiUitslag) {
+			// Bepaal of de uitslag wel in het array past.
+			if (nextWitteTrui.getPositie() <= uitslagArrayLength) {
+				uitslag[nextWitteTrui.getPositie() - 1] = nextWitteTrui.getRenner().getNummer();
+			}
+		}
+		return uitslag;
+	}
+
+	/**
 	 * Returns an integer array with the racer numbers of this stage result.
 	 * 
 	 * @param geleTruiUitslag
 	 *            the set which contains the yellow jersey results
-	 * @param currentUitslag the int array with the current results. Needed to determine the lengt of the array that will be returned 
-	 *            
+	 * @param currentUitslag
+	 *            the int array with the current results. Needed to determine the lengt of the array that will be returned
+	 * 
 	 * @return the int array with the racer numbers of the result
 	 */
 	private int[] setUitslag(final Set<EtappeUitslag> etappeUitslag, final int[] currentUitslag) {
 		int[] uitslag = new int[currentUitslag.length];
 		int uitslagArrayLength = uitslag.length;
-		for (EtappeUitslag nextEtappeUitslagi : etappeUitslag) {
+		for (EtappeUitslag nextEtappeUitslag : etappeUitslag) {
 			// Bepaal of de uitslag wel in het array past.
-			if (nextEtappeUitslagi.getPositie() <= uitslagArrayLength) {
-				uitslag[nextEtappeUitslagi.getPositie() - 1] = nextEtappeUitslagi.getRenner().getNummer();
+			if (nextEtappeUitslag.getPositie() <= uitslagArrayLength) {
+				uitslag[nextEtappeUitslag.getPositie() - 1] = nextEtappeUitslag.getRenner().getNummer();
 			}
 		}
 		return uitslag;

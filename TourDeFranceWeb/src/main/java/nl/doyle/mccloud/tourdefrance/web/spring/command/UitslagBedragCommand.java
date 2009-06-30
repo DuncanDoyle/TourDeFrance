@@ -6,6 +6,8 @@ public class UitslagBedragCommand {
 	private double[] geleTrui;
 	private double[] groeneTrui;
 	private double[] bolletjesTrui;
+	private double[] witteTrui;
+	private double[] rodeLantaren;
 	private double[] mostCombativeStage;
 	private double[] geleTruiEind;
 	private double[] groeneTruiEind;
@@ -18,13 +20,15 @@ public class UitslagBedragCommand {
 	/**
 	 * Default constructor
 	 */
-	public UitslagBedragCommand(final int etappe, final int geleTrui, final int groeneTrui, final int bolletjesTrui, final int geleTruiEind, final int groeneTruiEind,
+	public UitslagBedragCommand(final int etappe, final int geleTrui, final int groeneTrui, final int bolletjesTrui, final int witteTrui, final int rodeLantaren, final int geleTruiEind, final int groeneTruiEind,
 			final int bolletjesTruiEind, final int witteTruiEind, final int rodeLantarenEind, final int eersteUitvallerEind, final int mostCombativeStage,
 			final int mostCombativeFinal) {
 		this.etappe = new double[etappe];
 		this.geleTrui = new double[geleTrui];
 		this.groeneTrui = new double[groeneTrui];
 		this.bolletjesTrui = new double[bolletjesTrui];
+		this.witteTrui = new double[witteTrui];
+		this.rodeLantaren = new double[rodeLantaren];
 		this.geleTruiEind = new double[geleTruiEind];
 		this.groeneTruiEind = new double[groeneTruiEind];
 		this.bolletjesTruiEind = new double[bolletjesTruiEind];
@@ -213,6 +217,34 @@ public class UitslagBedragCommand {
 	 */
 	public void setMostCombativeFinal(final double[] mostCombativeFinal) {
 		this.mostCombativeFinal = mostCombativeFinal;
+	}
+
+	/**
+	 * @return the witteTrui
+	 */
+	public double[] getWitteTrui() {
+		return witteTrui;
+	}
+
+	/**
+	 * @param witteTrui the witteTrui to set
+	 */
+	public void setWitteTrui(double[] witteTrui) {
+		this.witteTrui = witteTrui;
+	}
+
+	/**
+	 * @return the rodeLantaren
+	 */
+	public double[] getRodeLantaren() {
+		return rodeLantaren;
+	}
+
+	/**
+	 * @param rodeLantaren the rodeLantaren to set
+	 */
+	public void setRodeLantaren(double[] rodeLantaren) {
+		this.rodeLantaren = rodeLantaren;
 	}
 
 }

@@ -80,6 +80,38 @@
 		      			</tr>
 		      		</c:forEach>
 		      	</table>
+		      	<h3>Wittetrui Uitslag</h3>
+				<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
+					<c:forEach var="counter" begin="0" end="${fn:length(uitslagBedragCommand.witteTrui) - 1}">
+						<tr>
+		      				<td alignment="right" width="10%">${counter+1}e plaats:</td>
+		      				<spring:bind path="uitslagBedragCommand.witteTrui[${counter}]">
+		        				<td width="20%">
+		          					<input type="text" name="witteTrui[${counter}]" value="<c:out value="${status.value}"/>"/>
+		          				</td>
+		          				<td width="60%">
+		          					<font color="red"><c:out value="${status.errorMessage}"/></font>
+		        				</td>
+		        			</spring:bind>
+		      			</tr>
+		      		</c:forEach>
+		      	</table>
+		      	<h3>Rode Lantaren Uitslag</h3>
+				<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
+					<c:forEach var="counter" begin="0" end="${fn:length(uitslagBedragCommand.rodeLantaren) - 1}">
+						<tr>
+		      				<td alignment="right" width="10%">${counter+1}e plaats:</td>
+		      				<spring:bind path="uitslagBedragCommand.rodeLantaren[${counter}]">
+		        				<td width="20%">
+		          					<input type="text" name="rodeLantaren[${counter}]" value="<c:out value="${status.value}"/>"/>
+		          				</td>
+		          				<td width="60%">
+		          					<font color="red"><c:out value="${status.errorMessage}"/></font>
+		        				</td>
+		        			</spring:bind>
+		      			</tr>
+		      		</c:forEach>
+		      	</table>
 				<h3>Strijdlustigste Renner Uitslag</h3>
 				<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
 					<c:forEach var="counter" begin="0" end="${fn:length(uitslagBedragCommand.mostCombativeStage) - 1}">

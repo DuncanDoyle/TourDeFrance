@@ -7,15 +7,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Defines the polkadot jersey ranking. Defines the racer's position in the polkadot jersey ranking after the specified stage.
+ * Defines the white jersey ranking. Defines the racer's position in the white jersey ranking after the specified stage.
  * 
  * @see Uitslag
  * @author Duncan Doyle
  * @since 0.1
  */
 @Entity
-@Table(name="BOLLETJESTRUIUITSLAG")
-public class BolletjesTruiUitslag extends Uitslag {
+@Table(name="WITTETRUIUITSLAG")
+public class WitteTruiUitslag extends Uitslag {
 
 	/**
 	 * Serial version UID.
@@ -45,7 +45,7 @@ public class BolletjesTruiUitslag extends Uitslag {
 	public void setEtappenummer(final int etappenummer) {
 		uitslagPk.setEtappenummer(etappenummer);
 	}
-
+	
 	public Renner getRenner() {
 		return renner;
 	}
@@ -54,5 +54,4 @@ public class BolletjesTruiUitslag extends Uitslag {
 		this.renner = renner;
 	}
 
-	
 }

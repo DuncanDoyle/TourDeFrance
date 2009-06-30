@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 /**
  * Primary key class of the {@link Uitslag} class. Needed for JPA.
  * 
@@ -30,7 +32,7 @@ public class UitslagPk implements Serializable {
 	 */
 	public UitslagPk() {
 	}
-	
+
 	/**
 	 * Constructor which initializes the stage number and position.
 	 * 
@@ -73,5 +75,16 @@ public class UitslagPk implements Serializable {
 	public void setPositie(int positie) {
 		this.positie = positie;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this).append("etappenummer", etappenummer).append("positie", positie).toString();
+	}
+		
 
 }

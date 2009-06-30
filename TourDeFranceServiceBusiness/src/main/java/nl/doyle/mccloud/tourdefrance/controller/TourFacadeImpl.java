@@ -169,6 +169,8 @@ public class TourFacadeImpl implements TourFacade {
 			dto.setBolletjesTruiUitslag(mapUitslagToDto(etappe.getBolletjesTruiUitslag(), Categorien.BolletjesTrui));
 			
 			//TODO Goeie genade wat ranzig. We moeten deze app gewoon een keer helemaal opnieuw bouwen.
+			dto.setWitteTrui(mapUitslagToDto(etappe.getWitteTruiUitslag(), Categorien.WitteTrui));
+			/*
 			Set<Uitslag> witteTrui = new HashSet<Uitslag>();
 			if (etappe.getWitteTrui() != null) {
 				GeleTruiUitslag witteTruiUitslag = new GeleTruiUitslag();
@@ -178,7 +180,8 @@ public class TourFacadeImpl implements TourFacade {
 				witteTrui.add(witteTruiUitslag);
 			}
 			dto.setWitteTrui(mapUitslagToDto(witteTrui, Categorien.WitteTrui));
-
+			*/
+			
 			if (etappe instanceof StandaardEtappe) {
 				((StandaardEtappeDto) dto).setEtappeUitslag(mapUitslagToDto(((StandaardEtappe) etappe).getEtappeUitslag(),
 						Categorien.Etappe));
@@ -210,7 +213,9 @@ public class TourFacadeImpl implements TourFacade {
 			dto.setGroeneTruiUitslag(mapUitslagToDto(etappe.getGroeneTruiUitslag(), Categorien.GroeneTruiEind));
 			dto.setBolletjesTruiUitslag(mapUitslagToDto(etappe.getBolletjesTruiUitslag(), Categorien.BolletjesTruiEind));
 
+			dto.setWitteTrui(mapUitslagToDto(etappe.getWitteTruiUitslag(), Categorien.WitteTruiEind));
 			//TODO Goeie genade wat ranzig. We moeten deze app gewoon een keer helemaal opnieuw bouwen.
+			/*
 			Set<Uitslag> witteTrui = new HashSet<Uitslag>();
 			if (etappe.getWitteTrui() != null) {
 				GeleTruiUitslag witteTruiUitslag = new GeleTruiUitslag();
@@ -220,7 +225,7 @@ public class TourFacadeImpl implements TourFacade {
 				witteTrui.add(witteTruiUitslag);
 			}
 			dto.setWitteTrui(mapUitslagToDto(witteTrui, Categorien.WitteTruiEind));
-			
+			*/
 			Set<Uitslag> eersteUitvaller = new HashSet<Uitslag>();
 			if (((EindUitslag) etappe).getEersteUitvaller() != null) {
 				GeleTruiUitslag eersteUitvallerUitslag = new GeleTruiUitslag();

@@ -95,7 +95,7 @@ public class TourConfigImpl implements TourConfig {
 	/* (non-Javadoc)
 	 * @see nl.doyle.mccloud.tourdefrance.config.TourConfig#getAantalEinduitslagWitteTrui()
 	 */
-	public int getAantalEinduitslagWitteTrui() {
+	public int getAantalEinduitslagWitteTruiUitslagen() {
 		return config.getInt("einduitslag.wittetrui");
 	}
 	
@@ -109,7 +109,7 @@ public class TourConfigImpl implements TourConfig {
 	}
 
 	@Override
-	public int getAantalEtappeWitteTrui() {
+	public int getAantalEtappeWitteTruiUitslagen() {
 		return config.getInt("etappe.wittetrui");
 	}
 

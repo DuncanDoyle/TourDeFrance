@@ -293,7 +293,7 @@ public class CalculatorImpl implements Calculator {
 	}
 	
 	private double[] getEtappeWitteTruiUitslagBedrag() {
-		return setBedragen(tourConfig.getAantalEtappeWitteTrui(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.WitteTrui));
+		return setBedragen(tourConfig.getAantalEtappeWitteTruiUitslagen(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.WitteTrui));
 	}
 	
 	private double[] getEtappeRodeLantarenUitslagBedrag() {
@@ -314,7 +314,7 @@ public class CalculatorImpl implements Calculator {
 	}
 	
 	private double[] getEindUitslagWitteTruiUitslagBedrag() {
-		return setBedragen(tourConfig.getAantalEinduitslagWitteTrui(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.WitteTruiEind));
+		return setBedragen(tourConfig.getAantalEinduitslagWitteTruiUitslagen(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.WitteTruiEind));
 	}
 	
 	private double[] getEindUitslagRodeLantarenUitslagBedrag() {

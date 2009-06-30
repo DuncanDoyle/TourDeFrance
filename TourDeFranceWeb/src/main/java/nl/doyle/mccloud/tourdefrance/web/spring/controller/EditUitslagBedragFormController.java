@@ -3,7 +3,6 @@ package nl.doyle.mccloud.tourdefrance.web.spring.controller;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 
 import nl.doyle.mccloud.tourdefrance.config.TourConfig;
 import nl.doyle.mccloud.tourdefrance.dao.UitslagBedragDao;
@@ -32,7 +31,7 @@ public class EditUitslagBedragFormController {
 	private static final Log logger = LogFactory.getLog(EditUitslagBedragFormController.class);
 
 	private static final String SUCCESS_VIEW = "index.htm";
-	
+
 	/**
 	 * Tour configuration.
 	 */
@@ -55,7 +54,8 @@ public class EditUitslagBedragFormController {
 	 * javax.servlet.http.HttpServletResponse, java.lang.Object, org.springframework.validation.BindException)
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	protected ModelAndView onSubmit(@ModelAttribute("uitslagBedragCommand") final UitslagBedragCommand uitslagBedragCommand) throws ServletException {
+	protected ModelAndView onSubmit(@ModelAttribute("uitslagBedragCommand") final UitslagBedragCommand uitslagBedragCommand)
+			throws ServletException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("Saving uitslagBedragen!!");
 		}
@@ -71,6 +71,8 @@ public class EditUitslagBedragFormController {
 		saveUitslagBedragen(uitslagBedragCommand.getGeleTrui(), Categorien.GeleTrui);
 		saveUitslagBedragen(uitslagBedragCommand.getGroeneTrui(), Categorien.GroeneTrui);
 		saveUitslagBedragen(uitslagBedragCommand.getBolletjesTrui(), Categorien.BolletjesTrui);
+		saveUitslagBedragen(uitslagBedragCommand.getWitteTrui(), Categorien.WitteTrui);
+		saveUitslagBedragen(uitslagBedragCommand.getRodeLantaren(), Categorien.RodeLantaren);
 		saveUitslagBedragen(uitslagBedragCommand.getGeleTruiEind(), Categorien.GeleTruiEind);
 		saveUitslagBedragen(uitslagBedragCommand.getGroeneTruiEind(), Categorien.GroeneTruiEind);
 		saveUitslagBedragen(uitslagBedragCommand.getBolletjesTruiEind(), Categorien.BolletjesTruiEind);
@@ -121,10 +123,11 @@ public class EditUitslagBedragFormController {
 		dbUitslagBedragen = uitslagBedragDao.loadAllUitslagBedragen();
 		UitslagBedragCommand uitslagBedrag = new UitslagBedragCommand(config.getAantalEtappeUitslagen(), config
 				.getAantalEtappeGeleTruiUitslagen(), config.getAantalEtappeGroeneTruiUitslagen(), config
-				.getAantalEtappeBolletjesTruiUitslagen(), config.getAantalEinduitslagGeleTruiUitslagen(), config
-				.getAantalEinduitslagGroeneTruiUitslagen(), config.getAantalEinduitslagBolletjesTruiUitslagen(), config
-				.getAantalEinduitslagWitteTrui(), config.getAantalEinduitslagRodeLantaren(), config.getAantalEinduitslagEersteUitvaller(),
-				config.getNumberOfStageMostCombative(), config.getNumberOfFinalMostCombative());
+				.getAantalEtappeBolletjesTruiUitslagen(), config.getAantalEtappeWitteTruiUitslagen(), config.getAantalEtappeRodeLantaren(), config
+				.getAantalEinduitslagGeleTruiUitslagen(), config.getAantalEinduitslagGroeneTruiUitslagen(), config
+				.getAantalEinduitslagBolletjesTruiUitslagen(), config.getAantalEinduitslagWitteTruiUitslagen(), config
+				.getAantalEinduitslagRodeLantaren(), config.getAantalEinduitslagEersteUitvaller(), config.getNumberOfStageMostCombative(),
+				config.getNumberOfFinalMostCombative());
 		// loop door alle uitslagen heen en zet de waardes goed
 		for (UitslagBedrag nextUitslagBedrag : dbUitslagBedragen) {
 			switch (nextUitslagBedrag.getCategorie()) {
@@ -146,6 +149,16 @@ public class EditUitslagBedragFormController {
 			case BolletjesTrui:
 				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getBolletjesTrui().length) {
 					uitslagBedrag.getBolletjesTrui()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
+				}
+				break;
+			case WitteTrui:
+				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getWitteTrui().length) {
+					uitslagBedrag.getWitteTrui()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
+				}
+				break;
+			case RodeLantaren:
+				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getRodeLantaren().length) {
+					uitslagBedrag.getRodeLantaren()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
 				}
 				break;
 			case GeleTruiEind:

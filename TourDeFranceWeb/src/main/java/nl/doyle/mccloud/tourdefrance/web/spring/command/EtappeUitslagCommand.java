@@ -35,8 +35,8 @@ public class EtappeUitslagCommand {
 	private int[] geleTruiUitslag;
 	private int[] groeneTruiUitslag;
 	private int[] bolletjesTruiUitslag;
-
-	private int witteTrui;
+	private int[] witteTruiUitslag;
+	
 	private int rodeLantaren;
 	private int eersteUitvaller;
 	private int mostCombative;
@@ -49,11 +49,12 @@ public class EtappeUitslagCommand {
 
 	private EtappeType typeEtappe;
 
-	public EtappeUitslagCommand(final int uitslag, final int geleTruiUitslag, final int groeneTruiUitslag, final int bolletjesTruiUitslag) {
+	public EtappeUitslagCommand(final int uitslag, final int geleTruiUitslag, final int groeneTruiUitslag, final int bolletjesTruiUitslag, final int witteTruiUitslag) {
 		this.uitslag = new int[uitslag];
 		this.geleTruiUitslag = new int[geleTruiUitslag];
 		this.groeneTruiUitslag = new int[groeneTruiUitslag];
 		this.bolletjesTruiUitslag = new int[bolletjesTruiUitslag];
+		this.witteTruiUitslag = new int[witteTruiUitslag];
 	}
 
 	/**
@@ -239,16 +240,15 @@ public class EtappeUitslagCommand {
 	/**
 	 * @return the witteTrui
 	 */
-	public int getWitteTrui() {
-		return witteTrui;
+	public int[] getWitteTruiUitslag() {
+		return witteTruiUitslag;
 	}
 
 	/**
-	 * @param witteTrui
-	 *            the witteTrui to set
+	 * @param witteTruiUitslag the witteTrui to set
 	 */
-	public void setWitteTrui(final int witteTrui) {
-		this.witteTrui = witteTrui;
+	public void setWitteTruiUitslag(int[] witteTruiUitslag) {
+		this.witteTruiUitslag = witteTruiUitslag;
 	}
 
 	/**

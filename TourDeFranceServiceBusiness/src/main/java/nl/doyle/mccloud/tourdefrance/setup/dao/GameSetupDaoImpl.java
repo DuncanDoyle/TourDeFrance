@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Duncan Doyle
  * @since 0.1
  */
+@Transactional
 public class GameSetupDaoImpl extends JdbcDaoSupport implements GameSetupDao {
 
 	/**
@@ -17,17 +18,43 @@ public class GameSetupDaoImpl extends JdbcDaoSupport implements GameSetupDao {
 	 * Verwijdert alle data uit de database.
 	 * Via Spring AOP wordt er een JDBC transactie om deze SQL commando's heen gezet.
 	 */
-	@Transactional
 	public void deleteAllRecordsFromDatabase() {
 		
 		deleteAllTeamRecords();
 		
+		String sqlStandaardEtappesEtappeUitslag = "delete from standaardetappe_etappeuitslag";
+		getJdbcTemplate().execute(sqlStandaardEtappesEtappeUitslag);
+		
+		String sqlEtappe_BolletjesTruiUitslag = "delete from etappe_bolletjestruiuitslag";
+		getJdbcTemplate().execute(sqlEtappe_BolletjesTruiUitslag);
+		
+		String sqlEtappe_GeleTruiUitslag = "delete from etappe_geletruiuitslag";
+		getJdbcTemplate().execute(sqlEtappe_GeleTruiUitslag);
+		
+		String sqlEtappe_GroeneTruiUitslag = "delete from etappe_groenetruiuitslag";
+		getJdbcTemplate().execute(sqlEtappe_GroeneTruiUitslag);
+		
+		String sqlEtappe_WitteTruiUitslag = "delete from etappe_wittetruiuitslag";
+		getJdbcTemplate().execute(sqlEtappe_WitteTruiUitslag);
+		
 		String sqlTeamRenner = "delete from team_renner";
 		getJdbcTemplate().execute(sqlTeamRenner);
+		
+		String sqlStandaardEtappes = "delete from standaardetappe";
+		getJdbcTemplate().execute(sqlStandaardEtappes);
+		
+		String sqlPloegentijdritten = "delete from ploegentijdrit";
+		getJdbcTemplate().execute(sqlPloegentijdritten);
+		
+		String sqlEtappes = "delete from etappe";
+		getJdbcTemplate().execute(sqlEtappes);
 		
 		//Maak daarna de rest van de tabellen leeg
 		String sqlEindUitslag = "delete from einduitslag";
 		getJdbcTemplate().execute(sqlEindUitslag);
+		
+		String sqlEtappeAndEindUitslag = "delete from etappeandeinduitslag";
+		getJdbcTemplate().execute(sqlEtappeAndEindUitslag);
 		
 		String sqlEtappeUitslag = "delete from etappeuitslag";
 		getJdbcTemplate().execute(sqlEtappeUitslag);
@@ -41,23 +68,14 @@ public class GameSetupDaoImpl extends JdbcDaoSupport implements GameSetupDao {
 		String sqlBolletjesTruiUitslag = "delete from bolletjestruiuitslag";
 		getJdbcTemplate().execute(sqlBolletjesTruiUitslag);
 		
+		String sqlWitteTruiUitslag = "delete from wittetruiuitslag";
+		getJdbcTemplate().execute(sqlWitteTruiUitslag);
+		
 		String sqlTeams = "delete from team";
 		getJdbcTemplate().execute(sqlTeams);
 		
 		String sqlDeelnemer = "delete from deelnemer";
 		getJdbcTemplate().execute(sqlDeelnemer);
-		
-		String sqlStandaardEtappes = "delete from standaardetappe";
-		getJdbcTemplate().execute(sqlStandaardEtappes);
-		
-		String sqlPloegentijdritten = "delete from ploegentijdrit";
-		getJdbcTemplate().execute(sqlPloegentijdritten);
-		
-		String sqlEtappes = "delete from etappe";
-		getJdbcTemplate().execute(sqlEtappes);
-		
-		String sqlEtappeAndEindUitslag = "delete from etappeandeinduitslag";
-		getJdbcTemplate().execute(sqlEtappeAndEindUitslag);
 		
 		String sqlRenner = "delete from renner";
 		getJdbcTemplate().execute(sqlRenner);
@@ -67,10 +85,8 @@ public class GameSetupDaoImpl extends JdbcDaoSupport implements GameSetupDao {
 		
 		String sqlUitslagBedrag = "delete from uitslag_bedrag";
 		getJdbcTemplate().execute(sqlUitslagBedrag);
-		
 	}
 	
-	@Transactional
 	public void deleteAllTeamRecords() {
 		String sqlDeelnemerRenner = "delete from deelnemer_renner";
 		getJdbcTemplate().execute(sqlDeelnemerRenner);

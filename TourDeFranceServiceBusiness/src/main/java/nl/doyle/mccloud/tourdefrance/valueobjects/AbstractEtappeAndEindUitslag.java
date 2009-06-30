@@ -11,7 +11,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -54,7 +53,7 @@ public abstract class AbstractEtappeAndEindUitslag {
 	private Set<GroeneTruiUitslag> groeneTruiUitslag;
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="ETAPPE_BOLLETJESRUIUITSLAG", 
+	@JoinTable(name="ETAPPE_BOLLETJESTRUIUITSLAG", 
 			joinColumns = 
 				@JoinColumn(name="ETAPPE_ETAPPENUMMER", referencedColumnName="ETAPPENUMMER"),
 			inverseJoinColumns = {
@@ -67,9 +66,16 @@ public abstract class AbstractEtappeAndEindUitslag {
 	/**
 	 * De witte trui.
 	 */
-	@ManyToOne
-	@JoinColumn(name="WITTETRUI", unique=true)
-	private Renner witteTrui;
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="ETAPPE_WITTETRUIUITSLAG", 
+			joinColumns = 
+				@JoinColumn(name="ETAPPE_ETAPPENUMMER", referencedColumnName="ETAPPENUMMER"),
+			inverseJoinColumns = {
+				@JoinColumn(name="WITTE_ETAPPENUMMER", referencedColumnName="ETAPPENUMMER"),
+				@JoinColumn(name="WITTE_POSITIE", referencedColumnName="POSITIE")
+		}
+	)
+	private Set<WitteTruiUitslag> witteTruiUitslag;
 	
 	
 	/**
@@ -95,11 +101,7 @@ public abstract class AbstractEtappeAndEindUitslag {
 	}
 
 	public int getPositieInWitteTruiUitslag(final Renner renner) {
-		int positie = 0;
-		if (renner.equals(witteTrui)) {
-			positie = 1;
-		}
-		return positie;
+		return getPositieInUitslag(witteTruiUitslag, renner);
 	}
 	
 	protected int getPositieInUitslag(final Set<? extends Uitslag> uitslagen, final Renner renner) {
@@ -179,21 +181,7 @@ public abstract class AbstractEtappeAndEindUitslag {
 	public void setGroeneTruiUitslag(final Set<GroeneTruiUitslag> groeneTruiUitslag) {
 		this.groeneTruiUitslag = groeneTruiUitslag;
 	}
-
-	/**
-	 * @return the witteTrui
-	 */
-	public Renner getWitteTrui() {
-		return witteTrui;
-	}
-
-	/**
-	 * @param witteTrui the witteTrui to set
-	 */
-	public void setWitteTrui(final Renner witteTrui) {
-		this.witteTrui = witteTrui;
-	}
-	
+		
 	/**
 	 * @return the omschrijving
 	 */
@@ -209,4 +197,20 @@ public abstract class AbstractEtappeAndEindUitslag {
 		this.omschrijving = omschrijving;
 	}
 
+	/**
+	 * @return the witteTruiUitslag
+	 */
+	public Set<WitteTruiUitslag> getWitteTruiUitslag() {
+		return witteTruiUitslag;
+	}
+
+	/**
+	 * @param witteTruiUitslag the witteTruiUitslag to set
+	 */
+	public void setWitteTruiUitslag(Set<WitteTruiUitslag> witteTruiUitslag) {
+		this.witteTruiUitslag = witteTruiUitslag;
+	}
+
+	
+	
 }

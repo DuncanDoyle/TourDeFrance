@@ -12,6 +12,7 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.GroeneTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.PloegenTijdrit;
 import nl.doyle.mccloud.tourdefrance.valueobjects.Renner;
 import nl.doyle.mccloud.tourdefrance.valueobjects.StandaardEtappe;
+import nl.doyle.mccloud.tourdefrance.valueobjects.WitteTruiUitslag;
 import nl.doyle.mccloud.tourdefrance.valueobjects.visitor.ValueObjectVisitor;
 import nl.doyle.mccloud.tourdefrance.web.spring.command.EtappeUitslagCommand;
 import nl.doyle.mccloud.tourdefrance.web.spring.controller.EditEtappeFormController;
@@ -209,8 +210,35 @@ public class EditEtappeUitslagOnSubmitVisitor implements ValueObjectVisitor {
 				}
 			}
 		}
+		// WitteTrui
+		for (int teller = 0; teller < currentStageResultCommand.getWitteTruiUitslag().length; teller++) {
+			// Check nu of de waarde niet op 0 is gezet
+			if (currentStageResultCommand.getWitteTruiUitslag()[teller] != 0) {
+				// zoek de juiste uitslag op
+				boolean found = false;
+				Iterator<WitteTruiUitslag> dbEtappeUitslagIter = stageOrEndResult.getWitteTruiUitslag().iterator();
+				while (dbEtappeUitslagIter.hasNext() && !found) {
+					WitteTruiUitslag nextUitslag = dbEtappeUitslagIter.next();
+					if (nextUitslag.getPositie() == teller + 1) {
+						found = true;
+						if (nextUitslag.getRenner().getNummer() != currentStageResultCommand.getWitteTruiUitslag()[teller]) {
+
+							nextUitslag.setRenner(rennerDao.loadRenner(currentStageResultCommand.getWitteTruiUitslag()[teller]));
+						}
+					}
+				}
+				// als de uitslag niet is gevonden maken we een nieuwe aan
+				if (!found) {
+					WitteTruiUitslag nieuweUitslag = new WitteTruiUitslag();
+					nieuweUitslag.setEtappenummer(stageOrEndResult.getEtappenummer());
+					nieuweUitslag.setRenner(rennerDao.loadRenner(currentStageResultCommand.getWitteTruiUitslag()[teller]));
+					nieuweUitslag.setPositie(teller + 1);
+					stageOrEndResult.getWitteTruiUitslag().add(nieuweUitslag);
+				}
+			}
+		}
 		
 		// Witte trui
-		stageOrEndResult.setWitteTrui(rennerDao.loadRenner(stageResultCommand.getWitteTrui()));
+		//stageOrEndResult.setWitteTrui(rennerDao.loadRenner(stageResultCommand.getWitteTruiUitslag()));
 	}
 }

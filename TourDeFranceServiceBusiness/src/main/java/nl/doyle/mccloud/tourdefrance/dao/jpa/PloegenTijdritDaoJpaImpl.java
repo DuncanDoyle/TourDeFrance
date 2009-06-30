@@ -78,13 +78,7 @@ public class PloegenTijdritDaoJpaImpl extends JpaDaoSupport implements PloegenTi
 			JpaUtil.initialize(etappe.getBolletjesTruiUitslag());
 			JpaUtil.initialize(etappe.getGeleTruiUitslag());
 			JpaUtil.initialize(etappe.getGroeneTruiUitslag());
-
-			// Loading the witte trui by calling its 'getNummer()' method.
-			Renner loadRenner;
-			loadRenner = etappe.getWitteTrui();
-			if (loadRenner != null) {
-				loadRenner.getNummer();
-			}
+			JpaUtil.initialize(etappe.getWitteTruiUitslag());
 		}
 		return etappe;
 	}

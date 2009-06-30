@@ -46,10 +46,6 @@ public class EindUitslagDaoJpaImpl extends JpaDaoSupport implements EindUitslagD
 			if (loadRenner != null) {
 				loadRenner.getNummer();
 			}
-			loadRenner = uitslag.getWitteTrui();
-			if (loadRenner != null) {
-				loadRenner.getNummer();
-			}
 			loadRenner = uitslag.getMostCombativeRacer();
 			if (loadRenner != null) {
 				loadRenner.getNummer();
@@ -58,6 +54,7 @@ public class EindUitslagDaoJpaImpl extends JpaDaoSupport implements EindUitslagD
 			JpaUtil.initialize(uitslag.getBolletjesTruiUitslag());
 			JpaUtil.initialize(uitslag.getGeleTruiUitslag());
 			JpaUtil.initialize(uitslag.getGroeneTruiUitslag());
+			JpaUtil.initialize(uitslag.getWitteTruiUitslag());
 		}
 		return uitslag;
 	}
