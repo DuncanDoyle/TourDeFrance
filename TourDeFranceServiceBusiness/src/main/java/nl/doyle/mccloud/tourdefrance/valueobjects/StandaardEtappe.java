@@ -86,6 +86,14 @@ public class StandaardEtappe extends Etappe {
 		}
 		return position;
 	}
+	
+	public int getPositionRodeLantarenUitslag(final Renner renner) {
+		int position = 0;
+		if (renner.equals(rodeLantaren)) {
+			position = 1;
+		}
+		return position;
+	}
 
 	public Set<EtappeUitslag> getEtappeUitslag() {
 		return etappeUitslag;

@@ -150,9 +150,9 @@ public class CalculatorImpl implements Calculator {
 							}
 							
 							//En de rode lantaren
-							positie = ((StandaardEtappe) nextEtappe).getPositionInMostCombativeRacerResult(nextRenner);
+							positie = ((StandaardEtappe) nextEtappe).getPositionRodeLantarenUitslag(nextRenner);
 							if (positie != 0) {
-								deelnemerBedragEtappe = deelnemerBedragEtappe + stageMostCombativeRacerResultAmount[positie - 1];
+								deelnemerBedragEtappe = deelnemerBedragEtappe + etappeRodeLantarenUitslagBedrag[positie - 1];
 							}
 							
 						}
