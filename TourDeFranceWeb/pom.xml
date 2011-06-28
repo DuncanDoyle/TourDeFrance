@@ -4,14 +4,14 @@
 	<parent>
 		<artifactId>TourDeFranceService</artifactId>
 		<groupId>nl.doyle.mccloud.TourDeFranceService</groupId>
-		<version>0.3.2</version>
+		<version>0.3.3-SNAPSHOT</version>
 		<relativePath>../TourDeFranceServiceMavenRoot</relativePath>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nl.doyle.mccloud.TourDeFranceService</groupId>
 	<artifactId>TourDeFranceWeb</artifactId>
 	<packaging>war</packaging>
-	<name>Tour de France Web</name>
+	<name>TourdeFranceWeb</name>
 	<description>Tour de France web-layer</description>
 	<build>
 		<plugins>

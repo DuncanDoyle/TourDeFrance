@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<name>Tour de France Service</name>
 	<groupId>nl.doyle.mccloud.TourDeFranceService</groupId>
-	<version>0.3.2</version>
+	<version>0.3.3-SNAPSHOT</version>
 	<artifactId>TourDeFranceService</artifactId>
 	<packaging>pom</packaging>
 	<modules>
@@ -190,10 +190,12 @@
 		</dependencies>
 	</dependencyManagement>
 	<build>
+		<!-- 
 		<directory>${maven.build.directory}</directory>
 		<outputDirectory>${maven.build.directory}/classes</outputDirectory>
 		<testOutputDirectory>${maven.build.directory}/test-classes</testOutputDirectory>
-		<plugins>
+		 -->
+		 <plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -248,7 +250,9 @@
 	</repositories>
 	<reporting>
 		<!-- <outputDirectory>${basedir}/target/site</outputDirectory>  -->
+		<!-- 
 		<outputDirectory>${maven.build.directory}/site</outputDirectory>
+		 -->
 		<plugins>
 			<!--
 				<plugin> <groupId>org.codehaus.mojo</groupId>
@@ -303,9 +307,11 @@
 		</plugins>
 	</reporting>
 	<distributionManagement>
+		<!-- 
 		<site>
 			<id>Bla</id>
 			<url>file://${site.distribution.directory}/TourDeFrance</url>
 		</site>
+		 -->
 	</distributionManagement>
 </project>
