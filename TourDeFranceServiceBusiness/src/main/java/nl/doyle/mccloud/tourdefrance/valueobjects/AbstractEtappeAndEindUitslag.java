@@ -18,7 +18,7 @@ import nl.doyle.mccloud.tourdefrance.valueobjects.visitor.ValueObjectVisitor;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
-@Table(name="TOUR.ETAPPEANDEINDUITSLAG")
+@Table(name="ETAPPEANDEINDUITSLAG")
 public abstract class AbstractEtappeAndEindUitslag {
 
 	@Id

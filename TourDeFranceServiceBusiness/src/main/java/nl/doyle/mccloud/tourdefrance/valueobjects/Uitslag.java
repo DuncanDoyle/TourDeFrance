@@ -2,12 +2,6 @@ package nl.doyle.mccloud.tourdefrance.valueobjects;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 /**
  * Defines the ranking. Defines the racer's position in the ranking for the specified stage. Subclasses define which ranking.
  * 

@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * @since 0.1
  */
 @Entity
-@Table(name="TOUR.ETAPPEUITSLAG")
+@Table(name="ETAPPEUITSLAG")
 public class EtappeUitslag extends Uitslag {
 
 	/**

@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="TOUR.TEAM")
+@Table(name="TEAM")
 public class Team {
 	
 	/**

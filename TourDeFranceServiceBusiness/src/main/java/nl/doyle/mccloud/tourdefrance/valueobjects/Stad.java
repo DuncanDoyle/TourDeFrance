@@ -16,7 +16,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 0.1
  */
 @Entity
-@Table(name="TOUR.STAD")
+@Table(name="STAD")
 public final class Stad {
 
 	/**

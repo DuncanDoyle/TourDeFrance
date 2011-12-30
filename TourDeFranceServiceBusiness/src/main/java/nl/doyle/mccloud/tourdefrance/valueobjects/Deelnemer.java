@@ -19,7 +19,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @since 0.1
  */
 @Entity
-@Table(name="TOUR.DEELNEMER")
+@Table(name="DEELNEMER")
 public class Deelnemer extends Persoon {
 	
 	/**

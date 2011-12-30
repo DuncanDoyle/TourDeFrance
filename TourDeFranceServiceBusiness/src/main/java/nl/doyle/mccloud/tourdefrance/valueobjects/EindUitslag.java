@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import nl.doyle.mccloud.tourdefrance.valueobjects.visitor.ValueObjectVisitor;
 
 @Entity
-@Table(name="TOUR.EINDUITSLAG")
+@Table(name="EINDUITSLAG")
 public class EindUitslag extends AbstractEtappeAndEindUitslag {
 	
 	@ManyToOne

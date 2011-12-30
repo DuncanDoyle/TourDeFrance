@@ -15,7 +15,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @since v0.1
  */
 @Entity
-@Table(name="TOUR.RENNER")
+@Table(name="RENNER")
 public class Renner extends Persoon {
 	
 	/**

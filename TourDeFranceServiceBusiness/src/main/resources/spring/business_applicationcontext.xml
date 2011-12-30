@@ -2,11 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context" 
 	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee"
 	xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
        
     
     <!-- Enable Spring's annotation configuration (e.g. @autowired) -->
@@ -48,42 +50,80 @@
 	
 	<!-- JPA configuration -->
 	<!-- Spring's JPA EntityManagerFactory -->
+	<!-- 
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="tourDeFranceDataSource" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="true" />
 				<property name="generateDdl" value="true" />
-				<property name="databasePlatform" value="org.hibernate.dialect.DerbyDialect" />
+				<property name="databasePlatform" value="org.hibernate.PostgreSQLDialect" />
 			</bean>
 		</property>
 		<property name="jpaProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
+	 -->
 				<!-- 
 				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.hbm2ddl.auto">validate</prop>
 				 -->
+	<!-- 
 				<prop key="hibernate.query.substitutions">true 'T', false 'F'</prop>
 				<prop key="hibernate.connection.release_mode">auto</prop>
 
 			</props>
 		</property>
 	</bean>
+	 -->
+	
+	<!-- Switching to JBoss AS 7. Application server manages datasources now. Configuration done via JPA persistence.xml. -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+  		<property name="persistenceXmlLocation" value="classpath*:META-INF/jpa-persistence.xml"/>
+  		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true" />
+				<property name="generateDdl" value="true" />
+				<property name="databasePlatform" value="org.hibernate.PostgreSQLDialect" />
+			</bean>
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- 
+				<prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JTATransactionFactory</prop>
+				<prop key="hibernate.transaction.manager_lookup_class">org.jboss.hibernate.integration.JBossAS7TransactionManagerLookup</prop>
+				 -->
+				<!-- 
+				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>
+				 -->
+	<!-- 
+				<prop key="hibernate.query.substitutions">true 'T', false 'F'</prop>
+				<prop key="hibernate.connection.release_mode">auto</prop>
+	-->
+			</props>
+		</property>
+	</bean>
 
 	<!-- The datasource used by the JPA Entity Manager Factory. Using a C3P0 ComboPooledDataSource to have some connection pooling. -->
+	<!-- 
 	<bean id="tourDeFranceDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="org.apache.derby.jdbc.EmbeddedDriver" />
-		<property name="jdbcUrl" value="jdbc:derby:TourDeFranceJpaDb2011;create=true" />
-		<property name="user" value="tour" />
-		<property name="password" value="manager" />
+		<property name="driverClass" value="org.postgreqsl.Driver" />
+		<property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/TourDeFranceJpaDb2012;create=true" />
+		<property name="user" value="ddoyle" />
+		<property name="password" value="ddoyle" />
 		<property name="initialPoolSize" value="5" />
 		<property name="minPoolSize" value="5" />
 		<property name="maxPoolSize" value="50" />
 		<property name="testConnectionOnCheckout" value="false" />
 	</bean>
+	 -->
+	 <jee:jndi-lookup id="tourDeFranceDataSource" jndi-name="java:/jdbc/TourDeFrance2012"/>
 
 	<!--
 		<bean id="jamonMonitoredDataSource" class="com.jamonapi.proxy.JAMonDataSource"> <constructor-arg> <ref bean="tourDeFranceDataSource"/>
@@ -91,22 +131,37 @@
 	-->
 
 	<!-- The JPA Transaction Manager. -->
+	 
 	<bean id="tourJpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory">
 			<ref local="entityManagerFactory" />
 		</property>
+	
 		<!--
 			Setting the datasource explicitly so we can have plain JDBC calls participate in a JPA Transaction. The datasource MUST match the
 			EntityManagerFactory's datasource.
 		-->
+	 
 		<property name="dataSource">
 			<ref local="tourDeFranceDataSource" />
 		</property>
 	</bean>
 	
-	<!-- enable the configuration of transactional behavior based on annotations -->
-	<tx:annotation-driven transaction-manager="tourJpaTransactionManager"/>
 	
+	<!-- Running on JBoss, so using JBossTS JTA TransactionManager -->
+	<!-- 
+	<bean id="tourJtaTransactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
+		<property name="transactionManagerName" value="java:jboss/TransactionManager"/>
+		<property name="userTransactionName" value="java:jboss/UserTransaction" />
+	</bean>
+	 -->
+	
+	<!-- enable the configuration of transactional behavior based on annotations -->
+	
+	<!-- 
+	<tx:annotation-driven transaction-manager="tourJtaTransactionManager"/>
+	 -->
+	<tx:annotation-driven transaction-manager="tourJpaTransactionManager"/>
 		
 	<!-- Declaration of all DAO's -->
 	<bean id="abstractDaoJpa" abstract="true">

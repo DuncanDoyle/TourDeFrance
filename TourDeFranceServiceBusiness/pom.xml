@@ -4,8 +4,8 @@
 	<parent>
 		<artifactId>TourDeFranceService</artifactId>
 		<groupId>nl.doyle.mccloud.TourDeFranceService</groupId>
-		<version>0.3.3</version>
 		<relativePath>../TourDeFranceServiceMavenRoot</relativePath>
+		<version>0.4.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>nl.doyle.mccloud.TourDeFranceService</groupId>
@@ -15,7 +15,42 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring</artifactId>
+			<artifactId>spring-core</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -29,15 +64,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derby</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- Hibernate implementation provided by JBoss AS 7 is version 4. Spring requires version 3. -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -53,17 +84,12 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<scope>compile</scope>
 		</dependency>
-		
-		<!-- Needed by Hibernate at runtime. --> 
+
+		<!-- Needed by Hibernate at runtime. -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.5.2</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>c3p0</groupId>
-			<artifactId>c3p0</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -131,12 +157,6 @@
 			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
-	<!-- 
-	<distributionManagement>
-		<site>
-			<id>Bla</id>
-			<url>file://${site.distribution.directory}/TourDeFrance/TourDeFranceServiceBusiness</url>
-		</site>
-	</distributionManagement>
-	 -->
+	<!-- <distributionManagement> <site> <id>Bla</id> <url>file://${site.distribution.directory}/TourDeFrance/TourDeFranceServiceBusiness</url> 
+		</site> </distributionManagement> -->
 </project>

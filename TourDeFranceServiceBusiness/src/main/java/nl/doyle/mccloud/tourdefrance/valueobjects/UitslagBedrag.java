@@ -15,7 +15,7 @@ import javax.persistence.Table;
  * @see Categorien
  */
 @Entity
-@Table(name = "TOUR.UITSLAG_BEDRAG")
+@Table(name = "UITSLAG_BEDRAG")
 public final class UitslagBedrag implements Serializable {
 
 	/**
