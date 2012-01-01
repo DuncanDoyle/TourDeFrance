@@ -80,6 +80,7 @@
 	 -->
 	
 	<!-- Switching to JBoss AS 7. Application server manages datasources now. Configuration done via JPA persistence.xml. -->
+	<!-- 
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
   		<property name="persistenceXmlLocation" value="classpath*:META-INF/jpa-persistence.xml"/>
   		<property name="jpaVendorAdapter">
@@ -93,6 +94,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
+	 -->
 				<!-- 
 				<prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JTATransactionFactory</prop>
 				<prop key="hibernate.transaction.manager_lookup_class">org.jboss.hibernate.integration.JBossAS7TransactionManagerLookup</prop>
@@ -106,9 +108,12 @@
 				<prop key="hibernate.query.substitutions">true 'T', false 'F'</prop>
 				<prop key="hibernate.connection.release_mode">auto</prop>
 	-->
+	<!-- 
 			</props>
 		</property>
 	</bean>
+	 -->
+	 <jee:jndi-lookup id="entityManagerFactory" jndi-name="java:/jboss/TourDeFranceEntityManagerFactory"/>
 
 	<!-- The datasource used by the JPA Entity Manager Factory. Using a C3P0 ComboPooledDataSource to have some connection pooling. -->
 	<!-- 
@@ -123,6 +128,7 @@
 		<property name="testConnectionOnCheckout" value="false" />
 	</bean>
 	 -->
+	 
 	 <jee:jndi-lookup id="tourDeFranceDataSource" jndi-name="java:/jdbc/TourDeFrance2012"/>
 
 	<!--
@@ -131,37 +137,36 @@
 	-->
 
 	<!-- The JPA Transaction Manager. -->
-	 
+	<!-- 
 	<bean id="tourJpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory">
 			<ref local="entityManagerFactory" />
 		</property>
-	
+	 -->
 		<!--
 			Setting the datasource explicitly so we can have plain JDBC calls participate in a JPA Transaction. The datasource MUST match the
 			EntityManagerFactory's datasource.
 		-->
-	 
+	 <!-- 
 		<property name="dataSource">
 			<ref local="tourDeFranceDataSource" />
 		</property>
 	</bean>
+	 -->
 	
 	
 	<!-- Running on JBoss, so using JBossTS JTA TransactionManager -->
-	<!-- 
 	<bean id="tourJtaTransactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
 		<property name="transactionManagerName" value="java:jboss/TransactionManager"/>
 		<property name="userTransactionName" value="java:jboss/UserTransaction" />
 	</bean>
-	 -->
 	
 	<!-- enable the configuration of transactional behavior based on annotations -->
 	
 	<!-- 
 	<tx:annotation-driven transaction-manager="tourJtaTransactionManager"/>
 	 -->
-	<tx:annotation-driven transaction-manager="tourJpaTransactionManager"/>
+	<tx:annotation-driven transaction-manager="tourJtaTransactionManager"/>
 		
 	<!-- Declaration of all DAO's -->
 	<bean id="abstractDaoJpa" abstract="true">
