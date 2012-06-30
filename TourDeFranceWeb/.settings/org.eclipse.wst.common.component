@@ -5,7 +5,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
-        <dependent-module archiveName="TourDeFranceServiceBusiness-0.3.3.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/TourDeFranceServiceBusiness/TourDeFranceServiceBusiness">
+        <dependent-module archiveName="TourDeFranceServiceBusiness-0.3.4.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/TourDeFranceServiceBusiness/TourDeFranceServiceBusiness">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path"/>

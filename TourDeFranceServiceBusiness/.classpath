@@ -11,6 +11,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.iam.jdt.core.mavenClasspathContainer"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

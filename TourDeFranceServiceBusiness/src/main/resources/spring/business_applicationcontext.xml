@@ -52,7 +52,7 @@
 		<property name="dataSource" ref="tourDeFranceDataSource" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="showSql" value="true" />
+				<property name="showSql" value="false" />
 				<property name="generateDdl" value="true" />
 				<property name="databasePlatform" value="org.hibernate.dialect.DerbyDialect" />
 			</bean>
@@ -76,7 +76,7 @@
 	<!-- The datasource used by the JPA Entity Manager Factory. Using a C3P0 ComboPooledDataSource to have some connection pooling. -->
 	<bean id="tourDeFranceDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="org.apache.derby.jdbc.EmbeddedDriver" />
-		<property name="jdbcUrl" value="jdbc:derby:TourDeFranceJpaDb2011;create=true" />
+		<property name="jdbcUrl" value="jdbc:derby:TourDeFranceJpaDb2012;create=true" />
 		<property name="user" value="tour" />
 		<property name="password" value="manager" />
 		<property name="initialPoolSize" value="5" />
