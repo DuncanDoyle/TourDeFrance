@@ -90,7 +90,7 @@ public class CalculatorImpl implements Calculator {
 		double[] stageMostCombativeRacerResultAmount = getStageMostCombativeRacerResultAmount();
 		double[] etappeWitteTruiUitslagBedrag = getEtappeWitteTruiUitslagBedrag();
 		double[] etappeRodeLantarenUitslagBedrag = getEtappeRodeLantarenUitslagBedrag();
-		
+		double[] stagePositionHundredRacerResultAmount = getStagePositionHundredRacerResultAmount();
 		
 		
 		//Maak HashMap om bedragen per renner in op te slaan. Integer is het rennernummer, Double het bedrag
@@ -153,6 +153,12 @@ public class CalculatorImpl implements Calculator {
 							positie = ((StandaardEtappe) nextEtappe).getPositionRodeLantarenUitslag(nextRenner);
 							if (positie != 0) {
 								deelnemerBedragEtappe = deelnemerBedragEtappe + etappeRodeLantarenUitslagBedrag[positie - 1];
+							}
+							
+							//En de 100ste renner
+							positie = ((StandaardEtappe) nextEtappe).getPositionInPositionHundredResult(nextRenner);
+							if (positie != 0) {
+								deelnemerBedragEtappe = deelnemerBedragEtappe + stagePositionHundredRacerResultAmount[positie - 1];
 							}
 							
 						}
@@ -290,6 +296,10 @@ public class CalculatorImpl implements Calculator {
 	
 	private double[] getStageMostCombativeRacerResultAmount() {
 		return setBedragen(tourConfig.getNumberOfStageMostCombative(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.MostCombativeStage));
+	}
+	
+	private double[] getStagePositionHundredRacerResultAmount() {
+		return setBedragen(tourConfig.getNumberOfStagePositionHundred(), uitslagBedragDao.loadAllUitslagBedragenPerCategorie(Categorien.PositionHundredStage));
 	}
 	
 	private double[] getEtappeWitteTruiUitslagBedrag() {

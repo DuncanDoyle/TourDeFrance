@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
@@ -85,6 +87,22 @@ public class UitslagPk implements Serializable {
 	public String toString() {
 		return new ToStringBuilder(this).append("etappenummer", etappenummer).append("positie", positie).toString();
 	}
-		
 
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof UitslagPk)) {
+			return false;
+		}
+		if (this == object) {
+			return true;
+		}
+		UitslagPk rhs = (UitslagPk) object;
+		return new EqualsBuilder().append(getEtappenummer(), rhs.getEtappenummer()).append(getPositie(), rhs.getPositie()).isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder().append(getEtappenummer()).append(getPositie()).toHashCode();
+	}
+	
 }

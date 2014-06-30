@@ -15,8 +15,8 @@ import javax.persistence.Table;
  * @see Categorien
  */
 @Entity
-@Table(name = "UITSLAG_BEDRAG")
-public final class UitslagBedrag implements Serializable {
+@Table(name = "TOUR.UITSLAG_BEDRAG")
+public class UitslagBedrag implements Serializable {
 
 	/**
 	 * Serial version UID.
@@ -43,7 +43,8 @@ public final class UitslagBedrag implements Serializable {
 		RodeLantarenEind,
 		EersteUitvallerEind,
 		MostCombativeStage,
-		MostCombativeFinal
+		MostCombativeFinal,
+		PositionHundredStage
 	};
 
 	/**

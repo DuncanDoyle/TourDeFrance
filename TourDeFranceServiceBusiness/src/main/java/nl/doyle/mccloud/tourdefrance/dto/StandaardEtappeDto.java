@@ -7,6 +7,7 @@ public class StandaardEtappeDto extends EtappeDto {
 	private Set<UitslagDto> etappeUitslag;
 	private Set<UitslagDto> rodeLantaren;
 	private Set<UitslagDto> mostCombativeResult;
+	private Set<UitslagDto> positionHundredResult;
 	
 	public StandaardEtappeDto() {
 	}
@@ -45,6 +46,20 @@ public class StandaardEtappeDto extends EtappeDto {
 	 */
 	public void setMostCombativeResult(Set<UitslagDto> mostCombativeResult) {
 		this.mostCombativeResult = mostCombativeResult;
+	}
+	
+	/**
+	 * @return the positionHundredResult
+	 */
+	public Set<UitslagDto> getPositionHundredResult() {
+		return positionHundredResult;
+	}
+
+	/**
+	 * @param mostCombativeResult the mostCombativeResult to set
+	 */
+	public void setPositionHundredResult(Set<UitslagDto> positionHundredResult) {
+		this.positionHundredResult = positionHundredResult;
 	}
 
 
