@@ -59,6 +59,7 @@ public class EditEtappeUitslagOnSubmitVisitor implements ValueObjectVisitor {
 	public final void visit(final StandaardEtappe stage) {
 		stage.setMostCombativeRacer(rennerDao.loadRenner(stageResultCommand.getMostCombative()));
 		stage.setRodeLantaren(rennerDao.loadRenner(stageResultCommand.getRodeLantaren()));
+		stage.setPositionHundredRacer(rennerDao.loadRenner(stageResultCommand.getPositionHundred()));
 		for (int teller = 0; teller < stageResultCommand.getUitslag().length; teller++) {
 			// Check nu of de waarde niet op 0 is gezet
 			if (stageResultCommand.getUitslag()[teller] != 0) {

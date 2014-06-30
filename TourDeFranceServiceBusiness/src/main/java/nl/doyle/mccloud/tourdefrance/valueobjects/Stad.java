@@ -17,7 +17,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 @Entity
 @Table(name="TOUR.STAD")
-public final class Stad {
+public class Stad {
 
 	/**
 	 * The cities ID. Primarily used for storage of this entity.

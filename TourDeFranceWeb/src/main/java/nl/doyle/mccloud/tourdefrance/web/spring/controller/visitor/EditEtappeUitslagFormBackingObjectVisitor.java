@@ -74,6 +74,9 @@ public class EditEtappeUitslagFormBackingObjectVisitor implements ValueObjectVis
 		if (stage.getRodeLantaren() != null) {
 			stageResultCommand.setRodeLantaren(stage.getRodeLantaren().getNummer());
 		}
+		if (stage.getPositionHundredRacer() != null) {
+			stageResultCommand.setPositionHundred(stage.getPositionHundredRacer().getNummer());
+		}
 
 		stageResultCommand.setTypeEtappe(EtappeType.Etappe);
 		stageResultCommand.setUitslag(setUitslag(stage.getEtappeUitslag(), stageResultCommand.getUitslag()));

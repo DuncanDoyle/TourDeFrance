@@ -16,13 +16,14 @@ public class UitslagBedragCommand {
 	private double[] rodeLantarenEind;
 	private double[] eersteUitvallerEind;
 	private double[] mostCombativeFinal;
+	private double[] positionHundredStage;
 
 	/**
 	 * Default constructor
 	 */
 	public UitslagBedragCommand(final int etappe, final int geleTrui, final int groeneTrui, final int bolletjesTrui, final int witteTrui, final int rodeLantaren, final int geleTruiEind, final int groeneTruiEind,
 			final int bolletjesTruiEind, final int witteTruiEind, final int rodeLantarenEind, final int eersteUitvallerEind, final int mostCombativeStage,
-			final int mostCombativeFinal) {
+			final int mostCombativeFinal, final int positionHundredStage) {
 		this.etappe = new double[etappe];
 		this.geleTrui = new double[geleTrui];
 		this.groeneTrui = new double[groeneTrui];
@@ -37,6 +38,7 @@ public class UitslagBedragCommand {
 		this.eersteUitvallerEind = new double[eersteUitvallerEind];
 		this.mostCombativeStage = new double[mostCombativeStage];
 		this.mostCombativeFinal = new double[mostCombativeFinal];
+		this.positionHundredStage = new double[positionHundredStage];
 	}
 
 	/**
@@ -219,6 +221,22 @@ public class UitslagBedragCommand {
 		this.mostCombativeFinal = mostCombativeFinal;
 	}
 
+	/**
+	 * @return the positionHundredStage
+	 */
+	public double[] getPositionHundredStage() {
+		return positionHundredStage;
+	}
+
+	/**
+	 * @param positionHundredStage
+	 *            the positionHundredStage to set
+	 */
+	public void setPositionHundredStage(final double[] positionHundredStage) {
+		this.positionHundredStage = positionHundredStage;
+	}
+	
+	
 	/**
 	 * @return the witteTrui
 	 */

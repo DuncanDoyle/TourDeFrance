@@ -113,7 +113,11 @@ public class TourConfigImpl implements TourConfig {
 		return config.getInt("etappe.wittetrui");
 	}
 
-	
+	@Override
+	public int getNumberOfStagePositionHundred() {
+		return config.getInt("etappe.positionhundred");
+	}
+		
 	/**
 	 * @return the config
 	 */
@@ -127,5 +131,9 @@ public class TourConfigImpl implements TourConfig {
 	public void setConfig(Configuration config) {
 		this.config = config;
 	}
+
+
+
+	
 
 }

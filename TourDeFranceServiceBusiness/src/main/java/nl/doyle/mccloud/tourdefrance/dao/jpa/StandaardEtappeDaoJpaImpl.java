@@ -103,7 +103,7 @@ public class StandaardEtappeDaoJpaImpl extends JpaDaoSupport implements Standaar
 		 * Criteria op het root niveau kan koppelen.
 		 * 
 		 * De ideale oplossing is om een Etappe object te laden d.m.v. 3 HQL statements die elk een set inladen. Dit blijkt echter op dit
-		 * moement niet te kunnen.
+		 * moment niet te kunnen.
 		 * 
 		 * We hebben het nu op gelost door "lazy=false" te definieren in de Hibernate mappings van de uitslagen en de 3 sets te
 		 * initialiseren d.m.v. een Hibernate.initialize. Dit lijkt in theorie de best performende manier te zijn.
@@ -127,6 +127,10 @@ public class StandaardEtappeDaoJpaImpl extends JpaDaoSupport implements Standaar
 				loadRenner.getNummer();
 			}
 			loadRenner = etappe.getRodeLantaren();
+			if (loadRenner != null) {
+				loadRenner.getNummer();
+			}
+			loadRenner = etappe.getPositionHundredRacer();
 			if (loadRenner != null) {
 				loadRenner.getNummer();
 			}

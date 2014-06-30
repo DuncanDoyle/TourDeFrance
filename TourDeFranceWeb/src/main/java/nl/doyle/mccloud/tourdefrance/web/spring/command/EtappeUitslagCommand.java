@@ -40,6 +40,7 @@ public class EtappeUitslagCommand {
 	private int rodeLantaren;
 	private int eersteUitvaller;
 	private int mostCombative;
+	private int positionHundred;
 
 	private int etappenummer;
 	private String omschrijving;
@@ -279,6 +280,21 @@ public class EtappeUitslagCommand {
 	 */
 	public void setMostCombative(final int mostCombative) {
 		this.mostCombative = mostCombative;
+	}
+	
+	/**
+	 * @return the positionHundred
+	 */
+	public int getPositionHundred() {
+		return positionHundred;
+	}
+
+	/**
+	 * @param positionHundred
+	 *            the positionHundred to set
+	 */
+	public void setPositionHundred(final int positionHundred) {
+		this.positionHundred = positionHundred;
 	}
 
 }

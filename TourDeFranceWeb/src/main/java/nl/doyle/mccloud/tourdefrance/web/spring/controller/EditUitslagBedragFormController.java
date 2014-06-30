@@ -81,6 +81,7 @@ public class EditUitslagBedragFormController {
 		saveUitslagBedragen(uitslagBedragCommand.getEersteUitvallerEind(), Categorien.EersteUitvallerEind);
 		saveUitslagBedragen(uitslagBedragCommand.getMostCombativeStage(), Categorien.MostCombativeStage);
 		saveUitslagBedragen(uitslagBedragCommand.getMostCombativeFinal(), Categorien.MostCombativeFinal);
+		saveUitslagBedragen(uitslagBedragCommand.getPositionHundredStage(), Categorien.PositionHundredStage);
 
 		return new ModelAndView(new RedirectView(SUCCESS_VIEW));
 	}
@@ -127,7 +128,7 @@ public class EditUitslagBedragFormController {
 				.getAantalEinduitslagGeleTruiUitslagen(), config.getAantalEinduitslagGroeneTruiUitslagen(), config
 				.getAantalEinduitslagBolletjesTruiUitslagen(), config.getAantalEinduitslagWitteTruiUitslagen(), config
 				.getAantalEinduitslagRodeLantaren(), config.getAantalEinduitslagEersteUitvaller(), config.getNumberOfStageMostCombative(),
-				config.getNumberOfFinalMostCombative());
+				config.getNumberOfFinalMostCombative(), config.getNumberOfStagePositionHundred());
 		// loop door alle uitslagen heen en zet de waardes goed
 		for (UitslagBedrag nextUitslagBedrag : dbUitslagBedragen) {
 			switch (nextUitslagBedrag.getCategorie()) {
@@ -199,6 +200,11 @@ public class EditUitslagBedragFormController {
 			case MostCombativeFinal:
 				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getMostCombativeFinal().length) {
 					uitslagBedrag.getMostCombativeFinal()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
+				}
+				break;
+			case PositionHundredStage:
+				if (nextUitslagBedrag.getPositie() <= uitslagBedrag.getPositionHundredStage().length) {
+					uitslagBedrag.getPositionHundredStage()[nextUitslagBedrag.getPositie() - 1] = nextUitslagBedrag.getBedrag();
 				}
 				break;
 			}

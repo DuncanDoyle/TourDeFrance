@@ -27,7 +27,7 @@
               			<a href="listEtappes.htm">Etappes</a>
 	        		</li>
 	        		<li class="none">
-              			<a href="http://tm2011.forumcircle.com">Forum</a>
+              			<a href="http://www.facebook.com/groups/640265372669498/">Facebook</a>
 	        		</li>
 	        	</ul>
         	</li>

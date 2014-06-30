@@ -225,6 +225,27 @@
 	        				</td>
 	        			</spring:bind>
 	      			</tr>
+		      	</table><!--  Position Hundred -->
+		      	<h3>100ste Renner</h3>
+				<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
+					<tr>
+	      				<td alignment="right" width="10%">1e plaats:</td>
+	      					<spring:bind path="etappeUitslagCommand.positionHundred">
+	        				<td width="20%">
+	          					<select name="positionHundred">
+	          						<option value="0">Uitslag nog niet ingesteld</option>
+	          						<c:forEach var="renner" items="${etappeUitslagCommand.renners}">
+	      								<option <c:if test="${renner.nummer == status.value}"> selected </c:if> value="<c:out value="${renner.nummer}"/>">
+	         								<c:out value="${renner.nummer} - ${renner.voornaam} ${renner.achternaam}"/>
+	              						</option>
+	              					</c:forEach>
+	          					</select>	
+	          				</td>
+	          				<td width="60%">
+	          					<font color="red"><c:out value="${status.errorMessage}"/></font>
+	        				</td>
+	        			</spring:bind>
+	      			</tr>
 		      	</table>
 		      	<%
 		      	}

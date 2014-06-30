@@ -206,6 +206,16 @@ public class TourFacadeImpl implements TourFacade {
 				}
 				((StandaardEtappeDto) dto).setRodeLantaren(mapUitslagToDto(rodeLantaren, Categorien.RodeLantaren));
 				
+				Set<Uitslag> positionHundred = new HashSet<Uitslag>();
+				if (((StandaardEtappe) etappe).getPositionHundredRacer() != null) {
+					GeleTruiUitslag positionHundredResult = new GeleTruiUitslag();
+					positionHundredResult.setPositie(1);
+					positionHundredResult.setEtappenummer(etappe.getEtappenummer());
+					positionHundredResult.setRenner(((StandaardEtappe) etappe).getPositionHundredRacer());
+					positionHundred.add(positionHundredResult);
+				}
+				((StandaardEtappeDto) dto).setPositionHundredResult(mapUitslagToDto(positionHundred, Categorien.PositionHundredStage));
+				
 			} 
 		} else if (etappe instanceof EindUitslag) {
 			// TODO Dit moet een stuk netter geimplementeerd worden, zitten nu om het probleem heen te werken

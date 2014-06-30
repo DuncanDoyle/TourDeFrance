@@ -128,6 +128,22 @@
 		      			</tr>
 		      		</c:forEach>
 		      	</table>
+		      	<h3>100ste Renner Uitslag</h3>
+				<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
+					<c:forEach var="counter" begin="0" end="${fn:length(uitslagBedragCommand.positionHundredStage) - 1}">
+						<tr>
+		      				<td alignment="right" width="10%">${counter+1}e plaats:</td>
+		      					<spring:bind path="uitslagBedragCommand.positionHundredStage[${counter}]">
+		        				<td width="20%">
+		          					<input type="text" name="positionHundredStage[${counter}]" value="<c:out value="${status.value}"/>"/>
+		          				</td>
+		          				<td width="60%">
+		          					<font color="red"><c:out value="${status.errorMessage}"/></font>
+		        				</td>
+		        			</spring:bind>
+		      			</tr>
+		      		</c:forEach>
+		      	</table>
 		      	<h3>Geletrui Einduitslag</h3>
 				<table width="95%" class="editTable" border="0" cellspacing="0" cellpadding="5">
 					<c:forEach var="counter" begin="0" end="${fn:length(uitslagBedragCommand.geleTruiEind) - 1}">

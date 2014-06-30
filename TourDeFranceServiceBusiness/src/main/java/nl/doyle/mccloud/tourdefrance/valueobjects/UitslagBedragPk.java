@@ -5,6 +5,9 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import nl.doyle.mccloud.tourdefrance.valueobjects.UitslagBedrag.Categorien;
 
 /**
@@ -80,6 +83,24 @@ public class UitslagBedragPk implements Serializable {
 	 */
 	public void setPositie(int positie) {
 		this.positie = positie;
+	}
+	
+	
+	@Override
+	public boolean equals(Object object) {
+		if (!(object instanceof UitslagBedragPk)) {
+			return false;
+		}
+		if (this == object) {
+			return true;
+		}
+		UitslagBedragPk rhs = (UitslagBedragPk) object;
+		return new EqualsBuilder().append(getCategorie(), rhs.getCategorie()).append(getPositie(), rhs.getPositie()).isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder().append(getCategorie()).append(getPositie()).toHashCode();
 	}
 
 }

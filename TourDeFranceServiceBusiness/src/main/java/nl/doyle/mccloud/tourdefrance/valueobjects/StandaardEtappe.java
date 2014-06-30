@@ -46,6 +46,13 @@ public class StandaardEtappe extends Etappe {
 	@ManyToOne
 	@JoinColumn(name="MOST_COMBATIVE_RACER")
 	private Renner mostCombativeRacer;
+	
+	/**
+	 * The most combative racer
+	 */
+	@ManyToOne
+	@JoinColumn(name="POSITION_HUNDRED_RACER")
+	private Renner positionHundredRacer;
 
 	
 	/**
@@ -87,6 +94,14 @@ public class StandaardEtappe extends Etappe {
 		return position;
 	}
 	
+	public int getPositionInPositionHundredResult(final Renner renner) {
+		int position = 0;
+		if (renner.equals(positionHundredRacer)) {
+			position = 1;
+		}
+		return position;
+	}
+	
 	public int getPositionRodeLantarenUitslag(final Renner renner) {
 		int position = 0;
 		if (renner.equals(rodeLantaren)) {
@@ -112,7 +127,6 @@ public class StandaardEtappe extends Etappe {
 		return rodeLantaren;
 	}
 
-
 	/**
 	 * @param rodeLantaren the rodeLantaren to set
 	 */
@@ -126,6 +140,14 @@ public class StandaardEtappe extends Etappe {
 
 	public void setMostCombativeRacer(final Renner mostCombativeRacer) {
 		this.mostCombativeRacer = mostCombativeRacer;
+	}
+	
+	public Renner getPositionHundredRacer() {
+		return positionHundredRacer;
+	}
+
+	public void setPositionHundredRacer(final Renner positionHundredRacer) {
+		this.positionHundredRacer = positionHundredRacer;
 	}
 
 }
