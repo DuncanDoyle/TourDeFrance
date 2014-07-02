@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tour-properties>
+	<etappe>
+		<uitslag>15</uitslag>
+		<geletrui>2</geletrui>
+		<groenetrui>1</groenetrui>
+		<bolletjestrui>1</bolletjestrui>
+		<wittetrui>1</wittetrui>
+		<rodelantaren>1</rodelantaren>
+		<mostcombative>1</mostcombative>
+		<positionhundred>1</positionhundred>
+  	</etappe>
+	<einduitslag>
+		<geletrui>15</geletrui>
+		<groenetrui>3</groenetrui>
+		<bolletjestrui>3</bolletjestrui>
+		<wittetrui>3</wittetrui>
+		<rodelantaren>1</rodelantaren>
+		<eersteuitvaller>1</eersteuitvaller>
+		<mostcombative>1</mostcombative>
+	</einduitslag>
+</tour-properties>

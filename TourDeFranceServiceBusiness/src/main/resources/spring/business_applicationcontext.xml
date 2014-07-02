@@ -23,7 +23,10 @@
 				<!--  System properties   -->
 				<bean class="org.apache.commons.configuration.SystemConfiguration" />
 				<bean class="org.apache.commons.configuration.XMLConfiguration">
+					<!-- 
 					<constructor-arg type="java.net.URL" value="file:${user.home}/tour-config.xml" />
+					 -->
+					 <constructor-arg type="java.lang.String" value="tour-config.xml" />
 					<property name="reloadingStrategy">
 						<bean class="org.apache.commons.configuration.reloading.FileChangedReloadingStrategy" />
 					</property>
@@ -129,7 +132,7 @@
 	</bean>
 	 -->
 	 
-	 <jee:jndi-lookup id="tourDeFranceDataSource" jndi-name="java:/jdbc/TourDeFrance2012"/>
+	 <jee:jndi-lookup id="tourDeFranceDataSource" jndi-name="java:jboss/datasources/PostgreSQLDS"/>
 
 	<!--
 		<bean id="jamonMonitoredDataSource" class="com.jamonapi.proxy.JAMonDataSource"> <constructor-arg> <ref bean="tourDeFranceDataSource"/>

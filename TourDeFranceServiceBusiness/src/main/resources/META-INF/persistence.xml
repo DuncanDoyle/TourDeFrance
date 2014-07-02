@@ -8,7 +8,10 @@
 	<persistence-unit name="TourDeFrancePersistenceUnit"
 		transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<!-- 
 		<jta-data-source>java:/jdbc/TourDeFrance2012</jta-data-source>
+		 -->
+		<jta-data-source>java:jboss/datasources/PostgreSQLDS</jta-data-source>
 		<!-- <class>nl.doyle.mccloud.tourdefrance.valueobjects.AbstractEtappeAndEindUitslag</class> 
 			<class>nl.doyle.mccloud.tourdefrance.valueobjects.BolletjesTruiUitslag</class> 
 			<class>nl.doyle.mccloud.tourdefrance.valueobjects.Deelnemer</class> <class>nl.doyle.mccloud.tourdefrance.valueobjects.EindUitslag</class> 
