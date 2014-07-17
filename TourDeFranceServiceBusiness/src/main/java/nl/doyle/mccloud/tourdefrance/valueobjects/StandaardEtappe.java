@@ -37,7 +37,7 @@ public class StandaardEtappe extends Etappe {
 	private Set<EtappeUitslag> etappeUitslag;
 	
 	@ManyToOne
-	@JoinColumn(name="RODELANTAREN", unique=true)
+	@JoinColumn(name="RODELANTAREN")
 	private Renner rodeLantaren;
 		
 	/**
