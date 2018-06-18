@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>TourDeFranceService</artifactId>
 		<groupId>nl.doyle.mccloud.TourDeFranceService</groupId>
-		<relativePath>../TourDeFranceServiceMavenRoot</relativePath>
+		<relativePath>../</relativePath>
 		<version>0.4.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
