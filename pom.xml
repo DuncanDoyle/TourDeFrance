@@ -8,8 +8,8 @@
 	<artifactId>TourDeFranceService</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>../TourDeFranceWeb</module>
-		<module>../TourDeFranceServiceBusiness</module>
+		<module>TourDeFranceWeb</module>
+		<module>TourDeFranceServiceBusiness</module>
 	</modules>
 	<organization>
 		<name>McCloud</name>
