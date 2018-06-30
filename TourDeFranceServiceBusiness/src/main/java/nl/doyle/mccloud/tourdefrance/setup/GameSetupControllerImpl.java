@@ -212,7 +212,7 @@ public final class GameSetupControllerImpl implements GameSetupController {
 			storeTeam.setNummer(teamCounter + 1);
 			// Create the team's racers.
 			HashSet<Renner> racersSet = new HashSet<Renner>();
-			for (int racerCounter = 0; racerCounter < 9; racerCounter++) {
+			for (int racerCounter = 0; racerCounter < 8; racerCounter++) {
 				Renner storeRenner = new Renner();
 				storeRenner.setNummer((teamCounter * 10) + (racerCounter + 1));
 				racersSet.add(storeRenner);
