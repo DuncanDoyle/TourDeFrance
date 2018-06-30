@@ -329,7 +329,7 @@ public final class GameSetupControllerImpl implements GameSetupController {
 
 		public DeelnemerRenners(final Deelnemer deelnemer) {
 			this.deelnemer = deelnemer;
-			aantalRenners = 8;
+			aantalRenners = 7;
 		}
 
 		public int getAantalRenners() {
