@@ -107,7 +107,7 @@
         <property name="userMap">
 			<value>
 				adoyle=master,ROLE_ADMIN, ROLE_USER
-				giro=molto@Bene,ROLE_USER
+				detour=omeletteDuFromage,ROLE_USER
 			</value>
 		</property>
     </bean>
